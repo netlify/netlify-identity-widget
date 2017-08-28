@@ -42,7 +42,7 @@ Alternative:
 </head>
 <body>
   <div>
-    <div data-netlify-identity>We take over this div and put buttons when loading</div>
+    <div data-netlify-identity>We take over this div and put buttons here depending on goTrue state</div>
   </div>
 </body>
 </html>
