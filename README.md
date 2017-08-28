@@ -6,15 +6,17 @@ A component used to authenticte with Netlify's GoTrue API.
 ## Usage
 
 ```js
-const NetlifyIdentity from 'netlify-identity'
+import NetlifyIdentity from 'netlify-identity'
 
-var new loginModal = new NetlifyIdentity({
+const new loginModal = new NetlifyIdentity({ // create gotrue instance
   APIUrl: 'https://auth.netlify.com'
 })
 
 // or
 
-var new loginModal = new NetlifyIdentity(window.goTrueInstance) //or something
+const new loginModal = new NetlifyIdentity(window.goTrueInstance) //consume an existing one
+
+loginModal.mount({ css: true }, document.body)
 
 loginModal.goTrue // an internal goTrue-js instance reference with full API access
 
