@@ -16,7 +16,7 @@ const new loginModal = new NetlifyIdentity({ // create gotrue instance
 
 const new loginModal = new NetlifyIdentity(window.goTrueInstance) //consume an existing one
 
-loginModal.mount({ css: true }, document.body)
+loginModal.mount({ css: true }, document.body) // this could be automatic on creation, but auto body mounting is smelly
 
 loginModal.goTrue // an internal goTrue-js instance reference with full API access
 
