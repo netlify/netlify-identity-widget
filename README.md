@@ -8,7 +8,7 @@ A component used to authenticte with Netlify's GoTrue API.
 ```js
 import NetlifyIdentity from 'netlify-identity'
 
-const new loginModal = new NetlifyIdentity({ // create gotrue instance
+const loginModal = new NetlifyIdentity({ // create gotrue instance
   APIUrl: 'https://auth.netlify.com'
 })
 
