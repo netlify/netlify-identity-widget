@@ -28,5 +28,22 @@ loginModal.on('logout', fn)
 loginModal.on('error', fn) // Handle modal consumer level errors
 
 loginModal.close() // Close the modal
+```
 
+Alternative:
+
+```html
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Foo</title>
+  <script src="https://www.netlify.com/netlify-identity.js"></script>
+</head>
+<body>
+  <div>
+    <div data-netlify-identity>We take over this div and put buttons when loading</div>
+  </div>
+</body>
+</html>
 ```
