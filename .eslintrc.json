@@ -1,0 +1,31 @@
+{
+  "env": {
+    "browser": true
+  },
+  "plugins": ["prettier"],
+  "parser": "babel-eslint",
+  "extends": [
+    "eslint:recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "prettier",
+    "semistandard"
+  ],
+  "rules": {
+    "camelcase": ["off", { "properties": "always" }],
+    "no-var": "error",
+    "prefer-const": [
+      "error",
+      {
+        "destructuring": "any",
+        "ignoreReadBeforeAssign": false
+      }
+    ],
+    "quotes": [
+      "error",
+      "double",
+      { "avoidEscape": true, "allowTemplateLiterals": true }
+    ],
+    "no-console": ["error", { "allow": ["warn", "error"] }]
+  }
+}
