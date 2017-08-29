@@ -28,4 +28,12 @@ export default class NetlifyIdentity extends Nanobus {
   mount (domNode) {
     domNode.appendChild(this.modal.render());
   }
+
+  open () {
+    this.modal.open();
+  }
+
+  close () {
+    this.modal.close();
+  }
 }

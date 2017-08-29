@@ -2,12 +2,14 @@
 <html>
 <head>
   <title>Netlify Identity</title>
-  <script async type="text/javascript" src="/bundle.js"></script>
+  <script async type="text/javascript" src="bundle.js"></script>
+  <link rel="stylesheet" type="text/css" href="index.css">
 </head>
 <body>
   <div id="app">
-    <div data-netlify-identity-buttons>Login button goes here</div>
+    <div><button onclick="window.identity.open()">Login</button></div>
+    <div>This example shows how to use the module API</div>
   </div>
-  <div id="external"><!-- A place for mounting external widgets --></div>
+  <div id="external"><!-- A pl ace for mounting external widgets --></div>
 </body>
 </html>
