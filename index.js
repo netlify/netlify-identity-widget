@@ -1,6 +1,6 @@
 const GoTrue = require("gotrue-js").default;
 const Nanobus = require("nanobus");
-const ModalComponent = require("./modal-component");
+const Modal = require("./components/Modal");
 
 // Set up an event emitter and state controller
 class NetlifyIdentity extends Nanobus {
@@ -19,8 +19,6 @@ class NetlifyIdentity extends Nanobus {
       opts
     );
 
-    console.log(opts);
-
     goTrueOpts = Object.assign(
       {
         APIUrl: "https://auth.netlify.com"
@@ -29,7 +27,7 @@ class NetlifyIdentity extends Nanobus {
     );
 
     this.goTrue = new GoTrue(goTrueOpts);
-    this.modal = new ModalComponent(opts);
+    this.modal = new Modal(opts);
     this.emit = this.emit.bind(this);
 
     this.state = {
@@ -59,19 +57,29 @@ class NetlifyIdentity extends Nanobus {
     return this.modal.element;
   }
 
-  mount (domNode) {
+  create () {
     if (this.isMounted) {
-      return console.warn("NetlifyIdentity: already mounted");
+      return console.warn("NetlifyIdentity: Alredy created");
     }
-    domNode.appendChild(this.modal.render(this.state, this.emit));
+    return this.modal.render(this.state, this.emit);
   }
 
   open () {
+    if (!this.isMounted) {
+      return console.warn(
+        "NetlifyIdentity: Can't open before mounting in the DOM"
+      );
+    }
     this.state.open = true;
     this.emit("render");
   }
 
   close () {
+    if (!this.isMounted) {
+      return console.warn(
+        "NetlifyIdentity: Can't close before mounting in the DOM"
+      );
+    }
     this.state.open = false;
     this.emit("render");
   }

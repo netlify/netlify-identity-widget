@@ -1,9 +1,9 @@
-const styles = require("./styles.csjs");
+const styles = require("../styles.csjs");
 const Nanocomponent = require("nanocomponent");
 const html = require("bel");
 const cn = require("classnames");
 
-class IdentityModal extends Nanocomponent {
+class Modal extends Nanocomponent {
   constructor (opts) {
     super();
     opts = Object.assign({}, opts);
@@ -123,4 +123,4 @@ function footer (emit) {
   `;
 }
 
-module.exports = IdentityModal;
+module.exports = Modal;
