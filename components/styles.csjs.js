@@ -23,4 +23,10 @@ module.exports = css`
     display: flex;
     flex-direction: column;
   }
+
+  .header {
+  }
+
+  .active {
+  }
 `;
