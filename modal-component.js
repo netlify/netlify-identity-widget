@@ -1,96 +1,126 @@
 const styles = require("./styles.csjs");
 const Nanocomponent = require("nanocomponent");
 const html = require("bel");
+const cn = require("classnames");
 
 class IdentityModal extends Nanocomponent {
-  constructor (opts, emit) {
+  constructor (opts) {
     super();
     opts = Object.assign({}, opts);
 
-    this.emit = emit;
-    this.modalOpen = false;
-    this.modalPage = "login";
+    this.state = {};
+    this.emit = null;
 
-    this.open = this.open.bind(this);
-    this.close = this.close.bind(this);
-    this.navigateLoginPage = this.navigate.bind(this, "login");
-    this.navigateSignupPage = this.navigate.bind(this, "signup");
+    // debounce state
+    this.emailForm = "";
+    this.passwordForm = "";
+    this.confirmPasswordForm = "";
+    this.nameForm = "";
   }
 
-  createElement () {
-    if (this.modalOpen) {
-      return this.router(this.modalPage);
+  createElement (state, emit) {
+    this.state = state;
+    this.emit = emit;
+
+    if (this.state.open) {
+      return layout(state, emit);
     } else {
-      return this.placeHolder();
+      return placeHolder();
     }
   }
 
-  update () {
+  update (state, emit) {
     // always re-render
     return true;
   }
+}
 
-  router (modalPage) {
-    switch (modalPage) {
-      case "login": {
-        return this.loginPage();
-      }
-      case "signup": {
-        return this.signupPage();
-      }
-    }
+function placeHolder () {
+  return html`
+    <div><!-- NetlifyIdentity --></div>
+  `;
+}
+
+function formRouter ({ page }, emit) {
+  switch (page) {
+    case "login":
+      return loginForm();
+    case "signup":
+      return signupForm();
   }
+}
 
-  navigate (page) {
-    this.modalPage = page;
-    this.render();
-  }
-
-  open () {
-    this.modalOpen = true;
-    this.render();
-  }
-
-  close () {
-    this.modalOpen = false;
-    this.render();
-  }
-
-  signupPage () {
-    return html`
+function layout ({ page }, emit) {
+  return html`
       <div class="${styles.modalBackground}">
         <div class="${styles.modalWindow}">
-          <div>hi im the signup page</div>
-          <div>
-            <button onclick=${this.navigateLoginPage}>Login</button>
-            <button onclick=${this.navigateSignupPage}>Signup</button>
-            <button onclick=${this.close}>close</button>
-          </div>
+          ${header({ page }, emit)}
+          ${formRouter({ page })}
+          ${providers()}
+          ${footer(emit)}
         </div>
       </div>
     `;
+}
+
+function loginForm (value, oninput) {
+  return html`
+    <form class="${styles.form}">
+      <label>Email <input type="text"/></label>
+      <label>Password <input type="text"/></label>
+    </form>
+  `;
+}
+
+function signupForm (value, oninput) {
+  return html`
+    <form class="${styles.form}">
+      <label>Name <input type="text"/></label>
+      <label>Email <input type="text"/></label>
+      <label>Password <input type="text"/></label>
+      <label>Confirm Password <input type="text"/></label>
+    </form>
+  `;
+}
+
+function header ({ page }, emit) {
+  const loginClass = cn({ active: page === "login" });
+  const signupClass = cn({ active: page === "signup" });
+
+  function navigateLoginPage () {
+    emit("navigate", "login");
   }
 
-  loginPage () {
-    return html`
-      <div class="${styles.modalBackground}">
-        <div class="${styles.modalWindow}">
-          <div>hi im the login page</div>
-          <div>
-            <button onclick=${this.navigateLoginPage}>Login</button>
-            <button onclick=${this.navigateSignupPage}>Signup</button>
-            <button onclick=${this.close}>close</button>
-          </div>
-        </div>
-      </div>
-    `;
+  function navigateSignupPage () {
+    emit("navigate", "signup");
+  }
+  return html`
+  <div>
+    <button class="${loginClass}" onclick=${navigateLoginPage}>Login</button>
+    <button class="${signupClass}" onclick=${navigateSignupPage}>Signup</button>
+  </div>
+  `;
+}
+
+function providers () {
+  return html`
+    <ul>
+      <li>Github</li>
+      <li>Google</li>
+    </ul>
+  `;
+}
+
+function footer (emit) {
+  function close () {
+    emit("close");
   }
 
-  placeHolder () {
-    return html`
-      <div><!-- NetlifyIdentity --></div>
-    `;
-  }
+  return html`
+    <div>
+      <button onclick=${close}>close</button>
+    </div>
+  `;
 }
 
 module.exports = IdentityModal;

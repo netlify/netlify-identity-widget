@@ -23,22 +23,50 @@ class NetlifyIdentity extends Nanobus {
 
     this.goTrue = new GoTrue(goTrueOpts);
     this.modal = new ModalComponent(opts);
-  }
+    this.emit = this.emit.bind(this);
 
-  mount (domNode) {
-    domNode.appendChild(this.modal.render());
+    this.state = {
+      open: false,
+      page: "login"
+    };
+
+    this.on("render", () => {
+      if (!this.isMounted) {
+        return console.warn("NetlifyIdentity: widget must be mounted first");
+      }
+      this.modal.render(this.state, this.emit);
+    });
+
+    this.on("navigate", page => {
+      this.state.page = page;
+      this.emit("render");
+    });
+
+    this.on("close", () => {
+      this.state.open = false;
+      this.emit("render");
+    });
   }
 
   get isMounted () {
     return this.modal.element;
   }
 
+  mount (domNode) {
+    if (this.isMounted) {
+      return console.warn("NetlifyIdentity: already mounted");
+    }
+    domNode.appendChild(this.modal.render(this.state, this.emit));
+  }
+
   open () {
-    this.modal.open();
+    this.state.open = true;
+    this.emit("render");
   }
 
   close () {
-    this.modal.close();
+    this.state.open = false;
+    this.emit("render");
   }
 }
 

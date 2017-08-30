@@ -18,4 +18,9 @@ module.exports = css`
     min-height: 500px;
     min-width: 250px;
   }
+
+  .form {
+    display: flex;
+    flex-direction: column;
+  }
 `;
