@@ -18,7 +18,7 @@ class Header extends Nanocomponent {
   }
 
   navigateSignupPage () {
-    this.emit("navigate", "login");
+    this.emit("navigate", "signup");
   }
 
   createElement (state, emit) {

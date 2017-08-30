@@ -1,7 +1,10 @@
 const styles = require("../styles.csjs");
 const Nanocomponent = require("nanocomponent");
 const html = require("bel");
-const Header = require("./header");
+const Header = require("../header");
+const Providers = require("../providers");
+const Footer = require("../footer");
+const { SignupForm, LoginForm } = require("../forms");
 
 class Modal extends Nanocomponent {
   constructor (opts) {
@@ -12,11 +15,17 @@ class Modal extends Nanocomponent {
     this.emit = null;
 
     this.header = new Header();
+    this.providers = new Providers();
+    this.footer = new Footer();
+    this.signupForm = new SignupForm();
+    this.loginForm = new LoginForm();
   }
 
   createElement (state, emit) {
     this.state = state;
     this.emit = emit;
+
+    console.log(state.page);
 
     if (this.state.open) {
       return this.layout(state, emit);
@@ -36,8 +45,8 @@ class Modal extends Nanocomponent {
           <div class="${styles.modalWindow}">
             ${this.header.render({ page }, emit)}
             ${this.formRouter({ page })}
-            ${providers()}
-            ${footer(emit)}
+            ${this.providers.render()}
+            ${this.footer.render(emit)}
           </div>
         </div>
       `;
@@ -46,9 +55,9 @@ class Modal extends Nanocomponent {
   formRouter ({ page }, emit) {
     switch (page) {
       case "login":
-        return loginForm();
+        return this.loginForm.render();
       case "signup":
-        return signupForm();
+        return this.signupForm.render();
     }
   }
 }
@@ -56,47 +65,6 @@ class Modal extends Nanocomponent {
 function placeHolder () {
   return html`
     <div><!-- NetlifyIdentity --></div>
-  `;
-}
-
-function loginForm (value, oninput) {
-  return html`
-    <form class="${styles.form}">
-      <label>Email <input type="text"/></label>
-      <label>Password <input type="text"/></label>
-    </form>
-  `;
-}
-
-function signupForm (value, oninput) {
-  return html`
-    <form class="${styles.form}">
-      <label>Name <input type="text"/></label>
-      <label>Email <input type="text"/></label>
-      <label>Password <input type="text"/></label>
-      <label>Confirm Password <input type="text"/></label>
-    </form>
-  `;
-}
-
-function providers () {
-  return html`
-    <ul>
-      <li>Github</li>
-      <li>Google</li>
-    </ul>
-  `;
-}
-
-function footer (emit) {
-  function close () {
-    emit("close");
-  }
-
-  return html`
-    <div>
-      <button onclick=${close}>close</button>
-    </div>
   `;
 }
 
