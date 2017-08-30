@@ -1,4 +1,4 @@
-import NetlifyIdentity from "../../index.js";
+const NetlifyIdentity = require("../index.js");
 
 const identity = (window.identity = new NetlifyIdentity());
 

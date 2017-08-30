@@ -1,8 +1,8 @@
-import styles from "./styles.csjs";
-import Nanocomponent from "nanocomponent";
-import html from "bel";
+const styles = require("./styles.csjs");
+const Nanocomponent = require("nanocomponent");
+const html = require("bel");
 
-export default class IdentityModal extends Nanocomponent {
+class IdentityModal extends Nanocomponent {
   constructor (opts, emit) {
     super();
     opts = Object.assign({}, opts);
@@ -92,3 +92,5 @@ export default class IdentityModal extends Nanocomponent {
     `;
   }
 }
+
+module.exports = IdentityModal;

@@ -1,9 +1,9 @@
-import GoTrue from "gotrue-js";
-import Nanobus from "nanobus";
-import ModalComponent from "./modal-component";
+const GoTrue = require("gotrue-js").default;
+const Nanobus = require("nanobus");
+const ModalComponent = require("./modal-component");
 
 // Set up an event emitter and state controller
-export default class NetlifyIdentity extends Nanobus {
+class NetlifyIdentity extends Nanobus {
   constructor (opts, goTrueOpts) {
     super();
 
@@ -37,3 +37,5 @@ export default class NetlifyIdentity extends Nanobus {
     this.modal.close();
   }
 }
+
+module.exports = NetlifyIdentity;
