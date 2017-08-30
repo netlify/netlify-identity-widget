@@ -12,8 +12,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
 });
 
 function init () {
-  if (window.netlifyIdentity) {
-    return console.warn("NetlifyIdentity: Identity widget already loaded");
+  if (!window.netlifyIdentity) {
+    window.netlifyIdentity = netlifyIdentity;
   }
 
   const modalContainer = document.querySelector(
@@ -30,5 +30,11 @@ function init () {
     // TODO make a gotrue instance
   }
 
-  netlifyIdentity.mount(modalContainer);
+  if (!netlifyIdentity.isMounted) {
+    netlifyIdentity.mount(modalContainer);
+  } else {
+    console.warn(
+      "NetlifyIdentity: two or more instances are running on the same page"
+    );
+  }
 }

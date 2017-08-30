@@ -3,11 +3,11 @@
   <head>
     <meta charset="utf-8">
     <title>👣 Netlify Identity 🐾</title>
-    <script async type="text/javascript" src="netlify-identity-umd.js"></script>
+    <script defer type="text/javascript" src="netlify-identity-umd.js"></script>
     <link rel="stylesheet" type="text/css" href="netlify-identity.css">
   </head>
   <body>
-    <div data-netlify-identity-buttons>Invasion of the login button</div>
+    <div><button onclick="window.netlifyIdentity.open()">Login</button></div>
     <div>This example shows Autopilot mode where all you have to is load the bundle and add some markup</div>
     <div data-netlify-identity-modal></div>
   </body>

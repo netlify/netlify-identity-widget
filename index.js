@@ -29,6 +29,10 @@ class NetlifyIdentity extends Nanobus {
     domNode.appendChild(this.modal.render());
   }
 
+  get isMounted () {
+    return this.modal.element;
+  }
+
   open () {
     this.modal.open();
   }
