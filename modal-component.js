@@ -1,4 +1,4 @@
-import styles from "./styles.csjs.js";
+import styles from "./styles.csjs";
 import Nanocomponent from "nanocomponent";
 import html from "bel";
 
@@ -6,7 +6,7 @@ export default class IdentityModal extends Nanocomponent {
   constructor (opts, emit) {
     super();
     opts = Object.assign({}, opts);
-    this.args = [];
+
     this.emit = emit;
     this.modalOpen = false;
     this.modalPage = "login";

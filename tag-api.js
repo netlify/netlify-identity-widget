@@ -1,6 +1,10 @@
 // Autopilot tag based API
 import NetlifyIdentity from "./index.js";
 
+const netlifyIdentity = new NetlifyIdentity({
+  css: true // TODO: test if css is needed
+});
+
 function init () {
   if (window.netlifyIdentity) {
     return console.warn("NetlifyIdentity: Identity widget already loaded");
@@ -20,12 +24,11 @@ function init () {
     // TODO make a gotrue instance
   }
 
-  window.netlifyIdentity = new NetlifyIdentity({
-    container: modalContainer,
-    css: true // TODO: test if css is needed
-  });
+  netlifyIdentity.mount(modalContainer);
 }
 
 document.addEventListener("DOMContentLoaded", function (event) {
   init();
 });
+
+module.exports = netlifyIdentity;

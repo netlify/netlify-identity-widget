@@ -18,6 +18,7 @@
     "babel-preset-es2015": "^6.6.0",
     "babelify": "^7.3.0",
     "budo": "^10.0.4",
+    "cpr": "^2.2.0",
     "csjs-extractify": "^1.0.0-alpha.0",
     "csjs-injectify": "^1.0.1",
     "eslint": "^4.3.0",
@@ -29,27 +30,48 @@
     "eslint-plugin-prettier": "^2.1.2",
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-standard": "^3.0.1",
+    "mkdirp": "^0.5.1",
     "npm-run-all": "^4.1.1",
     "prettier": "^1.6.1",
-    "uglify-js": "^2.6.2",
+    "rimraf": "^2.6.1",
+    "uglifyify": "^4.0.3",
     "yo-yoify": "^3.7.3"
   },
   "license": "MIT",
-  "main": "index.js",
+  "main": "dist/netlify-identity.js",
+  "style": "dist/netlify-identity.css",
   "scripts": {
     "test": "run-s test:*",
     "test:lint": "eslint .",
-    "start": "budo example/modular/index.js:bundle.js --dir example/modular --live --open",
-    "start:tag": "budo tag-api.js:tag-api.js --dir example/tag --live --open"
+    "start":
+      "budo example/modular/index.js:bundle.js --dir example/modular --live --open",
+    "start:tag": "budo tag-api.js:tag-api.js --dir example/tag --live --open",
+    "build": "run-s clean && run-p build:*",
+    "build:site": "cpr index.html dist/index.html -o",
+    "build:module":
+      "browserify index.js --standalone --transform-key=production -p [ csjs-extractify -o dist/netlify-identity.css ] > dist/netlify-identity.js",
+    "build:umd":
+      "browserify --standalone tag-api.js  > dist/netlify-identity-umd.js",
+    "clean:": "rimraf dist && mkdirp dist"
   },
   "browserify": {
+    "production": [
+      [
+        "babelify",
+        {
+          "presets": ["es2015"],
+          "plugins": [
+            "syntax-object-rest-spread",
+            "transform-object-rest-spread"
+          ]
+        }
+      ]
+    ],
     "transform": [
       [
         "babelify",
         {
-          "presets": [
-            "es2015"
-          ],
+          "presets": ["es2015"],
           "plugins": [
             "syntax-object-rest-spread",
             "transform-object-rest-spread"
