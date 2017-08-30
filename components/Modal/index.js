@@ -25,8 +25,6 @@ class Modal extends Nanocomponent {
     this.state = state;
     this.emit = emit;
 
-    console.log(state.page);
-
     if (this.state.open) {
       return this.layout(state, emit);
     } else {

@@ -11,6 +11,7 @@ class Footer extends Nanocomponent {
 
     this.close = this.close.bind(this);
   }
+
   close () {
     this.emit("close");
   }
