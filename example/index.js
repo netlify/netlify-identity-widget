@@ -1,6 +1,7 @@
 const NetlifyIdentity = require("../index.js");
 
-const identity = (window.identity = new NetlifyIdentity());
+const identity = new NetlifyIdentity();
+window.identity = identity;
 
 const container = document.querySelector("#external");
 

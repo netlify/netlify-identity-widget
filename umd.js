@@ -5,6 +5,12 @@ const netlifyIdentity = new NetlifyIdentity({
   css: true // TODO: test if css is needed
 });
 
+module.exports = netlifyIdentity;
+
+document.addEventListener("DOMContentLoaded", function (event) {
+  init();
+});
+
 function init () {
   if (window.netlifyIdentity) {
     return console.warn("NetlifyIdentity: Identity widget already loaded");
@@ -26,9 +32,3 @@ function init () {
 
   netlifyIdentity.mount(modalContainer);
 }
-
-document.addEventListener("DOMContentLoaded", function (event) {
-  init();
-});
-
-module.exports = netlifyIdentity;
