@@ -12,7 +12,14 @@ class NetlifyIdentity extends Nanobus {
       opts = {};
     }
 
-    opts = Object.assign({}, opts);
+    opts = Object.assign(
+      {
+        open: false
+      },
+      opts
+    );
+
+    console.log(opts);
 
     goTrueOpts = Object.assign(
       {
@@ -26,7 +33,7 @@ class NetlifyIdentity extends Nanobus {
     this.emit = this.emit.bind(this);
 
     this.state = {
-      open: false,
+      open: opts.open,
       page: "login"
     };
 
