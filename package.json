@@ -7,7 +7,7 @@
     "bel": "^5.0.3",
     "classnames": "^2.2.5",
     "csjs": "^1.1.0",
-    "gotrue-js": "^0.6.3",
+    "gotrue-js": "^0.8.0",
     "nanobus": "^4.2.0",
     "nanocomponent": "^6.3.0"
   },
@@ -39,17 +39,18 @@
   "scripts": {
     "test": "run-s test:*",
     "test:lint": "eslint .",
-    "start": "budo example/index.js:bundle.js --dir example --live --open -- --transform-key=dev",
+    "start":
+      "budo example/index.js:bundle.js --dir example --live --open -- --transform-key=dev",
     "start:umd": "run-s clean start:umd:server",
-    "start:umd:server": "budo umd.js:netlify-identity-umd.js --dir dist --dir site --live --open -- -p [ csjs-extractify -o dist/netlify-identity.css ]",
+    "start:umd:server":
+      "budo umd.js:netlify-identity-umd.js --dir dist --dir site --live --open -- -p [ csjs-extractify -o dist/netlify-identity.css ]",
     "build": "run-s clean && run-p build:*",
     "build:site": "cpr site dist",
-    "build:umd": "browserify umd.js --standalone netlifyIdentity -p [ csjs-extractify -o dist/netlify-identity.css ] -o dist/netlify-identity-umd.js",
+    "build:umd":
+      "browserify umd.js --standalone netlifyIdentity -p [ csjs-extractify -o dist/netlify-identity.css ] -o dist/netlify-identity-umd.js",
     "clean:": "rimraf dist && mkdirp dist"
   },
   "browserify": {
-    "dev": [
-      "csjs-injectify"
-    ]
+    "dev": ["csjs-injectify"]
   }
 }

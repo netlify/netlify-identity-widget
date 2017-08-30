@@ -12,19 +12,7 @@ class NetlifyIdentity extends Nanobus {
       opts = {};
     }
 
-    opts = Object.assign(
-      {
-        open: false
-      },
-      opts
-    );
-
-    goTrueOpts = Object.assign(
-      {
-        APIUrl: "https://auth.netlify.com"
-      },
-      goTrueOpts
-    );
+    opts = Object.assign({ open: false }, opts);
 
     this.goTrue = new GoTrue(goTrueOpts);
     this.modal = new Modal(opts);
@@ -32,7 +20,9 @@ class NetlifyIdentity extends Nanobus {
 
     this.state = {
       open: opts.open,
-      page: "login"
+      page: "login",
+      submitting: false,
+      message: "messages go here"
     };
 
     this.on("render", () => {
@@ -50,6 +40,23 @@ class NetlifyIdentity extends Nanobus {
     this.on("close", () => {
       this.state.open = false;
       this.emit("render");
+    });
+
+    this.on("submit-signup", ({ email, password, name }) => {
+      this.state.submitting = true;
+      this.emit("render");
+      this.goTrue.signup(email, password, { full_name: name }).then(
+        response => {
+          this.state.message = "Confirmation email sent";
+          this.state.submitting = false;
+          this.emit("render");
+        },
+        error => {
+          this.state.message = `Failed to log in ${error.message}`;
+          this.state.submitting = false;
+          this.emit("render");
+        }
+      );
     });
   }
 

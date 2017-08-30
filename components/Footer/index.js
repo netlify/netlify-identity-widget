@@ -16,7 +16,7 @@ class Footer extends Nanocomponent {
     this.emit("close");
   }
 
-  createElement (emit) {
+  createElement (state, emit) {
     this.emit = emit;
 
     return html`

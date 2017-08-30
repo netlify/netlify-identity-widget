@@ -22,26 +22,34 @@ class Header extends Nanocomponent {
   }
 
   createElement (state, emit) {
-    const { page } = state;
+    const { page, message, disabled } = state;
     this.page = page;
     this.emit = emit;
+    this.message = message;
+    this.disabled = disabled;
 
     const loginClass = cn({ [styles.active]: page === "login" });
     const signupClass = cn({ [styles.active]: page === "signup" });
 
     return html`
       <div class="${styles.header}">
-        <button class="${loginClass}"
-        onclick=${this.navigateLoginPage}>Login</button>
-        <button class="${signupClass}"
-        onclick=${this.navigateSignupPage}>Signup</button>
+        <div>
+          <button disabled=${disabled} class="${loginClass}"
+          onclick=${this.navigateLoginPage}>Login</button>
+          <button disabled=${disabled} class="${signupClass}"
+          onclick=${this.navigateSignupPage}>Signup</button>
+        ${message ? html`<div>${message}</div>` : ""}
+        <div>
       </div>
     `;
   }
 
   update (state, emit) {
-    const { page } = state;
-    return this.page !== page;
+    const { page, message, disabled } = state;
+    if (this.page !== page) return true;
+    if (this.message !== message) return true;
+    if (this.disabled !== disabled) return true;
+    return false;
   }
 }
 

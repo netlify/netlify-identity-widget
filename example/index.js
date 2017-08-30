@@ -1,6 +1,9 @@
 const NetlifyIdentity = require("../index.js");
 
-const identity = new NetlifyIdentity({ open: true }, {});
+const identity = new NetlifyIdentity(
+  { open: true },
+  { APIUrl: `https://netlify-identity.netlify.com/.netlify/identity` }
+);
 window.identity = identity;
 
 const container = document.querySelector("#external");
