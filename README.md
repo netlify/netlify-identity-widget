@@ -25,7 +25,7 @@ A UMD build of Netlify Identity is provided and only requires adding HTML markup
 <body>
   <!-- Create a container for the modal to live in -->
   <!-- data-netlify-identity-url is optional and will default to the active domain-->
-  <div data-netlify-identity-modal data-netlify-identity-url="https://your-website.com/.netlify/identity" ></div>
+  <div data-netlify-identity-modal ></div>
 </body>
 </html>
 ```

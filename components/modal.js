@@ -58,6 +58,8 @@ class Modal extends Nanocomponent {
           return this.loginForm.render({}, emit);
         case "signup":
           return this.signupForm.render({}, emit);
+        default:
+          return html`<div>${page} missing</div>`;
       }
     } else {
       return html`<div>submitting</div>`;
