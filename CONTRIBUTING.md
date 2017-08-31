@@ -8,39 +8,39 @@ please read the [code of conduct](CODE_OF_CONDUCT.md).
 > Install yarn on your system: https://yarnpkg.com/en/docs/install
 
 ```sh
-$ git clone https://github.com/netlify/netlify-identity
-$ cd netlify-identity
+$ git clone https://github.com/netlify/netlify-identity-widget
+$ cd netlify-identity-widget
 $ yarn
 ```
 
 ## Building
 
 ```sh
-$ npm run build
+$ yarn run build
 ```
 
 ```sh
-$ npm run build:umd
+$ yarn run build:umd
 ```
 
 ## Testing
 
 ```sh
-$ npm run test
+$ yarn run test
 ```
 
 ```sh
-$ npm run test:lint
+$ yarn run test:lint
 ```
 
 ## Runing the server
 
 ```sh
-$ npm run start
+$ yarn run start
 ```
 
 ```sh
-$ npm run start:umd
+$ yarn run start:umd
 ```
 
 ## Pull Requests
@@ -55,5 +55,5 @@ We actively welcome your pull requests.
 
 ## License
 
-By contributing to Netlify Identity, you agree that your contributions will be licensed
+By contributing to Netlify Identity Widget, you agree that your contributions will be licensed
 under its [MIT license](LICENSE).

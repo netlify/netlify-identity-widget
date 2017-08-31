@@ -1,4 +1,4 @@
-# Netlify Identity
+# Netlify Identity Widget
 
 A component used to authenticate with Netlify's GoTrue API.
 
@@ -34,18 +34,18 @@ The UMD version of Netlify Identity will automatically attach itself to the wind
 
 ### Module API
 
-Netlify Identity also has a module api:
+Netlify Identity Widget also has a module api:
 
 ```
-yarn add netlify-identity
+yarn add netlify-identity-widget
 ```
 
 Import or require as usual:
 
 ```js
-import NetlifyIdentity from "netlify-identity"
+import NetlifyIdentity from "netlify-identity-widget"
 // or
-const NetlifyIdentity = require("netlify-identity");
+const NetlifyIdentity = require("netlify-identity-widget");
 
 const identity = new NetlifyIdentity()
 
