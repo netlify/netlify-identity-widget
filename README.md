@@ -74,7 +74,7 @@ The module API does not attach itself to the window object automatically.
 ### `identity = new NetlifyIdentity([opts], [goTrueOpts])`
 Create a new Netlify Identity instance. `goTrueOpts` are passed to an internal [gotrue-js][gt] reference.
 
-`opts` incliude:
+`opts` include:
 
 ```js
 {
