@@ -1,10 +1,10 @@
 const styles = require("../styles.csjs");
 const Nanocomponent = require("nanocomponent");
 const html = require("bel");
-const Header = require("../header");
-const Providers = require("../providers");
-const Footer = require("../footer");
-const { SignupForm, LoginForm } = require("../forms");
+const Header = require("../header/index.js");
+const Providers = require("../providers/index.js");
+const Footer = require("../footer/index.js");
+const { SignupForm, LoginForm } = require("../forms/index.js");
 
 class Modal extends Nanocomponent {
   constructor (opts) {

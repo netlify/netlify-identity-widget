@@ -46,6 +46,7 @@
       "budo umd.js:netlify-identity-umd.js --dir dist --dir site --live --open -- -p [ csjs-extractify -o dist/netlify-identity.css ]",
     "build": "run-s clean build:*",
     "build:versions": "browserify --version",
+    "build:tree": "tree",
     "build:site": "cpr site dist",
     "build:umd":
       "browserify umd.js --standalone netlifyIdentity -p [ csjs-extractify -o dist/netlify-identity.css ] -o dist/netlify-identity-umd.js",
