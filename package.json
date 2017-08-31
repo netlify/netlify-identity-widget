@@ -29,6 +29,7 @@
     "npm-run-all": "^4.1.1",
     "prettier": "^1.6.1",
     "rimraf": "^2.6.1",
+    "tre": "^1.0.5",
     "uglifyify": "^4.0.3",
     "yo-yoify": "^3.7.3"
   },
@@ -46,7 +47,7 @@
       "budo umd.js:netlify-identity-umd.js --dir dist --dir site --live --open -- -p [ csjs-extractify -o dist/netlify-identity.css ]",
     "build": "run-s clean build:*",
     "build:versions": "browserify --version",
-    "build:tree": "tree",
+    "build:tree": "tree -I node_modules",
     "build:site": "cpr site dist",
     "build:umd":
       "browserify umd.js --standalone netlifyIdentity -p [ csjs-extractify -o dist/netlify-identity.css ] -o dist/netlify-identity-umd.js",
