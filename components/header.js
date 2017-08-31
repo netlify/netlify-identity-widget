@@ -38,8 +38,8 @@ class Header extends Nanocomponent {
           onclick=${this.navigateLoginPage}>Login</button>
           <button disabled=${disabled} class="${signupClass}"
           onclick=${this.navigateSignupPage}>Signup</button>
-        ${message ? html`<div>${message}</div>` : ""}
-        <div>
+          ${message ? html`<div>${message}</div>` : ""}
+        </div>
       </div>
     `;
   }

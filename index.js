@@ -52,7 +52,8 @@ class NetlifyIdentity extends Nanobus {
           this.emit("render");
         },
         error => {
-          this.state.message = `Failed to regisger ${error.message}`;
+          // TODO: handle errors better
+          this.state.message = `Failed to regisger ${JSON.stringify(error)}`;
           this.state.submitting = false;
           this.emit("render");
         }
