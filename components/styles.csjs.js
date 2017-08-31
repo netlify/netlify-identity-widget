@@ -19,7 +19,8 @@ module.exports = css`
   }
 
   .modalWindow {
-    width: 90%;
+    box-sizing: border-box;
+    width: 100%;
     max-width: 424px;
     padding: 32px;
     background-color: white;
@@ -28,7 +29,7 @@ module.exports = css`
     font-family: ${fontFamily};
   }
 
-  .modalWindow button {
+  .btn {
     position: relative;
     box-sizing: border-box;
     display: inline-block;
@@ -51,8 +52,8 @@ module.exports = css`
     outline: 0;
   }
 
-  .modalWindow button:hover,
-  .modalWindow button:focus {
+  .btn:hover,
+  .btn:focus {
     cursor: pointer;
     background-color: ${baseColor};
     text-decoration: none;
@@ -108,9 +109,36 @@ module.exports = css`
     transform: scale(0.80) translate3d(0%, -326%, 0);
   }
 
-  .header {
+  .modeSwitcher {
+    display: flex;
   }
 
-  .active {
+  .header button {
+    display: block;
+    flex-grow: 1;
+    font-family: ${fontFamily};
+    font-size: 18px;
+    font-weight: 500;
+    color: #a3a9ac;
+    line-height: 24px;
+    padding: 8px 8px 6px 8px;
+    border: none;
+    border-bottom: 2px solid #e9ebeb;
+    border-radius: 4px 4px 0 0;
+    background-color: white;
+    transition: all 0.2s ease;
+    outline: 0;
+  }
+
+  .header button.active {
+    font-weight: 700;
+    color: ${baseColor};
+    border-color: ${baseColor};
+  }
+
+  .header button:hover {
+    background-color: #e9ebeb;
+    color: ${baseColor};
+    cursor: pointer;
   }
 `;

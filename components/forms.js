@@ -41,7 +41,7 @@ class LoginForm extends Nanocomponent {
             required />
           <label>Password</label>
         </div>
-        <button type="submit" value="Log in">Log in</button>
+        <button type="submit" value="Log in" class="${styles.btn}">Log in</button>
       </form>
     `;
   }
