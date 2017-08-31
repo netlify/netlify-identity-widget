@@ -102,3 +102,5 @@ loginModal is an event emitter.  You can listen for the following events:
 - `login`: After a user logs in.  Receives the `user` object.
 - `logout`: After a user logs out.
 - `error`: When any error occurs.  Receives and `error` object.  Error state is also reflected in the modal UI.
+
+[gt]: https://github.com/netlify/gotrue-js
