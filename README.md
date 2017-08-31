@@ -72,7 +72,15 @@ The module API does not attach itself to the window object automatically.
 ## API
 
 ### `identity = new NetlifyIdentity([opts], [goTrueOpts])`
-Create a new Netlify Identity instance. `goTrueOpts` are passed to an internal
+Create a new Netlify Identity instance. `goTrueOpts` are passed to an internal [gotrue-js][gt] reference.
+
+`opts` incliude:
+
+```js
+{
+  open: true // Open modal on mount
+}
+```
 
 ### `identity.create()`
 Return a DOM node that you need to insert into your DOM using something like `DOMnode.appendChild()`.  Only insert this into the page once, and do it in a node where it won't be removed.
