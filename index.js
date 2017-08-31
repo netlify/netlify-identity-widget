@@ -1,6 +1,6 @@
 const GoTrue = require("gotrue-js").default;
 const Nanobus = require("nanobus");
-const Modal = require("./components/Modal");
+const Modal = require("./components/modal");
 
 // Set up an event emitter and state controller
 class NetlifyIdentity extends Nanobus {
