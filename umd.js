@@ -1,9 +1,7 @@
 // Autopilot tag based API
 const NetlifyIdentity = require("./index.js");
 
-const netlifyIdentity = new NetlifyIdentity({
-  css: true // TODO: test if css is needed
-});
+const netlifyIdentity = new NetlifyIdentity();
 
 module.exports = netlifyIdentity;
 
