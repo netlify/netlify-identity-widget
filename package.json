@@ -1,5 +1,5 @@
 {
-  "name": "netlify-auth",
+  "name": "netlify-identity-widget",
   "description": "Netlify authentication modal component",
   "version": "1.0.0",
   "author": "Netlify",
