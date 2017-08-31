@@ -1,6 +1,14 @@
 const css = require("csjs");
 const baseColor = "rgb(14, 30, 37)";
 const highlightColor = "#f6bc00";
+const providerColorGoogle = "#4285f4";
+const providerAltColorGoogle = "#366dc7";
+const providerColorGitHub = "#161614";
+const providerAltColorGitHub = "#000";
+const providerColorGitLab = "#c3442d";
+const providerAltColorGitLab = "#8f3121";
+const providerColorBitbucket = "#1b4aaa";
+const providerAltColorBitbucket = "#133578";
 const fontFamily = "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'";
 
 module.exports = css`
@@ -141,5 +149,29 @@ module.exports = css`
     background-color: #e9ebeb;
     color: ${baseColor};
     cursor: pointer;
+  }
+
+  .providersGroup .btn {
+    margin-top: 14px;
+  }
+  
+  .providerGoogle {
+    background-color: ${providerColorGoogle};
+    border-color: ${providerAltColorGoogle};
+  }
+
+  .providerGitHub {
+    background-color: ${providerColorGitHub};
+    border-color: ${providerAltColorGitHub};
+  }
+
+  .providerGitLab {
+    background-color: ${providerColorGitLab};
+    border-color: ${providerAltColorGitLab};
+  }
+
+  .providerBitbucket {
+    background-color: ${providerColorBitbucket};
+    border-color: ${providerAltColorBitbucket};
   }
 `;
