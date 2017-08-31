@@ -7,8 +7,14 @@ class LoginForm extends Nanocomponent {
   createElement () {
     return html`
       <form class="${styles.form}">
-        <label><span class="${styles.form}">Email</span><input type="text"/></label>
-        <label><span class="${styles.form}">Password</span><input type="text"/></label>
+        <div class="${styles.formGroup}">
+          <label>Email</label>
+        <input type="email"/>
+        </div>
+        <div class="${styles.formGroup}">
+          <label>Password</label>
+        <input type="password"/>
+        </div>
       </form>
     `;
   }
@@ -24,9 +30,18 @@ class SignupForm extends Nanocomponent {
   createElement () {
     return html`
       <form class="${styles.form}">
-        <label>Name <input type="text"/></label>
-        <label>Email <input type="text"/></label>
-        <label>Password <input type="text"/></label>
+        <div class="${styles.formGroup}">
+          <label>Name</label>
+          <input type="text"/>
+        </div>
+        <div class="${styles.formGroup}">
+          <label>Email</label>
+        <input type="email"/>
+        </div>
+        <div class="${styles.formGroup}">
+          <label>Password</label>
+        <input type="password"/>
+        </div>
       </form>
     `;
   }
