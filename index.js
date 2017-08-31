@@ -32,50 +32,7 @@ class NetlifyIdentity extends Nanobus {
       this.modal.render(this.state, this.emit);
     });
 
-    this.on("navigate", page => {
-      this.state.page = page;
-      this.emit("render");
-    });
-
-    this.on("close", () => {
-      this.state.open = false;
-      this.emit("render");
-    });
-
-    this.on("submit-signup", ({ email, password, name }) => {
-      this.state.submitting = true;
-      this.emit("render");
-      this.goTrue.signup(email, password, { full_name: name }).then(
-        response => {
-          this.state.message = "Confirmation email sent";
-          this.state.submitting = false;
-          this.emit("render");
-        },
-        error => {
-          // TODO: handle errors better
-          this.state.message = `Failed to regisger ${JSON.stringify(error)}`;
-          this.state.submitting = false;
-          this.emit("render");
-        }
-      );
-    });
-
-    this.on("submit-login", ({ email, password }) => {
-      this.state.submitting = true;
-      this.emit("render");
-      this.goTrue.login(email, password).then(
-        user => {
-          this.state.message = `Logged in ${user.email}`;
-          this.state.submitting = false;
-          this.emit("render");
-        },
-        error => {
-          this.state.message = `Failed to log in ${JSON.stringify(error)}`;
-          this.state.submitting = false;
-          this.emit("render");
-        }
-      );
-    });
+    store(this.state, this, this.goTrue); // Hook up event handlers
   }
 
   get isMounted () {
@@ -111,3 +68,54 @@ class NetlifyIdentity extends Nanobus {
 }
 
 module.exports = NetlifyIdentity;
+
+function store (state, emitter, goTrue) {
+  emitter.on("navigate", page => {
+    state.page = page;
+    emitter.emit("render");
+  });
+
+  emitter.on("close", () => {
+    state.open = false;
+    emitter.emit("render");
+  });
+
+  emitter.on("submit-signup", ({ email, password, name }) => {
+    state.submitting = true;
+    emitter.emit("render");
+    goTrue.signup(email, password, { full_name: name }).then(
+      response => {
+        state.message = "Confirmation email sent";
+        state.submitting = false;
+        emitter.emit("render");
+        emitter.emit("signup", response);
+      },
+      error => {
+        // TODO: handle errors better
+        state.message = `Failed to regisger ${JSON.stringify(error)}`;
+        state.submitting = false;
+        emitter.emit("render");
+        emitter.emit("error", error);
+      }
+    );
+  });
+
+  emitter.on("submit-login", ({ email, password }) => {
+    state.submitting = true;
+    emitter.emit("render");
+    goTrue.login(email, password).then(
+      user => {
+        state.message = `Logged in ${user.email}`;
+        state.submitting = false;
+        emitter.emit("render");
+        emitter.emit("login", user);
+      },
+      error => {
+        state.message = `Failed to log in ${JSON.stringify(error)}`;
+        state.submitting = false;
+        emitter.emit("render");
+        emitter.emit("error", error);
+      }
+    );
+  });
+}
