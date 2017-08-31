@@ -1,6 +1,6 @@
 # Netlify Identity
 
-A component used to authenticte with Netlify's GoTrue API.
+A component used to authenticate with Netlify's GoTrue API.
 
 
 ## Usage
