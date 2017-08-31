@@ -1,27 +1,111 @@
 const css = require("csjs");
+const baseColor = "rgb(14, 30, 37)";
+const highlightColor = "#f6bc00";
+const fontFamily = "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'";
 
 module.exports = css`
+
   .modalBackground {
-    background-color: hsla(260, 100%, 0%, 0.5);
     position: fixed;
-    height: 100%;
-    width: 100%;
+    height: 100vh;
+    width: 100vw;
     top: 0;
     right: 0;
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: ${baseColor};
+    opacity: .87;
   }
 
   .modalWindow {
+    width: 90%;
+    max-width: 424px;
+    padding: 32px;
     background-color: white;
-    min-height: 500px;
-    min-width: 250px;
+    box-shadow: 0 4px 12px 0 rgba(0,0,0,0.07), 0 12px 32px 0 rgba(14,30,37,0.10);
+    border-radius: 8px;
+    font-family: ${fontFamily};
+  }
+
+  .modalWindow button {
+    position: relative;
+    box-sizing: border-box;
+    display: inline-block;
+    vertical-align: middle;
+    width: 100%;
+    margin-top: 38px;
+    padding: 6px 14px;
+    font-family: ${fontFamily};
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    text-align: center;
+    text-decoration: none;
+    white-space: nowrap;
+    border: 2px solid ${baseColor};
+    border-radius: 4px;
+    background-color: #2d3b41;
+    color: white;
+    transition: background-color 0.2s ease;
+    outline: 0;
+  }
+
+  .modalWindow button:hover,
+  .modalWindow button:focus {
+    cursor: pointer;
+    background-color: ${baseColor};
+    text-decoration: none;
   }
 
   .form {
     display: flex;
     flex-direction: column;
+  }
+
+  .formGroup {
+    position: relative;
+    margin-top: 38px;
+  }
+
+  .form input {
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+    height: 40px;
+    margin: 0;
+    padding: 6px 14px;
+    border: 2px solid #e9ebeb;
+    border-radius: 4px;
+    background-color: white;
+    color: ${baseColor};
+    box-shadow: none;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    transition: box-shadow ease-in-out 0.15s;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+  }
+
+  .form input:focus {
+    outline: none;
+    border-color: ${highlightColor};
+    box-shadow: 0 0 1px 0 ${highlightColor};
+  }
+
+  label {
+    position: absolute;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    color: #a3a9ac;
+    transform: translate3d(14px, 8px, 0);
+    transition: 0.2s ease;
+  }
+
+  .labelIsFloating label {
+    transform: scale(0.75) translate3d(-16%, -120%, 0);
   }
 
   .header {
