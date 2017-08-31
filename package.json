@@ -16,6 +16,7 @@
     "cpr": "^2.2.0",
     "csjs-extractify": "^1.0.0-alpha.0",
     "csjs-injectify": "^1.0.1",
+    "discify": "^1.6.0",
     "eslint": "^4.3.0",
     "eslint-config-prettier": "^2.3.0",
     "eslint-config-semistandard": "^11.0.0",
@@ -25,6 +26,7 @@
     "eslint-plugin-prettier": "^2.1.2",
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-standard": "^3.0.1",
+    "http-server": "^0.10.0",
     "mkdirp": "^0.5.1",
     "npm-run-all": "^4.1.1",
     "prettier": "^1.6.1",
@@ -49,8 +51,10 @@
     "build:versions": "browserify --version",
     "build:site": "cpr site dist",
     "build:umd":
-      "browserify umd.js --standalone netlifyIdentity -g unassertify -g yo-yoify -p [ csjs-extractify -o dist/netlify-identity.css ] -o dist/netlify-identity-umd.js",
-    "clean:": "rimraf dist && mkdirp dist"
+      "browserify umd.js --standalone netlifyIdentity -g unassertify -g yo-yoify -p [ csjs-extractify -o dist/netlify-identity.css ] -p discify -o dist/netlify-identity-umd.js",
+    "clean:": "rimraf dist && mkdirp dist",
+    "disc": "run-s build disc:server",
+    "disc:server": "http-server disc"
   },
   "browserify": {
     "dev": ["csjs-injectify"]
