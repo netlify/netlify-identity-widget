@@ -37,7 +37,7 @@ The UMD version of Netlify Identity will automatically attach itself to the wind
 Netlify Identity also has a module api:
 
 ```
-yarn install netlify-identity --save
+yarn add netlify-identity
 ```
 
 Import or require as usual:
