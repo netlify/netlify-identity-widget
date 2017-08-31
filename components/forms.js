@@ -25,21 +25,23 @@ class LoginForm extends Nanocomponent {
       <form
         onsubmit=${this.handleSubmit}
         class="${styles.form}">
-        <label>
-          Email
+        <div class="${styles.formGroup}">
           <input
             value="${this.email}"
             oninput=${this.handleEmailInput}
-            type="email"/>
-        </label>
-        <label>
-          Password
+            type="email"
+            required />
+          <label>Email</label>
+        </div>
+        <div class="${styles.formGroup}">
           <input
             value="${this.email}"
             oninput=${this.handlePasswordInput}
-            type="password"/>
-        </label>
-        <input type="submit" value="Login">
+            type="password"
+            required />
+          <label>Password</label>
+        </div>
+        <button type="submit" value="Log in">Log in</button>
       </form>
     `;
   }

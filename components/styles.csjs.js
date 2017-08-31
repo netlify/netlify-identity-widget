@@ -94,18 +94,18 @@ module.exports = css`
     box-shadow: 0 0 1px 0 ${highlightColor};
   }
 
-  label {
+  .formGroup label {
     position: absolute;
     font-size: 16px;
     font-weight: 500;
     line-height: 24px;
     color: #a3a9ac;
-    transform: translate3d(14px, 8px, 0);
+    transform: translate3d(14px, -32px, 0);
     transition: 0.2s ease;
   }
 
-  .labelIsFloating label {
-    transform: scale(0.75) translate3d(-16%, -120%, 0);
+  .formGroup input:focus ~ label, .formGroup input:valid ~ label {
+    transform: scale(0.80) translate3d(0%, -326%, 0);
   }
 
   .header {
