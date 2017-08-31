@@ -45,7 +45,7 @@ class LoginForm extends Nanocomponent {
   }
 
   update (state, emit) {
-    return false;
+    return true;
   }
 
   handleInput (key, ev) {
@@ -119,7 +119,7 @@ class SignupForm extends Nanocomponent {
   }
 
   update () {
-    return false;
+    return true;
   }
 
   handleInput (key, ev) {
