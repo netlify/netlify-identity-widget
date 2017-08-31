@@ -103,6 +103,7 @@ module.exports = css`
     color: #a3a9ac;
     transform: translate3d(14px, -32px, 0);
     transition: 0.2s ease;
+    pointer-events: none;
   }
 
   .formGroup input:focus ~ label, .formGroup input:valid ~ label {
