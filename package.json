@@ -30,6 +30,7 @@
     "prettier": "^1.6.1",
     "rimraf": "^2.6.1",
     "uglifyify": "^4.0.3",
+    "unassertify": "^2.0.4",
     "yo-yoify": "^3.7.3"
   },
   "license": "MIT",
@@ -48,7 +49,7 @@
     "build:versions": "browserify --version",
     "build:site": "cpr site dist",
     "build:umd":
-      "browserify umd.js --standalone netlifyIdentity -p [ csjs-extractify -o dist/netlify-identity.css ] -o dist/netlify-identity-umd.js",
+      "browserify umd.js --standalone netlifyIdentity -g unassertify -g yo-yoify -p [ csjs-extractify -o dist/netlify-identity.css ] -o dist/netlify-identity-umd.js",
     "clean:": "rimraf dist && mkdirp dist"
   },
   "browserify": {
