@@ -46,6 +46,10 @@ class Modal extends Nanocomponent {
             ${this.providers.render()}
             ${this.footer.render({ submitting }, emit)}
           </div>
+          <a href="https://www.netlify.com" class="${styles.callOut}">
+            <span class="${styles.netlifyLogo}"></span>
+            Coded by Netlify
+          </a>
         </div>
       `;
   }
