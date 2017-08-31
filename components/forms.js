@@ -54,6 +54,16 @@ class LoginForm extends Nanocomponent {
 
   handleSubmit (ev) {
     ev.preventDefault();
+
+    this.emit("submit-login", {
+      email: this.email,
+      password: this.password
+    });
+
+    this.email = "";
+    this.password = "";
+
+    this.render(this.state, this.emit);
     return false;
   }
 }

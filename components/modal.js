@@ -33,7 +33,6 @@ class Modal extends Nanocomponent {
   }
 
   update (state, emit) {
-    // always re-render
     return true;
   }
 

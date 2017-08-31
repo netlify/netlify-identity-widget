@@ -52,7 +52,24 @@ class NetlifyIdentity extends Nanobus {
           this.emit("render");
         },
         error => {
-          this.state.message = `Failed to log in ${error.message}`;
+          this.state.message = `Failed to regisger ${error.message}`;
+          this.state.submitting = false;
+          this.emit("render");
+        }
+      );
+    });
+
+    this.on("submit-login", ({ email, password }) => {
+      this.state.submitting = true;
+      this.emit("render");
+      this.goTrue.login(email, password).then(
+        user => {
+          this.state.message = `Logged in ${user.email}`;
+          this.state.submitting = false;
+          this.emit("render");
+        },
+        error => {
+          this.state.message = `Failed to log in ${JSON.stringify(error)}`;
           this.state.submitting = false;
           this.emit("render");
         }
