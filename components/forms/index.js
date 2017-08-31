@@ -7,8 +7,8 @@ class LoginForm extends Nanocomponent {
   createElement () {
     return html`
       <form class="${styles.form}">
-        <label>Email <input type="text"/></label>
-        <label>Password <input type="text"/></label>
+        <label><span class="${styles.form}">Email</span><input type="text"/></label>
+        <label><span class="${styles.form}">Password</span><input type="text"/></label>
       </form>
     `;
   }
