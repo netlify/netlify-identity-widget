@@ -15,6 +15,7 @@ class LoginForm extends Nanocomponent {
           <label>Password</label>
         <input type="password"/>
         </div>
+        <button type="submit" value="Log in">Log in</button>
       </form>
     `;
   }

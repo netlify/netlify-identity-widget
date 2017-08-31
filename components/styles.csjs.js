@@ -28,6 +28,36 @@ module.exports = css`
     font-family: ${fontFamily};
   }
 
+  .modalWindow button {
+    position: relative;
+    box-sizing: border-box;
+    display: inline-block;
+    vertical-align: middle;
+    width: 100%;
+    margin-top: 38px;
+    padding: 6px 14px;
+    font-family: ${fontFamily};
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    text-align: center;
+    text-decoration: none;
+    white-space: nowrap;
+    border: 2px solid ${baseColor};
+    border-radius: 4px;
+    background-color: #2d3b41;
+    color: white;
+    transition: background-color 0.2s ease;
+    outline: 0;
+  }
+
+  .modalWindow button:hover,
+  .modalWindow button:focus {
+    cursor: pointer;
+    background-color: ${baseColor};
+    text-decoration: none;
+  }
+
   .form {
     display: flex;
     flex-direction: column;
