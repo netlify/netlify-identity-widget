@@ -12,6 +12,7 @@
     "nanocomponent": "^6.3.0"
   },
   "devDependencies": {
+    "browserify": "^14.4.0",
     "budo": "^10.0.4",
     "cpr": "^2.2.0",
     "csjs-extractify": "^1.0.0-alpha.0",
@@ -42,21 +43,20 @@
   "scripts": {
     "test": "run-s test:*",
     "test:lint": "eslint .",
-    "start":
-      "budo example/index.js:bundle.js --dir example --live --open -- --transform-key=dev",
+    "start": "budo example/index.js:bundle.js --dir example --live --open -- --transform-key=dev",
     "start:umd": "run-s clean start:umd:server",
-    "start:umd:server":
-      "budo umd.js:netlify-identity-umd.js --dir dist --dir site --live --open -- -p [ csjs-extractify -o dist/netlify-identity.css ]",
+    "start:umd:server": "budo umd.js:netlify-identity-umd.js --dir dist --dir site --live --open -- -p [ csjs-extractify -o dist/netlify-identity.css ]",
     "build": "run-s clean build:*",
     "build:versions": "browserify --version",
     "build:site": "cpr site dist",
-    "build:umd":
-      "browserify umd.js --standalone netlifyIdentity -g unassertify -g yo-yoify -p [ csjs-extractify -o dist/netlify-identity.css ] -p discify -o dist/netlify-identity-umd.js",
+    "build:umd": "browserify umd.js --standalone netlifyIdentity -g unassertify -g yo-yoify -p [ csjs-extractify -o dist/netlify-identity.css ] -p discify -o dist/netlify-identity-umd.js",
     "clean:": "rimraf dist && mkdirp dist",
     "disc": "run-s build disc:server",
     "disc:server": "http-server disc"
   },
   "browserify": {
-    "dev": ["csjs-injectify"]
+    "dev": [
+      "csjs-injectify"
+    ]
   }
 }
