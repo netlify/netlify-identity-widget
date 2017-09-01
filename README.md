@@ -18,7 +18,6 @@ A UMD build of Netlify Identity is provided and only requires adding HTML markup
   <!-- Load the script and the stylesheet -->
   <!-- TODO: Update with CDN urls -->
   <script defer type="text/javascript" src="netlify-identity-umd.js"></script>
-  <link rel="stylesheet" type="text/css" href="netlify-identity.css">
   <!-- recommended viewport -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 </head>
@@ -86,7 +85,7 @@ Create a new Netlify Identity instance. `goTrueOpts` are passed to an internal [
 Return a DOM node that you need to insert into your DOM using something like `DOMnode.appendChild()`.  Only insert this into the page once, and do it in a node where it won't be removed.
 
 ### `loginModal.open()`
-Opens the Netlify Identity modal.  
+Opens the Netlify Identity modal.
 
 ### `loginModal.close()`
 Closes the Netlify Identity modal.

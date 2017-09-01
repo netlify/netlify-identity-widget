@@ -10,7 +10,7 @@ class Providers extends Nanocomponent {
         <li>Github</li>
         <li>Google</li>
       </ul>
-    `;
+      `;
   }
 
   update () {
