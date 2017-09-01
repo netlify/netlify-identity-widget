@@ -3,7 +3,7 @@ const Nanocomponent = require("nanocomponent");
 const html = require("bel");
 const Header = require("./header");
 const Providers = require("./providers");
-const { SignupForm, LoginForm } = require("./forms");
+const { SignupForm, LoginForm, LogoutForm } = require("./forms");
 
 class Modal extends Nanocomponent {
   constructor (opts) {
@@ -17,6 +17,7 @@ class Modal extends Nanocomponent {
     this.providers = new Providers();
     this.signupForm = new SignupForm();
     this.loginForm = new LoginForm();
+    this.logoutForm = new LogoutForm();
 
     this.close = this.close.bind(this);
   }
@@ -41,36 +42,57 @@ class Modal extends Nanocomponent {
   }
 
   layout (state, emit) {
-    const { page, submitting, message } = state;
-    return html`
-        <div class="${styles.modalContainer}" role="dialog">
-          <div class="${styles.modalDialog}">
-            <div class="${styles.modalContent}">
-              <button onclick=${this.close} class="${styles.btn} ${styles.btnClose}">
-                <span class="${styles.visuallyHidden}">Close</span>
-              </button>
-              ${this.header.render({ page, disabled: submitting, message }, emit)}
-              ${this.formRouter({ page, submitting }, emit)}
-              <hr class="${styles.hr}" />
-              ${this.providers.render()}
+    const { page, submitting, message, user } = state;
+    if (page === "logout") {
+      return html`
+          <div class="${styles.modalContainer}" role="dialog">
+            <div class="${styles.modalDialog}">
+              <div class="${styles.modalContent}">
+                <button onclick=${this.close} class="${styles.btn} ${styles.btnClose}">
+                  <span class="${styles.visuallyHidden}">Close</span>
+                </button>
+                ${this.formRouter({ page, submitting, user }, emit)}
+              </div>
             </div>
+            <a href="https://www.netlify.com" class="${styles.callOut}">
+              <span class="${styles.netlifyLogo}"></span>
+              Coded by Netlify
+            </a>
           </div>
-          <a href="https://www.netlify.com" class="${styles.callOut}">
-            <span class="${styles.netlifyLogo}"></span>
-            Coded by Netlify
-          </a>
-        </div>
-      `;
+        `;
+    } else {
+      return html`
+          <div class="${styles.modalContainer}" role="dialog">
+            <div class="${styles.modalDialog}">
+              <div class="${styles.modalContent}">
+                <button onclick=${this.close} class="${styles.btn} ${styles.btnClose}">
+                  <span class="${styles.visuallyHidden}">Close</span>
+                </button>
+                ${this.header.render({ page, disabled: submitting, message }, emit)}
+                ${this.formRouter({ page, submitting }, emit)}
+                <hr class="${styles.hr}" />
+                ${this.providers.render({}, emit)}
+              </div>
+            </div>
+            <a href="https://www.netlify.com" class="${styles.callOut}">
+              <span class="${styles.netlifyLogo}"></span>
+              Coded by Netlify
+            </a>
+          </div>
+        `;
+    }
   }
 
   formRouter (state, emit) {
-    const { page, submitting } = state;
+    const { page, submitting, user } = state;
     if (!submitting) {
       switch (page) {
         case "login":
           return this.loginForm.render({}, emit);
         case "signup":
           return this.signupForm.render({}, emit);
+        case "logout":
+          return this.logoutForm.render({ user }, emit);
         default:
           return html`<div>${page} missing</div>`;
       }

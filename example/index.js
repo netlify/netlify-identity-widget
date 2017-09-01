@@ -8,4 +8,4 @@ window.identity = identity;
 
 const container = document.querySelector("#external");
 
-container.appendChild(identity.create()); // If you remove this from the DOM, you have to re-add it.
+identity.create().then(node => container.appendChild(node)); // If you remove this from the DOM, you have to re-add it.

@@ -88,6 +88,50 @@ class LoginForm extends Nanocomponent {
 
 exports.LoginForm = LoginForm;
 
+class LogoutForm extends Nanocomponent {
+  constructor () {
+    super();
+
+    this.state = {};
+    this.emit = null;
+
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  createElement (state, emit) {
+    this.state = state;
+    this.emit = emit;
+    return html`
+      <form
+        onsubmit=${this.handleSubmit}
+        class="${styles.form}">
+        <label>
+          Email
+          <input
+            value="${(this.state.user && this.state.user.email) || ""}"
+            readonly
+            type="email"/>
+        </label>
+        <input type="submit" value="Logout">
+      </form>
+    `;
+  }
+
+  update (state, emit) {
+    return true;
+  }
+
+  handleSubmit (ev) {
+    ev.preventDefault();
+
+    this.emit("submit-logout");
+    this.render(this.state, this.emit);
+    return false;
+  }
+}
+
+exports.LogoutForm = LogoutForm;
+
 class SignupForm extends Nanocomponent {
   constructor () {
     super();
