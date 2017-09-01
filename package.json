@@ -7,7 +7,7 @@
     "bel": "^5.0.3",
     "classnames": "^2.2.5",
     "csjs": "^1.1.0",
-    "gotrue-js": "^0.9.0",
+    "gotrue-js": "^0.9.1",
     "nanobus": "^4.2.0",
     "nanocomponent": "^6.3.0",
     "query-string": "^5.0.0"

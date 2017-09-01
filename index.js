@@ -231,19 +231,8 @@ function store (state, emitter, goTrue) {
   });
 
   emitter.on("external-login", ({ provider }) => {
-    state.submitting = true;
-    emitter.emit("render");
-    goTrue.loginExternal(provider)
-      .then(() => {
-        state.submitting = false;
-        emitter.emit("render");
-      })
-      .catch(err => {
-        state.message = `Failed to log in ${JSON.stringify(error)}`;
-        state.submitting = false;
-        emitter.emit("render");
-        emitter.emit("error", error);
-      });
+    const url = goTrue.loginExternalUrl(provider);
+    window.location.href = url;
   });
 
   emitter.on("submit-logout", () => {
