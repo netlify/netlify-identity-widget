@@ -209,7 +209,6 @@ module.exports = css`
   }
 
   .inputFieldIcon {
-    content: "";
     position: absolute;
     top: 12px;
     left: 12px;
