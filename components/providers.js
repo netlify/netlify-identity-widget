@@ -7,9 +7,6 @@ class Providers extends Nanocomponent {
   createElement () {
     return html`
       <div class="${styles.providersGroup}">
-        <div class="${styles.providersSeparator}">
-          <span>or</span>
-        </div>
         <button class="${styles.providerGoogle} ${styles.btn} ${styles.btnProvider}">Continue with Google</button>
         <button class="${styles.providerGitHub} ${styles.btn} ${styles.btnProvider}">Continue with GitHub</button>
         <button class="${styles.providerGitLab} ${styles.btn} ${styles.btnProvider}">Continue with GitLab</button>
