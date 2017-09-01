@@ -54,7 +54,7 @@ module.exports = css`
 
   .modalContent {
     position: relative;
-    padding: 24px;
+    padding: ${basePadding};
     background: #fff;
   }
 
@@ -70,7 +70,6 @@ module.exports = css`
     }
 
     .modalContent {
-      padding: ${basePadding};
       background: #fff;
       box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.07), 0 12px 32px 0 rgba(14, 30, 37, 0.1);
       border-radius: 8px;
@@ -93,7 +92,7 @@ module.exports = css`
     color: #fff;
     transition: background-color 0.2s ease;
     font-family: ${fontFamily};
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 500;
     line-height: 24px;
     text-align: center;
@@ -184,7 +183,7 @@ module.exports = css`
     background: #fff;
     color: ${baseColor};
     box-shadow: none;
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 500;
     line-height: 24px;
     transition: box-shadow ease-in-out 0.15s;
@@ -217,19 +216,21 @@ module.exports = css`
   }
 
   .btnProvider {
+    padding-left: 40px;
+    padding-right: 40px;
   }
 
   .btnProvider::before {
     content: "";
-    position: relative;
+    position: absolute;
     display: inline-block;
     vertical-align: middle;
-    margin-right: 8px;
-    width: 24px;
-    height: 24px;
+    width: 40px;
+    height: 40px;
     background-repeat: no-repeat;
-    background-position: right center;
+    background-position: center;
     top: -2px;
+    left: 0;
   }
 
   .providerGoogle {
