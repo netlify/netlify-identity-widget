@@ -47,6 +47,7 @@ class Modal extends Nanocomponent {
           <div class="${styles.modalDialog}">
             <div class="${styles.modalContent}">
               <button onclick=${this.close} class="${styles.btn} ${styles.btnClose}">
+                <span class="${styles.visuallyHidden}">Close</span>
               </button>
               ${this.header.render({ page, disabled: submitting, message }, emit)}
               ${this.formRouter({ page, submitting }, emit)}
