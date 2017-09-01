@@ -43,7 +43,7 @@ class Modal extends Nanocomponent {
   layout (state, emit) {
     const { page, submitting, message } = state;
     return html`
-        <div class="${styles.modalContainer}">
+        <div class="${styles.modalContainer}" role="dialog">
           <div class="${styles.modalDialog}">
             <div class="${styles.modalContent}">
               <button onclick=${this.close} class="${styles.btn} ${styles.btnClose}">
