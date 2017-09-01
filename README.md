@@ -2,11 +2,17 @@
 
 A component used to authenticate with Netlify's GoTrue API.
 
+
 ## Usage
 
 Netlify Identity has two APIs:
+```js
+import NetlifyIdentity from 'netlify-identity'
 
 ### UMD API
+const loginModal = new NetlifyIdentity({ // create gotrue instance
+  APIUrl: 'https://auth.netlify.com'
+})
 
 A UMD build of Netlify Identity is provided and only requires adding HTML markup to your website.
 
@@ -47,9 +53,11 @@ import NetlifyIdentity from "netlify-identity-widget"
 const NetlifyIdentity = require("netlify-identity-widget");
 
 const identity = new NetlifyIdentity()
+const new loginModal = new NetlifyIdentity(window.goTrueInstance) //consume an existing one
 
 // Select a div on your page that won't change or be overwritten to act as a container
 const container = document.querySelector("#external");
+loginModal.mount({ css: true }, document.body) // this could be automatic on creation, but auto body mounting is smelly
 
 // Insert the modal component into the container div
 container.appendChild(identity.create());
@@ -62,13 +70,19 @@ loginModal.on('signup', response => console.log(response)) // listen for importa
 loginModal.on('login', login => console.log(user))
 loginModal.on('logout', () => console.log("Logged out"))
 loginModal.on('error', err => console.error("Logged out")) // Error state will be displayed in modal as well
+loginModal.on('signup', fn) // listen for importaint events to read from the goTrue state
+loginModal.on('login', fn)
+loginModal.on('logout', fn)
+loginModal.on('error', fn) // Handle modal consumer level errors
 
 loginModal.close() // Close the modal
 ```
 
 The module API does not attach itself to the window object automatically.
+Alternative:
 
 ## API
+```html
 
 ### `identity = new NetlifyIdentity([opts], [goTrueOpts])`
 Create a new Netlify Identity instance. `goTrueOpts` are passed to an internal [gotrue-js][gt] reference.
@@ -79,6 +93,18 @@ Create a new Netlify Identity instance. `goTrueOpts` are passed to an internal [
 {
   open: true // Open modal on mount
 }
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Foo</title>
+  <script src="https://www.netlify.com/netlify-identity.js"></script>
+</head>
+<body>
+  <div>
+    <div data-netlify-identity>We take over this div and put buttons here depending on goTrue state</div>
+  </div>
+</body>
+</html>
 ```
 
 ### `identity.create()`
