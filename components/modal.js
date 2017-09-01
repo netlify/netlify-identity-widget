@@ -39,12 +39,14 @@ class Modal extends Nanocomponent {
   layout (state, emit) {
     const { page, submitting, message } = state;
     return html`
-        <div class="${styles.modalBackground}">
-          <div class="${styles.modalWindow}">
-            ${this.header.render({ page, disabled: submitting, message }, emit)}
-            ${this.formRouter({ page, submitting }, emit)}
-            ${this.providers.render()}
-            ${this.footer.render({ submitting }, emit)}
+        <div class="${styles.modalContainer}">
+          <div class="${styles.modalDialog}">
+            <div class="${styles.modalContent}">
+              ${this.header.render({ page, disabled: submitting, message }, emit)}
+              ${this.formRouter({ page, submitting }, emit)}
+              ${this.providers.render()}
+              ${this.footer.render({ submitting }, emit)}
+            </div>
           </div>
           <a href="https://www.netlify.com" class="${styles.callOut}">
             <span class="${styles.netlifyLogo}"></span>

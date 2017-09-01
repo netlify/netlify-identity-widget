@@ -26,20 +26,34 @@ class LoginForm extends Nanocomponent {
         onsubmit=${this.handleSubmit}
         class="${styles.form}">
         <div class="${styles.formGroup}">
-          <input
-            value="${this.email}"
-            oninput=${this.handleEmailInput}
-            type="email"
-            required />
-          <label>Email</label>
+          <label>
+            <span class="${styles.visuallyHidden}">
+              Enter your email
+            </span>
+            <input
+              class="${styles.formControl}"
+              value="${this.email}"
+              oninput=${this.handleEmailInput}
+              type="email"
+              placeholder="Email"
+              required
+            />
+          </label>
         </div>
         <div class="${styles.formGroup}">
-          <input
-            value="${this.email}"
-            oninput=${this.handlePasswordInput}
-            type="password"
-            required />
-          <label>Password</label>
+          <label>
+            <span class="${styles.visuallyHidden}">
+              Enter your password
+            </span>
+            <input
+              class="${styles.formControl}"
+              value="${this.email}"
+              oninput=${this.handlePasswordInput}
+              type="password"
+              placeholder="Password"
+              required
+            />
+          </label>
         </div>
         <button type="submit" value="Log in" class="${styles.btn}">Log in</button>
       </form>
@@ -95,28 +109,44 @@ class SignupForm extends Nanocomponent {
     return html`
       <form onsubmit=${this.handleSubmit} class="${styles.form}">
         <div class="${styles.formGroup}">
-          <input
-            oninput=${this.handleNameInput}
-            value="${this.name}"
-            type="text"
-            required />
-          <label>Name</label>
+          <label>
+            <span class="${styles.visuallyHidden}">Enter your full name</span>
+            <input
+              class="${styles.formControl}"
+              oninput=${this.handleNameInput}
+              value="${this.name}"
+              type="text"
+              placeholder="Name"
+              required
+            />
+          </label>
         </div>
         <div class="${styles.formGroup}">
-          <input
-            oninput=${this.handleEmailInput}
-            value="${this.email}"
-            type="email"
-            required />
-          <label>Email</label>
+          <label>
+            <span class="${styles.visuallyHidden}">Enter your email</span>
+            <input
+              class="${styles.formControl}"
+              oninput=${this.handleEmailInput}
+              value="${this.email}"
+              type="email"
+              placeholder="Email"
+              autocapitalize="off"
+              required
+            />
+          </label>
         </div>
         <div class="${styles.formGroup}">
-          <input
-            oninput=${this.handlePasswordInput}
-            value="${this.password}"
-            type="password"
-            required />
-          <label>Password</label>
+          <label>
+            <span class="${styles.visuallyHidden}">Enter a password</span>
+            <input
+              class="${styles.formControl}"
+              oninput=${this.handlePasswordInput}
+              value="${this.password}"
+              type="password"
+              placeholder="Password"
+              required
+            />
+          </label>
         </div>
         <button type="submit" value="Signup" class="${styles.btn}">Sign up</button>
       </form>

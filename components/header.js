@@ -34,12 +34,11 @@ class Header extends Nanocomponent {
     return html`
       <div class="${styles.header}">
         <div class="${styles.modeSwitcher}">
-          <button disabled=${disabled} class="${signupClass}"
+          <button disabled=${disabled} class="${styles.btn} ${styles.headerButton} ${signupClass}"
           onclick=${this.navigateSignupPage}>Sign up</button>
-          <button disabled=${disabled} class="${loginClass}"
-          onclick=${this.navigateLoginPage}>Login</button>
+          <button disabled=${disabled} class="${styles.btn} ${styles.headerButton} ${loginClass}"
+          onclick=${this.navigateLoginPage}>Log in</button>
         </div>
-
       </div>
     `;
   }
