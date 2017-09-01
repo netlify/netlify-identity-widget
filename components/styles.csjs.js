@@ -225,12 +225,12 @@ module.exports = css`
     position: absolute;
     display: inline-block;
     vertical-align: middle;
-    width: 40px;
+    width: 32px;
     height: 40px;
     background-repeat: no-repeat;
-    background-position: center;
+    background-position: left center;
     top: -2px;
-    left: 0;
+    left: 14px;
   }
 
   .providerGoogle {
