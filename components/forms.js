@@ -38,6 +38,7 @@ class LoginForm extends Nanocomponent {
               placeholder="Email"
               required
             />
+            <div class="${styles.inputFieldIcon} ${styles.inputFieldEmail}"></div>
           </label>
         </div>
         <div class="${styles.formGroup}">
@@ -53,6 +54,7 @@ class LoginForm extends Nanocomponent {
               placeholder="Password"
               required
             />
+            <div class="${styles.inputFieldIcon} ${styles.inputFieldPassword}"></div>
           </label>
         </div>
         <button type="submit" value="Login" class="${styles.btn}">Log In</button>
@@ -119,6 +121,7 @@ class SignupForm extends Nanocomponent {
               placeholder="Name"
               required
             />
+            <div class="${styles.inputFieldIcon} ${styles.inputFieldName}"></div>
           </label>
         </div>
         <div class="${styles.formGroup}">
@@ -133,6 +136,7 @@ class SignupForm extends Nanocomponent {
               autocapitalize="off"
               required
             />
+            <div class="${styles.inputFieldIcon} ${styles.inputFieldEmail}"></div>
           </label>
         </div>
         <div class="${styles.formGroup}">
@@ -146,6 +150,7 @@ class SignupForm extends Nanocomponent {
               placeholder="Password"
               required
             />
+            <div class="${styles.inputFieldIcon} ${styles.inputFieldPassword}"></div>
           </label>
         </div>
         <button type="submit" value="Signup" class="${styles.btn}">Sign Up</button>
