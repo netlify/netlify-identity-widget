@@ -71,7 +71,7 @@ class Modal extends Nanocomponent {
                 ${this.header.render({ page, disabled: submitting, message }, emit)}
                 ${this.formRouter({ page, submitting }, emit)}
                 <hr class="${styles.hr}" />
-                ${this.providers.render()}
+                ${this.providers.render({}, emit)}
               </div>
             </div>
             <a href="https://www.netlify.com" class="${styles.callOut}">
