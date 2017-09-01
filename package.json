@@ -37,24 +37,24 @@
     "unassertify": "^2.0.4"
   },
   "license": "MIT",
-  "main": "index.js",
+  "main": "dist/index.js",
   "umd": "dist/netlify-identity-umd.css",
   "scripts": {
     "test": "run-s test:*",
     "test:lint": "eslint .",
-    "start": "budo example/index.js:bundle.js --dir example --live --open",
-    "start:umd": "run-s clean start:umd:server",
-    "start:umd:server": "budo umd.js:netlify-identity-umd.js --dir dist --dir site --live --open",
+    "start": "budo example/index.js:bundle.js --dir example --live --open -- --transform-key=build",
+    "start:umd": "budo umd.js:netlify-identity-umd.js --dir site --live --open -- --transform-key=build",
     "build": "run-s clean build:*",
     "build:site": "cpr site dist",
-    "build:umd": "browserify umd.js --standalone netlifyIdentity -g unassertify -p discify -o dist/netlify-identity-umd.js",
+    "build:umd": "browserify umd.js --standalone netlifyIdentity --transform-key=build -g unassertify -p discify -o dist/netlify-identity-umd.js",
+    "build:main": "browserify index.js --transform-key=build --no-bundle-external -g unassertify -p discify -o dist/index.js",
     "clean:": "rimraf dist && mkdirp dist",
     "disc": "run-s build disc:server",
     "disc:server": "http-server disc",
     "prepublish": "run-s build"
   },
   "browserify": {
-    "transform": [
+    "build": [
       "csjs-injectify",
       "yo-yoify"
     ]
