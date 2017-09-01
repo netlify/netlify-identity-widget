@@ -55,7 +55,7 @@ class LoginForm extends Nanocomponent {
             />
           </label>
         </div>
-        <button type="submit" value="Log in" class="${styles.btn}">Log in</button>
+        <button type="submit" value="Login" class="${styles.btn}">Log In</button>
       </form>
     `;
   }
@@ -148,7 +148,7 @@ class SignupForm extends Nanocomponent {
             />
           </label>
         </div>
-        <button type="submit" value="Signup" class="${styles.btn}">Sign up</button>
+        <button type="submit" value="Signup" class="${styles.btn}">Sign Up</button>
       </form>
     `;
   }
