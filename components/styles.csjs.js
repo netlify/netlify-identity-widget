@@ -1,6 +1,6 @@
 const css = require("csjs");
 const baseColor = "rgb(14, 30, 37)";
-const placeholderColor = "rgba(14, 30, 37, 0.54)";
+const subduedColor = "#a3a9ac";
 const providerColorGoogle = "#4285f4";
 const providerAltColorGoogle = "#366dc7";
 const providerColorGitHub = "#161614";
@@ -16,19 +16,19 @@ const basePadding = "32px";
 module.exports = css`
 
   ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-    color: ${placeholderColor};
+    color: ${subduedColor};
     font-weight: 500;
   }
   ::-moz-placeholder { /* Firefox 19+ */
-    color: ${placeholderColor};
+    color: ${subduedColor};
     font-weight: 500;
   }
   :-ms-input-placeholder { /* IE 10+ */
-    color: ${placeholderColor};
+    color: ${subduedColor};
     font-weight: 500;
   }
   :-moz-placeholder { /* Firefox 18- */
-    color: ${placeholderColor};
+    color: ${subduedColor};
     font-weight: 500;
   }
 
@@ -160,7 +160,7 @@ module.exports = css`
     font-size: 16px;
     line-height: 24px;
     background: #fff;
-    color: #a3a9ac;
+    color: ${subduedColor};
     border: 0;
     border-bottom: 2px solid #e9ebeb;
     border-radius: 4px 4px 0 0;
@@ -308,7 +308,7 @@ module.exports = css`
     font-size: 14px;
     font-weight: 500;
     text-decoration: none;
-    color: #a3a9ac;
+    color: ${subduedColor};
     text-align: center;
   }
 
