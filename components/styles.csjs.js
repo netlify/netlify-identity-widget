@@ -1,6 +1,6 @@
 const css = require("csjs");
 const baseColor = "rgb(14, 30, 37)";
-const highlightColor = "#f6bc00";
+const placeholderColor = "rgba(14, 30, 37, 0.54)";
 const providerColorGoogle = "#4285f4";
 const providerAltColorGoogle = "#366dc7";
 const providerColorGitHub = "#161614";
@@ -14,6 +14,23 @@ const fontFamily =
 const basePadding = "32px";
 
 module.exports = css`
+
+  ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    color: ${placeholderColor};
+    font-weight: 500;
+  }
+  ::-moz-placeholder { /* Firefox 19+ */
+    color: ${placeholderColor};
+    font-weight: 500;
+  }
+  :-ms-input-placeholder { /* IE 10+ */
+    color: ${placeholderColor};
+    font-weight: 500;
+  }
+  :-moz-placeholder { /* Firefox 18- */
+    color: ${placeholderColor};
+    font-weight: 500;
+  }
 
   .modalContainer {
     position: absolute;
