@@ -99,7 +99,7 @@ module.exports = css`
     position: relative;
     width: 100%;
     height: auto;
-    margin: 12px 0 0;
+    margin: 14px 0 0;
     padding: 6px;
     outline: 0;
     cursor: pointer;
@@ -185,7 +185,7 @@ module.exports = css`
 
   .formGroup {
     position: relative;
-    margin-top: 12px;
+    margin-top: 14px;
   }
 
   .formControl {
