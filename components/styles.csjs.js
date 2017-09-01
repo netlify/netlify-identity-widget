@@ -3,12 +3,12 @@ const baseColor = "rgb(14, 30, 37)";
 const subduedColor = "#a3a9ac";
 const providerColorGoogle = "#4285f4";
 const providerAltColorGoogle = "#366dc7";
-const providerColorGitHub = "#161614";
+const providerColorGitHub = "#333";
 const providerAltColorGitHub = "#000";
-const providerColorGitLab = "#c3442d";
-const providerAltColorGitLab = "#8f3121";
-const providerColorBitbucket = "#1b4aaa";
-const providerAltColorBitbucket = "#133578";
+const providerColorGitLab = "#e24329";
+const providerAltColorGitLab = "#b03320";
+const providerColorBitbucket = "#205081";
+const providerAltColorBitbucket = "#14314f";
 const fontFamily =
   "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'";
 const basePadding = "32px";
