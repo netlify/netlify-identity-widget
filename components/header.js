@@ -13,6 +13,7 @@ class Header extends Nanocomponent {
     this.navigateLoginPage = this.navigateLoginPage.bind(this);
     this.navigateSignupPage = this.navigateSignupPage.bind(this);
   }
+
   navigateLoginPage () {
     this.emit("navigate", "login");
   }
@@ -33,13 +34,10 @@ class Header extends Nanocomponent {
 
     return html`
       <div class="${styles.header}">
-        <div class="${styles.modeSwitcher}">
-          <button disabled=${disabled} class="${signupClass}"
-          onclick=${this.navigateSignupPage}>Sign up</button>
-          <button disabled=${disabled} class="${loginClass}"
-          onclick=${this.navigateLoginPage}>Login</button>
-        </div>
-
+        <button disabled=${disabled} class="${styles.btn} ${styles.btnHeader} ${signupClass}"
+        onclick=${this.navigateSignupPage}>Sign Up</button>
+        <button disabled=${disabled} class="${styles.btn} ${styles.btnHeader} ${loginClass}"
+        onclick=${this.navigateLoginPage}>Log In</button>
       </div>
     `;
   }

@@ -3,7 +3,6 @@ const Nanocomponent = require("nanocomponent");
 const html = require("bel");
 const Header = require("./header");
 const Providers = require("./providers");
-const Footer = require("./footer");
 const { SignupForm, LoginForm } = require("./forms");
 
 class Modal extends Nanocomponent {
@@ -16,9 +15,14 @@ class Modal extends Nanocomponent {
 
     this.header = new Header();
     this.providers = new Providers();
-    this.footer = new Footer();
     this.signupForm = new SignupForm();
     this.loginForm = new LoginForm();
+
+    this.close = this.close.bind(this);
+  }
+
+  close () {
+    this.emit("close");
   }
 
   createElement (state, emit) {
@@ -39,12 +43,17 @@ class Modal extends Nanocomponent {
   layout (state, emit) {
     const { page, submitting, message } = state;
     return html`
-        <div class="${styles.modalBackground}">
-          <div class="${styles.modalWindow}">
-            ${this.header.render({ page, disabled: submitting, message }, emit)}
-            ${this.formRouter({ page, submitting }, emit)}
-            ${this.providers.render()}
-            ${this.footer.render({ submitting }, emit)}
+        <div class="${styles.modalContainer}" role="dialog">
+          <div class="${styles.modalDialog}">
+            <div class="${styles.modalContent}">
+              <button onclick=${this.close} class="${styles.btn} ${styles.btnClose}">
+                <span class="${styles.visuallyHidden}">Close</span>
+              </button>
+              ${this.header.render({ page, disabled: submitting, message }, emit)}
+              ${this.formRouter({ page, submitting }, emit)}
+              <hr class="${styles.hr}" />
+              ${this.providers.render()}
+            </div>
           </div>
           <a href="https://www.netlify.com" class="${styles.callOut}">
             <span class="${styles.netlifyLogo}"></span>
