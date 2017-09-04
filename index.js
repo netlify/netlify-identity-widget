@@ -25,7 +25,8 @@ class NetlifyIdentity extends Nanobus {
       submitting: false,
       success: null /* Success message goes here */,
       error: null /* Error message goes here */,
-      user: null
+      user: null,
+      settings: { external: {} }
     };
 
     this.on("render", () => {
@@ -54,9 +55,13 @@ class NetlifyIdentity extends Nanobus {
       this.emit("login", user);
     }
 
-    return this._parseHashTokens().then(() => {
-      return this.modal.render(this.state, this.emit);
-    });
+    return this.goTrue
+      .settings()
+      .then(settings => {
+        this.state.settings = settings;
+      })
+      .then(() => this._parseHashTokens())
+      .then(() => this.modal.render(this.state, this.emit));
   }
 
   open () {
@@ -187,7 +192,11 @@ function store (state, emitter, goTrue) {
     emitter.emit("render");
     goTrue.signup(email, password, { full_name: name }).then(
       response => {
-        // TODO a confirmation email isn't always sent. Handle autoconfirm.
+        if (state.settings.autoconfirm) {
+          emitter.emit("signup", response);
+          emitter.emit("submit-login", { email, password });
+          return;
+        }
         state.success = "Confirmation email sent";
         state.submitting = false;
         emitter.emit("render");

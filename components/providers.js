@@ -3,40 +3,43 @@ const Nanocomponent = require("nanocomponent");
 const html = require("bel");
 
 class Providers extends Nanocomponent {
-  createElement ({ page }, emit) {
+  createElement (state, emit) {
     this.emit = emit;
-    this.page = page;
+    const { page, settings } = state;
+    const externalEnabled = Object.keys(settings.external).some(
+      k => settings.external[k]
+    );
 
     switch (page) {
       case "login":
       case "signup":
         return html`
           <div class="${styles.providersGroup}">
-            <hr class="${styles.hr}" />
-            <button
+            ${externalEnabled ? html`<hr class="${styles.hr}" />` : ""}
+            ${state.settings.external.google ? html`<button
               onclick=${this.login.bind(this, "google")}
               class="${styles.providerGoogle} ${styles.btn} ${styles.btnProvider}"
             >
               Continue with Google
-            </button>
-            <button
+            </button>` : ""}
+            ${state.settings.external.github ? html`<button
               onclick=${this.login.bind(this, "github")}
               class="${styles.providerGitHub} ${styles.btn} ${styles.btnProvider}"
             >
               Continue with GitHub
-            </button>
-            <button
+            </button>` : ""}
+            ${state.settings.external.gitlab ? html`<button
               onclick=${this.login.bind(this, "gitlab")}
               class="${styles.providerGitLab} ${styles.btn} ${styles.btnProvider}"
             >
               Continue with GitLab
-            </button>
-            <button
+            </button>` : ""}
+            ${state.settings.external.bitbucket ? html`<button
               onclick=${this.login.bind(this, "bitbucket")}
               class="${styles.providerBitbucket} ${styles.btn} ${styles.btnProvider}"
             >
               Continue with Bitbucket
-            </button>
+            </button>` : ""}
           </div>
         `;
 
@@ -47,8 +50,8 @@ class Providers extends Nanocomponent {
     }
   }
 
-  update ({ page }, emit) {
-    return this.page !== page;
+  update (settings, emit) {
+    return true;
   }
 
   login (provider) {
