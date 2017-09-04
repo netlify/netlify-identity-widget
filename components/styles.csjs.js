@@ -1,6 +1,7 @@
 const css = require("csjs");
 const baseColor = "rgb(14, 30, 37)";
 const subduedColor = "#a3a9ac";
+const errorColor = "#fa3946";
 const providerColorGoogle = "#4285f4";
 const providerAltColorGoogle = "#366dc7";
 const providerColorGitHub = "#333";
@@ -14,20 +15,23 @@ const fontFamily =
 const basePadding = "32px";
 
 module.exports = css`
-
-  ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  ::-webkit-input-placeholder {
+    /* Chrome/Opera/Safari */
     color: ${subduedColor};
     font-weight: 500;
   }
-  ::-moz-placeholder { /* Firefox 19+ */
+  ::-moz-placeholder {
+    /* Firefox 19+ */
     color: ${subduedColor};
     font-weight: 500;
   }
-  :-ms-input-placeholder { /* IE 10+ */
+  :-ms-input-placeholder {
+    /* IE 10+ */
     color: ${subduedColor};
     font-weight: 500;
   }
-  :-moz-placeholder { /* Firefox 18- */
+  :-moz-placeholder {
+    /* Firefox 18- */
     color: ${subduedColor};
     font-weight: 500;
   }
@@ -72,7 +76,23 @@ module.exports = css`
   .modalContent {
     position: relative;
     padding: ${basePadding};
+    opacity: 0;
+    transform: translateY(10px);
     background: #fff;
+    animation: fadeIn 0.3s ease-in-out;
+    animation-fill-mode: forwards;
+  }
+
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   @media (min-width: 480px) {
@@ -88,9 +108,58 @@ module.exports = css`
 
     .modalContent {
       background: #fff;
-      box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.07), 0 12px 32px 0 rgba(14, 30, 37, 0.1);
+      box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.07),
+        0 12px 32px 0 rgba(14, 30, 37, 0.1);
       border-radius: 8px;
       margin-top: ${basePadding};
+    }
+  }
+
+  .error {
+    position: relative;
+    display: block;
+    margin: -8px 0 24px;
+    padding-left: 24px;
+    color: ${errorColor};
+  }
+
+  .error::before {
+    content: "";
+    display: block;
+    position: absolute;
+    left: 0;
+    width: 24px;
+    height: 24px;
+    background: no-repeat left center;
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICA8cGF0aCBmaWxsPSIjRkEzOTQ2IiBkPSJNOCwxLjMzMzMzMzMzIEMxMS42NzYsMS4zMzMzMzMzMyAxNC42NjY2NjY3LDQuMzI0IDE0LjY2NjY2NjcsOCBDMTQuNjY2NjY2NywxMS42NzYgMTEuNjc2LDE0LjY2NjY2NjcgOCwxNC42NjY2NjY3IEM0LjMyNCwxNC42NjY2NjY3IDEuMzMzMzMzMzMsMTEuNjc2IDEuMzMzMzMzMzMsOCBDMS4zMzMzMzMzMyw0LjMyNCA0LjMyNCwxLjMzMzMzMzMzIDgsMS4zMzMzMzMzMyBaIE04LDAgQzMuNTgyLDAgMCwzLjU4MiAwLDggQzAsMTIuNDE4IDMuNTgyLDE2IDgsMTYgQzEyLjQxOCwxNiAxNiwxMi40MTggMTYsOCBDMTYsMy41ODIgMTIuNDE4LDAgOCwwIFogTTcuMTI2NjY2NjcsNS4wMTczMzMzMyBDNy4wNjA2NjY2Nyw0LjQ3OTMzMzMzIDcuNDc4NjY2NjcsNCA4LjAyNTMzMzMzLDQgQzguNTM5MzMzMzMsNCA4Ljk0MzMzMzMzLDQuNDUwNjY2NjcgOC44Nzg2NjY2Nyw0Ljk2NzMzMzMzIEw4LjM3NCw5LjAwMjY2NjY3IEM4LjM1MDY2NjY3LDkuMTkxMzMzMzMgOC4xOSw5LjMzMzMzMzMzIDgsOS4zMzMzMzMzMyBDNy44MSw5LjMzMzMzMzMzIDcuNjQ5MzMzMzMsOS4xOTEzMzMzMyA3LjYyNTMzMzMzLDkuMDAyNjY2NjcgTDcuMTI2NjY2NjcsNS4wMTczMzMzMyBMNy4xMjY2NjY2Nyw1LjAxNzMzMzMzIFogTTgsMTIuMTY2NjY2NyBDNy41NCwxMi4xNjY2NjY3IDcuMTY2NjY2NjcsMTEuNzkzMzMzMyA3LjE2NjY2NjY3LDExLjMzMzMzMzMgQzcuMTY2NjY2NjcsMTAuODczMzMzMyA3LjU0LDEwLjUgOCwxMC41IEM4LjQ2LDEwLjUgOC44MzMzMzMzMywxMC44NzMzMzMzIDguODMzMzMzMzMsMTEuMzMzMzMzMyBDOC44MzMzMzMzMywxMS43OTMzMzMzIDguNDYsMTIuMTY2NjY2NyA4LDEyLjE2NjY2NjcgWiIvPgo8L3N2Zz4K);
+  }
+
+  .disabled {
+    opacity: 0.38;
+    pointer-events: none;
+  }
+
+  .saving {
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABQCAMAAACeYYN3AAAAxlBMVEUAAAD////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////DTx3aAAAAQnRSTlMAAQIDBAUGBwgJCgsMDQ4PEBESExQVFhcYGRobHB0eHyAhIiMkJSYnKCkqKywtLi8wMTIzNDU2Nzg5Ojs8PT4/QEGgjKRfAAACk0lEQVR4AYXQDXP5WhAG8CUhiSQqSv4RRRMVL1Fa1VZf3PL9v9Tde9wc9M8+P8/M7s6czJiHgNIvVCJO6YiAMlAiWckASiQrm4bJMZTDrmbBIEC9qpgVjp6n4B+oyEwCzKrMQBVaQIlkpmXZln1dhQB+49gOh5dLexlV6MhsAqyazEQVugCqsOK5nsQmwPWZ53ucvyczSGb4l9T9OsdnLgFOXVZFFd4AqEKrIasR4AdBI2hw1GR6VzMwSWY2A60ZNDl6KnUC3KbMRhXeAqhCpyXzCAjarNVucdqXVEhWaRfCdsj5vQcE1EOZQ7Jy+EcUlklWi2Q3BLQ6nagTcTra2Y0qrHZirRN3OOezTUAjvq4bd7suqpDfSGJUoXcnCwiIerIqqlC96vf6HD1ZsUcE3PYH/QGnrx3uYnqoQn4l6aMK/XtZi4BuIrNIZqVJkiapkhx37Y6AcDgcpsNU44Nz3OuoQn4jSVGFNw+ykID+SGaTzM5G2YiTFVM73AMConE2zjhj7XAXs4EqHE/4d12GKgwmsoiAZCpzSObMptPZdHZVSkCc5/ksnym8cPRUmiQzpvNcmedzTl4o7qlBsuZc1iVg9ChDFdYWshEBveV/FssFZ/l7Z7eowsfl0/JJ4UXj43A/ogpbT7IeAZNnWQ1VuJJNCBi8HKxeVhw9tRaq8JkfrV/WHDULxb1CFbbX7HX9yllfck9A/ipzSea+yeYEJO+yEFX4tim8b94VXjj/zzdU4Z/NmY/NB+fkTglYfMg8knmfsiUBD1+yCFX4+X309f3FOds/UYVR8fH2e6vwovExIuB5K/NJ5v8jWxGQ/chiVOF2d+pn98M5zt3WJFm83+/2O4UXjprabkzAWn+o56k9qvBfX4hMaM+SxOMAAAAASUVORK5CYII=);
+    background-repeat: repeat-x;
+    background-size: contain;
+    background-origin: border-box;
+    background-position: 0% 0%;
+    animation: loading 20s linear infinite;
+    pointer-events: none;
+  }
+
+  .saving::after {
+    content: "…";
+  }
+
+  @keyframes loading {
+    0% {
+      background-position: 0% 0%;
+    }
+
+    100% {
+      background-position: 700% 0%;
     }
   }
 
@@ -279,7 +348,8 @@ module.exports = css`
     border-color: ${providerAltColorGoogle};
   }
 
-  .providerGoogle:hover {
+  .providerGoogle:hover,
+  .providerGoogle:focus {
     background-color: ${providerAltColorGoogle};
   }
 
@@ -288,7 +358,8 @@ module.exports = css`
     border-color: ${providerAltColorGitHub};
   }
 
-  .providerGitHub:hover {
+  .providerGitHub:hover,
+  .providerGitHub:focus {
     background-color: ${providerAltColorGitHub};
   }
 
@@ -297,7 +368,8 @@ module.exports = css`
     border-color: ${providerAltColorGitLab};
   }
 
-  .providerGitLab:hover {
+  .providerGitLab:hover,
+  .providerGitLab:focus {
     background-color: ${providerAltColorGitLab};
   }
 
@@ -306,7 +378,8 @@ module.exports = css`
     border-color: ${providerAltColorBitbucket};
   }
 
-  .providerBitbucket:hover {
+  .providerBitbucket:hover,
+  .providerBitbucket:focus {
     background-color: ${providerAltColorBitbucket};
   }
 

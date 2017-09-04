@@ -23,7 +23,8 @@ class NetlifyIdentity extends Nanobus {
       open: opts.open,
       page: "login",
       submitting: false,
-      message: "messages go here",
+      success: null /* Success message goes here */,
+      error: null /* Error message goes here */,
       user: null
     };
 
@@ -82,8 +83,7 @@ class NetlifyIdentity extends Nanobus {
     const parsedHash = queryString.parse(window.location.hash);
     if (parsedHash.error) {
       window.location.hash = "";
-      // TODO flash error
-      this.state.message = `Error ${parsedHash.error}: ${parsedHash.error_description}`;
+      this.state.error = `Error ${parsedHash.error}: ${parsedHash.error_description}`;
       this.emit("error", new Error(parsedHash.error_description));
       return Promise.resolve();
     }
@@ -93,14 +93,13 @@ class NetlifyIdentity extends Nanobus {
       return this.goTrue
         .confirm(parsedHash.confirmation_token)
         .then(user => {
-          // TODO show flash saying email was confirmed
-          this.state.message = `Logged in ${user.email}`;
+          this.state.success = `Logged in ${user.email}`;
           this.state.page = "logout";
           this.state.user = user;
           this.emit("login", user);
         })
         .catch(err => {
-          this.state.message = `Failed to confirm email ${JSON.stringify(err)}`;
+          this.state.error = "Failed to confirm email";
           this.emit("error", err);
         });
     }
@@ -110,16 +109,13 @@ class NetlifyIdentity extends Nanobus {
       return this.goTrue
         .recover(parsedHash.recovery_token)
         .then(user => {
-          // TODO show flash saying account was recovered
-          this.state.message = `Logged in ${user.email}`;
+          this.state.success = `Logged in ${user.email}`;
           this.state.page = "logout";
           this.state.user = user;
           this.emit("login", user);
         })
         .catch(err => {
-          this.state.message = `Failed to recover account ${JSON.stringify(
-            err
-          )}`;
+          this.state.error = "Failed to recover account";
           this.emit("error", err);
         });
     }
@@ -143,11 +139,11 @@ class NetlifyIdentity extends Nanobus {
       return user
         .update({ email_change_token: parsedHash.email_change_token })
         .then(user => {
-          // TODO flash to say email change was successful
+          this.state.success = "Email change was successful";
           this.state.user = user;
         })
         .catch(err => {
-          this.state.message = `Failed to change email ${JSON.stringify(err)}`;
+          this.state.error = "Failed to change email";
           this.emit("error", err);
         });
     }
@@ -158,14 +154,13 @@ class NetlifyIdentity extends Nanobus {
       return this.goTrue
         .createUser(parsedHash, remember)
         .then(user => {
-          // TODO flash message?
-          this.state.message = `Logged in ${user.email}`;
+          this.state.success = `Logged in ${user.email}`;
           this.state.page = "logout";
           this.state.user = user;
           this.emit("login", user);
         })
         .catch(err => {
-          this.state.message = `Failed to login ${JSON.stringify(err)}`;
+          this.state.error = "Login failed";
           this.emit("error", err);
         });
     }
@@ -193,14 +188,13 @@ function store (state, emitter, goTrue) {
     goTrue.signup(email, password, { full_name: name }).then(
       response => {
         // TODO a confirmation email isn't always sent. Handle autoconfirm.
-        state.message = "Confirmation email sent";
+        state.success = "Confirmation email sent";
         state.submitting = false;
         emitter.emit("render");
         emitter.emit("signup", response);
       },
       error => {
-        // TODO: handle errors better
-        state.message = `Failed to register ${JSON.stringify(error)}`;
+        state.error = error.error_description || "We couldn’t sign you up";
         state.submitting = false;
         emitter.emit("render");
         emitter.emit("error", error);
@@ -214,15 +208,14 @@ function store (state, emitter, goTrue) {
     const remember = true;
     goTrue.login(email, password, remember).then(
       user => {
-        state.message = `Logged in ${user.email}`;
+        state.success = `Logged in ${user.email}`;
         state.submitting = false;
         state.page = "logout";
         state.user = user;
-        emitter.emit("render");
         emitter.emit("login", user);
       },
       error => {
-        state.message = `Failed to log in ${JSON.stringify(error)}`;
+        state.error = error.error_description || "We couldn’t log you in";
         state.submitting = false;
         emitter.emit("render");
         emitter.emit("error", error);
@@ -245,7 +238,7 @@ function store (state, emitter, goTrue) {
         state.submitting = false;
         state.page = "login";
         state.user = null;
-        state.message = "Logged out";
+        state.success = "Logged out";
         emitter.emit("render");
       });
     }
