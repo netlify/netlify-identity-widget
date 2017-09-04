@@ -1974,9 +1974,9 @@ globby@^5.0.0:
     pify "^2.0.0"
     pinkie-promise "^2.0.0"
 
-gotrue-js@^0.9.1:
-  version "0.9.1"
-  resolved "https://registry.yarnpkg.com/gotrue-js/-/gotrue-js-0.9.1.tgz#ee6f435f84c78b1dd2209f5a2ee867e282215345"
+gotrue-js@^0.9.2:
+  version "0.9.2"
+  resolved "https://registry.yarnpkg.com/gotrue-js/-/gotrue-js-0.9.2.tgz#27b72673d6146af0706cb6ee4c11853c4a955bb8"
   dependencies:
     micro-api-client "^2.0.0"
     prettier "^1.6.1"

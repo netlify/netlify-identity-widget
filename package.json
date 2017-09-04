@@ -7,7 +7,7 @@
     "bel": "^5.0.3",
     "classnames": "^2.2.5",
     "csjs": "^1.1.0",
-    "gotrue-js": "^0.9.1",
+    "gotrue-js": "^0.9.2",
     "nanobus": "^4.2.0",
     "nanocomponent": "^6.3.0",
     "query-string": "^5.0.0"
@@ -20,6 +20,7 @@
     "budo": "^10.0.4",
     "cpr": "^2.2.0",
     "csjs-extractify": "^1.0.0-alpha.0",
+    "csjs-injectify": "^1.0.1",
     "discify": "^1.6.0",
     "eslint": "^4.3.0",
     "eslint-config-prettier": "^2.3.0",
@@ -37,7 +38,6 @@
     "rimraf": "^2.6.1",
     "uglifyify": "^4.0.3",
     "unassertify": "^2.0.4",
-    "csjs-injectify": "^1.0.1",
     "yo-yoify": "^3.7.3"
   },
   "license": "MIT",
