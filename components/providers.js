@@ -50,8 +50,8 @@ class Providers extends Nanocomponent {
     }
   }
 
-  update () {
-    return false;
+  update (settings, emit) {
+    return true;
   }
 
   login (provider) {

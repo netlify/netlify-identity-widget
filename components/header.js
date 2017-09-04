@@ -8,7 +8,7 @@ class Header extends Nanocomponent {
     super();
 
     this.page = "login";
-    this.emit = "null";
+    this.emit = null;
 
     this.navigateLoginPage = this.navigateLoginPage.bind(this);
     this.navigateSignupPage = this.navigateSignupPage.bind(this);
