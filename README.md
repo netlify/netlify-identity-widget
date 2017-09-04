@@ -7,12 +7,10 @@ A component used to authenticate with Netlify's GoTrue API.
 
 Netlify Identity has two APIs:
 ```js
-import NetlifyIdentity from 'netlify-identity'
+import NetlifyIdentity from 'netlify-identity-widget'
+```
 
 ### UMD API
-const loginModal = new NetlifyIdentity({ // create gotrue instance
-  APIUrl: 'https://auth.netlify.com'
-})
 
 A UMD build of Netlify Identity is provided and only requires adding HTML markup to your website.
 
@@ -70,10 +68,6 @@ loginModal.on('signup', response => console.log(response)) // listen for importa
 loginModal.on('login', login => console.log(user))
 loginModal.on('logout', () => console.log("Logged out"))
 loginModal.on('error', err => console.error("Logged out")) // Error state will be displayed in modal as well
-loginModal.on('signup', fn) // listen for importaint events to read from the goTrue state
-loginModal.on('login', fn)
-loginModal.on('logout', fn)
-loginModal.on('error', fn) // Handle modal consumer level errors
 
 loginModal.close() // Close the modal
 ```
@@ -82,7 +76,6 @@ The module API does not attach itself to the window object automatically.
 Alternative:
 
 ## API
-```html
 
 ### `identity = new NetlifyIdentity([opts], [goTrueOpts])`
 Create a new Netlify Identity instance. `goTrueOpts` are passed to an internal [gotrue-js][gt] reference.
@@ -93,22 +86,10 @@ Create a new Netlify Identity instance. `goTrueOpts` are passed to an internal [
 {
   open: true // Open modal on mount
 }
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Foo</title>
-  <script src="https://www.netlify.com/netlify-identity.js"></script>
-</head>
-<body>
-  <div>
-    <div data-netlify-identity>We take over this div and put buttons here depending on goTrue state</div>
-  </div>
-</body>
-</html>
 ```
 
 ### `identity.create()`
-Return a DOM node that you need to insert into your DOM using something like `DOMnode.appendChild()`.  Only insert this into the page once, and do it in a node where it won't be removed.
+Return a DOM node that you need to insert into your DOM using something like `docment.body.appendChild()`.  Only insert this into the page once, and do it in a node where it won't be removed.
 
 ### `loginModal.open()`
 Opens the Netlify Identity modal.
