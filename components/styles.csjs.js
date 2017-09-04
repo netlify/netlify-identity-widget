@@ -244,9 +244,13 @@ module.exports = css`
     font-weight: 700;
   }
 
-  .btnHeader:hover {
+  .btnHeader:not(:only-child):hover {
     background-color: #e9ebeb;
     color: ${baseColor};
+  }
+
+  .btnHeader:only-child {
+    cursor: auto;
   }
 
   .form {
