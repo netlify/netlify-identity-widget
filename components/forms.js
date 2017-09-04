@@ -7,7 +7,6 @@ class LoginForm extends Nanocomponent {
   constructor () {
     super();
 
-    this.state = {};
     this.emit = null;
 
     this.email = "";
@@ -18,7 +17,6 @@ class LoginForm extends Nanocomponent {
   }
 
   createElement (state, emit) {
-    this.state = state;
     this.emit = emit;
 
     const { submitting } = state;
@@ -87,7 +85,7 @@ class LoginForm extends Nanocomponent {
       password: this.password
     });
 
-    this.render(this.state, this.emit);
+    this.rerender();
   }
 }
 
@@ -97,7 +95,6 @@ class SignupForm extends Nanocomponent {
   constructor () {
     super();
 
-    this.state = {};
     this.emit = null;
 
     this.name = "";
@@ -109,7 +106,6 @@ class SignupForm extends Nanocomponent {
   }
 
   createElement (state, emit) {
-    this.state = state;
     this.emit = emit;
 
     const { submitting } = state;
@@ -191,7 +187,7 @@ class SignupForm extends Nanocomponent {
       password: this.password
     });
 
-    this.render(this.state, this.emit);
+    this.rerender();
   }
 }
 
@@ -201,14 +197,12 @@ class LogoutForm extends Nanocomponent {
   constructor () {
     super();
 
-    this.state = {};
     this.emit = null;
 
     this.handleLogout = this.handleLogout.bind(this);
   }
 
   createElement (state, emit) {
-    this.state = state;
     this.emit = emit;
 
     const { submitting, user } = state;
@@ -242,7 +236,8 @@ class LogoutForm extends Nanocomponent {
     e.preventDefault();
 
     this.emit("submit-logout");
-    this.render(this.state, this.emit);
+
+    this.rerender();
   }
 }
 

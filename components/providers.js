@@ -3,9 +3,9 @@ const Nanocomponent = require("nanocomponent");
 const html = require("bel");
 
 class Providers extends Nanocomponent {
-  createElement (state, emit) {
+  createElement ({ page }, emit) {
     this.emit = emit;
-    const { page } = state;
+    this.page = page;
 
     switch (page) {
       case "login":
@@ -47,8 +47,8 @@ class Providers extends Nanocomponent {
     }
   }
 
-  update () {
-    return false;
+  update ({ page }, emit) {
+    return this.page !== page;
   }
 
   login (provider) {

@@ -3,41 +3,44 @@ const Nanocomponent = require("nanocomponent");
 const html = require("bel");
 
 class Flash extends Nanocomponent {
+  constructor () {
+    super();
+
+    this.error = null;
+    this.success = null;
+  }
+
   createElement (state, emit) {
     const { error, success } = state;
 
+    this.error = error;
+    this.success = success;
+
     if (error) {
-      state.error = null;
-      return this.error(error);
+      emit("clear-error");
+      return html`
+        <div class="${styles.error}" role="alert">${error}</div>
+      `;
     }
 
     if (success) {
-      state.success = null;
-      return this.success(success);
+      emit("clear-success");
+      return html`
+        <div class="${styles.success}" role="alert" aria-live="polite">${success}</div>
+      `;
     }
 
-    return this.placeHolder();
-  }
-
-  success (success) {
-    return html`
-      <div class="${styles.success}" role="alert" aria-live="polite">${success}</div>
-    `;
-  }
-  error (error) {
-    return html`
-      <div class="${styles.error}" role="alert">${error}</div>
-    `;
-  }
-
-  placeHolder () {
     return html`
       <div></div>
     `;
   }
 
   update (state, emit) {
-    return true;
+    const { error, success } = state;
+
+    if (this.error !== error) return true;
+    if (this.success !== success) return true;
+    return false;
   }
 }
 

@@ -9,7 +9,7 @@
     "csjs": "^1.1.0",
     "gotrue-js": "^0.9.1",
     "nanobus": "^4.2.0",
-    "nanocomponent": "^6.3.0",
+    "nanocomponent": "^6.4.0",
     "query-string": "^5.0.0"
   },
   "devDependencies": {

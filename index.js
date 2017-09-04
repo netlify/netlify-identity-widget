@@ -212,6 +212,7 @@ function store (state, emitter, goTrue) {
         state.submitting = false;
         state.page = "logout";
         state.user = user;
+        emitter.emit("render");
         emitter.emit("login", user);
       },
       error => {
@@ -242,5 +243,13 @@ function store (state, emitter, goTrue) {
         emitter.emit("render");
       });
     }
+  });
+
+  emitter.on("clear-error", () => {
+    state.error = null;
+  });
+
+  emitter.on("clear-success", () => {
+    state.success = null;
   });
 }
