@@ -76,7 +76,23 @@ module.exports = css`
   .modalContent {
     position: relative;
     padding: ${basePadding};
+    opacity: 0;
+    transform: translateY(10px);
     background: #fff;
+    animation: fadeIn 0.3s ease-in-out;
+    animation-fill-mode: forwards;
+  }
+
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   @media (min-width: 480px) {
