@@ -104,7 +104,7 @@ class NetlifyIdentity extends Nanobus {
           this.emit("login", user);
         })
         .catch(err => {
-          this.state.error = "Failed to confirm email";
+          this.state.error = "Failed to confirm email ${JSON.stringify(err)}";
           this.emit("error", err);
         });
     }
@@ -120,16 +120,18 @@ class NetlifyIdentity extends Nanobus {
           this.emit("login", user);
         })
         .catch(err => {
-          this.state.error = "Failed to recover account";
+          this.state.error = `Failed to recover account ${JSON.stringify(
+            err
+          )}`;
           this.emit("error", err);
         });
     }
 
     if (parsedHash.invite_token) {
       window.location.hash = "";
-      // TODO prompt for password then call
-      // this.goTrue.acceptInvite(parsedHash.invite_token, password)...
-      // probably can use a variant of signup with the email readonly
+      this.state.page = "accept";
+      this.state.token = parsedHash.invite_token;
+      this.state.open = true;
       return Promise.resolve();
     }
 
@@ -148,7 +150,7 @@ class NetlifyIdentity extends Nanobus {
           this.state.user = user;
         })
         .catch(err => {
-          this.state.error = "Failed to change email";
+          this.state.error = `Failed to change email ${JSON.stringify(err)}`;
           this.emit("error", err);
         });
     }
@@ -165,7 +167,7 @@ class NetlifyIdentity extends Nanobus {
           this.emit("login", user);
         })
         .catch(err => {
-          this.state.error = "Login failed";
+          this.state.error = `Failed to login ${JSON.stringify(err)}`;
           this.emit("error", err);
         });
     }
@@ -211,6 +213,25 @@ function store (state, emitter, goTrue) {
     );
   });
 
+  emitter.on("submit-invite", ({ password, name }) => {
+    state.submitting = true;
+    emitter.emit("render");
+    goTrue.acceptInvite(state.token, password).then(
+      response => {
+        state.success = "Invite accepted";
+        state.submitting = false;
+        emitter.emit("render");
+        emitter.emit("signup", response);
+      },
+      error => {
+        state.error = `Failed to verify ${JSON.stringify(error)}`;
+        state.submitting = false;
+        emitter.emit("render");
+        emitter.emit("error", error);
+      }
+    );
+  });
+
   emitter.on("submit-login", ({ email, password }) => {
     state.submitting = true;
     emitter.emit("render");
@@ -225,7 +246,10 @@ function store (state, emitter, goTrue) {
         emitter.emit("login", user);
       },
       error => {
-        state.error = error.error_description || "We couldn’t log you in";
+        state.error =
+          error && error.error === "invalid_grant"
+            ? "Wrong email or password."
+            : (error && error.error_description) || "We couldn’t log you in";
         state.submitting = false;
         emitter.emit("render");
         emitter.emit("error", error);

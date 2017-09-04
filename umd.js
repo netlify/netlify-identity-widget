@@ -14,14 +14,13 @@ function init () {
     window.netlifyIdentity = netlifyIdentity;
   }
 
-  const modalContainer = document.querySelector(
+  let modalContainer = document.querySelector(
     'div[data-netlify-identity-modal=""]'
   );
 
   if (!modalContainer) {
-    return console.warn(
-      "NetlifyIdentity: Missing a modal container. Add a div to your HTML with the data-netlify-identity-modal attribute"
-    );
+    modalContainer = document.createElement("div");
+    document.body.appendChild(modalContainer);
   }
 
   if (!window.goTrue) {

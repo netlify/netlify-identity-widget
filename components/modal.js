@@ -73,6 +73,8 @@ class Modal extends Nanocomponent {
         return this.loginForm.render(state, emit);
       case "signup":
         return this.signupForm.render(state, emit);
+      case "accept":
+        return this.signupForm.render(state, emit);
       case "logout":
         return this.logoutForm.render(state, emit);
       default:
