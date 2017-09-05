@@ -28,7 +28,7 @@ function init () {
   }
 
   if (!netlifyIdentity.isMounted) {
-    netlifyIdentity.create().then(node => modalContainer.appendChild(node));
+    modalContainer.appendChild(netlifyIdentity.create());
   } else {
     console.warn(
       "NetlifyIdentity: two or more instances are running on the same page"
