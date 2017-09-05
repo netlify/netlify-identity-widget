@@ -1974,11 +1974,11 @@ globby@^5.0.0:
     pify "^2.0.0"
     pinkie-promise "^2.0.0"
 
-gotrue-js@^0.9.3:
-  version "0.9.3"
-  resolved "https://registry.yarnpkg.com/gotrue-js/-/gotrue-js-0.9.3.tgz#5f8d4de45b10fd9e27b5739fe13e7568b9e9720b"
+gotrue-js@^0.9.4:
+  version "0.9.4"
+  resolved "https://registry.yarnpkg.com/gotrue-js/-/gotrue-js-0.9.4.tgz#4f28b1b70ef5fc8f1994bd709aa7095bce2e995d"
   dependencies:
-    micro-api-client "^2.0.0"
+    micro-api-client "^3.0.2"
     prettier "^1.6.1"
 
 graceful-fs@^4.1.2, graceful-fs@^4.1.5:
@@ -2613,9 +2613,9 @@ meow@^3.3.0:
     redent "^1.0.0"
     trim-newlines "^1.0.0"
 
-micro-api-client@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/micro-api-client/-/micro-api-client-2.0.0.tgz#c078a8003e2b70668be9c5ff331131e3fd739150"
+micro-api-client@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/micro-api-client/-/micro-api-client-3.0.2.tgz#9680f2bdd4ebe6851ae90af0843fd3a3c8bfa992"
 
 micromatch@^2.1.5, micromatch@^2.2.0:
   version "2.3.11"
