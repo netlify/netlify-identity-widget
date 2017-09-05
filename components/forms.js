@@ -2,6 +2,7 @@ const styles = require("./styles.csjs");
 const Nanocomponent = require("nanocomponent");
 const html = require("bel");
 const cn = require("classnames");
+const EmailInput = require("./email");
 
 class LoginForm extends Nanocomponent {
   constructor () {
@@ -9,11 +10,12 @@ class LoginForm extends Nanocomponent {
 
     this.emit = null;
 
-    this.email = "";
     this.password = "";
 
     this.handleInput = this.handleInput.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+
+    this.emailInput = new EmailInput();
   }
 
   createElement (state, emit) {
@@ -27,24 +29,7 @@ class LoginForm extends Nanocomponent {
       <form
         onsubmit=${this.handleSubmit}
         class="${styles.form} ${disabledClass}">
-        <div class="${styles.formGroup}">
-          <label>
-            <span class="${styles.visuallyHidden}">
-              Enter your email
-            </span>
-            <input
-              class="${styles.formControl}"
-              type="email"
-              name="email"
-              value="${this.email}"
-              placeholder="Email"
-              autocapitalize="off"
-              required
-              oninput=${this.handleInput}
-            />
-            <div class="${styles.inputFieldIcon} ${styles.inputFieldEmail}"></div>
-          </label>
-        </div>
+        ${this.emailInput.render(state, emit)}
         <div class="${styles.formGroup}">
           <label>
             <span class="${styles.visuallyHidden}">
@@ -81,7 +66,7 @@ class LoginForm extends Nanocomponent {
     e.preventDefault();
 
     this.emit("submit-login", {
-      email: this.email,
+      email: this.emailInput.email,
       password: this.password
     });
 
@@ -98,11 +83,12 @@ class SignupForm extends Nanocomponent {
     this.emit = null;
 
     this.name = "";
-    this.email = "";
     this.password = "";
 
     this.handleInput = this.handleInput.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+
+    this.emailInput = new EmailInput();
   }
 
   createElement (state, emit) {
@@ -133,22 +119,7 @@ class SignupForm extends Nanocomponent {
             <div class="${styles.inputFieldIcon} ${styles.inputFieldName}"></div>
           </label>
         </div>
-        <div class="${styles.formGroup}">
-          <label>
-            <span class="${styles.visuallyHidden}">Enter your email</span>
-            <input
-              class="${styles.formControl}"
-              type="email"
-              name="email"
-              value="${this.email}"
-              placeholder="Email"
-              autocapitalize="off"
-              required
-              oninput=${this.handleInput}
-            />
-            <div class="${styles.inputFieldIcon} ${styles.inputFieldEmail}"></div>
-          </label>
-        </div></div>` : ""}
+        ${this.emailInput.render(state, emit)}</div>` : ""}
         <div class="${styles.formGroup}">
           <label>
             <span class="${styles.visuallyHidden}">Enter a password</span>
@@ -193,7 +164,7 @@ class SignupForm extends Nanocomponent {
     } else {
       this.emit("submit-signup", {
         name: this.name,
-        email: this.email,
+        email: this.emailInput.email,
         password: this.password
       });
     }

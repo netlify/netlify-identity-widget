@@ -15,15 +15,15 @@ class Header extends Nanocomponent {
   }
 
   navigateLoginPage () {
-    this.emit("navigate", "login");
+    this.emit("navigate", { page: "login" });
   }
 
   navigateSignupPage () {
-    this.emit("navigate", "signup");
+    this.emit("navigate", { page: "signup" });
   }
 
   createElement (state, emit) {
-    const { page, settings } = state;
+    const { page, settings, title } = state;
     this.signup_enabled = settings.signup_enabled;
     this.page = page;
     this.emit = emit;
@@ -46,7 +46,7 @@ class Header extends Nanocomponent {
       `;
       default:
         return html`
-          <div></div>
+          <div class="${styles.header}"><button class="${styles.btn} ${styles.btnHeader} ${styles.active}">${title}</button></div>
         `;
     }
   }

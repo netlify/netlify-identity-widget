@@ -221,4 +221,23 @@ function goTrueHandlers (state, emitter, goTrue) {
       });
     }
   });
+
+  emitter.on("submit-forgot", ({ email }) => {
+    state.submitting = true;
+    emitter.emit("render");
+
+    goTrue.requestPasswordRecovery(email)
+      .then(() => {
+        state.submitting = false;
+        state.success = `Password recovery email sent to ${email}`;
+        state.page = "login";
+        state.title = "";
+        emitter.emit("render");
+      })
+      .catch(error => {
+        state.submitting = false;
+        state.error = `Error requesting password recovery ${error}`;
+        emitter.emit("render");
+      });
+  });
 }
