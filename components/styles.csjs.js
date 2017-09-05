@@ -77,28 +77,29 @@ module.exports = css`
     position: relative;
     padding: ${basePadding};
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(10px) scale(1);
     background: #fff;
-    animation: fadeIn 0.3s ease-in-out;
+    animation: bouncyEntrance 0.2s cubic-bezier(0.18, 0.89, 0.32, 1.28);
     animation-fill-mode: forwards;
   }
 
-  @keyframes fadeIn {
+  @keyframes bouncyEntrance {
     0% {
       opacity: 0;
-      transform: translateY(10px);
+      transform: translateY(10px) scale(0.9);
     }
 
     100% {
       opacity: 1;
-      transform: translateY(0);
+      transform: translateY(0) scale(1);
     }
   }
 
   @media (min-width: 480px) {
     .modalContainer::before {
       background-color: ${baseColor};
-      opacity: 0.87;
+      animation: fadeIn 0.1s ease-in;
+      animation-fill-mode: forwards;
     }
 
     .modalDialog {
@@ -112,6 +113,16 @@ module.exports = css`
         0 12px 32px 0 rgba(14, 30, 37, 0.1);
       border-radius: 8px;
       margin-top: ${basePadding};
+    }
+  }
+
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+
+    100% {
+      opacity: 0.67;
     }
   }
 
