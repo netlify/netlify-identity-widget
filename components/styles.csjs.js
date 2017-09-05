@@ -253,6 +253,39 @@ module.exports = css`
     cursor: auto;
   }
 
+  .btnLink {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: auto;
+    margin: 14px 0 0;
+    padding: 6px;
+    outline: 0;
+    cursor: pointer;
+    color: ${subduedColor};
+    border: 0;
+    background-color: inherit;
+    transition: background-color 0.2s ease;
+    font-family: ${fontFamily};
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 24px;
+    text-align: center;
+    text-decoration: underline;
+    white-space: nowrap;
+  }
+
+  .btnLink:hover,
+  .btnLink:focus {
+    background-color: inherit;
+    text-decoration: underline;
+    color: ${baseColor};
+  }
+
+  .forgotPasswordLink {
+
+  }
+
   .form {
   }
 

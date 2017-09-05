@@ -5,6 +5,7 @@ const Header = require("./header");
 const Providers = require("./providers");
 const Flash = require("./flash");
 const { SignupForm, LoginForm, LogoutForm } = require("./forms");
+const FormatPasswordForm = require("./forgot");
 
 class Modal extends Nanocomponent {
   constructor (opts) {
@@ -19,13 +20,19 @@ class Modal extends Nanocomponent {
     this.signupForm = new SignupForm();
     this.loginForm = new LoginForm();
     this.logoutForm = new LogoutForm();
+    this.forgotPasswordForm = new FormatPasswordForm();
     this.flash = new Flash();
 
     this.close = this.close.bind(this);
+    this.forgotPassword = this.forgotPassword.bind(this);
   }
 
   close () {
     this.emit("close");
+  }
+
+  forgotPassword () {
+    this.emit("navigate", { page: "forgot", title: "Recover password" });
   }
 
   createElement (state, emit) {
@@ -56,6 +63,7 @@ class Modal extends Nanocomponent {
             ${this.flash.render(state, emit)}
             ${this.formRouter(state, emit)}
             ${this.providers.render(state, emit)}
+            ${state.page === "login" ? html`<button onclick=${this.forgotPassword} class="${styles.btnLink} ${styles.forgotPasswordLink}">Forgot password?</button>` : ""}
           </div>
         </div>
         <a href="https://www.netlify.com" class="${styles.callOut}">
@@ -79,6 +87,8 @@ class Modal extends Nanocomponent {
         return this.signupForm.render(state, emit);
       case "logout":
         return this.logoutForm.render(state, emit);
+      case "forgot":
+        return this.forgotPasswordForm.render(state, emit);
       default:
         return html`<div>404 – Not found</div>`;
     }
