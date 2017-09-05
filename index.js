@@ -25,7 +25,7 @@ class NetlifyIdentity extends Nanobus {
     this.state = {
       open: opts.open,
       page: user ? "logout" : "login",
-      title: "",
+      title: user ? "Logged in" : "",
       submitting: false,
       loading: false,
       success: null /* Success message goes here */,
