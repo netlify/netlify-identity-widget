@@ -19,7 +19,7 @@ class Flash extends Nanocomponent {
     if (error) {
       emit("clear-error");
       return html`
-        <div class="${styles.error} ${styles.flashMessage}" role="alert">${error}</div>
+        <div class="${styles.error} ${styles.flashMessage}" role="alert"><span>${error}</span></div>
       `;
     }
 
