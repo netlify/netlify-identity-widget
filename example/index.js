@@ -4,10 +4,8 @@ const identity = new NetlifyIdentity(
   { open: true }, // Gotrue identity options
   { APIUrl: `https://netlify-identity.netlify.com/.netlify/identity` } // Gotrue-js options
 );
-window.identity = identity;
 
-const container = document.querySelector("#external");
-container.appendChild(identity.create());
+window.identity = identity;
 
 identity.on("login", user => {
   document.querySelector(

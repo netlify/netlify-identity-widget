@@ -8,13 +8,19 @@ const goTrueHandlers = require("./handlers/gotrue");
 class NetlifyIdentity extends Nanobus {
   constructor (opts, goTrueOpts) {
     super();
-
+    if (!opts) opts = {};
     if (!goTrueOpts) {
       goTrueOpts = opts;
       opts = {};
     }
 
-    opts = Object.assign({ open: false }, opts);
+    opts = Object.assign(
+      {
+        open: false,
+        automount: true
+      },
+      opts
+    );
 
     this.goTrue = new GoTrue(goTrueOpts);
     this.modal = new Modal(opts);
@@ -41,7 +47,14 @@ class NetlifyIdentity extends Nanobus {
     goTrueHandlers(this.state, this, this.goTrue); // Hook up event handlers
     modalHandlers(this.state, this);
 
-    if (user) window.requestAnimationFrame(() => this.emit("login", user));
+    if (opts.automount) this._mount();
+
+    if (user) {
+      window.requestAnimationFrame(() => {
+        this.emit("login", user);
+      });
+    }
+
     this.emit("init");
   }
 
@@ -49,30 +62,30 @@ class NetlifyIdentity extends Nanobus {
     return this.modal.element;
   }
 
+  _mount () {
+    if (this.isMounted) {
+      return console.warn(
+        `NetlifyIdentityWidget: attempted to mount twice.  Two instances are likely running in the same page or app.`
+      );
+    }
+
+    document.body.appendChild(this.modal.render(this.state, this.emit));
+  }
+
   create () {
     if (this.isMounted) {
-      return console.warn("NetlifyIdentity: Already created");
+      return console.warn("NetlifyIdentity: Already mounted in page");
     }
 
     return this.modal.render(this.state, this.emit);
   }
 
   open () {
-    if (!this.isMounted) {
-      return console.warn(
-        "NetlifyIdentity: Can't open before mounting in the DOM"
-      );
-    }
     this.state.open = true;
     this.emit("render");
   }
 
   close () {
-    if (!this.isMounted) {
-      return console.warn(
-        "NetlifyIdentity: Can't close before mounting in the DOM"
-      );
-    }
     this.state.open = false;
     this.emit("render");
   }
