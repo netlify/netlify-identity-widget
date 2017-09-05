@@ -1974,9 +1974,9 @@ globby@^5.0.0:
     pify "^2.0.0"
     pinkie-promise "^2.0.0"
 
-gotrue-js@^0.9.2:
-  version "0.9.2"
-  resolved "https://registry.yarnpkg.com/gotrue-js/-/gotrue-js-0.9.2.tgz#27b72673d6146af0706cb6ee4c11853c4a955bb8"
+gotrue-js@^0.9.3:
+  version "0.9.3"
+  resolved "https://registry.yarnpkg.com/gotrue-js/-/gotrue-js-0.9.3.tgz#5f8d4de45b10fd9e27b5739fe13e7568b9e9720b"
   dependencies:
     micro-api-client "^2.0.0"
     prettier "^1.6.1"
@@ -2751,9 +2751,9 @@ nanobus@^4.2.0:
     nanotiming "^6.0.0"
     remove-array-items "^1.0.0"
 
-nanocomponent@^6.3.0:
-  version "6.3.0"
-  resolved "https://registry.yarnpkg.com/nanocomponent/-/nanocomponent-6.3.0.tgz#4678826984625c8ad431c19ddff0f23f4b94af9e"
+nanocomponent@^6.4.0:
+  version "6.4.0"
+  resolved "https://registry.yarnpkg.com/nanocomponent/-/nanocomponent-6.4.0.tgz#0a94a6c0d519eed21709faf241a1742a2ae3d1b7"
   dependencies:
     global "^4.3.1"
     nanoassert "^1.1.0"

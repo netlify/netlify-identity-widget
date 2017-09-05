@@ -85,6 +85,7 @@ class NetlifyIdentity extends Nanobus {
   }
 
   _parseHashTokens () {
+    const remember = true;
     const parsedHash = queryString.parse(window.location.hash);
     if (parsedHash.error) {
       window.location.hash = "";
@@ -96,7 +97,7 @@ class NetlifyIdentity extends Nanobus {
     if (parsedHash.confirmation_token) {
       window.location.hash = "";
       return this.goTrue
-        .confirm(parsedHash.confirmation_token)
+        .confirm(parsedHash.confirmation_token, remember)
         .then(user => {
           this.state.success = `Logged in ${user.email}`;
           this.state.page = "logout";
@@ -112,7 +113,7 @@ class NetlifyIdentity extends Nanobus {
     if (parsedHash.recovery_token) {
       window.location.hash = "";
       return this.goTrue
-        .recover(parsedHash.recovery_token)
+        .recover(parsedHash.recovery_token, remember)
         .then(user => {
           this.state.success = `Logged in ${user.email}`;
           this.state.page = "logout";
@@ -157,7 +158,6 @@ class NetlifyIdentity extends Nanobus {
 
     if (parsedHash.access_token) {
       window.location.hash = "";
-      const remember = true;
       return this.goTrue
         .createUser(parsedHash, remember)
         .then(user => {
@@ -213,15 +213,19 @@ function store (state, emitter, goTrue) {
     );
   });
 
-  emitter.on("submit-invite", ({ password, name }) => {
+  emitter.on("submit-invite", ({ password }) => {
     state.submitting = true;
     emitter.emit("render");
-    goTrue.acceptInvite(state.token, password).then(
-      response => {
+    const remember = true;
+    goTrue.acceptInvite(state.token, password, remember).then(
+      user => {
         state.success = "Invite accepted";
         state.submitting = false;
+        state.user = user;
+        state.page = "logout";
         emitter.emit("render");
-        emitter.emit("signup", response);
+        emitter.emit("signup", user);
+        emitter.emit("login", user);
       },
       error => {
         state.error = `Failed to verify ${JSON.stringify(error)}`;
