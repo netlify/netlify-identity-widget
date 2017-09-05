@@ -7,9 +7,6 @@ const identity = new NetlifyIdentity(
 window.identity = identity;
 
 const container = document.querySelector("#external");
-
-identity.create(); // If you remove this from the DOM, you have to re-add it.
-
 container.appendChild(identity.create());
 
 identity.on("login", user => {

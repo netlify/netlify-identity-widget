@@ -24,6 +24,7 @@ class Header extends Nanocomponent {
 
   createElement (state, emit) {
     const { page, settings } = state;
+    this.signup_enabled = settings.signup_enabled;
     this.page = page;
     this.emit = emit;
 
@@ -50,8 +51,8 @@ class Header extends Nanocomponent {
     }
   }
 
-  update ({ page }, emit) {
-    return this.page !== page;
+  update ({ page, settings }, emit) {
+    return this.page !== page || this.signup_enabled !== settings.signup_enabled;
   }
 }
 
