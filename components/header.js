@@ -46,7 +46,7 @@ class Header extends Nanocomponent {
       `;
       default:
         return html`
-          <div class="${styles.header}"><button class="${styles.btn} ${styles.btnHeader} ${styles.active}">${title}</button></div>
+          <div></div>
         `;
     }
   }
