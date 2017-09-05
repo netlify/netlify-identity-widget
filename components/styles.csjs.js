@@ -256,30 +256,31 @@ module.exports = css`
   .btnLink {
     display: block;
     position: relative;
-    width: 100%;
+    width: auto;
     height: auto;
-    margin: 14px 0 0;
+    margin: 14px auto 0;
     padding: 6px;
+    padding-bottom: 0;
     outline: 0;
     cursor: pointer;
-    color: ${subduedColor};
-    border: 0;
+    color: ${baseColor};
+    border: none;
+    border-bottom: 2px solid #e9ebeb;
+    border-radius: 0;
     background-color: inherit;
-    transition: background-color 0.2s ease;
+    transition: border-color 0.2s ease;
     font-family: ${fontFamily};
     font-size: 14px;
     font-weight: 500;
     line-height: 24px;
     text-align: center;
-    text-decoration: underline;
     white-space: nowrap;
   }
 
   .btnLink:hover,
   .btnLink:focus {
     background-color: inherit;
-    text-decoration: underline;
-    color: ${baseColor};
+    border-color: ${subduedColor};
   }
 
   .forgotPasswordLink {
