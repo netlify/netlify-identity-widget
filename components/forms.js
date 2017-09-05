@@ -198,8 +198,8 @@ class LogoutForm extends Nanocomponent {
         onsubmit=${this.handleLogout}
         class="${styles.form} ${disabledClass}"
       >
-        <p>
-          Logged in ${email ? "as " : ""} ${email}
+        <p class="${styles.infoText}">
+          Logged in ${email ? "as " : ""} <br /><span class="${styles.infoTextEmail}">${email}</span>
         </p>
           <Button
             type="submit"
