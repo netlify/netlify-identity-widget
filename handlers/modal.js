@@ -1,9 +1,8 @@
 module.exports = modalHandlers;
 
 function modalHandlers (state, emitter) {
-  emitter.on("navigate", ({ page, title = "" }) => {
+  emitter.on("navigate", ({ page }) => {
     state.page = page;
-    state.title = title;
     emitter.emit("render");
   });
 

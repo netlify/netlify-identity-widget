@@ -31,7 +31,6 @@ function goTrueHandlers (state, emitter, goTrue) {
               state.success = `Logged in ${user.email}`;
               state.page = "logout";
               state.user = user;
-              state.title = "Logged in";
               emitter.emit("render");
               emitter.emit("login", user);
             })
@@ -85,7 +84,6 @@ function goTrueHandlers (state, emitter, goTrue) {
             .then(user => {
               state.success = `Logged in ${user.email}`;
               state.page = "logout";
-              state.title = "Logged in";
               state.user = user;
               emitter.emit("render");
               emitter.emit("login", user);
@@ -138,7 +136,6 @@ function goTrueHandlers (state, emitter, goTrue) {
         state.submitting = false;
         state.user = user;
         state.page = "logout";
-        state.title = "Logged in";
         emitter.emit("render");
         emitter.emit("signup", user);
         emitter.emit("login", user);
@@ -162,7 +159,6 @@ function goTrueHandlers (state, emitter, goTrue) {
         // even if the password change fails, user is still logged in.
         state.user = user;
         state.page = "logout";
-        state.title = "Logged in";
         return user.update({ password });
       })
       .then(user => {
@@ -170,7 +166,6 @@ function goTrueHandlers (state, emitter, goTrue) {
         state.submitting = false;
         state.user = user;
         state.page = "logout";
-        state.title = "Logged in";
         emitter.emit("render");
         emitter.emit("login", user);
       })
@@ -192,7 +187,6 @@ function goTrueHandlers (state, emitter, goTrue) {
         state.submitting = false;
         state.page = "logout";
         state.user = user;
-        state.title = "Logged in";
         emitter.emit("render");
         emitter.emit("login", user);
       },
@@ -239,7 +233,6 @@ function goTrueHandlers (state, emitter, goTrue) {
         state.submitting = false;
         state.success = `Password recovery email sent to ${email}`;
         state.page = "login";
-        state.title = "";
         emitter.emit("render");
       })
       .catch(error => {
