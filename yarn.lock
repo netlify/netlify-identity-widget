@@ -2772,7 +2772,7 @@ nanobus@^4.2.0:
     nanotiming "^6.0.0"
     remove-array-items "^1.0.0"
 
-nanocomponent@^6.4.0-hotfix:
+nanocomponent@^6.4.0:
   version "6.4.0"
   resolved "https://registry.yarnpkg.com/nanocomponent/-/nanocomponent-6.4.0.tgz#0a94a6c0d519eed21709faf241a1742a2ae3d1b7"
   dependencies:
@@ -2899,8 +2899,8 @@ on-idle@^3.0.1:
   resolved "https://registry.yarnpkg.com/on-idle/-/on-idle-3.1.2.tgz#e6b5215ed90726e298f4019dfbdaccfaa893154c"
 
 on-load@^3.2.0:
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/on-load/-/on-load-3.2.0.tgz#dd3145d3a5c2faa5666920d1df674b69f0c2f66f"
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/on-load/-/on-load-3.2.1.tgz#0b34b217ccc8b838b9398fe3429c7c47aa15aaab"
   dependencies:
     global "^4.3.0"
 
