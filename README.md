@@ -51,11 +51,9 @@ import NetlifyIdentity from "netlify-identity-widget"
 const NetlifyIdentity = require("netlify-identity-widget");
 
 const identity = new NetlifyIdentity()
-const new loginModal = new NetlifyIdentity(window.goTrueInstance) //consume an existing one
 
 // Select a div on your page that won't change or be overwritten to act as a container
 const container = document.querySelector("#external");
-loginModal.mount({ css: true }, document.body) // this could be automatic on creation, but auto body mounting is smelly
 
 // Insert the modal component into the container div
 container.appendChild(identity.create());

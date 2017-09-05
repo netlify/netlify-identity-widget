@@ -53,9 +53,9 @@
     "build": "run-s clean build:*",
     "build:site": "cpr site dist",
     "build:umd":
-      "browserify umd.js --standalone netlifyIdentity --transform-key=build -g unassertify -p discify -o dist/netlify-identity-umd.js",
+      "browserify umd.js --standalone netlifyIdentity --transform-key=build -g unassertify -p discify | uglifyjs > dist/netlify-identity-umd.js",
     "build:main":
-      "browserify index.js --transform-key=build --no-bundle-external -g unassertify -p discify -o dist/index.js",
+      "browserify index.js --transform-key=build --no-bundle-external -g unassertify | uglifyjs > dist/index.js",
     "clean": "rimraf dist && mkdirp dist",
     "disc": "run-s build disc:server",
     "disc:server": "http-server disc",

@@ -8,4 +8,16 @@ window.identity = identity;
 
 const container = document.querySelector("#external");
 
-identity.create().then(node => container.appendChild(node)); // If you remove this from the DOM, you have to re-add it.
+identity.create(); // If you remove this from the DOM, you have to re-add it.
+
+container.appendChild(identity.create());
+
+identity.on("login", user => {
+  document.querySelector(
+    "#login-button"
+  ).innerText = `Logged in as ${user.email}`;
+});
+
+identity.on("logout", user => {
+  document.querySelector("#login-button").innerText = `Login with GoTrue`;
+});
