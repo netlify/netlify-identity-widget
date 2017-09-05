@@ -14,6 +14,7 @@ function goTrueHandlers (state, emitter, goTrue) {
         emitter.emit("render");
       })
       .then(() => {
+        const remember = true;
         const parsedHash = queryString.parse(window.location.hash);
         if (parsedHash.error) {
           window.location.hash = "";
@@ -25,7 +26,7 @@ function goTrueHandlers (state, emitter, goTrue) {
         if (parsedHash.confirmation_token) {
           window.location.hash = "";
           return goTrue
-            .confirm(parsedHash.confirmation_token)
+            .confirm(parsedHash.confirmation_token, remember)
             .then(user => {
               state.success = `Logged in ${user.email}`;
               state.page = "logout";
@@ -33,32 +34,24 @@ function goTrueHandlers (state, emitter, goTrue) {
               emitter.emit("login", user);
             })
             .catch(err => {
-              state.error = "Failed to confirm email";
+              state.error = `Failed to confirm email ${JSON.stringify(err)}`;
               emitter.emit("error", err);
             });
         }
 
         if (parsedHash.recovery_token) {
           window.location.hash = "";
-          return goTrue
-            .recover(parsedHash.recovery_token)
-            .then(user => {
-              state.success = `Logged in ${user.email}`;
-              state.page = "logout";
-              state.user = user;
-              emitter.emit("login", user);
-            })
-            .catch(err => {
-              state.error = "Failed to recover account";
-              emitter.emit("error", err);
-            });
+          state.page = "recover";
+          state.token = parsedHash.recovery_token;
+          state.open = true;
+          return Promise.resolve();
         }
 
         if (parsedHash.invite_token) {
           window.location.hash = "";
-          // TODO prompt for password then call
-          // this.goTrue.acceptInvite(parsedHash.invite_token, password)...
-          // probably can use a variant of signup with the email readonly
+          state.page = "accept";
+          state.token = parsedHash.invite_token;
+          state.open = true;
           return Promise.resolve();
         }
 
@@ -77,14 +70,14 @@ function goTrueHandlers (state, emitter, goTrue) {
               state.user = user;
             })
             .catch(err => {
-              state.error = "Failed to change email";
+              state.error = `Failed to change email ${JSON.stringify(err)}`;
               emitter.emit("error", err);
             });
         }
 
         if (parsedHash.access_token) {
           window.location.hash = "";
-          const remember = true;
+
           return goTrue
             .createUser(parsedHash, remember)
             .then(user => {
@@ -94,7 +87,7 @@ function goTrueHandlers (state, emitter, goTrue) {
               emitter.emit("login", user);
             })
             .catch(err => {
-              state.error = "Login failed";
+              state.error = `Failed to login ${JSON.stringify(err)}`;
               emitter.emit("error", err);
             });
         }
@@ -131,6 +124,57 @@ function goTrueHandlers (state, emitter, goTrue) {
     );
   });
 
+  emitter.on("submit-invite", ({ password }) => {
+    state.submitting = true;
+    emitter.emit("render");
+    const remember = true;
+    goTrue.acceptInvite(state.token, password, remember).then(
+      user => {
+        state.success = "Invite accepted";
+        state.submitting = false;
+        state.user = user;
+        state.page = "logout";
+        emitter.emit("render");
+        emitter.emit("signup", user);
+        emitter.emit("login", user);
+      },
+      error => {
+        state.error = `Failed to verify ${JSON.stringify(error)}`;
+        state.submitting = false;
+        emitter.emit("render");
+        emitter.emit("error", error);
+      }
+    );
+  });
+
+  emitter.on("submit-recover", ({ password }) => {
+    state.submitting = true;
+    emitter.emit("render");
+    const remember = true;
+    goTrue
+      .recover(state.token, remember)
+      .then(user => {
+        // even if the password change fails, user is still logged in.
+        state.user = user;
+        state.page = "logout";
+        return user.update({ password });
+      })
+      .then(user => {
+        state.success = "Password changed";
+        state.submitting = false;
+        state.user = user;
+        state.page = "logout";
+        emitter.emit("render");
+        emitter.emit("login", user);
+      })
+      .catch(error => {
+        state.error = `Failed to change password ${JSON.stringify(error)}`;
+        state.submitting = false;
+        emitter.emit("render");
+        emitter.emit("error", error);
+      });
+  });
+
   emitter.on("submit-login", ({ email, password }) => {
     state.submitting = true;
     emitter.emit("render");
@@ -145,7 +189,10 @@ function goTrueHandlers (state, emitter, goTrue) {
         emitter.emit("login", user);
       },
       error => {
-        state.error = error.error_description || "We couldn’t log you in";
+        state.error =
+          error && error.error === "invalid_grant"
+            ? "Wrong email or password."
+            : (error && error.error_description) || "We couldn’t log you in";
         state.submitting = false;
         emitter.emit("render");
         emitter.emit("error", error);

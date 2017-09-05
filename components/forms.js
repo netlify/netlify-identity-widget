@@ -107,6 +107,7 @@ class SignupForm extends Nanocomponent {
 
   createElement (state, emit) {
     this.emit = emit;
+    this.state = state;
 
     const { submitting } = state;
     const disabledClass = cn({ [styles.disabled]: submitting });
@@ -117,7 +118,7 @@ class SignupForm extends Nanocomponent {
         onsubmit=${this.handleSubmit}
         class="${styles.form} ${disabledClass}"
       >
-        <div class="${styles.formGroup}">
+        ${state.page === "signup" ? html`<div><div class="${styles.formGroup}">
           <label>
             <span class="${styles.visuallyHidden}">Enter your full name</span>
             <input
@@ -147,7 +148,7 @@ class SignupForm extends Nanocomponent {
             />
             <div class="${styles.inputFieldIcon} ${styles.inputFieldEmail}"></div>
           </label>
-        </div>
+        </div></div>` : ""}
         <div class="${styles.formGroup}">
           <label>
             <span class="${styles.visuallyHidden}">Enter a password</span>
@@ -181,11 +182,22 @@ class SignupForm extends Nanocomponent {
   handleSubmit (e) {
     e.preventDefault();
 
-    this.emit("submit-signup", {
-      name: this.name,
-      email: this.email,
-      password: this.password
-    });
+    if (this.state.page === "accept") {
+      this.emit("submit-invite", {
+        password: this.password
+      });
+    } else if (this.state.page === "recover") {
+      this.emit("submit-recover", {
+        password: this.password
+      });
+    } else {
+      this.emit("submit-signup", {
+        name: this.name,
+        email: this.email,
+        password: this.password
+      });
+    }
+
 
     this.rerender();
   }
