@@ -118,7 +118,7 @@ class SignupForm extends Nanocomponent {
         onsubmit=${this.handleSubmit}
         class="${styles.form} ${disabledClass}"
       >
-        ${state.page !== "accept" ? html`<div><div class="${styles.formGroup}">
+        ${state.page === "signup" ? html`<div><div class="${styles.formGroup}">
           <label>
             <span class="${styles.visuallyHidden}">Enter your full name</span>
             <input
@@ -184,6 +184,10 @@ class SignupForm extends Nanocomponent {
 
     if (this.state.page === "accept") {
       this.emit("submit-invite", {
+        password: this.password
+      });
+    } else if (this.state.page === "recover") {
+      this.emit("submit-recover", {
         password: this.password
       });
     } else {

@@ -112,20 +112,10 @@ class NetlifyIdentity extends Nanobus {
 
     if (parsedHash.recovery_token) {
       window.location.hash = "";
-      return this.goTrue
-        .recover(parsedHash.recovery_token, remember)
-        .then(user => {
-          this.state.success = `Logged in ${user.email}`;
-          this.state.page = "logout";
-          this.state.user = user;
-          this.emit("login", user);
-        })
-        .catch(err => {
-          this.state.error = `Failed to recover account ${JSON.stringify(
-            err
-          )}`;
-          this.emit("error", err);
-        });
+      this.state.page = "recover";
+      this.state.token = parsedHash.recovery_token;
+      this.state.open = true;
+      return Promise.resolve();
     }
 
     if (parsedHash.invite_token) {
@@ -234,6 +224,33 @@ function store (state, emitter, goTrue) {
         emitter.emit("error", error);
       }
     );
+  });
+
+  emitter.on("submit-recover", ({ password }) => {
+    state.submitting = true;
+    emitter.emit("render");
+    const remember = true;
+    goTrue.recover(state.token, remember)
+      .then(user => {
+        // even if the password change fails, user is still logged in.
+        state.user = user;
+        state.page = "logout";
+        return user.update({ password });
+      })
+      .then(user => {
+        state.success = "Password changed";
+        state.submitting = false;
+        state.user = user;
+        state.page = "logout";
+        emitter.emit("render");
+        emitter.emit("login", user);
+      })
+      .catch(error => {
+        state.error = `Failed to change password ${JSON.stringify(error)}`;
+        state.submitting = false;
+        emitter.emit("render");
+        emitter.emit("error", error);
+      });
   });
 
   emitter.on("submit-login", ({ email, password }) => {
