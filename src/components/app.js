@@ -118,7 +118,6 @@ class App extends Component {
     const showHeader = pagesWithHeader[store.modal.page];
     const showSignup = store.settings && !store.settings.disable_signup;
     const page = pages[store.modal.page] || {};
-
     return (
       <div>
         <Modal
@@ -127,6 +126,7 @@ class App extends Component {
           showHeader={showHeader}
           showSignup={showSignup}
           loading={store.gotrue && !store.settings}
+          isOpen={store.modal.isOpen}
           onPage={this.handlePage}
           onClose={this.handleClose}
         >
