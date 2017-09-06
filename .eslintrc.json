@@ -19,6 +19,11 @@
       "pragma": "h"
     }
   },
+  "extends": [
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "eslint:recommended"
+  ],
   "globals": {
     "sleep": 1
   },
