@@ -38,7 +38,7 @@ store.init = action(function init(gotrue, reloadSettings) {
     }
   }
   if (reloadSettings) { store.loadSettings(); }
-})
+});
 
 store.loadSettings = action(function loadSettings() {
   if (store.settings) { return; }
@@ -47,14 +47,14 @@ store.loadSettings = action(function loadSettings() {
   store.gotrue.settings()
     .then(action((settings) => store.settings = settings))
     .catch(action((err) => {
-      console.log("failed to load settings %o", err)
+      console.log("failed to load settings %o", err);
       store.error = err;
     }));
 });
 
 store.setSiteURL = action(function setSiteURL(url) {
   store.siteURL = url;
-})
+});
 
 store.login = action(function login(email, password) {
   store.startAction();
@@ -68,8 +68,8 @@ store.login = action(function login(email, password) {
       }
       store.saving = false;
     }))
-    .catch(store.setError)
-})
+    .catch(store.setError);
+});
 
 store.externalLogin = action(function externalLogin(provider) {
   store.startAction();
@@ -77,7 +77,7 @@ store.externalLogin = action(function externalLogin(provider) {
     store.gotrue.acceptInviteExternalUrl(provider, store.invite_token) :
     store.gotrue.loginExternalUrl(provider);
   window.location.href = url;
-})
+});
 
 store.completeExternalLogin = action(function completeExternalLogin(params) {
   store.startAction();
@@ -93,7 +93,7 @@ store.completeExternalLogin = action(function completeExternalLogin(params) {
 store.signup = action(function signup(name, email, password) {
   store.startAction();
   return store.gotrue.signup(email, password, { full_name: name })
-    .then((action((response) => {
+    .then((action(() => {
       if (store.settings.autoconfirm) {
         store.login(email, password, store.remember);
       } else {
@@ -101,8 +101,8 @@ store.signup = action(function signup(name, email, password) {
       }
       store.saving = false;
     })))
-    .catch(store.setError)
-})
+    .catch(store.setError);
+});
 
 store.logout = action(function logout() {
   store.startAction();
@@ -113,7 +113,7 @@ store.logout = action(function logout() {
       store.saving = false;
     }))
     .catch(store.setError);
-})
+});
 
 store.updatePassword = action(function updatePassword(password) {
   store.startAction();
@@ -125,8 +125,8 @@ store.updatePassword = action(function updatePassword(password) {
       store.modal.page = "user";
       store.saving = false;
     })
-    .catch(store.setError)
-})
+    .catch(store.setError);
+});
 
 store.acceptInvite = action(function acceptInvite(password) {
   store.startAction();
@@ -137,27 +137,27 @@ store.acceptInvite = action(function acceptInvite(password) {
       store.user = user;
       store.modal.page = "user";
     })
-    .catch(store.setError)
+    .catch(store.setError);
 });
 
 store.doEmailChange = action(function doEmailChange() {
   store.startAction();
   return store.user
     .update({email_change_token: store.email_change_token})
-      .then(action((user) => {
-        store.user = user;
-        store.email_change_token = null;
-        store.message = "email_changed";
-        store.saving = false;
-      }))
-      .catch(store.setError);
+    .then(action((user) => {
+      store.user = user;
+      store.email_change_token = null;
+      store.message = "email_changed";
+      store.saving = false;
+    }))
+    .catch(store.setError);
 });
 
 store.verifyToken = action(function verifyToken(type, token) {
   const gotrue = store.gotrue;
   store.modal.isOpen = true;
 
-  switch(type) {
+  switch (type) {
     case "confirmation":
       store.startAction();
       store.modal.page = 'signup';
@@ -181,6 +181,7 @@ store.verifyToken = action(function verifyToken(type, token) {
       } else {
         store.modal.page = "login";
       }
+      break;
     case "invite":
       store.modal.page = type;
       store.invite_token = token;
@@ -207,12 +208,12 @@ store.verifyToken = action(function verifyToken(type, token) {
 store.requestPasswordRecovery = action(function requestPasswordRecovery(email) {
   store.startAction();
   store.gotrue.requestPasswordRecovery(email)
-   .then(action(() => {
-     store.message = 'password_mail';
-     store.saving = false;
-   }))
-   .catch(store.setError);
-})
+    .then(action(() => {
+      store.message = 'password_mail';
+      store.saving = false;
+    }))
+    .catch(store.setError);
+});
 
 
 store.openModal = action(function open(page) {

@@ -1,12 +1,12 @@
 import netlifyIdentity from './netlify-identity';
 
 if (typeof exports !== undefined) {
-	exports.netlifyIdentity = netlifyIdentity;
+  exports.netlifyIdentity = netlifyIdentity;
 }
 if (typeof window !== undefined) {
-	window.netlifyIdentity = netlifyIdentity;
+  window.netlifyIdentity = netlifyIdentity;
 }
 
-document.addEventListener("DOMContentLoaded", function (event) {
+document.addEventListener("DOMContentLoaded", () => {
   netlifyIdentity.init();
 });

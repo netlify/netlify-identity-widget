@@ -21,7 +21,7 @@ const messages = {
     type: "error",
     text: "Public signups are disabled. Contact an administrator and ask for an invite."
   }
-}
+};
 
 export default class Message extends Component {
   render() {

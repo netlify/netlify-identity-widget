@@ -46,7 +46,7 @@ class Controls extends Component {
         <li className="netlify-identity-item"><a className="netlify-identity-signup" href="#" onClick={this.handleSignup}>Sign Up</a></li>
         <li className="netlify-identity-item"><a className="netlify-identity-login" href="#" onClick={this.handleLogin}>Log in</a></li>
       </ul>
-    )
+    );
   }
 }
 
