@@ -4,7 +4,8 @@
   "description": "Netlify Identity widget for easy integration",
   "releaseVersion": "v1",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development webpack-dev-server --inline --hot --progress",
+    "dev":
+      "cross-env NODE_ENV=development webpack-dev-server --inline --hot --progress",
     "start": "serve build -s -c 1",
     "prestart": "npm run build",
     "build": "cross-env NODE_ENV=production webpack --progress",
@@ -12,15 +13,11 @@
     "test": "npm run -s lint",
     "lint": "eslint src test",
     "release": "node ./script/release.js",
-    "format": "prettier --write 'src/**/*.js'",
-    "format-preview": "prettier --list-different 'src/**/*.js'"
+    "format": "prettier-eslint --write 'src/**/*.js'",
+    "format-preview": "prettier-eslint --list-different 'src/**/*.js'"
   },
   "main": "./releases/v1/netlify-identity",
-  "keywords": [
-    "netlify",
-    "identity",
-    "authentication"
-  ],
+  "keywords": ["netlify", "identity", "authentication"],
   "license": "MIT",
   "author": "Matt Biilmann <matt@netlify.com>",
   "devDependencies": {
