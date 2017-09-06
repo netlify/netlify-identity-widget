@@ -57,23 +57,15 @@ function goTrueHandlers (state, emitter, goTrue) {
         }
 
         if (parsedHash.email_change_token) {
-          window.location.hash = "";
           const user = goTrue.currentUser();
           if (!user) {
-            // TODO prompt for login, then update
+            state.error = `Must sign in before confirming email change`;
+            state.page = "login";
+            emitter.emit("render");
             return Promise.resolve();
           }
-
-          return user
-            .update({ email_change_token: parsedHash.email_change_token })
-            .then(user => {
-              state.success = "Email change was successful";
-              state.user = user;
-            })
-            .catch(err => {
-              state.error = `Failed to change email ${err.message}`;
-              emitter.emit("error", err);
-            });
+          emitter.emit("change-email", parsedHash.email_change_token);
+          return Promise.resolve();
         }
 
         if (parsedHash.access_token) {
@@ -102,6 +94,21 @@ function goTrueHandlers (state, emitter, goTrue) {
       });
   });
 
+  emitter.on("change-email", email_change_token => {
+    window.location.hash = "";
+    goTrue
+      .currentUser()
+      .update({ email_change_token: email_change_token })
+      .then(user => {
+        state.success = "Email change was successful";
+        state.user = user;
+      })
+      .catch(err => {
+        state.error = `Failed to change email ${err.message}`;
+        emitter.emit("error", err);
+      });
+  });
+
   emitter.on("submit-signup", ({ email, password, name }) => {
     state.submitting = true;
     emitter.emit("render");
@@ -118,7 +125,9 @@ function goTrueHandlers (state, emitter, goTrue) {
         emitter.emit("signup", response);
       },
       error => {
-        state.error = (error.json && error.json.error_description) || "We couldn’t sign you up";
+        state.error =
+          (error.json && error.json.error_description) ||
+          "We couldn’t sign you up";
         state.submitting = false;
         emitter.emit("render");
         emitter.emit("error", error);
@@ -189,10 +198,14 @@ function goTrueHandlers (state, emitter, goTrue) {
         state.user = user;
         emitter.emit("render");
         emitter.emit("login", user);
+        const parsedHash = queryString.parse(window.location.hash);
+        if (parsedHash.email_change_token) {
+          emitter.emit("change-email", parsedHash.email_change_token);
+        }
       },
       error => {
         state.error =
-          error && error.json && error.json.error == "invalid_grant"
+          error && error.json && error.json.error === "invalid_grant"
             ? "Wrong email or password."
             : (error && error.message) || "We couldn’t log you in";
         state.submitting = false;
@@ -228,7 +241,8 @@ function goTrueHandlers (state, emitter, goTrue) {
     state.submitting = true;
     emitter.emit("render");
 
-    goTrue.requestPasswordRecovery(email)
+    goTrue
+      .requestPasswordRecovery(email)
       .then(() => {
         state.submitting = false;
         state.success = `Password recovery email sent to ${email}`;
@@ -237,7 +251,8 @@ function goTrueHandlers (state, emitter, goTrue) {
       })
       .catch(error => {
         state.submitting = false;
-        state.error = `Error requesting password recovery: ${error && error.message}`;
+        state.error = `Error requesting password recovery: ${error &&
+          error.message}`;
         emitter.emit("render");
       });
   });
