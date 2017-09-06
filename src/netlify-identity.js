@@ -57,7 +57,7 @@ function setStyle(el, css) {
 	if (el) {
 		el.setAttribute("style", style);
 	} else {
-		queuedIframeStyle = css;
+		queuedIframeStyle = style;
 	}
 }
 
