@@ -259,6 +259,33 @@ module.exports = css`
     color: ${baseColor};
   }
 
+  .btnDevSettings {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    margin: 6px;
+    background: #fff;
+    color: ${subduedColor};
+  }
+
+  .btnDevSettings::before {
+    content: "🔧";
+    font-size: 10px;
+    line-height: 22px;
+  }
+
+  .btnDevSettings:hover,
+  .btnDevSettings:focus {
+    background: #e9ebeb;
+    color: ${baseColor};
+  }
+
   .header {
     display: flex;
     margin-top: -8px;

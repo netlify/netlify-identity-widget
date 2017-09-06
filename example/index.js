@@ -1,12 +1,12 @@
 const NetlifyIdentity = require("../index.js");
 
 const identity = new NetlifyIdentity(
-  { open: true }, // Gotrue identity options
-  { APIUrl: `https://netlify-identity.netlify.com/.netlify/identity` } // Gotrue-js options
+  { open: true } // Gotrue identity options
 );
 window.identity = identity;
 
 const container = document.querySelector("#external");
+
 container.appendChild(identity.create());
 
 identity.on("login", user => {
