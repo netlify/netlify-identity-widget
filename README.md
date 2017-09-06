@@ -54,6 +54,9 @@ netlifyIdentity.on('close', () => console.log("Widget closed"))
 
 // Close the modal
 loginModal.close()
+
+// Logout the user
+loginModal.logout();
 ```
 
 ### Module API
@@ -86,7 +89,13 @@ identity.on('close', () => console.log("Widget closed"))
 // Close the modal
 identity.close()
 
-identity.gotrue // Access the underlying gotrue instance.
+// Logout the user
+loginModal.logout();
+
+// Access the underlying gotrue instance.
+// Note that doing things directly through gotrue brings a risk of getting out of
+// sync between your state and the widgets state.
+identity.gotrue
 ```
 
 ## Localhost
