@@ -77,28 +77,29 @@ module.exports = css`
     position: relative;
     padding: ${basePadding};
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(10px) scale(1);
     background: #fff;
-    animation: fadeIn 0.3s ease-in-out;
+    animation: bouncyEntrance 0.2s cubic-bezier(0.18, 0.89, 0.32, 1.28);
     animation-fill-mode: forwards;
   }
 
-  @keyframes fadeIn {
+  @keyframes bouncyEntrance {
     0% {
       opacity: 0;
-      transform: translateY(10px);
+      transform: translateY(10px) scale(0.9);
     }
 
     100% {
       opacity: 1;
-      transform: translateY(0);
+      transform: translateY(0) scale(1);
     }
   }
 
   @media (min-width: 480px) {
     .modalContainer::before {
       background-color: ${baseColor};
-      opacity: 0.87;
+      animation: fadeIn 0.1s ease-in;
+      animation-fill-mode: forwards;
     }
 
     .modalDialog {
@@ -112,6 +113,16 @@ module.exports = css`
         0 12px 32px 0 rgba(14, 30, 37, 0.1);
       border-radius: 8px;
       margin-top: ${basePadding};
+    }
+  }
+
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+
+    100% {
+      opacity: 0.67;
     }
   }
 
@@ -140,12 +151,13 @@ module.exports = css`
 
   .error span::before {
     content: "";
-    display: block;
-    position: absolute;
-    left: 44px;
-    width: 24px;
-    height: 24px;
-    background: no-repeat left center;
+    display: inline-block;
+    position: relative;
+    top: 3px;
+    margin-right: 4px;
+    width: 16px;
+    height: 16px;
+    background: no-repeat center center;
     background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICA8cGF0aCBmaWxsPSIjRkEzOTQ2IiBkPSJNOCwxLjMzMzMzMzMzIEMxMS42NzYsMS4zMzMzMzMzMyAxNC42NjY2NjY3LDQuMzI0IDE0LjY2NjY2NjcsOCBDMTQuNjY2NjY2NywxMS42NzYgMTEuNjc2LDE0LjY2NjY2NjcgOCwxNC42NjY2NjY3IEM0LjMyNCwxNC42NjY2NjY3IDEuMzMzMzMzMzMsMTEuNjc2IDEuMzMzMzMzMzMsOCBDMS4zMzMzMzMzMyw0LjMyNCA0LjMyNCwxLjMzMzMzMzMzIDgsMS4zMzMzMzMzMyBaIE04LDAgQzMuNTgyLDAgMCwzLjU4MiAwLDggQzAsMTIuNDE4IDMuNTgyLDE2IDgsMTYgQzEyLjQxOCwxNiAxNiwxMi40MTggMTYsOCBDMTYsMy41ODIgMTIuNDE4LDAgOCwwIFogTTcuMTI2NjY2NjcsNS4wMTczMzMzMyBDNy4wNjA2NjY2Nyw0LjQ3OTMzMzMzIDcuNDc4NjY2NjcsNCA4LjAyNTMzMzMzLDQgQzguNTM5MzMzMzMsNCA4Ljk0MzMzMzMzLDQuNDUwNjY2NjcgOC44Nzg2NjY2Nyw0Ljk2NzMzMzMzIEw4LjM3NCw5LjAwMjY2NjY3IEM4LjM1MDY2NjY3LDkuMTkxMzMzMzMgOC4xOSw5LjMzMzMzMzMzIDgsOS4zMzMzMzMzMyBDNy44MSw5LjMzMzMzMzMzIDcuNjQ5MzMzMzMsOS4xOTEzMzMzMyA3LjYyNTMzMzMzLDkuMDAyNjY2NjcgTDcuMTI2NjY2NjcsNS4wMTczMzMzMyBMNy4xMjY2NjY2Nyw1LjAxNzMzMzMzIFogTTgsMTIuMTY2NjY2NyBDNy41NCwxMi4xNjY2NjY3IDcuMTY2NjY2NjcsMTEuNzkzMzMzMyA3LjE2NjY2NjY3LDExLjMzMzMzMzMgQzcuMTY2NjY2NjcsMTAuODczMzMzMyA3LjU0LDEwLjUgOCwxMC41IEM4LjQ2LDEwLjUgOC44MzMzMzMzMywxMC44NzMzMzMzIDguODMzMzMzMzMsMTEuMzMzMzMzMyBDOC44MzMzMzMzMywxMS43OTMzMzMzIDguNDYsMTIuMTY2NjY2NyA4LDEyLjE2NjY2NjcgWiIvPgo8L3N2Zz4K);
   }
 
@@ -155,6 +167,16 @@ module.exports = css`
   .disabled {
     opacity: 0.38;
     pointer-events: none;
+  }
+
+  .infoText {
+    text-align: center;
+    margin: 32px 0;
+  }
+
+  .infoTextEmail {
+    font-size: 16px;
+    font-weight: 500;
   }
 
   .saving {

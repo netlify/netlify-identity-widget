@@ -31,10 +31,12 @@ function goTrueHandlers (state, emitter, goTrue) {
               state.success = `Logged in ${user.email}`;
               state.page = "logout";
               state.user = user;
+              state.title = "Logged in";
+              emitter.emit("render");
               emitter.emit("login", user);
             })
             .catch(err => {
-              state.error = `Failed to confirm email ${JSON.stringify(err)}`;
+              state.error = `Failed to confirm email ${err.message}`;
               emitter.emit("error", err);
             });
         }
@@ -70,7 +72,7 @@ function goTrueHandlers (state, emitter, goTrue) {
               state.user = user;
             })
             .catch(err => {
-              state.error = `Failed to change email ${JSON.stringify(err)}`;
+              state.error = `Failed to change email ${err.message}`;
               emitter.emit("error", err);
             });
         }
@@ -83,11 +85,13 @@ function goTrueHandlers (state, emitter, goTrue) {
             .then(user => {
               state.success = `Logged in ${user.email}`;
               state.page = "logout";
+              state.title = "Logged in";
               state.user = user;
+              emitter.emit("render");
               emitter.emit("login", user);
             })
             .catch(err => {
-              state.error = `Failed to login ${JSON.stringify(err)}`;
+              state.error = `Failed to login ${err.message}`;
               emitter.emit("error", err);
             });
         }
@@ -116,7 +120,7 @@ function goTrueHandlers (state, emitter, goTrue) {
         emitter.emit("signup", response);
       },
       error => {
-        state.error = error.error_description || "We couldn’t sign you up";
+        state.error = (error.json && error.json.error_description) || "We couldn’t sign you up";
         state.submitting = false;
         emitter.emit("render");
         emitter.emit("error", error);
@@ -134,12 +138,13 @@ function goTrueHandlers (state, emitter, goTrue) {
         state.submitting = false;
         state.user = user;
         state.page = "logout";
+        state.title = "Logged in";
         emitter.emit("render");
         emitter.emit("signup", user);
         emitter.emit("login", user);
       },
       error => {
-        state.error = `Failed to verify ${JSON.stringify(error)}`;
+        state.error = `Failed to verify ${error && error.message}`;
         state.submitting = false;
         emitter.emit("render");
         emitter.emit("error", error);
@@ -157,6 +162,7 @@ function goTrueHandlers (state, emitter, goTrue) {
         // even if the password change fails, user is still logged in.
         state.user = user;
         state.page = "logout";
+        state.title = "Logged in";
         return user.update({ password });
       })
       .then(user => {
@@ -164,11 +170,12 @@ function goTrueHandlers (state, emitter, goTrue) {
         state.submitting = false;
         state.user = user;
         state.page = "logout";
+        state.title = "Logged in";
         emitter.emit("render");
         emitter.emit("login", user);
       })
       .catch(error => {
-        state.error = `Failed to change password ${JSON.stringify(error)}`;
+        state.error = `Failed to change password ${error && error.message}`;
         state.submitting = false;
         emitter.emit("render");
         emitter.emit("error", error);
@@ -185,14 +192,15 @@ function goTrueHandlers (state, emitter, goTrue) {
         state.submitting = false;
         state.page = "logout";
         state.user = user;
+        state.title = "Logged in";
         emitter.emit("render");
         emitter.emit("login", user);
       },
       error => {
         state.error =
-          error && error.error === "invalid_grant"
+          error && error.json && error.json.error == "invalid_grant"
             ? "Wrong email or password."
-            : (error && error.error_description) || "We couldn’t log you in";
+            : (error && error.message) || "We couldn’t log you in";
         state.submitting = false;
         emitter.emit("render");
         emitter.emit("error", error);
@@ -236,7 +244,7 @@ function goTrueHandlers (state, emitter, goTrue) {
       })
       .catch(error => {
         state.submitting = false;
-        state.error = `Error requesting password recovery ${error}`;
+        state.error = `Error requesting password recovery: ${error && error.message}`;
         emitter.emit("render");
       });
   });

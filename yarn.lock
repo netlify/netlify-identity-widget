@@ -1983,7 +1983,7 @@ globby@^5.0.0:
     pify "^2.0.0"
     pinkie-promise "^2.0.0"
 
-gotrue-js@^0.9.3:
+gotrue-js@^0.9.4:
   version "0.9.4"
   resolved "https://registry.yarnpkg.com/gotrue-js/-/gotrue-js-0.9.4.tgz#4f28b1b70ef5fc8f1994bd709aa7095bce2e995d"
   dependencies:

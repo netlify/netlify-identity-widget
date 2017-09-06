@@ -24,7 +24,7 @@ class Header extends Nanocomponent {
 
   createElement (state, emit) {
     const { page, settings, title } = state;
-    this.signup_enabled = settings.signup_enabled;
+    this.disable_signup = settings.disable_signup;
     this.page = page;
     this.emit = emit;
 
@@ -36,10 +36,10 @@ class Header extends Nanocomponent {
       case "signup":
         return html`
         <div class="${styles.header}">
-          ${settings.signup_enabled
-            ? html`<button class="${styles.btn} ${styles.btnHeader} ${signupClass}"
-              onclick=${this.navigateSignupPage}>Sign Up</button>`
-            : ""}
+          ${settings.disable_signup
+            ? ""
+            : html`<button class="${styles.btn} ${styles.btnHeader} ${signupClass}"
+              onclick=${this.navigateSignupPage}>Sign Up</button>`}
           <button class="${styles.btn} ${styles.btnHeader} ${loginClass}"
           onclick=${this.navigateLoginPage}>Log In</button>
         </div>
@@ -52,7 +52,7 @@ class Header extends Nanocomponent {
   }
 
   update ({ page, settings }, emit) {
-    return this.page !== page || this.signup_enabled !== settings.signup_enabled;
+    return this.page !== page || this.disable_signup !== settings.disable_signup;
   }
 }
 
