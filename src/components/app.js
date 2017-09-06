@@ -41,6 +41,12 @@ const pages = {
 		link: 'login',
 		link_text: 'Never mind'
 	},
+	invite: {
+		title: 'Complete your signup',
+		button: 'Signup',
+		button_saving: 'Signing Up',
+		password: true
+	},
 	user: {
 		title: 'Logged in'
 	}
@@ -67,6 +73,9 @@ class App extends Component {
 			case "amnesia":
 				store.requestPasswordRecovery(email);
 				break;
+			case "invite":
+				store.acceptInvite(password);
+				break;
 			case "recovery":
 				store.updatePassword(password);
 				break;
@@ -77,7 +86,7 @@ class App extends Component {
 		const {store} = this.props;
 
 		if (!store.gotrue) { return <SiteURLForm onSiteURL={this.handleSiteURL}/>; }
-		if (!store.settings) { return <div>Loading...</div>; }
+		if (!store.settings) { return  }
 		if (store.user) { return <LogoutForm user={store.user} saving={store.saving} onLogout={this.handleLogout} />; }
 		if (store.modal.page === 'signup' && store.settings.disable_signup) {
 			return <Message type="signup_disabled"/>;
@@ -99,6 +108,7 @@ class App extends Component {
 					error={store.error}
 					showHeader={showHeader}
 					showSignup={showSignup}
+					loading={store.gotrue && !store.settings}
 					onPage={this.handlePage}
 					onClose={this.handleClose}
 				>

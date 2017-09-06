@@ -21,11 +21,11 @@ export default class Modal extends Component {
   }
 
   render() {
-    const {page, error, showHeader, showSignup, children} = this.props;
+    const {page, error, loading, showHeader, showSignup, children} = this.props;
 
     return (
       <div className="modalContainer" role="dialog" onClick={this.handleClose}>
-        <div className="modalDialog" onClick={this.blockEvent}>
+        <div className={`modalDialog${loading ? ' visuallyHidden' : ''}`} onClick={this.blockEvent}>
           <div className="modalContent">
             <button onclick={this.handleClose} className="btn btnClose">
               <span className="visuallyHidden">Close</span>
@@ -43,7 +43,7 @@ export default class Modal extends Component {
 						{children}
           </div>
         </div>
-        <a href="https://www.netlify.com" className="callOut">
+        <a href="https://www.netlify.com" className={`callOut${loading ? ' visuallyHidden' : ''}`}>
           <span className="netlifyLogo"></span>
           Coded by Netlify
         </a>

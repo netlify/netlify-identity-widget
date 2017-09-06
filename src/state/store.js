@@ -25,7 +25,6 @@ store.startAction = action(function startAction() {
 });
 
 store.setError = action(function setError(err) {
-  console.log("Error:", err, err.json);
   store.saving = false;
   store.error = err;
 });
@@ -94,7 +93,7 @@ store.logout = action(function logout() {
       store.modal.page = "login";
       store.saving = false;
     }))
-    .then(store.setError);
+    .catch(store.setError);
 })
 
 store.updatePassword = action(function updatePassword(password) {
@@ -107,8 +106,20 @@ store.updatePassword = action(function updatePassword(password) {
       store.modal.page = "user";
       store.saving = false;
     })
-    .then(store.setError)
+    .catch(store.setError)
 })
+
+store.acceptInvite = action(function acceptInvite(password) {
+  store.startAction();
+  store.gotrue.acceptInvite(store.token, password, store.remember)
+    .then((user) => {
+      store.saving = false;
+      store.token= null;
+      store.user = user;
+      store.modal.page = "user";
+    })
+    .catch(store.setError)
+});
 
 store.doEmailChange = action(function doEmailChange() {
   store.startAction();
@@ -152,8 +163,8 @@ store.verifyToken = action(function verifyToken(type, token) {
         store.modal.page = "login";
       }
     case "invite":
-      store.token = token;
       store.modal.page = type;
+      store.token = token;
       break;
     case "recovery":
       store.startAction();
