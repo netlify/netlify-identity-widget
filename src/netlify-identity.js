@@ -48,12 +48,17 @@ const netlifyIdentity = {
   }
 };
 
+let queuedIframeStyle = null
 function setStyle(el, css) {
   let style = "";
   for (const key in css) {
     style += `${key}: ${css[key]}; `;
   }
-  el.setAttribute("style", style);
+	if (el) {
+		el.setAttribute("style", style);
+	} else {
+		queuedIframeStyle = css;
+	}
 }
 
 const localHosts = {
@@ -180,6 +185,12 @@ function init(options) {
   iframe.src = "about:blank";
   const container = options.container ? document.querySelector : document.body;
   container.appendChild(iframe);
+	/* There's a certain case where we might have called setStyle before the iframe was ready.
+	   Make sure we take the last style and apply it */
+  if (queuedIframeStyle) {
+		iframe.setAttribute('style', queuedIframeStyle);
+		queuedIframeStyle = null;
+	}
 }
 
 export default netlifyIdentity;
