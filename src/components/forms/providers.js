@@ -26,6 +26,6 @@ export default class Providers extends Component {
         <hr className="hr" />
         {providers.map((p) => <Provider key={p} provider={p} onLogin={onLogin} />)}
       </div>
-    )
+    );
   }
 }

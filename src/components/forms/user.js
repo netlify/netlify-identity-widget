@@ -79,6 +79,6 @@ export default class UserForm extends Component {
         </div>}
         <Button saving={saving} text={page.button} saving_text={page.button_saving}/>
       </form>
-    )
+    );
   }
 }

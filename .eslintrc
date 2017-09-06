@@ -2,15 +2,13 @@
   "parser": "babel-eslint",
   "extends": "eslint:recommended",
   "plugins": [
-    "react",
-    "jest"
+    "react"
   ],
   "env": {
     "browser": true,
     "node": true,
     "mocha": true,
-    "es6": true,
-    "jest/globals": true
+    "es6": true
   },
   "parserOptions": {
     "ecmaFeatures": {
@@ -40,9 +38,6 @@
     "react/jsx-no-undef": 2,
     "react/jsx-uses-react": 2,
     "react/jsx-uses-vars": 2,
-    "jest/no-disabled-tests": 1,
-    "jest/no-focused-tests": 1,
-    "jest/no-identical-title": 2,
     "no-empty": 0,
     "no-console": 0,
     "no-empty-pattern": 0,
@@ -51,7 +46,7 @@
     "camelcase": 0,
     "comma-style": 2,
     "comma-dangle": [2, "never"],
-    "indent": [2, "tab", {"SwitchCase": 1}],
+    "indent": [2, 2, {"SwitchCase": 1}],
     "no-mixed-spaces-and-tabs": [2, "smart-tabs"],
     "no-trailing-spaces": [2, { "skipBlankLines": true }],
     "max-nested-callbacks": [2, 3],

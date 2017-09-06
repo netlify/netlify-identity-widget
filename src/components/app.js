@@ -10,135 +10,135 @@ import Message from './forms/message';
 const pagesWithHeader = {login: true, signup: true};
 const pages = {
   login: {
-		login:  true,
+    login:  true,
     button: 'Log In',
     button_saving: 'Logging in',
     email: true,
     password: true,
-		link: 'amnesia',
-		link_text: 'Forgot password?',
-		providers: true
+    link: 'amnesia',
+    link_text: 'Forgot password?',
+    providers: true
   },
   signup: {
-		signup: true,
+    signup: true,
     button: 'Sign Up',
     button_saving: 'Signing Up',
     name: true,
     email: true,
     password: true,
-		providers: true
+    providers: true
   },
   amnesia: {
     title: 'Recover password',
     button: 'Send recovery email',
     button_saving: 'Sending recovery email',
     email: true,
-		link: 'login',
-		link_text: 'Never mind'
+    link: 'login',
+    link_text: 'Never mind'
   },
-	recovery: {
-		title: 'Recover password',
+  recovery: {
+    title: 'Recover password',
     button: 'Update password',
     button_saving: 'Updating password',
     password: true,
-		link: 'login',
-		link_text: 'Never mind'
-	},
-	invite: {
-		title: 'Complete your signup',
-		button: 'Signup',
-		button_saving: 'Signing Up',
-		password: true
-	},
-	user: {
-		title: 'Logged in'
-	}
-}
+    link: 'login',
+    link_text: 'Never mind'
+  },
+  invite: {
+    title: 'Complete your signup',
+    button: 'Signup',
+    button_saving: 'Signing Up',
+    password: true
+  },
+  user: {
+    title: 'Logged in'
+  }
+};
 
 @connect(['store'])
 class App extends Component {
-	handleClose = () => this.props.store.closeModal()
-	handlePage = (page) => this.props.store.openModal(page)
-	handleLogout = () => this.props.store.logout()
-	handleSiteURL = (url) => this.props.store.setSiteURL(url)
-	handleExternalLogin = (provider) => this.props.store.externalLogin(provider)
-	handleUser = ({name, email, password}) => {
-		const {store} = this.props;
+  handleClose = () => this.props.store.closeModal()
+  handlePage = (page) => this.props.store.openModal(page)
+  handleLogout = () => this.props.store.logout()
+  handleSiteURL = (url) => this.props.store.setSiteURL(url)
+  handleExternalLogin = (provider) => this.props.store.externalLogin(provider)
+  handleUser = ({name, email, password}) => {
+    const {store} = this.props;
 
-		switch (store.modal.page) {
-			case "login":
-				store.login(email, password);
-				break;
-			case "signup":
-				store.signup(name, email, password);
-				break;
-			case "amnesia":
-				store.requestPasswordRecovery(email);
-				break;
-			case "invite":
-				store.acceptInvite(password);
-				break;
-			case "recovery":
-				store.updatePassword(password);
-				break;
-		}
-	}
+    switch (store.modal.page) {
+      case "login":
+        store.login(email, password);
+        break;
+      case "signup":
+        store.signup(name, email, password);
+        break;
+      case "amnesia":
+        store.requestPasswordRecovery(email);
+        break;
+      case "invite":
+        store.acceptInvite(password);
+        break;
+      case "recovery":
+        store.updatePassword(password);
+        break;
+    }
+  }
 
-	renderBody() {
-		const {store} = this.props;
+  renderBody() {
+    const {store} = this.props;
 
-		if (!store.gotrue) { return <SiteURLForm onSiteURL={this.handleSiteURL}/>; }
-		if (!store.settings) { return  }
-		if (store.user) { return <LogoutForm user={store.user} saving={store.saving} onLogout={this.handleLogout} />; }
-		if (store.modal.page === 'signup' && store.settings.disable_signup) {
-			return <Message type="signup_disabled"/>;
-		}
+    if (!store.gotrue) { return <SiteURLForm onSiteURL={this.handleSiteURL}/>; }
+    if (!store.settings) { return; }
+    if (store.user) { return <LogoutForm user={store.user} saving={store.saving} onLogout={this.handleLogout} />; }
+    if (store.modal.page === 'signup' && store.settings.disable_signup) {
+      return <Message type="signup_disabled"/>;
+    }
 
-		return <UserForm page={pages[store.modal.page] || {}} message={store.message} saving={store.saving} onSubmit={this.handleUser} />;
-	}
+    return <UserForm page={pages[store.modal.page] || {}} message={store.message} saving={store.saving} onSubmit={this.handleUser} />;
+  }
 
-	renderProviders() {
-		const {store} = this.props;
+  renderProviders() {
+    const {store} = this.props;
 
-		if (!(store.gotrue && store.settings)) { return null; }
-		if (store.modal.page === 'signup' && store.settings.disable_signup) { return null; }
-		const page = pages[store.modal.page] || {};
+    if (!(store.gotrue && store.settings)) { return null; }
+    if (store.modal.page === 'signup' && store.settings.disable_signup) { return null; }
+    const page = pages[store.modal.page] || {};
 
-		if (!page.providers) { return null; }
+    if (!page.providers) { return null; }
 
-		const providers = ['Google', 'GitHub', 'GitLab', 'BitBucket'].filter((p) => store.settings.external[p.toLowerCase()]);
+    const providers = ['Google', 'GitHub', 'GitLab', 'BitBucket'].filter((p) => store.settings.external[p.toLowerCase()]);
 
-		return providers.length ?
-			<Providers providers={providers} onLogin={this.handleExternalLogin}/> :
-			null;
-	}
+    return providers.length ?
+      <Providers providers={providers} onLogin={this.handleExternalLogin}/> :
+      null;
+  }
 
-	render() {
-		const {store} = this.props;
-		const showHeader = pagesWithHeader[store.modal.page];
-		const showSignup = store.settings && !store.settings.disable_signup;
-		const page = pages[store.modal.page] || {};
+  render() {
+    const {store} = this.props;
+    const showHeader = pagesWithHeader[store.modal.page];
+    const showSignup = store.settings && !store.settings.disable_signup;
+    const page = pages[store.modal.page] || {};
 
-		return (
-			<div>
-			  <Modal
-					page={page}
-					error={store.error}
-					showHeader={showHeader}
-					showSignup={showSignup}
-					loading={store.gotrue && !store.settings}
-					onPage={this.handlePage}
-					onClose={this.handleClose}
-				>
-					{this.renderBody()}
-					{this.renderProviders()}
-					{!store.user && page.link && <button onclick={() => this.handlePage(page.link)} className="btnLink forgotPasswordLink">
-					  {page.link_text}
-					</button>}
-				</Modal>
-			</div>
-		);
-	}
+    return (
+      <div>
+        <Modal
+          page={page}
+          error={store.error}
+          showHeader={showHeader}
+          showSignup={showSignup}
+          loading={store.gotrue && !store.settings}
+          onPage={this.handlePage}
+          onClose={this.handleClose}
+        >
+          {this.renderBody()}
+          {this.renderProviders()}
+          {!store.user && page.link && <button onclick={() => this.handlePage(page.link)} className="btnLink forgotPasswordLink">
+            {page.link_text}
+          </button>}
+        </Modal>
+      </div>
+    );
+  }
 }
 
 export default App;

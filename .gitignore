@@ -4,5 +4,4 @@
 .DS_Store
 /coverage
 /.idea
-yarn.lock
 /.vscode
