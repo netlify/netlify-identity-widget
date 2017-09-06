@@ -1,9 +1,7 @@
 {
   "parser": "babel-eslint",
   "extends": "eslint:recommended",
-  "plugins": [
-    "react"
-  ],
+  "plugins": ["react"],
   "env": {
     "browser": true,
     "node": true,
@@ -27,6 +25,7 @@
   "rules": {
     "react/jsx-no-bind": [2, { "ignoreRefs": true }],
     "react/jsx-no-duplicate-props": 2,
+    "react/jsx-closing-bracket-location": [2, "after-props"],
     "react/self-closing-comp": 2,
     "react/prefer-es6-class": 2,
     "react/no-string-refs": 2,
@@ -46,7 +45,7 @@
     "camelcase": 0,
     "comma-style": 2,
     "comma-dangle": [2, "never"],
-    "indent": [2, 2, {"SwitchCase": 1}],
+    "indent": [2, 2, { "SwitchCase": 1 }],
     "no-mixed-spaces-and-tabs": [2, "smart-tabs"],
     "no-trailing-spaces": [2, { "skipBlankLines": true }],
     "max-nested-callbacks": [2, 3],
