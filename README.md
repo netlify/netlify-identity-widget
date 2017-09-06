@@ -54,7 +54,7 @@ netlifyIdentity.on('close', () => console.log("Widget closed"))
 
 // Close the modal
 loginModal.close()
-
+```
 
 ### Module API
 
@@ -69,9 +69,9 @@ Import or require as usual:
 ```js
 import NetlifyIdentity from "netlify-identity-widget"
 // or
-const NetlifyIdentity = require("netlify-identity-widget");
+const netlifyIdentity = require("netlify-identity-widget");
 
-const identity = new NetlifyIdentity({
+netlifyIdentity.init({
   container: "#netlify-modal" // defaults to document.body
 });
 
