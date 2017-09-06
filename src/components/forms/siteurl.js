@@ -19,8 +19,8 @@ export default class SiteURLForm extends Component {
     const {url} = this.state;
 
     return <form onsubmit={this.handleSiteURL} className="form">
-      <div>
-        {"It looks like you're running from a local dev server. To talk to Netlify Identity, let us know the URL of your Netlify Site"}
+      <div className="flashMessage">
+        {"Looks like you're running a local dev server. Please let us know the URL of your site."}
       </div>
       <div className="formGroup">
         <label>
@@ -30,9 +30,9 @@ export default class SiteURLForm extends Component {
           <input
             className="formControl"
             type="url"
-            name="url"
+            name="URL of your Netlify site"
             value={url}
-            placeholder="url"
+            placeholder="URL of your Netlify site"
             autocapitalize="off"
             required
             oninput={this.handleInput}
@@ -40,7 +40,7 @@ export default class SiteURLForm extends Component {
           <div className="inputFieldIcon inputFieldUrl"></div>
         </label>
       </div>
-      <button type="submit" className="btn">Set Site URL</button>
+      <button type="submit" className="btn">Set site's URL</button>
     </form>;
   }
 }
