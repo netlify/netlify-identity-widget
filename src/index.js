@@ -5,8 +5,7 @@ import { observe } from 'mobx';
 import { Provider } from 'mobx-preact'
 import GoTrue from 'gotrue-js';
 import App from './components/app';
-import identity from './state/identity';
-import modal from './state/modal';
+import store from './state/store';
 import Controls from './components/controls';
 import modalCSS from './components/modal.css';
 
@@ -55,14 +54,14 @@ const iframeStyle = {
 	display: "none"
 };
 
-observe(modal, 'isOpen', () => {
-	if (!identity.settings) { identity.loadSettings() }
-  setStyle(iframe, {...iframeStyle, display: modal.isOpen ? 'block' : 'none'})	;
+observe(store.modal, 'isOpen', () => {
+	if (!store.settings) { store.loadSettings() }
+  setStyle(iframe, {...iframeStyle, display: store.modal.isOpen ? 'block' : 'none'})	;
 });
 
-observe(identity, 'siteURL', () => {
-	localStorage.setItem("netlifySiteURL", identity.siteURL);
-	identity.init(instantiateGotrue(), true);
+observe(store, 'siteURL', () => {
+	localStorage.setItem("netlifySiteURL", store.siteURL);
+	store.init(instantiateGotrue(), true);
 })
 
 const routes = /(confirmation|invite|recovery|email_change)_token=([^&]+)/;
@@ -73,8 +72,7 @@ function runRoutes() {
 
 	const m = hash.match(routes);
 	if (m) {
-		identity.verifyToken(m[1], m[2]);
-		modal.open(m[1]);
+		store.verifyToken(m[1], m[2]);
 		document.location.hash = '';
 	}
 }
@@ -82,9 +80,9 @@ function runRoutes() {
 function init() {
 	const controlEl = document.querySelector("div[data-netlify-identity]");
 	if (controlEl) {
-		controls = render(<Provider modal={modal}><Controls/></Provider>, controlEl, controls);
+		controls = render(<Provider store={store}><Controls/></Provider>, controlEl, controls);
 	}
-	identity.init(instantiateGotrue());
+	store.init(instantiateGotrue());
 
 	iframe = document.createElement("iframe")
 	iframe.id = "netlify-identity-widget";
@@ -92,7 +90,7 @@ function init() {
 		const styles = iframe.contentDocument.createElement("style");
 		styles.innerHTML = modalCSS.toString();
 		iframe.contentDocument.head.appendChild(styles);
-		root = render(<Provider identity={identity} modal={modal}>
+		root = render(<Provider store={store}>
 			<App />
 		</Provider>, iframe.contentDocument.body, root);
 		runRoutes();

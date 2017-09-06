@@ -1,5 +1,10 @@
 import {h, Component} from "preact";
 
+function formatError(error) {
+  return (error.json && error.json.error_description) ||
+         error.message || error.toString();
+}
+
 export default class Modal extends Component {
   handleClose = (e) => {
     e.preventDefault();
@@ -16,7 +21,7 @@ export default class Modal extends Component {
   }
 
   render() {
-    const {page, showHeader, showSignup, children} = this.props;
+    const {page, error, showHeader, showSignup, children} = this.props;
 
     return (
       <div className="modalContainer" role="dialog" onClick={this.handleClose}>
@@ -27,12 +32,14 @@ export default class Modal extends Component {
             </button>
 						{showHeader && <div className="header">
             	{showSignup && <button
-							  className={`btn btnHeader ${page === 'signup' ? 'active' : ''}`}
+							  className={`btn btnHeader ${page.signup ? 'active' : ''}`}
 							  onclick={this.linkHandler('signup')}>Sign Up</button>}
           		<button
-							  className={`btn btnHeader ${page === 'login' ? 'active' : ''}`}
+							  className={`btn btnHeader ${page.login ? 'active' : ''}`}
 								onclick={this.linkHandler('login')}>Log in</button>
         		</div>}
+            {page.title && <div className="header"><button className="btn btnHeader active">{page.title}</button></div>}
+            {error && <div className="flashMessage error"><span>{formatError(error)}</span></div>}
 						{children}
           </div>
         </div>

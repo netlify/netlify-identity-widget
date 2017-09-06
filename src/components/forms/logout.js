@@ -1,4 +1,5 @@
 import { h, Component } from 'preact';
+import Button from './button';
 
 export default class LogoutForm {
   handleLogout = (e) => {
@@ -6,14 +7,17 @@ export default class LogoutForm {
     this.props.onLogout();
   }
   render() {
-    const {user} = this.props;
+    const {user, saving} = this.props;
 
     return (
-      <form onSubmit={this.handleLogout} className="form">
-        <p>
-          Logged in {user.email ? "as " : ""} {user.email}
+      <form onSubmit={this.handleLogout} className={`form ${saving ? 'disabled' : ''}`}>
+        <p className="infoText">
+          Logged in as <br/>
+          <span className="infoTextEmail">
+            {user.user_metadata.full_name || user.user_metadata.name || user.email}
+          </span>
         </p>
-        <button type="submit" className="btn">Log out</button>
+        <Button saving={saving} text="Log out" saving_text="Loggin out"/>
       </form>
     );
   }

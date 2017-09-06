@@ -1,4 +1,6 @@
 import {h, Component} from "preact";
+import Message from './message';
+import Button from './button';
 
 export default class UserForm extends Component {
   constructor(props) {
@@ -16,14 +18,13 @@ export default class UserForm extends Component {
   }
 
   render() {
-    const {page} = this.props;
+    const {page, message, saving} = this.props;
     const {name, email, password} = this.state;
-    const showName = page === 'signup';
-    const showEmail = page === 'login' || page === 'signup';
 
     return (
-      <form onsubmit={this.handleLogin} className="form">
-        {showName && <div className="formGroup">
+      <form onsubmit={this.handleLogin} className={`form ${saving ? 'disabled' : ''}`}>
+        {message && <Message type={message}/>}
+        {page.name && <div className="formGroup">
           <label>
             <span className="visuallyHidden">
               Enter your name
@@ -41,7 +42,7 @@ export default class UserForm extends Component {
             <div className="inputFieldIcon inputFieldEmail"></div>
           </label>
         </div>}
-        {showEmail && <div className="formGroup">
+        {page.email && <div className="formGroup">
           <label>
             <span className="visuallyHidden">
               Enter your email
@@ -59,7 +60,7 @@ export default class UserForm extends Component {
             <div className="inputFieldIcon inputFieldEmail"></div>
           </label>
         </div>}
-        <div className="formGroup">
+        {page.password && <div className="formGroup">
           <label>
             <span className="visuallyHidden">
               Enter your password
@@ -75,8 +76,8 @@ export default class UserForm extends Component {
             />
             <div className="inputFieldIcon inputFieldPassword"></div>
           </label>
-        </div>
-        <button type="submit" className="btn">Log In</button>
+        </div>}
+        <Button saving={saving} text={page.button} saving_text={page.button_saving}/>
       </form>
     )
   }

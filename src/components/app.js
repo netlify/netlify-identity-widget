@@ -1,61 +1,111 @@
 import { h, Component } from 'preact';
 import { connect } from 'mobx-preact';
 import Modal from './modal';
-import Message from './message';
 import SiteURLForm from './forms/siteurl';
+import LogoutForm from './forms/logout';
 import UserForm from './forms/user';
+import Message from './forms/message';
 
 const pagesWithHeader = {login: true, signup: true};
+const pages = {
+  login: {
+		login:  true,
+    button: 'Log In',
+    button_saving: 'Logging in',
+    email: true,
+    password: true,
+		link: 'amnesia',
+		link_text: 'Forgot password?'
+  },
+  signup: {
+		signup: true,
+    button: 'Sign Up',
+    button_saving: 'Signing Up',
+    name: true,
+    email: true,
+    password: true
+  },
+  amnesia: {
+    title: 'Recover password',
+    button: 'Send recovery email',
+    button_saving: 'Sending recovery email',
+    email: true,
+		link: 'login',
+		link_text: 'Never mind'
+  },
+	recovery: {
+		title: 'Recover password',
+    button: 'Update password',
+    button_saving: 'Updating password',
+    password: true,
+		link: 'login',
+		link_text: 'Never mind'
+	},
+	user: {
+		title: 'Logged in'
+	}
+}
 
-@connect(['modal', 'identity'])
+
+@connect(['store'])
 class App extends Component {
 
-	handleClose = () => this.props.modal.close()
-	handlePage = (page) => this.props.modal.open(page)
-	handleLogout = () => this.props.identity.logout()
-	handleSiteURL = (url) => this.props.identity.setSiteURL(url)
+	handleClose = () => this.props.store.closeModal()
+	handlePage = (page) => this.props.store.openModal(page)
+	handleLogout = () => this.props.store.logout()
+	handleSiteURL = (url) => this.props.store.setSiteURL(url)
 	handleUser = ({name, email, password}) => {
-		const {identity, modal} = this.props;
+		const {store} = this.props;
 
-		switch (modal.page) {
+		switch (store.modal.page) {
 			case "login":
-				identity.login(email, password);
+				store.login(email, password);
 				break;
 			case "signup":
-				identity.signup(name, email, password);
+				store.signup(name, email, password);
+				break;
+			case "amnesia":
+				store.requestPasswordRecovery(email);
+				break;
+			case "recovery":
+				store.updatePassword(password);
 				break;
 		}
 	}
 
 	renderBody() {
-		const {identity, modal} = this.props;
+		const {store} = this.props;
 
-		if (!identity.gotrue) { return <SiteURLForm onSiteURL={this.handleSiteURL}/>; }
+		if (!store.gotrue) { return <SiteURLForm onSiteURL={this.handleSiteURL}/>; }
+		if (!store.settings) { return <div>Loading...</div>; }
+		if (store.user) { return <LogoutForm user={store.user} saving={store.saving} onLogout={this.handleLogout} />; }
+		if (store.modal.page === 'signup' && store.settings.disable_signup) {
+			return <Message type="signup_disabled"/>;
+		}
 
-		if (!identity.settings) { return <div>Loading...</div>; }
-
-		if (identity.user) { return <LogoutForm user={identity.user} onLogout={this.handleLogout} />; }
-
-		if (identity.message) { return <Message type={identity.message}/>; }
-
-		return <UserForm page={modal.page} error={identity.loginError} onSubmit={this.handleUser} />;
+		return <UserForm page={pages[store.modal.page] || {}} message={store.message} saving={store.saving} onSubmit={this.handleUser} />;
 	}
 
 	render() {
-		const {identity, modal} = this.props;
-		const showHeader = pagesWithHeader[modal.page];
-		const showSignup = !identity.disable_signup;
+		const {store} = this.props;
+		const showHeader = pagesWithHeader[store.modal.page];
+		const showSignup = store.settings && !store.settings.disable_signup;
+		const page = pages[store.modal.page] || {};
 
 		return (
 			<div>
 			  <Modal
-					page={modal.page}
+					page={page}
+					error={store.error}
 					showHeader={showHeader}
 					showSignup={showSignup}
 					onPage={this.handlePage}
 					onClose={this.handleClose}
 				>
 					{this.renderBody()}
+					{!store.user && page.link && <button onclick={() => this.handlePage(page.link)} className="btnLink forgotPasswordLink">
+					  {page.link_text}
+					</button>}
 				</Modal>
 			</div>
 		);
