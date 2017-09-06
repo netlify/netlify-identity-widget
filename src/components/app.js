@@ -4,6 +4,7 @@ import Modal from './modal';
 import SiteURLForm from './forms/siteurl';
 import LogoutForm from './forms/logout';
 import UserForm from './forms/user';
+import Providers from './forms/providers';
 import Message from './forms/message';
 
 const pagesWithHeader = {login: true, signup: true};
@@ -15,7 +16,8 @@ const pages = {
     email: true,
     password: true,
 		link: 'amnesia',
-		link_text: 'Forgot password?'
+		link_text: 'Forgot password?',
+		providers: true
   },
   signup: {
 		signup: true,
@@ -23,7 +25,8 @@ const pages = {
     button_saving: 'Signing Up',
     name: true,
     email: true,
-    password: true
+    password: true,
+		providers: true
   },
   amnesia: {
     title: 'Recover password',
@@ -60,6 +63,7 @@ class App extends Component {
 	handlePage = (page) => this.props.store.openModal(page)
 	handleLogout = () => this.props.store.logout()
 	handleSiteURL = (url) => this.props.store.setSiteURL(url)
+	handleExternalLogin = (provider) => this.props.store.externalLogin(provider)
 	handleUser = ({name, email, password}) => {
 		const {store} = this.props;
 
@@ -95,6 +99,22 @@ class App extends Component {
 		return <UserForm page={pages[store.modal.page] || {}} message={store.message} saving={store.saving} onSubmit={this.handleUser} />;
 	}
 
+	renderProviders() {
+		const {store} = this.props;
+
+		if (!(store.gotrue && store.settings)) { return null; }
+		if (store.modal.page === 'signup' && store.settings.disable_signup) { return null; }
+		const page = pages[store.modal.page] || {};
+
+		if (!page.providers) { return null; }
+
+		const providers = ['Google', 'GitHub', 'GitLab', 'BitBucket'].filter((p) => store.settings.external[p.toLowerCase()]);
+
+		return providers.length ?
+			<Providers providers={providers} onLogin={this.handleExternalLogin}/> :
+			null;
+	}
+
 	render() {
 		const {store} = this.props;
 		const showHeader = pagesWithHeader[store.modal.page];
@@ -113,6 +133,7 @@ class App extends Component {
 					onClose={this.handleClose}
 				>
 					{this.renderBody()}
+					{this.renderProviders()}
 					{!store.user && page.link && <button onclick={() => this.handlePage(page.link)} className="btnLink forgotPasswordLink">
 					  {page.link_text}
 					</button>}

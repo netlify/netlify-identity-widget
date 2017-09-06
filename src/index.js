@@ -65,6 +65,8 @@ observe(store, 'siteURL', () => {
 })
 
 const routes = /(confirmation|invite|recovery|email_change)_token=([^&]+)/;
+const errorRoute = /error=access_denied&error_description=403/;
+const accessTokenRoute = /access_token=/
 
 function runRoutes() {
 	const hash = (document.location.hash || '').replace(/^#/, '');
@@ -74,6 +76,24 @@ function runRoutes() {
 	if (m) {
 		store.verifyToken(m[1], m[2]);
 		document.location.hash = '';
+	}
+
+	const em = hash.match(errorRoute);
+	if (em) {
+		store.openModal("signup");
+		document.location.hash = '';
+	}
+
+	const am = hash.match(accessTokenRoute);
+	if (am) {
+		const params = {};
+		hash.split('&').forEach((pair) => {
+			const [key, value] = pair.split('=');
+			params[key] = value;
+		});
+		document.location.hash = '';
+		store.openModal('login');
+		store.completeExternalLogin(params);
 	}
 }
 

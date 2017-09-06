@@ -10,7 +10,7 @@ const store = observable({
   siteURL: null,
   remember: true,
   saving: false,
-  token: null,
+  invite_token: null,
   email_change_token: null,
   modal: {
     page: 'login',
@@ -62,7 +62,7 @@ store.login = action(function login(email, password) {
     .then(action((user) => {
       store.user = user;
       store.page = 'user';
-      store.token = null;
+      store.invite_token = null;
       if (store.email_change_token) {
         store.doEmailChange();
       }
@@ -70,6 +70,25 @@ store.login = action(function login(email, password) {
     }))
     .catch(store.setError)
 })
+
+store.externalLogin = action(function externalLogin(provider) {
+  store.startAction();
+  const url = store.invite_token ?
+    store.gotrue.acceptInviteExternalUrl(provider, store.invite_token) :
+    store.gotrue.loginExternalUrl(provider);
+  window.location.href = url;
+})
+
+store.completeExternalLogin = action(function completeExternalLogin(params) {
+  store.startAction();
+  store.gotrue.createUser(params, store.remember)
+    .then((user) => {
+      store.user = user;
+      store.page = "user";
+      store.saving = false;
+    })
+    .catch(store.setError);
+});
 
 store.signup = action(function signup(name, email, password) {
   store.startAction();
@@ -111,10 +130,10 @@ store.updatePassword = action(function updatePassword(password) {
 
 store.acceptInvite = action(function acceptInvite(password) {
   store.startAction();
-  store.gotrue.acceptInvite(store.token, password, store.remember)
+  store.gotrue.acceptInvite(store.invite_token, password, store.remember)
     .then((user) => {
       store.saving = false;
-      store.token= null;
+      store.invite_token= null;
       store.user = user;
       store.modal.page = "user";
     })
@@ -137,7 +156,7 @@ store.doEmailChange = action(function doEmailChange() {
 store.verifyToken = action(function verifyToken(type, token) {
   const gotrue = store.gotrue;
   store.modal.isOpen = true;
-  console.log('verify ', type)
+
   switch(type) {
     case "confirmation":
       store.startAction();
@@ -164,7 +183,7 @@ store.verifyToken = action(function verifyToken(type, token) {
       }
     case "invite":
       store.modal.page = type;
-      store.token = token;
+      store.invite_token = token;
       break;
     case "recovery":
       store.startAction();
@@ -205,7 +224,6 @@ store.closeModal = action(function close() {
   store.modal.isOpen = false;
   store.error = null;
   store.message = null;
-  store.token = null;
   store.saving = false;
 });
 
