@@ -8,6 +8,7 @@ const LogoutForm = require("./logout");
 const FormatPasswordForm = require("./forgot");
 const RecoverPasswordForm = require("./recover");
 const AcceptInviteForm = require("./accept");
+const DevOptions = require("./dev-options");
 
 class Modal extends Nanocomponent {
   constructor (opts) {
@@ -23,12 +24,18 @@ class Modal extends Nanocomponent {
     this.forgotPasswordForm = new FormatPasswordForm();
     this.recoverPasswordForm = new RecoverPasswordForm();
     this.acceptInviteForm = new AcceptInviteForm();
+    this.devOptions = new DevOptions();
 
     this.close = this.close.bind(this);
+    this.openDevSettings = this.openDevSettings.bind(this);
   }
 
   close () {
     this.emit("close");
+  }
+
+  openDevSettings () {
+    this.emit("navigate", { page: "dev-options" });
   }
 
   forgotPassword () {
@@ -60,6 +67,7 @@ class Modal extends Nanocomponent {
               <span class="${styles.visuallyHidden}">Close</span>
             </button>
             ${this.pageRouter(state, emit)}
+            ${this.devModeButton(state.devMode, state.page)}
           </div>
         </div>
         <a href="https://www.netlify.com" class="${styles.callOut}">
@@ -68,6 +76,13 @@ class Modal extends Nanocomponent {
         </a>
       </div>
     `;
+  }
+
+  devModeButton (isDevMode, page) {
+    return isDevMode && page !== "dev-options"
+      ? html`<button class="${styles.btn}"
+      onclick="${this.openDevSettings}">🔧</button>`
+      : "";
   }
 
   pageRouter (state, emit) {
@@ -85,6 +100,8 @@ class Modal extends Nanocomponent {
         return this.logoutForm.render(state, emit);
       case "forgot":
         return this.forgotPasswordForm.render(state, emit);
+      case "dev-options":
+        return this.devOptions.render(state, emit);
       default:
         return html`<div>404 – Not found</div>`;
     }

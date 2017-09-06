@@ -8,6 +8,7 @@
     "classnames": "^2.2.5",
     "csjs": "^1.1.0",
     "gotrue-js": "^0.9.4",
+    "ip": "^1.1.5",
     "nanobus": "^4.2.0",
     "nanocomponent": "^6.4.0",
     "query-string": "^5.0.0"
@@ -46,16 +47,12 @@
   "scripts": {
     "test": "run-s test:*",
     "test:lint": "eslint .",
-    "start":
-      "budo example/index.js:bundle.js --dir example --live --open -- --transform-key=build",
-    "start:umd":
-      "budo umd.js:netlify-identity-umd.js --dir site --live --open -- --transform-key=build",
+    "start": "budo example/index.js:bundle.js --dir example --live --open -- --transform-key=build",
+    "start:umd": "budo umd.js:netlify-identity-umd.js --dir site --live --open -- --transform-key=build",
     "build": "run-s clean build:*",
     "build:site": "cpr site dist",
-    "build:umd":
-      "browserify umd.js --standalone netlifyIdentity --transform-key=build -g unassertify -p discify | uglifyjs > dist/netlify-identity-umd.js",
-    "build:main":
-      "browserify index.js --transform-key=build --no-bundle-external -g unassertify | uglifyjs > dist/index.js",
+    "build:umd": "browserify umd.js --standalone netlifyIdentity --transform-key=build -g unassertify -p discify | uglifyjs > dist/netlify-identity-umd.js",
+    "build:main": "browserify index.js --transform-key=build --no-bundle-external -g unassertify | uglifyjs > dist/index.js",
     "clean": "rimraf dist && mkdirp dist",
     "disc": "run-s build disc:server",
     "disc:server": "http-server disc",
@@ -68,7 +65,9 @@
       [
         "babelify",
         {
-          "presets": ["es2015"]
+          "presets": [
+            "es2015"
+          ]
         }
       ]
     ]
