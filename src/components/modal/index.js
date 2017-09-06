@@ -21,10 +21,10 @@ export default class Modal extends Component {
   }
 
   render() {
-    const {page, error, loading, showHeader, showSignup, children} = this.props;
-
+    const {page, error, loading, showHeader, showSignup, isOpen, children} = this.props;
+    const hidden = loading || !isOpen;
     return (
-      <div className="modalContainer" role="dialog" onClick={this.handleClose}>
+      <div className="modalContainer" role="dialog" aria-hidden={`${hidden}`} onClick={this.handleClose}>
         <div className={`modalDialog${loading ? ' visuallyHidden' : ''}`} onClick={this.blockEvent}>
           <div className="modalContent">
             <button onclick={this.handleClose} className="btn btnClose">
