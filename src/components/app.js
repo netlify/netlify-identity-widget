@@ -55,10 +55,8 @@ const pages = {
 	}
 }
 
-
 @connect(['store'])
 class App extends Component {
-
 	handleClose = () => this.props.store.closeModal()
 	handlePage = (page) => this.props.store.openModal(page)
 	handleLogout = () => this.props.store.logout()

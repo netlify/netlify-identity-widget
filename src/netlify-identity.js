@@ -38,6 +38,9 @@ const netlifyIdentity = {
 		if (!store.gotrue) { store.openModal('login'); }
 		return store.gotrue && store.gotrue.currentUser();
 	},
+	logout: () => {
+		return store.logout();
+	},
 	get gotrue() {
 		if (!store.gotrue) { store.openModal('login'); }
 		return store.gotrue;
