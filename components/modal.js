@@ -1,11 +1,13 @@
 const styles = require("./styles.csjs");
 const Nanocomponent = require("nanocomponent");
 const html = require("bel");
-const Header = require("./header");
-const Providers = require("./providers");
-const Flash = require("./flash");
-const { SignupForm, LoginForm, LogoutForm } = require("./forms");
+
+const SignupForm = require("./signup");
+const LoginForm = require("./login");
+const LogoutForm = require("./logout");
 const FormatPasswordForm = require("./forgot");
+const RecoverPasswordForm = require("./recover");
+const AcceptInviteForm = require("./accept");
 
 class Modal extends Nanocomponent {
   constructor (opts) {
@@ -15,16 +17,14 @@ class Modal extends Nanocomponent {
     this.state = {};
     this.emit = null;
 
-    this.header = new Header();
-    this.providers = new Providers();
     this.signupForm = new SignupForm();
     this.loginForm = new LoginForm();
     this.logoutForm = new LogoutForm();
     this.forgotPasswordForm = new FormatPasswordForm();
-    this.flash = new Flash();
+    this.recoverPasswordForm = new RecoverPasswordForm();
+    this.acceptInviteForm = new AcceptInviteForm();
 
     this.close = this.close.bind(this);
-    this.forgotPassword = this.forgotPassword.bind(this);
   }
 
   close () {
@@ -32,7 +32,7 @@ class Modal extends Nanocomponent {
   }
 
   forgotPassword () {
-    this.emit("navigate", { page: "forgot", title: "Recover password" });
+    this.emit("navigate", { page: "forgot" });
   }
 
   createElement (state, emit) {
@@ -59,11 +59,7 @@ class Modal extends Nanocomponent {
                     class="${styles.btn} ${styles.btnClose}">
               <span class="${styles.visuallyHidden}">Close</span>
             </button>
-            ${this.header.render(state, emit)}
-            ${this.flash.render(state, emit)}
-            ${this.formRouter(state, emit)}
-            ${this.providers.render(state, emit)}
-            ${state.page === "login" ? html`<button onclick=${this.forgotPassword} class="${styles.btnLink} ${styles.forgotPasswordLink}">Forgot password?</button>` : ""}
+            ${this.pageRouter(state, emit)}
           </div>
         </div>
         <a href="https://www.netlify.com" class="${styles.callOut}">
@@ -74,17 +70,17 @@ class Modal extends Nanocomponent {
     `;
   }
 
-  formRouter (state, emit) {
+  pageRouter (state, emit) {
     const { page } = state;
     switch (page) {
       case "login":
         return this.loginForm.render(state, emit);
       case "signup":
-        // fallthrough
-      case "accept":
-        // fallthrough
-      case "recover":
         return this.signupForm.render(state, emit);
+      case "accept":
+        return this.acceptInviteForm.render(state, emit);
+      case "recover":
+        return this.recoverPasswordForm.render(state, emit);
       case "logout":
         return this.logoutForm.render(state, emit);
       case "forgot":

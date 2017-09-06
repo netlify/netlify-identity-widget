@@ -2,24 +2,21 @@ const styles = require("./styles.csjs");
 const Nanocomponent = require("nanocomponent");
 const html = require("bel");
 const cn = require("classnames");
-const EmailInput = require("./email");
-const Title = require("./title");
+const PasswordInput = require("./password");
 const Flash = require("./flash");
+const Title = require("./title");
 
-class ForgotPasswordForm extends Nanocomponent {
+class AcceptInviteForm extends Nanocomponent {
   constructor () {
     super();
 
     this.emit = null;
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.startOver = this.startOver.bind(this);
-    this.emailInput = new EmailInput();
-    this.title = new Title();
-    this.flash = new Flash();
-  }
 
-  startOver() {
-    this.emit("navigate", { page: "login" });
+    this.handleSubmit = this.handleSubmit.bind(this);
+
+    this.flash = new Flash();
+    this.title = new Title();
+    this.passwordInput = new PasswordInput();
   }
 
   createElement (state, emit) {
@@ -32,15 +29,17 @@ class ForgotPasswordForm extends Nanocomponent {
 
     return html`
       <div>
-        ${this.title.render({ title: "Recover password" }, emit)}
+        ${this.title.render({ title: "Respond to invite" }, emit)}
         ${this.flash.render(state, emit)}
-        <form onsubmit=${this.handleSubmit} class="${styles.form} ${disabledClass}">
-          ${this.emailInput.render(state, emit)}
+        <form
+          onsubmit=${this.handleSubmit}
+          class="${styles.form} ${disabledClass}"
+        >
+          ${this.passwordInput.render(state, emit)}
           <button type="submit" class="${styles.btn} ${savingClass}">
-            ${submitting ? "Requesting recovery email" : "Send recovery email"}
+            ${submitting ? "Accepting invite" : "Accept invite"}
           </button>
         </form>
-        <button onclick=${this.startOver} class="${styles.btnLink}">Never mind</button>
       </div>
     `;
   }
@@ -49,15 +48,19 @@ class ForgotPasswordForm extends Nanocomponent {
     return true;
   }
 
+  handleInput (e) {
+    this[e.target.name] = e.target.value;
+  }
+
   handleSubmit (e) {
     e.preventDefault();
 
-    this.emit("submit-forgot", {
-      email: this.emailInput.email
+    this.emit("submit-invite", {
+      password: this.passwordInput.password
     });
 
     this.rerender();
   }
 }
 
-module.exports = ForgotPasswordForm;
+module.exports = AcceptInviteForm;
