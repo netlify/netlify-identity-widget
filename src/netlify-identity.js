@@ -109,7 +109,7 @@ observe(store, 'siteURL', () => {
 
 observe(store, 'user', () => {
 	if (store.user) {
-		trigger('login', {...store.user});
+		trigger('login', store.user);
 	} else {
 		trigger('logout');
 	}
