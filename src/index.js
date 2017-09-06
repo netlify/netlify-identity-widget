@@ -9,6 +9,47 @@ import store from './state/store';
 import Controls from './components/controls';
 import modalCSS from './components/modal.css';
 
+const callbacks = {};
+function trigger(callback) {
+	(callbacks[callback] || []).forEach((cb) => {
+		cb.apply(cb, Array.prototype.slice.call(arguments, 1));
+	});
+}
+
+const validActions = {
+	login: true,
+	error: true
+}
+
+const netlifyInstance = {
+	on: (event, cb) => {
+		callbacks[event] = callbacks[event] || [];
+		callbacks[event].push(cb);
+	},
+	open: (action) => {
+		action = action || 'login';
+		if (!validActions[action]) { throw(new Error(`Invalid action for open: ${action}`)); }
+		store.openModal(store.user ? 'user' : action);
+	},
+	close: () => {
+		store.closeModal();
+	},
+	currentUser: () => {
+		if (!store.gotrue) { store.openModal('login'); }
+		return store.gotrue.currentUser();
+	},
+	get gotrue() {
+		if (!store.gotrue) { store.openModal('login'); }
+		return store.gotrue;
+	}
+}
+if (typeof exports !== undefined) {
+	exports.netlifyInstance = netlifyInstance;
+}
+if (typeof window !== undefined) {
+	window.netlifyInstance = netlifyInstance;
+}
+
 function setStyle(el, css) {
 	let style = "";
 	for (const key in css) {
@@ -57,11 +98,28 @@ const iframeStyle = {
 observe(store.modal, 'isOpen', () => {
 	if (!store.settings) { store.loadSettings() }
   setStyle(iframe, {...iframeStyle, display: store.modal.isOpen ? 'block' : 'none'})	;
+	if (store.modal.isOpen) {
+		trigger('open', store.modal.page);
+	} else {
+		trigger('close');
+	}
 });
 
 observe(store, 'siteURL', () => {
 	localStorage.setItem("netlifySiteURL", store.siteURL);
 	store.init(instantiateGotrue(), true);
+})
+
+observe(store, 'user', () => {
+	if (store.user) {
+		trigger('login', {...store.user});
+	} else {
+		trigger('logout');
+	}
+})
+
+observe(store, 'error', () => {
+	trigger('error', store.error);
 })
 
 const routes = /(confirmation|invite|recovery|email_change)_token=([^&]+)/;
@@ -98,10 +156,13 @@ function runRoutes() {
 }
 
 function init() {
-	const controlEl = document.querySelector("div[data-netlify-identity]");
-	if (controlEl) {
-		controls = render(<Provider store={store}><Controls/></Provider>, controlEl, controls);
-	}
+	const controlEls = document.querySelectorAll("[data-netlify-identity-menu],[data-netlify-identity-button]");
+	Array.prototype.slice.call(controlEls).forEach((el) => {
+		let controls = null;
+		const mode = el.getAttribute('data-netlify-identity-menu') === null ? 'button' : 'menu';
+		render(<Provider store={store}><Controls mode={mode} text={el.innerText.trim()}/></Provider>, el, controls);
+	})
+
 	store.init(instantiateGotrue());
 
 	iframe = document.createElement("iframe")
@@ -118,12 +179,6 @@ function init() {
 	setStyle(iframe, iframeStyle);
 	iframe.src = "about:blank";
 	document.body.appendChild(iframe);
-}
-
-// in development, set up HMR:
-if (module.hot) {
-	//require('preact/devtools');   // turn this on if you want to enable React DevTools!
-	module.hot.accept('./components/app', () => requestAnimationFrame(init) );
 }
 
 init();

@@ -18,22 +18,33 @@ class Controls extends Component {
     this.props.store.openModal('user');
   }
 
+  handleButton = (e) => {
+    e.preventDefault();
+    this.props.store.openModal(this.props.store.user ? 'user' : 'login');
+  }
+
   render() {
     const {user} = this.props.store;
 
+    if (this.props.mode === 'button') {
+      return <a className="netlify-identity-button" href="#" onClick={this.handleButton}>
+        {this.props.text || (user ? 'Log out' : 'Log In')}
+      </a>;
+    }
+
     if (user) {
       return (
-        <ul>
-          <li>Logged in as <span className="netlify-user">{user.user_metadata.name || user.email}</span></li>
-          <li><a href="#" onClick={this.handleLogout}>Log out</a></li>
+        <ul className="netlify-identity-menu">
+          <li className="netlify-identity-item netlify-identity-user-details">Logged in as <span className="netlify-identity-user">{user.user_metadata.name || user.email}</span></li>
+          <li className="netlify-identity-item"><a className="netlify-identity-logout" href="#" onClick={this.handleLogout}>Log out</a></li>
         </ul>
       );
     }
 
     return (
-      <ul>
-        <li><a href="#" onClick={this.handleSignup}>Sign Up</a></li>
-        <li><a href="#" onClick={this.handleLogin}>Log in</a></li>
+      <ul  className="netlify-identity-menu">
+        <li className="netlify-identity-item"><a className="netlify-identity-signup" href="#" onClick={this.handleSignup}>Sign Up</a></li>
+        <li className="netlify-identity-item"><a className="netlify-identity-login" href="#" onClick={this.handleLogin}>Log in</a></li>
       </ul>
     )
   }

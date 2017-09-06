@@ -34,7 +34,7 @@ store.init = action(function init(gotrue, reloadSettings) {
     store.gotrue = gotrue;
     store.user = gotrue.currentUser();
     if (store.user) {
-      store.page = 'user';
+      store.modal.page = 'user';
     }
   }
   if (reloadSettings) { store.loadSettings(); }
@@ -61,7 +61,7 @@ store.login = action(function login(email, password) {
   return store.gotrue.login(email, password, store.remember)
     .then(action((user) => {
       store.user = user;
-      store.page = 'user';
+      store.modal.page = 'user';
       store.invite_token = null;
       if (store.email_change_token) {
         store.doEmailChange();
@@ -84,7 +84,7 @@ store.completeExternalLogin = action(function completeExternalLogin(params) {
   store.gotrue.createUser(params, store.remember)
     .then((user) => {
       store.user = user;
-      store.page = "user";
+      store.modal.page = "user";
       store.saving = false;
     })
     .catch(store.setError);
@@ -196,7 +196,7 @@ store.verifyToken = action(function verifyToken(type, token) {
         .catch((err) => {
           store.saving = false;
           store.error = err;
-          store.page = "login";
+          store.modal.page = "login";
         });
       break;
     default:
