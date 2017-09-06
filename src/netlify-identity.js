@@ -1,5 +1,3 @@
-// import 'promise-polyfill';
-// import 'isomorphic-fetch';
 import { h, render } from 'preact';
 import { observe } from 'mobx';
 import { Provider } from 'mobx-preact'

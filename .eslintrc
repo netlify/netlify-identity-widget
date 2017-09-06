@@ -2,15 +2,13 @@
   "parser": "babel-eslint",
   "extends": "eslint:recommended",
   "plugins": [
-    "react",
-    "jest"
+    "react"
   ],
   "env": {
     "browser": true,
     "node": true,
     "mocha": true,
-    "es6": true,
-    "jest/globals": true
+    "es6": true
   },
   "parserOptions": {
     "ecmaFeatures": {
@@ -40,9 +38,6 @@
     "react/jsx-no-undef": 2,
     "react/jsx-uses-react": 2,
     "react/jsx-uses-vars": 2,
-    "jest/no-disabled-tests": 1,
-    "jest/no-focused-tests": 1,
-    "jest/no-identical-title": 2,
     "no-empty": 0,
     "no-console": 0,
     "no-empty-pattern": 0,

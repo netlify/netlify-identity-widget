@@ -1,11 +1,8 @@
 import webpack from 'webpack';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
-import autoprefixer from 'autoprefixer';
 import postCSSImport from "postcss-import";
 import postCSSNested from "postcss-nested";
 import postCSSNext from "postcss-cssnext";
-import CopyWebpackPlugin from 'copy-webpack-plugin';
 import path from 'path';
 const ENV = process.env.NODE_ENV || 'development';
 
