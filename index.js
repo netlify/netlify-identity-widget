@@ -58,7 +58,7 @@ class NetlifyIdentity extends Nanobus {
     modalHandlers(this.state, this);
 
     if (user) window.requestAnimationFrame(() => this.emit("login", user));
-    if (!isDevMode) this.emit("init");
+    if (!needIdentityURL) this.emit("init");
   }
 
   get isMounted () {
