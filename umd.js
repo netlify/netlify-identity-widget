@@ -5,15 +5,15 @@ const netlifyIdentity = new NetlifyIdentity();
 
 module.exports = netlifyIdentity;
 
+if (!window.netlifyIdentity) {
+  window.netlifyIdentity = netlifyIdentity;
+}
+
 document.addEventListener("DOMContentLoaded", function (event) {
   init();
 });
 
 function init () {
-  if (!window.netlifyIdentity) {
-    window.netlifyIdentity = netlifyIdentity;
-  }
-
   let modalContainer = document.querySelector(
     'div[data-netlify-identity-modal=""]'
   );
