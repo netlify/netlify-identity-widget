@@ -80,8 +80,10 @@ class Modal extends Nanocomponent {
 
   devModeButton (isDevMode, page) {
     return isDevMode && page !== "dev-options"
-      ? html`<button class="${styles.btn}"
-      onclick="${this.openDevSettings}">🔧</button>`
+      ? html`<button class="${styles.btn} ${styles.btnDevSettings}"
+      onclick="${this.openDevSettings}">
+      <span class="${styles.visuallyHidden}">Dev Settings</span>
+    </button>`
       : "";
   }
 
