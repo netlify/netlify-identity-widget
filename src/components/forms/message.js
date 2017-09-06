@@ -3,15 +3,15 @@ import {h, Component} from "preact";
 const messages = {
   confirm: {
     type: "success",
-    text: "We've sent a confirmation message to your email. Follow the link there to activate your account."
+    text: "A confirmation message was sent to your email, click the link there to continue."
   },
   password_mail: {
     type: "success",
-    text: "We've sent a recovery email to your account. Follw the link there to reset your password."
+    text: "We've sent a recovery email to your account, follow the link there to reset your password."
   },
   email_changed: {
     type: "sucess",
-    text: "Your mail has been updated!"
+    text: "Your email address has been updated!"
   },
   verfication_error: {
     type: "error",
