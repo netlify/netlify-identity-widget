@@ -100,7 +100,7 @@ identity.gotrue
 
 ## Localhost
 
-When using the widget on localhost, it will prompty for your Netlify SiteURL the first time it is opened.
+When using the widget on localhost, it will prompt for your Netlify SiteURL the first time it is opened.
 
 This allows the widget to know which instance of Netlify Identity it should communicate with with zero
 configuration.
