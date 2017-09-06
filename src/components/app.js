@@ -118,6 +118,8 @@ class App extends Component {
     const showHeader = pagesWithHeader[store.modal.page];
     const showSignup = store.settings && !store.settings.disable_signup;
     const page = pages[store.modal.page] || {};
+    const pageLinkHandler = () => this.handlePage(page.link);
+
     return (
       <div>
         <Modal
@@ -132,7 +134,7 @@ class App extends Component {
         >
           {this.renderBody()}
           {this.renderProviders()}
-          {!store.user && page.link && <button onclick={() => this.handlePage(page.link)} className="btnLink forgotPasswordLink">
+          {!store.user && page.link && <button onclick={pageLinkHandler} className="btnLink forgotPasswordLink">
             {page.link_text}
           </button>}
         </Modal>

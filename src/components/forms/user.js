@@ -39,7 +39,7 @@ export default class UserForm extends Component {
               required
               oninput={this.handleInput}
             />
-            <div className="inputFieldIcon inputFieldEmail"></div>
+            <div className="inputFieldIcon inputFieldEmail"/>
           </label>
         </div>}
         {page.email && <div className="formGroup">
@@ -57,7 +57,7 @@ export default class UserForm extends Component {
               required
               oninput={this.handleInput}
             />
-            <div className="inputFieldIcon inputFieldEmail"></div>
+            <div className="inputFieldIcon inputFieldEmail"/>
           </label>
         </div>}
         {page.password && <div className="formGroup">
@@ -74,7 +74,7 @@ export default class UserForm extends Component {
               required
               oninput={this.handleInput}
             />
-            <div className="inputFieldIcon inputFieldPassword"></div>
+            <div className="inputFieldIcon inputFieldPassword"/>
           </label>
         </div>}
         <Button saving={saving} text={page.button} saving_text={page.button_saving}/>

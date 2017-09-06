@@ -37,7 +37,7 @@ export default class SiteURLForm extends Component {
             required
             oninput={this.handleInput}
           />
-          <div className="inputFieldIcon inputFieldUrl"></div>
+          <div className="inputFieldIcon inputFieldUrl"/>
         </label>
       </div>
       <button type="submit" className="btn">Set Site URL</button>
