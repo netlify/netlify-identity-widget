@@ -1,1 +1,34 @@
-<!DOCTYPE html><html><head><link rel="preload" href="/netlify-identity-widget.js" as="script"><link rel="preload" href="/netlify-identity.js" as="script"><meta charset="utf-8"><title>Netlify Identity Widget</title><meta name="viewport" content="width=device-width,initial-scale=1,minimal-ui"><meta name="description" content="preact-boilerplate"><meta name="msapplication-TileColor" content="#673ab8"><meta name="msapplication-TileImage" content="./assets/icons/mstile-150x150.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="preact-boilerplate"><meta name="application-name" content="preact-boilerplate"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#673ab8"><link rel="apple-touch-icon" sizes="180x180" href="./assets/icons/apple-touch-icon.png"><link rel="icon" type="image/png" href="/assets/icons/favicon-32x32.png" sizes="32x32"><link rel="icon" type="image/png" href="/assets/icons/favicon-16x16.png" sizes="16x16"></head><body><h1>Preact Identity Widget</h1><h2>Nav menu:</h2><div data-netlify-identity-menu></div><h2>Button:</h2><div data-netlify-identity-button></div><script type="text/javascript" src="/netlify-identity-widget.js"></script><script type="text/javascript" src="/netlify-identity.js"></script></body></html>
+<!DOCTYPE html><html><head><link rel="preload" href="/netlify-identity-widget.js" as="script"><link rel="preload" href="/netlify-identity.js" as="script"><meta charset="utf-8"><title>Netlify Identity Widget</title><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><meta name="description" content="preact-boilerplate"><meta name="msapplication-TileColor" content="#673ab8"><meta name="msapplication-TileImage" content="./assets/icons/mstile-150x150.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="preact-boilerplate"><meta name="application-name" content="preact-boilerplate"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#673ab8"><link rel="apple-touch-icon" sizes="180x180" href="./assets/icons/apple-touch-icon.png"><link rel="icon" type="image/png" href="/assets/icons/favicon-32x32.png" sizes="32x32"><link rel="icon" type="image/png" href="/assets/icons/favicon-16x16.png" sizes="16x16"><style>body { margin: 0; }
+
+		.main {
+			max-width: 30em;
+			margin: 2em auto;
+		}
+
+		[data-netlify-identity-button] a {
+		  display: block;
+		  position: relative;
+		  width: 100%;
+		  height: auto;
+		  padding: 6px 12px;
+		  outline: 0;
+		  cursor: pointer;
+		  border: 2px solid rgb(14, 30, 37);
+		  border-radius: 4px;
+		  background-color: white;
+		  color: rgb(14, 30, 37);
+		  transition: background-color 0.2s ease;
+		  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+		  font-size: 14px;
+		  font-weight: 500;
+		  line-height: 24px;
+		  text-align: center;
+		  text-decoration: none;
+		  white-space: nowrap;
+		}
+
+		[data-netlify-identity-button] a:hover,
+		[data-netlify-identity-button] a:focus {
+		  background-color: #f7f8f8;
+		  text-decoration: none;
+		}</style></head><body><div class="main"><h1>Preact Identity Widget</h1><h2>Nav menu:</h2><div data-netlify-identity-menu></div><h2>Single button:</h2><div data-netlify-identity-button></div></div><script src="https://d33wubrfki0l68.cloudfront.net/js/118dc1bd2da7df7b0a4c9f1c57d2c924abe5a23b/app.js"></script><script type="text/javascript" src="/netlify-identity-widget.js"></script><script type="text/javascript" src="/netlify-identity.js"></script></body></html>
