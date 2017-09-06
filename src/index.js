@@ -18,6 +18,28 @@ function setStyle(el, css) {
 	el.style = style;
 }
 
+const localHosts = {
+  localhost: true,
+  '127.0.0.1': true,
+  '0.0.0.0': true
+}
+
+function instantiateGotrue() {
+	const isLocal = localHosts[document.location.host.split(':').shift()];
+	const siteURL = isLocal && localStorage.getItem("netlifySiteURL");
+	if (isLocal && siteURL) {
+		const parts = [siteURL];
+    if (!siteURL.match(/\/$/)) { parts.push('/'); }
+    parts.push('.netlify/identity');
+		return new GoTrue({APIUrl: parts.join('')});
+	}
+	if (isLocal) {
+		return null;
+	}
+
+	return new GoTrue();
+}
+
 let root;
 let controls;
 let iframe;
@@ -38,14 +60,31 @@ observe(modal, 'isOpen', () => {
   setStyle(iframe, {...iframeStyle, display: modal.isOpen ? 'block' : 'none'})	;
 });
 
+observe(identity, 'siteURL', () => {
+	localStorage.setItem("netlifySiteURL", identity.siteURL);
+	identity.init(instantiateGotrue(), true);
+})
+
+const routes = /(confirmation|invite|recovery|email_change)_token=([^&]+)/;
+
+function runRoutes() {
+	const hash = (document.location.hash || '').replace(/^#/, '');
+	if (!hash) { return; }
+
+	const m = hash.match(routes);
+	if (m) {
+		identity.verifyToken(m[1], m[2]);
+		modal.open(m[1]);
+		document.location.hash = '';
+	}
+}
+
 function init() {
-	let APIUrl = 'https://netlify-identity.netlify.com/.netlify/identity';
 	const controlEl = document.querySelector("div[data-netlify-identity]");
 	if (controlEl) {
 		controls = render(<Provider modal={modal}><Controls/></Provider>, controlEl, controls);
 	}
-
-	identity.init(new GoTrue({APIUrl}));
+	identity.init(instantiateGotrue());
 
 	iframe = document.createElement("iframe")
 	iframe.id = "netlify-identity-widget";
@@ -56,6 +95,7 @@ function init() {
 		root = render(<Provider identity={identity} modal={modal}>
 			<App />
 		</Provider>, iframe.contentDocument.body, root);
+		runRoutes();
 	}
 	setStyle(iframe, iframeStyle);
 	iframe.src = "about:blank";

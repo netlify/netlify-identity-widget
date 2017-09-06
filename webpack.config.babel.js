@@ -65,8 +65,7 @@ module.exports = {
 							plugins: () => [
 								postCSSImport(),
 								postCSSNested(),
-								postCSSNext(),
-								autoprefixer({ browsers: [ 'last 2 versions' ] })
+								postCSSNext()
 							]
 						}
 					}
