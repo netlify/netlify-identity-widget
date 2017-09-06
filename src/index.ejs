@@ -9,7 +9,7 @@
 	<% } %>
 	<meta charset="utf-8">
 	<title>Netlify Identity Widget</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimal-ui">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 	<meta name="description" content="preact-boilerplate">
 	<meta name="msapplication-TileColor" content="#673ab8">
 	<meta name="msapplication-TileImage" content="./assets/icons/mstile-150x150.png">
@@ -22,14 +22,53 @@
 	<link rel="apple-touch-icon" sizes="180x180" href="./assets/icons/apple-touch-icon.png">
 	<link rel="icon" type="image/png" href="/assets/icons/favicon-32x32.png" sizes="32x32">
 	<link rel="icon" type="image/png" href="/assets/icons/favicon-16x16.png" sizes="16x16">
+	<style>
+		body { margin: 0; }
+
+		.main {
+			max-width: 30em;
+			margin: 2em auto;
+		}
+
+		[data-netlify-identity-button] a {
+		  display: block;
+		  position: relative;
+		  width: 100%;
+		  height: auto;
+		  padding: 6px 12px;
+		  outline: 0;
+		  cursor: pointer;
+		  border: 2px solid rgb(14, 30, 37);
+		  border-radius: 4px;
+		  background-color: white;
+		  color: rgb(14, 30, 37);
+		  transition: background-color 0.2s ease;
+		  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+		  font-size: 14px;
+		  font-weight: 500;
+		  line-height: 24px;
+		  text-align: center;
+		  text-decoration: none;
+		  white-space: nowrap;
+		}
+
+		[data-netlify-identity-button] a:hover,
+		[data-netlify-identity-button] a:focus {
+		  background-color: #f7f8f8;
+		  text-decoration: none;
+		}
+
+	</style>
 </head>
 <body>
-	<h1>Preact Identity Widget</h1>
+	<div class="main">
+		<h1>Preact Identity Widget</h1>
 
-	<h2>Nav menu:</h2>
-	<div data-netlify-identity-menu></div>
+		<h2>Nav menu:</h2>
+		<div data-netlify-identity-menu></div>
 
-	<h2>Button:</h2>
-	<div data-netlify-identity-button></div>
+		<h2>Single button:</h2>
+		<div data-netlify-identity-button></div>
+	</div>
 </body>
 </html>
