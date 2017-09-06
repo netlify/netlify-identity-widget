@@ -13,12 +13,15 @@ const CSS_MAPS = ENV!=='production';
 
 module.exports = {
 	context: path.resolve(__dirname, "src"),
-	entry: './index.js',
+	entry: {
+		'netlify-identity-widget': './index.js',
+		'netlify-identity': './netlify-identity.js'
+	},
 
 	output: {
 		path: path.resolve(__dirname, "build"),
 		publicPath: '/',
-		filename: 'bundle.js'
+		filename: '[name].js'
 	},
 
 	resolve: {

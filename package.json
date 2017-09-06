@@ -1,7 +1,8 @@
 {
-  "name": "preact-boilerplate",
-  "version": "6.0.0",
-  "description": "Ready-to-go Preact starter project powered by webpack.",
+  "name": "netlify-identity-widget",
+  "version": "0.9.0",
+  "description": "Netlify Identity widget for easy integration",
+  "releaseVersion": "v1",
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --inline --hot --progress",
     "start": "serve build -s -c 1",
@@ -10,15 +11,16 @@
     "prebuild": "mkdirp build",
     "test": "npm run -s lint && jest --coverage",
     "test:watch": "npm run -s test -- --watch",
-    "lint": "eslint src test"
+    "lint": "eslint src test",
+    "release": "node ./script/release.js"
   },
   "keywords": [
-    "preact",
-    "boilerplate",
-    "webpack"
+    "netlify",
+    "identity",
+    "authentication"
   ],
   "license": "MIT",
-  "author": "Jason Miller <jason@developit.ca>",
+  "author": "Matt Biilmann <matt@netlify.com>",
   "jest": {
     "setupFiles": [
       "./test/setup.js"
