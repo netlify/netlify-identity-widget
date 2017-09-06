@@ -52,7 +52,7 @@ function setStyle(el, css) {
 	for (const key in css) {
 		style += `${key}: ${css[key]}; `;
 	}
-	el.style = style;
+	el.setAttribute("style", style);
 }
 
 const localHosts = {
