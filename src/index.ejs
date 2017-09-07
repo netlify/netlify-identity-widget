@@ -23,28 +23,74 @@
 	<link rel="icon" type="image/png" href="/assets/icons/favicon-32x32.png" sizes="32x32">
 	<link rel="icon" type="image/png" href="/assets/icons/favicon-16x16.png" sizes="16x16">
 	<style>
-		body { margin: 0; }
+		* {
+			margin: 0;
+			padding: 0;
+		}
+
+		body {
+			font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+			margin: 0;
+			border-top: 8px solid #0e1e25;
+		}
 
 		.main {
-			max-width: 30em;
-			margin: 2em auto;
+			max-width: 800px;
+			margin: auto;
+			height: 100vh;
+			display: flex;
+			justify-content: center;
+			flex-direction: column;
+		}
+
+		.header {
+			margin-bottom: 64px;
+		}
+
+		.header h2 {
+			font-weight: 500;
+			font-family: SFUIDisplay-Medium;
+			font-size: 24px;
+			color: #2d3b41;
+			margin: 0;
+		}
+
+		.header a {
+			color: inherit;
+			text-decoration: none;
+		}
+
+		.header h1 {
+			font-weight: 700;
+			font-family: SFUIDisplay-Bold;
+			font-size: 80px;
+			color: #0e1e25;
+			margin-top: 8px;
+		}
+
+		.label {
+			font-weight: 400;
+			font-size: 16px;
+			color: #a3a9ac;
+			margin-bottom: 8px;
 		}
 
 		[data-netlify-identity-button] a {
 		  display: block;
 		  position: relative;
 		  width: 100%;
+			max-width: 184px;
 		  height: auto;
-		  padding: 6px 12px;
+		  padding: 8px 12px;
 		  outline: 0;
 		  cursor: pointer;
-		  border: 2px solid rgb(14, 30, 37);
+		  border: 2px solid #007a70;
 		  border-radius: 4px;
-		  background-color: white;
-		  color: rgb(14, 30, 37);
+		  background-color: #00ad9F;
+		  color: white;
 		  transition: background-color 0.2s ease;
 		  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
-		  font-size: 14px;
+		  font-size: 16px;
 		  font-weight: 500;
 		  line-height: 24px;
 		  text-align: center;
@@ -54,8 +100,68 @@
 
 		[data-netlify-identity-button] a:hover,
 		[data-netlify-identity-button] a:focus {
-		  background-color: #f7f8f8;
+		  background-color: #007a70;
 		  text-decoration: none;
+		}
+
+		[data-netlify-identity-menu] li {
+			list-style-type: none;
+			display: inline-block;
+		}
+
+		[data-netlify-identity-menu] a {
+			display: block;
+			position: relative;
+			width: 168px;
+			max-width: 184px;
+			height: 24px;
+			padding: 8px;
+			outline: 0;
+			cursor: pointer;
+			border: 2px solid #007a70;
+			border-radius: 4px;
+			background-color: #00ad9F;
+			color: white;
+			transition: background-color 0.2s ease;
+			font-size: 16px;
+			font-weight: 500;
+			line-height: 24px;
+			text-align: center;
+			text-decoration: none;
+			white-space: nowrap;
+			margin-right: 16px;
+		}
+
+		[data-netlify-identity-menu] a:hover,
+		[data-netlify-identity-menu] a:focus {
+		  background-color: #007a70;
+		  text-decoration: none;
+		}
+
+		.hands-on-area {
+			display: flex;
+			margin-bottom: 40px;
+		}
+
+		.single-button {
+			flex-grow: 1;
+			margin-right: 104px;
+		}
+
+		.multiple-buttons {
+			flex-grow: 2;
+		}
+
+		.single-button div {
+			margin-top: 8px;
+		}
+
+		.multiple-buttons div {
+			margin-top: 8px;
+		}
+
+		.call-out svg {
+			margin-left: 40px;
 		}
 
 	</style>
