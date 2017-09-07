@@ -11,7 +11,7 @@ const pagesWithHeader = { login: true, signup: true };
 const pages = {
   login: {
     login: true,
-    button: "Log In",
+    button: "Log in",
     button_saving: "Logging in",
     email: true,
     password: true,
@@ -21,7 +21,7 @@ const pages = {
   },
   signup: {
     signup: true,
-    button: "Sign Up",
+    button: "Sign up",
     button_saving: "Signing Up",
     name: true,
     email: true,
@@ -46,7 +46,7 @@ const pages = {
   },
   invite: {
     title: "Complete your signup",
-    button: "Signup",
+    button: "Sign up",
     button_saving: "Signing Up",
     password: true
   },

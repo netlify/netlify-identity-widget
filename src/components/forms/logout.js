@@ -21,7 +21,7 @@ export default class LogoutForm extends Component {
               user.email}
           </span>
         </p>
-        <Button saving={saving} text="Log out" saving_text="Loggin out" />
+        <Button saving={saving} text="Log out" saving_text="Logging out" />
       </form>
     );
   }

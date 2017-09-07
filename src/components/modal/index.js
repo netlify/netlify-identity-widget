@@ -54,7 +54,7 @@ export default class Modal extends Component {
                   <button
                     className={`btn btnHeader ${page.signup ? "active" : ""}`}
                     onclick={this.linkHandler("signup")}>
-                    Sign Up
+                    Sign up
                   </button>
                 )}
                 {!devSettings && (

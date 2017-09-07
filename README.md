@@ -21,7 +21,7 @@ You can add controls for the widget with HTML:
 </head>
 <body>
   <!-- Add a menu:
-   Log In / Sign Up - when the user is not logged in
+   Log in / Sign up - when the user is not logged in
    Username / Log out - when the user is logged in
   -->
   <div data-netlify-identity-menu></div>

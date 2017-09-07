@@ -32,7 +32,7 @@ class Controls extends Component {
           className="netlify-identity-button"
           href="#"
           onClick={this.handleButton}>
-          {this.props.text || (user ? "Log out" : "Log In")}
+          {this.props.text || (user ? "Log out" : "Log in")}
         </a>
       );
     }
@@ -65,7 +65,7 @@ class Controls extends Component {
             className="netlify-identity-signup"
             href="#"
             onClick={this.handleSignup}>
-            Sign Up
+            Sign up
           </a>
         </li>
         <li className="netlify-identity-item">
