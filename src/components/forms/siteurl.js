@@ -20,9 +20,9 @@ export default class SiteURLForm extends Component {
 
     return (
       <form onsubmit={this.handleSiteURL} className="form">
-        <div>
+        <div className="flashMessage">
           {
-            "It looks like you're running from a local dev server. To talk to Netlify Identity, let us know the URL of your Netlify Site"
+            "Looks like you're running a local server. Please let us know the URL of your site."
           }
         </div>
         <div className="formGroup">
@@ -33,7 +33,7 @@ export default class SiteURLForm extends Component {
               type="url"
               name="url"
               value={url}
-              placeholder="url"
+              placeholder="URL of your Netlify site"
               autocapitalize="off"
               required
               oninput={this.handleInput}/>
@@ -41,7 +41,7 @@ export default class SiteURLForm extends Component {
           </label>
         </div>
         <button type="submit" className="btn">
-          Set Site URL
+          Set site's URL
         </button>
       </form>
     );

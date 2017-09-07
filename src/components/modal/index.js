@@ -30,6 +30,7 @@ export default class Modal extends Component {
       loading,
       showHeader,
       showSignup,
+      devSettings,
       isOpen,
       children
     } = this.props;
@@ -56,16 +57,25 @@ export default class Modal extends Component {
                     Sign Up
                   </button>
                 )}
-                <button
-                  className={`btn btnHeader ${page.login ? "active" : ""}`}
-                  onclick={this.linkHandler("login")}>
-                  Log in
-                </button>
+                {!devSettings && (
+                  <button
+                    className={`btn btnHeader ${page.login ? "active" : ""}`}
+                    onclick={this.linkHandler("login")}>
+                    Log in
+                  </button>
+                )}
               </div>
             )}
             {page.title && (
               <div className="header">
                 <button className="btn btnHeader active">{page.title}</button>
+              </div>
+            )}
+            {devSettings && (
+              <div className="header">
+                <button className="btn btnHeader active">
+                  Development Settings
+                </button>
               </div>
             )}
             {error && (
