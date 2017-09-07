@@ -152,6 +152,7 @@ class App extends Component {
           error={store.error}
           showHeader={showHeader}
           showSignup={showSignup}
+          devSettings={!store.gotrue}
           loading={store.gotrue && !store.settings}
           isOpen={store.modal.isOpen}
           onPage={this.handlePage}
@@ -159,7 +160,8 @@ class App extends Component {
           {this.renderBody()}
           {this.renderProviders()}
           {!store.user &&
-          page.link && (
+          page.link &&
+          store.gotrue && (
               <button
                 onclick={pageLinkHandler}
                 className="btnLink forgotPasswordLink">
