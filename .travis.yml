@@ -1,0 +1,13 @@
+dist: trusty
+language: node_js
+node_js:
+  - 'node'
+sudo: false
+cache:
+  yarn: true
+  directories:
+    - ~/.npm
+install:
+  - yarn
+script:
+  - yarn test
