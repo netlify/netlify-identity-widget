@@ -4,7 +4,7 @@
   "description": "Netlify Identity widget for easy integration",
   "releaseVersion": "v1",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development webpack-dev-server --inline --hot --progress",
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --inline --progress",
     "start": "serve build -s -c 1",
     "prestart": "npm run build",
     "build": "cross-env NODE_ENV=production webpack --progress",
