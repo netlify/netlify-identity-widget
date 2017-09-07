@@ -8,6 +8,6 @@ cache:
   directories:
     - ~/.npm
 install:
-  - yarn i
+  - yarn
 script:
   - yarn test
