@@ -1,4 +1,5 @@
 # Netlify Identity Widget
+[![Build Status](https://travis-ci.org/netlify/netlify-identity-widget.svg?branch=master)](https://travis-ci.org/netlify/netlify-identity-widget)
 
 A component used to authenticate with Netlify's Identity API. [Live demo](https://identity.netlify.com)
 
