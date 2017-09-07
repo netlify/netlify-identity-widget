@@ -37,7 +37,7 @@
 		.main {
 			max-width: 800px;
 			margin: auto;
-			height: 100vh;
+			min-height: 100vh;
 			display: flex;
 			justify-content: center;
 			flex-direction: column;
@@ -49,7 +49,6 @@
 
 		.header h2 {
 			font-weight: 500;
-			font-family: SFUIDisplay-Medium;
 			font-size: 24px;
 			color: #2d3b41;
 			margin: 0;
@@ -62,7 +61,6 @@
 
 		.header h1 {
 			font-weight: 700;
-			font-family: SFUIDisplay-Bold;
 			font-size: 80px;
 			color: #0e1e25;
 			margin-top: 8px;
@@ -112,8 +110,7 @@
 		[data-netlify-identity-menu] a {
 			display: block;
 			position: relative;
-			width: 168px;
-			max-width: 184px;
+			width: 192px;
 			height: 24px;
 			padding: 8px;
 			outline: 0;
@@ -146,6 +143,7 @@
 		.single-button {
 			flex-grow: 1;
 			margin-right: 104px;
+			margin-bottom: 40px;
 		}
 
 		.multiple-buttons {
@@ -161,7 +159,35 @@
 		}
 
 		.call-out svg {
+			display: block;
 			margin-left: 40px;
+			width: 90%;
+			max-width: 420px;
+		}
+
+		@media (max-width: 880px) {
+			.main {
+				padding: 16px;
+			}
+
+			.header h1 {
+				font-size: 10vw;
+			}
+
+			.hands-on-area {
+				flex-direction: column;
+			}
+
+			[data-netlify-identity-menu] ul {
+				display: flex;
+    		flex-direction: column;
+			}
+
+			[data-netlify-identity-menu] li {
+				margin-bottom: 16px;
+			}
+
+
 		}
 
 	</style>
