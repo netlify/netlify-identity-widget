@@ -18,29 +18,32 @@ export default class SiteURLForm extends Component {
   render() {
     const { url } = this.state;
 
-    return <form onsubmit={this.handleSiteURL} className="form">
-      <div className="flashMessage">
-        {"Looks like you're running a local server. Please let us know the URL of your site."}
-      </div>
-      <div className="formGroup">
-        <label>
-          <span className="visuallyHidden">
-            Enter your Netlify Site URL
-          </span>
-          <input
-            className="formControl"
-            type="url"
-            name="URL of your Netlify site"
-            value={url}
-            placeholder="URL of your Netlify site"
-            autocapitalize="off"
-            required
-            oninput={this.handleInput}
-          />
-          <div className="inputFieldIcon inputFieldUrl"></div>
-        </label>
-      </div>
-      <button type="submit" className="btn">Set site's URL</button>
-    </form>;
+    return (
+      <form onsubmit={this.handleSiteURL} className="form">
+        <div className="flashMessage">
+          {
+            "Looks like you're running a local server. Please let us know the URL of your site."
+          }
+        </div>
+        <div className="formGroup">
+          <label>
+            <span className="visuallyHidden">Enter your Netlify Site URL</span>
+            <input
+              className="formControl"
+              type="url"
+              name="URL of your Netlify site"
+              value={url}
+              placeholder="URL of your Netlify site"
+              autocapitalize="off"
+              required
+              oninput={this.handleInput}/>
+            <div className="inputFieldIcon inputFieldUrl" />
+          </label>
+        </div>
+        <button type="submit" className="btn">
+          Set site's URL
+        </button>
+      </form>
+    );
   }
 }
