@@ -9,8 +9,7 @@
     "prestart": "npm run build",
     "build": "cross-env NODE_ENV=production webpack --progress",
     "prebuild": "mkdirp build",
-    "test": "npm run -s lint",
-    "lint": "eslint src test",
+    "test": "eslint src",
     "release": "node ./script/release.js",
     "format": "prettier --write 'src/**/*.js'",
     "format-preview": "prettier --list-different 'src/**/*.js'"
