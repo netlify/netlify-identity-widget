@@ -17,7 +17,7 @@ You can add controls for the widget with HTML:
   <title>A static website</title>
 
   <!-- include the widget -->
-  <script defer type="text/javascript" src="https://identity-js.netlify.com/v1/widget.js"></script>
+  <script defer type="text/javascript" src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 <body>
   <!-- Add a menu:
