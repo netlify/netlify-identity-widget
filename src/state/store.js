@@ -55,7 +55,7 @@ store.loadSettings = action(function loadSettings() {
     .then(action(settings => (store.settings = settings)))
     .catch(
       action(err => {
-        console.log("failed to load settings %o", err);
+        console.error("failed to load settings %o", err);
         store.error = err;
       })
     );
@@ -197,7 +197,7 @@ store.verifyToken = action(function verifyToken(type, token) {
         )
         .catch(
           action(err => {
-            console.log(err);
+            console.error(err);
             store.message = "verfication_error";
             store.modal.page = "signup";
             store.saving = false;
