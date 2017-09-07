@@ -48,7 +48,8 @@ const pages = {
     title: "Complete your signup",
     button: "Sign up",
     button_saving: "Signing Up",
-    password: true
+    password: true,
+    providers: true
   },
   user: {
     title: "Logged in"
