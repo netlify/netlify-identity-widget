@@ -4,8 +4,7 @@
   "description": "Netlify Identity widget for easy integration",
   "releaseVersion": "v1",
   "scripts": {
-    "dev":
-      "cross-env NODE_ENV=development webpack-dev-server --inline --hot --progress",
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --inline --hot --progress",
     "start": "serve build -s -c 1",
     "prestart": "npm run build",
     "build": "cross-env NODE_ENV=production webpack --progress",
@@ -13,11 +12,15 @@
     "test": "npm run -s lint",
     "lint": "eslint src test",
     "release": "node ./script/release.js",
-    "format": "prettier-eslint --write 'src/**/*.js'",
-    "format-preview": "prettier-eslint --list-different 'src/**/*.js'"
+    "format": "prettier --write 'src/**/*.js'",
+    "format-preview": "prettier --list-different 'src/**/*.js'"
   },
   "main": "./releases/v1/netlify-identity",
-  "keywords": ["netlify", "identity", "authentication"],
+  "keywords": [
+    "netlify",
+    "identity",
+    "authentication"
+  ],
   "license": "MIT",
   "author": "Matt Biilmann <matt@netlify.com>",
   "devDependencies": {
@@ -34,7 +37,9 @@
     "cross-env": "^5.0.1",
     "css-loader": "^0.28.0",
     "eslint": "^4.1.0",
+    "eslint-config-prettier": "^2.4.0",
     "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-prettier": "^2.2.0",
     "eslint-plugin-react": "^7.0.0",
     "file-loader": "^0.11.1",
     "html-webpack-plugin": "^2.28.0",
@@ -42,8 +47,6 @@
     "mkdirp": "^0.5.1",
     "postcss-loader": "^2.0.3",
     "prettier": "^1.6.1",
-    "prettier-eslint": "^7.1.0",
-    "prettier-eslint-cli": "^4.3.0",
     "raw-loader": "^0.5.1",
     "source-map-loader": "^0.2.1",
     "url-loader": "^0.5.8",

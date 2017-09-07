@@ -31,7 +31,8 @@ class Controls extends Component {
         <a
           className="netlify-identity-button"
           href="#"
-          onClick={this.handleButton}>
+          onClick={this.handleButton}
+        >
           {this.props.text || (user ? "Log out" : "Log in")}
         </a>
       );
@@ -50,7 +51,8 @@ class Controls extends Component {
             <a
               className="netlify-identity-logout"
               href="#"
-              onClick={this.handleLogout}>
+              onClick={this.handleLogout}
+            >
               Log out
             </a>
           </li>
@@ -64,7 +66,8 @@ class Controls extends Component {
           <a
             className="netlify-identity-signup"
             href="#"
-            onClick={this.handleSignup}>
+            onClick={this.handleSignup}
+          >
             Sign up
           </a>
         </li>
@@ -72,7 +75,8 @@ class Controls extends Component {
           <a
             className="netlify-identity-login"
             href="#"
-            onClick={this.handleLogin}>
+            onClick={this.handleLogin}
+          >
             Log in
           </a>
         </li>

@@ -40,10 +40,12 @@ export default class Modal extends Component {
         className="modalContainer"
         role="dialog"
         aria-hidden={`${hidden}`}
-        onClick={this.handleClose}>
+        onClick={this.handleClose}
+      >
         <div
           className={`modalDialog${loading ? " visuallyHidden" : ""}`}
-          onClick={this.blockEvent}>
+          onClick={this.blockEvent}
+        >
           <div className="modalContent">
             <button onclick={this.handleClose} className="btn btnClose">
               <span className="visuallyHidden">Close</span>
@@ -53,14 +55,16 @@ export default class Modal extends Component {
                 {showSignup && (
                   <button
                     className={`btn btnHeader ${page.signup ? "active" : ""}`}
-                    onclick={this.linkHandler("signup")}>
+                    onclick={this.linkHandler("signup")}
+                  >
                     Sign up
                   </button>
                 )}
                 {!devSettings && (
                   <button
                     className={`btn btnHeader ${page.login ? "active" : ""}`}
-                    onclick={this.linkHandler("login")}>
+                    onclick={this.linkHandler("login")}
+                  >
                     Log in
                   </button>
                 )}
@@ -88,7 +92,8 @@ export default class Modal extends Component {
         </div>
         <a
           href="https://www.netlify.com"
-          className={`callOut${loading ? " visuallyHidden" : ""}`}>
+          className={`callOut${loading ? " visuallyHidden" : ""}`}
+        >
           <span className="netlifyLogo" />
           Coded by Netlify
         </a>

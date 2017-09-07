@@ -98,7 +98,8 @@ class App extends Component {
         <LogoutForm
           user={store.user}
           saving={store.saving}
-          onLogout={this.handleLogout}/>
+          onLogout={this.handleLogout}
+        />
       );
     }
     if (store.modal.page === "signup" && store.settings.disable_signup) {
@@ -110,7 +111,8 @@ class App extends Component {
         page={pages[store.modal.page] || {}}
         message={store.message}
         saving={store.saving}
-        onSubmit={this.handleUser}/>
+        onSubmit={this.handleUser}
+      />
     );
   }
 
@@ -156,18 +158,20 @@ class App extends Component {
           loading={store.gotrue && !store.settings}
           isOpen={store.modal.isOpen}
           onPage={this.handlePage}
-          onClose={this.handleClose}>
+          onClose={this.handleClose}
+        >
           {this.renderBody()}
           {this.renderProviders()}
           {!store.user &&
           page.link &&
           store.gotrue && (
-              <button
-                onclick={pageLinkHandler}
-                className="btnLink forgotPasswordLink">
-                {page.link_text}
-              </button>
-            )}
+            <button
+              onclick={pageLinkHandler}
+              className="btnLink forgotPasswordLink"
+            >
+              {page.link_text}
+            </button>
+          )}
         </Modal>
       </div>
     );

@@ -24,7 +24,8 @@ export default class UserForm extends Component {
     return (
       <form
         onsubmit={this.handleLogin}
-        className={`form ${saving ? "disabled" : ""}`}>
+        className={`form ${saving ? "disabled" : ""}`}
+      >
         {message && <Message type={message} />}
         {page.name && (
           <div className="formGroup">
@@ -38,7 +39,8 @@ export default class UserForm extends Component {
                 placeholder="Name"
                 autocapitalize="off"
                 required
-                oninput={this.handleInput}/>
+                oninput={this.handleInput}
+              />
               <div className="inputFieldIcon inputFieldEmail" />
             </label>
           </div>
@@ -55,7 +57,8 @@ export default class UserForm extends Component {
                 placeholder="Email"
                 autocapitalize="off"
                 required
-                oninput={this.handleInput}/>
+                oninput={this.handleInput}
+              />
               <div className="inputFieldIcon inputFieldEmail" />
             </label>
           </div>
@@ -71,7 +74,8 @@ export default class UserForm extends Component {
                 value={password}
                 placeholder="Password"
                 required
-                oninput={this.handleInput}/>
+                oninput={this.handleInput}
+              />
               <div className="inputFieldIcon inputFieldPassword" />
             </label>
           </div>
@@ -79,7 +83,8 @@ export default class UserForm extends Component {
         <Button
           saving={saving}
           text={page.button}
-          saving_text={page.button_saving}/>
+          saving_text={page.button_saving}
+        />
       </form>
     );
   }
