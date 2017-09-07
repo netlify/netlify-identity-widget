@@ -31,7 +31,7 @@ export default class SiteURLForm extends Component {
             <input
               className="formControl"
               type="url"
-              name="URL of your Netlify site"
+              name="url"
               value={url}
               placeholder="URL of your Netlify site"
               autocapitalize="off"
