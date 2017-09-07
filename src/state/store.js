@@ -84,7 +84,7 @@ store.login = action(function login(email, password) {
 });
 
 store.externalLogin = action(function externalLogin(provider) {
-  store.startAction();
+  // store.startAction();
   const url = store.invite_token
     ? store.gotrue.acceptInviteExternalUrl(provider, store.invite_token)
     : store.gotrue.loginExternalUrl(provider);
