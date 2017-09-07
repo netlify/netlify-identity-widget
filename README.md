@@ -29,7 +29,7 @@ You can add controls for the widget with HTML:
   <!-- Add a simpler button:
     Simple button that will open the modal.
   -->
-  <div data-netlify-identity-menu>Login with Netlify Identity</div>
+  <div data-netlify-identity-button>Login with Netlify Identity</div>
 </body>
 </html>
 ```
