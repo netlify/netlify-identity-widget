@@ -1,50 +1,81 @@
-import { h, Component } from 'preact';
-import { connect } from 'mobx-preact';
+import { h, Component } from "preact";
+import { connect } from "mobx-preact";
 
-@connect(['store'])
+@connect(["store"])
 class Controls extends Component {
-  handleSignup = (e) => {
+  handleSignup = e => {
     e.preventDefault();
-    this.props.store.openModal('signup');
-  }
+    this.props.store.openModal("signup");
+  };
 
-  handleLogin = (e) => {
+  handleLogin = e => {
     e.preventDefault();
-    this.props.store.openModal('login');
-  }
+    this.props.store.openModal("login");
+  };
 
-  handleLogout = (e) => {
+  handleLogout = e => {
     e.preventDefault();
-    this.props.store.openModal('user');
-  }
+    this.props.store.openModal("user");
+  };
 
-  handleButton = (e) => {
+  handleButton = e => {
     e.preventDefault();
-    this.props.store.openModal(this.props.store.user ? 'user' : 'login');
-  }
+    this.props.store.openModal(this.props.store.user ? "user" : "login");
+  };
 
   render() {
-    const {user} = this.props.store;
+    const { user } = this.props.store;
 
-    if (this.props.mode === 'button') {
-      return <a className="netlify-identity-button" href="#" onClick={this.handleButton}>
-        {this.props.text || (user ? 'Log out' : 'Log In')}
-      </a>;
+    if (this.props.mode === "button") {
+      return (
+        <a
+          className="netlify-identity-button"
+          href="#"
+          onClick={this.handleButton}>
+          {this.props.text || (user ? "Log out" : "Log In")}
+        </a>
+      );
     }
 
     if (user) {
       return (
         <ul className="netlify-identity-menu">
-          <li className="netlify-identity-item netlify-identity-user-details">Logged in as <span className="netlify-identity-user">{user.user_metadata.name || user.email}</span></li>
-          <li className="netlify-identity-item"><a className="netlify-identity-logout" href="#" onClick={this.handleLogout}>Log out</a></li>
+          <li className="netlify-identity-item netlify-identity-user-details">
+            Logged in as{" "}
+            <span className="netlify-identity-user">
+              {user.user_metadata.name || user.email}
+            </span>
+          </li>
+          <li className="netlify-identity-item">
+            <a
+              className="netlify-identity-logout"
+              href="#"
+              onClick={this.handleLogout}>
+              Log out
+            </a>
+          </li>
         </ul>
       );
     }
 
     return (
-      <ul  className="netlify-identity-menu">
-        <li className="netlify-identity-item"><a className="netlify-identity-signup" href="#" onClick={this.handleSignup}>Sign Up</a></li>
-        <li className="netlify-identity-item"><a className="netlify-identity-login" href="#" onClick={this.handleLogin}>Log in</a></li>
+      <ul className="netlify-identity-menu">
+        <li className="netlify-identity-item">
+          <a
+            className="netlify-identity-signup"
+            href="#"
+            onClick={this.handleSignup}>
+            Sign Up
+          </a>
+        </li>
+        <li className="netlify-identity-item">
+          <a
+            className="netlify-identity-login"
+            href="#"
+            onClick={this.handleLogin}>
+            Log in
+          </a>
+        </li>
       </ul>
     );
   }

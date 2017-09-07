@@ -1,4 +1,4 @@
-import netlifyIdentity from './netlify-identity';
+import netlifyIdentity from "./netlify-identity";
 
 if (typeof exports !== undefined) {
   exports.netlifyIdentity = netlifyIdentity;

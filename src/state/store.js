@@ -13,7 +13,7 @@ const store = observable({
   invite_token: null,
   email_change_token: null,
   modal: {
-    page: 'login',
+    page: "login",
     isOpen: false
   }
 });
@@ -34,22 +34,31 @@ store.init = action(function init(gotrue, reloadSettings) {
     store.gotrue = gotrue;
     store.user = gotrue.currentUser();
     if (store.user) {
-      store.modal.page = 'user';
+      store.modal.page = "user";
     }
   }
-  if (reloadSettings) { store.loadSettings(); }
+  if (reloadSettings) {
+    store.loadSettings();
+  }
 });
 
 store.loadSettings = action(function loadSettings() {
-  if (store.settings) { return; }
-  if (!store.gotrue) { return; }
+  if (store.settings) {
+    return;
+  }
+  if (!store.gotrue) {
+    return;
+  }
 
-  store.gotrue.settings()
-    .then(action((settings) => store.settings = settings))
-    .catch(action((err) => {
-      console.log("failed to load settings %o", err);
-      store.error = err;
-    }));
+  store.gotrue
+    .settings()
+    .then(action(settings => (store.settings = settings)))
+    .catch(
+      action(err => {
+        console.log("failed to load settings %o", err);
+        store.error = err;
+      })
+    );
 });
 
 store.setSiteURL = action(function setSiteURL(url) {
@@ -58,31 +67,35 @@ store.setSiteURL = action(function setSiteURL(url) {
 
 store.login = action(function login(email, password) {
   store.startAction();
-  return store.gotrue.login(email, password, store.remember)
-    .then(action((user) => {
-      store.user = user;
-      store.modal.page = 'user';
-      store.invite_token = null;
-      if (store.email_change_token) {
-        store.doEmailChange();
-      }
-      store.saving = false;
-    }))
+  return store.gotrue
+    .login(email, password, store.remember)
+    .then(
+      action(user => {
+        store.user = user;
+        store.modal.page = "user";
+        store.invite_token = null;
+        if (store.email_change_token) {
+          store.doEmailChange();
+        }
+        store.saving = false;
+      })
+    )
     .catch(store.setError);
 });
 
 store.externalLogin = action(function externalLogin(provider) {
   store.startAction();
-  const url = store.invite_token ?
-    store.gotrue.acceptInviteExternalUrl(provider, store.invite_token) :
-    store.gotrue.loginExternalUrl(provider);
+  const url = store.invite_token
+    ? store.gotrue.acceptInviteExternalUrl(provider, store.invite_token)
+    : store.gotrue.loginExternalUrl(provider);
   window.location.href = url;
 });
 
 store.completeExternalLogin = action(function completeExternalLogin(params) {
   store.startAction();
-  store.gotrue.createUser(params, store.remember)
-    .then((user) => {
+  store.gotrue
+    .createUser(params, store.remember)
+    .then(user => {
       store.user = user;
       store.modal.page = "user";
       store.saving = false;
@@ -92,34 +105,44 @@ store.completeExternalLogin = action(function completeExternalLogin(params) {
 
 store.signup = action(function signup(name, email, password) {
   store.startAction();
-  return store.gotrue.signup(email, password, { full_name: name })
-    .then((action(() => {
-      if (store.settings.autoconfirm) {
-        store.login(email, password, store.remember);
-      } else {
-        store.message = "confirm";
-      }
-      store.saving = false;
-    })))
+  return store.gotrue
+    .signup(email, password, { full_name: name })
+    .then(
+      action(() => {
+        if (store.settings.autoconfirm) {
+          store.login(email, password, store.remember);
+        } else {
+          store.message = "confirm";
+        }
+        store.saving = false;
+      })
+    )
     .catch(store.setError);
 });
 
 store.logout = action(function logout() {
   store.startAction();
-  return store.user && store.user.logout()
-    .then(action(() => {
-      store.user = null;
-      store.modal.page = "login";
-      store.saving = false;
-    }))
-    .catch(store.setError);
+  return (
+    store.user &&
+    store.user
+      .logout()
+      .then(
+        action(() => {
+          store.user = null;
+          store.modal.page = "login";
+          store.saving = false;
+        })
+      )
+      .catch(store.setError)
+  );
 });
 
 store.updatePassword = action(function updatePassword(password) {
   store.startAction();
   const user = store.recovered_user || store.user;
-  user.update({password})
-    .then((user) => {
+  user
+    .update({ password })
+    .then(user => {
       store.user = user;
       store.recovered_user = null;
       store.modal.page = "user";
@@ -130,10 +153,11 @@ store.updatePassword = action(function updatePassword(password) {
 
 store.acceptInvite = action(function acceptInvite(password) {
   store.startAction();
-  store.gotrue.acceptInvite(store.invite_token, password, store.remember)
-    .then((user) => {
+  store.gotrue
+    .acceptInvite(store.invite_token, password, store.remember)
+    .then(user => {
       store.saving = false;
-      store.invite_token= null;
+      store.invite_token = null;
       store.user = user;
       store.modal.page = "user";
     })
@@ -143,13 +167,15 @@ store.acceptInvite = action(function acceptInvite(password) {
 store.doEmailChange = action(function doEmailChange() {
   store.startAction();
   return store.user
-    .update({email_change_token: store.email_change_token})
-    .then(action((user) => {
-      store.user = user;
-      store.email_change_token = null;
-      store.message = "email_changed";
-      store.saving = false;
-    }))
+    .update({ email_change_token: store.email_change_token })
+    .then(
+      action(user => {
+        store.user = user;
+        store.email_change_token = null;
+        store.message = "email_changed";
+        store.saving = false;
+      })
+    )
     .catch(store.setError);
 });
 
@@ -160,18 +186,23 @@ store.verifyToken = action(function verifyToken(type, token) {
   switch (type) {
     case "confirmation":
       store.startAction();
-      store.modal.page = 'signup';
-      gotrue.confirm(token, store.remember)
-        .then(action((user) => {
-          store.user = user;
-          store.saving = false;
-        }))
-        .catch(action((err) => {
-          console.log(err);
-          store.message = 'verfication_error';
-          store.modal.page = 'signup';
-          store.saving = false;
-        }));
+      store.modal.page = "signup";
+      gotrue
+        .confirm(token, store.remember)
+        .then(
+          action(user => {
+            store.user = user;
+            store.saving = false;
+          })
+        )
+        .catch(
+          action(err => {
+            console.log(err);
+            store.message = "verfication_error";
+            store.modal.page = "signup";
+            store.saving = false;
+          })
+        );
       break;
     case "email_change":
       store.email_change_token = token;
@@ -189,12 +220,13 @@ store.verifyToken = action(function verifyToken(type, token) {
     case "recovery":
       store.startAction();
       store.modal.page = type;
-      store.gotrue.recover(token, store.remember)
-        .then((user) => {
+      store.gotrue
+        .recover(token, store.remember)
+        .then(user => {
           store.saving = false;
           store.recovered_user = user;
         })
-        .catch((err) => {
+        .catch(err => {
           store.saving = false;
           store.error = err;
           store.modal.page = "login";
@@ -207,14 +239,16 @@ store.verifyToken = action(function verifyToken(type, token) {
 
 store.requestPasswordRecovery = action(function requestPasswordRecovery(email) {
   store.startAction();
-  store.gotrue.requestPasswordRecovery(email)
-    .then(action(() => {
-      store.message = 'password_mail';
-      store.saving = false;
-    }))
+  store.gotrue
+    .requestPasswordRecovery(email)
+    .then(
+      action(() => {
+        store.message = "password_mail";
+        store.saving = false;
+      })
+    )
     .catch(store.setError);
 });
-
 
 store.openModal = action(function open(page) {
   store.modal.page = page;
@@ -227,6 +261,5 @@ store.closeModal = action(function close() {
   store.message = null;
   store.saving = false;
 });
-
 
 export default store;
