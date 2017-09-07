@@ -102,6 +102,14 @@
 		  text-decoration: none;
 		}
 
+		[data-netlify-identity-menu] ul {
+			display: flex;
+		}
+
+		[data-netlify-identity-menu] li:first-child {
+			margin-right: 16px;
+		}
+
 		[data-netlify-identity-menu] li {
 			list-style-type: none;
 			display: inline-block;
@@ -126,13 +134,23 @@
 			text-align: center;
 			text-decoration: none;
 			white-space: nowrap;
-			margin-right: 16px;
 		}
 
 		[data-netlify-identity-menu] a:hover,
 		[data-netlify-identity-menu] a:focus {
 		  background-color: #007a70;
 		  text-decoration: none;
+		}
+
+		.netlify-identity-user-details {
+			display: block;
+		}
+
+		.netlify-identity-user {
+			font-weight: 500;
+			color: #2d3b41;
+			display: block;
+			margin-top: 8px;
 		}
 
 		.hands-on-area {
@@ -186,7 +204,6 @@
 			[data-netlify-identity-menu] li {
 				margin-bottom: 16px;
 			}
-
 
 		}
 
