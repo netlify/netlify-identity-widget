@@ -1,6 +1,6 @@
 # Netlify Identity Widget
 
-A component used to authenticate with Netlify's Identity API.
+A component used to authenticate with Netlify's Identity API. [Live demo](https://identity.netlify.com)
 
 For a lower level library to the underlying `GoTrue` API, see [gotrue-js](https://github.com/netlify/gotrue-js).
 
