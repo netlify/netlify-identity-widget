@@ -36,7 +36,8 @@ export default class SiteURLForm extends Component {
               placeholder="URL of your Netlify site"
               autocapitalize="off"
               required
-              oninput={this.handleInput}/>
+              oninput={this.handleInput}
+            />
             <div className="inputFieldIcon inputFieldUrl" />
           </label>
         </div>

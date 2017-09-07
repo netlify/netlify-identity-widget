@@ -12,7 +12,8 @@ class Provider extends Component {
     return (
       <button
         onClick={this.handleLogin}
-        className={`provider${provider} btn btnProvider`}>
+        className={`provider${provider} btn btnProvider`}
+      >
         Continue with {provider}
       </button>
     );

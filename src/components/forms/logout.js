@@ -12,7 +12,8 @@ export default class LogoutForm extends Component {
     return (
       <form
         onSubmit={this.handleLogout}
-        className={`form ${saving ? "disabled" : ""}`}>
+        className={`form ${saving ? "disabled" : ""}`}
+      >
         <p className="infoText">
           Logged in as <br />
           <span className="infoTextEmail">
