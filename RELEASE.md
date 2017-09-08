@@ -1,7 +1,7 @@
 # Release Checklist
 
 - Make changes and or merge PRs.
-- Document changes in a gh-release draft.  If no draft is created, create one.
+- Document changes in a gh-release draft.  If no draft exists, create one.
 - `git checkout master`
 - `git pull`
 - `yarn`
