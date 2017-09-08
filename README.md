@@ -62,7 +62,7 @@ loginModal.logout();
 
 ### Module API
 
-Netlify Identity Widget also has a module api:
+Netlify Identity Widget also has a [module api](https://www.npmjs.com/package/netlify-identity-widget):
 
 ```
 yarn add netlify-identity-widget
