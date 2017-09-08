@@ -2,12 +2,11 @@
   "name": "netlify-identity-widget",
   "version": "0.9.0",
   "description": "Netlify Identity widget for easy integration",
-  "releaseVersion": "v1",
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --inline --progress",
     "start": "serve build -s -c 1",
     "prestart": "npm run build",
-    "preversion": "npm run release",
+    "version": "npm run release",
     "build": "cross-env NODE_ENV=production webpack --progress",
     "prebuild": "mkdirp build",
     "test": "eslint src",
@@ -15,7 +14,7 @@
     "format": "prettier --write 'src/**/*.js'",
     "format-preview": "prettier --list-different 'src/**/*.js'"
   },
-  "main": "./releases/v1/netlify-identity",
+  "main": "./build/netlify-identity",
   "keywords": [
     "netlify",
     "identity",
@@ -48,6 +47,7 @@
     "postcss-loader": "^2.0.3",
     "prettier": "^1.6.1",
     "raw-loader": "^0.5.1",
+    "semver": "^5.4.1",
     "source-map-loader": "^0.2.1",
     "url-loader": "^0.5.8",
     "webpack": "^3.0.0",
