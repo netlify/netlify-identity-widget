@@ -11,3 +11,7 @@ exec("mkdir -p releases/" + version)
 
 console.log('copying release files');
 exec("cp build/* releases/" + version)
+
+console.log('git commit')
+exec("git add releases/" + version)
+exec("git commit -m 'Created new release for version " + version + "'")
