@@ -88,6 +88,7 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       template: "./index.ejs",
+      inject: false,
       minify: { collapseWhitespace: true }
     })
   ].concat(

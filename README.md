@@ -1,5 +1,4 @@
 # Netlify Identity Widget
-[![Build Status](https://travis-ci.org/netlify/netlify-identity-widget.svg?branch=master)](https://travis-ci.org/netlify/netlify-identity-widget)
 
 A component used to authenticate with Netlify's Identity API. [Live demo](https://identity.netlify.com)
 
@@ -47,7 +46,8 @@ netlifyIdentity.open()
 const user = netlifyIdentity.currentUser();
 
 // Bind to events
-netlifyIdentity.on('login', login => console.log(user))
+netlifyIdentity.on('init', user => console.log(user))
+netlifyIdentity.on('login', user => console.log(user))
 netlifyIdentity.on('logout', () => console.log("Logged out"))
 netlifyIdentity.on('error', err => console.error("Logged out"))
 netlifyIdentity.on('open', () => console.log("Widget opened"))
@@ -81,6 +81,7 @@ netlifyIdentity.init({
 
 identity.open() // open the modal
 
+identity.on('init', user => console.log(user))
 identity.on('login', login => console.log(user))
 identity.on('logout', () => console.log("Logged out"))
 identity.on('error', err => console.error("Logged out"))
