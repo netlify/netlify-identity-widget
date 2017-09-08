@@ -130,6 +130,10 @@ observe(store, "user", () => {
   }
 });
 
+observe(store, "gotrue", () => {
+  store.gotrue && trigger("init", store.gotrue.currentUser());
+});
+
 observe(store, "error", () => {
   trigger("error", store.error);
 });
