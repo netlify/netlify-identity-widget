@@ -15,4 +15,4 @@ console.log("copying release files");
 exec("cp build/* releases/" + version);
 
 console.log("stage release artifiacts");
-exec("git add releases/" + version)
+exec("git add releases/" + version);
