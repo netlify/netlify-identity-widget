@@ -7,6 +7,7 @@
     "start": "serve build -s -c 1",
     "prestart": "npm run build",
     "version": "npm run release",
+    "prepublish": "npm run build",
     "build": "cross-env NODE_ENV=production webpack --progress",
     "prebuild": "mkdirp build",
     "test": "eslint src",
