@@ -7,8 +7,8 @@
 - [ ] `yarn`
 - [ ] `npm version [ major | minor | patch ] -m "Upgrade to %s for reasons"`
 - [ ] `git push && git push --tags`
-- [ ] `npm publish`
 - [ ] Assign draft gh-release to new tag and publish release notes.
+- [ ] `npm publish`
 
 Helpful changelog / release tools:
 
