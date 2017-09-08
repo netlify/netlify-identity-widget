@@ -18,7 +18,9 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, "build"),
     publicPath: "/",
-    filename: "[name].js"
+    filename: "[name].js",
+    library: "netlifyIdentity",
+    libraryTarget: "umd"
   },
 
   resolve: {

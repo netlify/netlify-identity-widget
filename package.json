@@ -1,6 +1,7 @@
 {
   "name": "netlify-identity-widget",
   "version": "1.0.0",
+  "releaseVersion": "v1",
   "description": "Netlify Identity widget for easy integration",
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --inline --progress",
@@ -16,11 +17,7 @@
     "format-preview": "prettier --list-different 'src/**/*.js'"
   },
   "main": "./build/netlify-identity",
-  "keywords": [
-    "netlify",
-    "identity",
-    "authentication"
-  ],
+  "keywords": ["netlify", "identity", "authentication"],
   "license": "MIT",
   "author": "Matt Biilmann <matt@netlify.com>",
   "devDependencies": {
@@ -48,13 +45,10 @@
     "postcss-loader": "^2.0.3",
     "prettier": "^1.6.1",
     "raw-loader": "^0.5.1",
-    "semver": "^5.4.1",
     "source-map-loader": "^0.2.1",
     "url-loader": "^0.5.8",
     "webpack": "^3.0.0",
-    "webpack-dev-server": "^2.4.4"
-  },
-  "dependencies": {
+    "webpack-dev-server": "^2.4.4",
     "gotrue-js": "^0.9.8",
     "mobx": "^3.2.2",
     "mobx-preact": "^0.3.1",
@@ -64,5 +58,6 @@
     "preact": "^8.1.0",
     "preact-compat": "^3.15.0",
     "serve": "^6.0.0"
-  }
+  },
+  "dependencies": {}
 }

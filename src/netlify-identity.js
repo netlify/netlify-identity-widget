@@ -212,7 +212,9 @@ function init(options) {
   };
   setStyle(iframe, iframeStyle);
   iframe.src = "about:blank";
-  const container = options.container ? document.querySelector : document.body;
+  const container = options.container
+    ? document.querySelector(options.container)
+    : document.body;
   container.appendChild(iframe);
   /* There's a certain case where we might have called setStyle before the iframe was ready.
 	   Make sure we take the last style and apply it */
