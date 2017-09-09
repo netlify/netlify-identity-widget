@@ -60,6 +60,11 @@ loginModal.close()
 loginModal.logout();
 ```
 
+#### A note on script tag versioning
+
+The `v1` in the above URL is not pinned to the major version of the module API, and will only reflect breaking changes in the
+markup API.
+
 ### Module API
 
 Netlify Identity Widget also has a module api:
