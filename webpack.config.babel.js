@@ -12,16 +12,12 @@ module.exports = {
   context: path.resolve(__dirname, "src"),
   entry: {
     "netlify-identity-widget": "./index.js",
-    "netlify-identity": "./netlify-identity.js"
   },
 
   output: {
     path: path.resolve(__dirname, "build"),
     publicPath: "/",
-    filename: "[name].js",
-    library: "netlifyIdentity",
-    libraryTarget: "umd",
-    libraryExport: "default"
+    filename: "[name].js"
   },
 
   resolve: {
