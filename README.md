@@ -60,6 +60,11 @@ loginModal.close()
 loginModal.logout();
 ```
 
+#### A note on script tag versioning
+
+The `v1` in the above URL is not pinned to the major version of the module API, and will only reflect breaking changes in the
+markup API.
+
 ### Module API
 
 Netlify Identity Widget also has a [module api](https://www.npmjs.com/package/netlify-identity-widget):
@@ -71,33 +76,31 @@ yarn add netlify-identity-widget
 Import or require as usual:
 
 ```js
-import NetlifyIdentity from "netlify-identity-widget"
-// or
-const netlifyIdentity = require("netlify-identity-widget");
+const netlifyIdentity =  require("netlify-identity-widget")
 
 netlifyIdentity.init({
   container: "#netlify-modal" // defaults to document.body
 });
 
-identity.open() // open the modal
+netlifyIdentity.open() // open the modal
 
-identity.on('init', user => console.log(user))
-identity.on('login', login => console.log(user))
-identity.on('logout', () => console.log("Logged out"))
-identity.on('error', err => console.error("Logged out"))
-identity.on('open', () => console.log("Widget opened"))
-identity.on('close', () => console.log("Widget closed"))
+netlifyIdentity.on('init', user => console.log(user))
+netlifyIdentity.on('login', login => console.log(user))
+netlifyIdentity.on('logout', () => console.log("Logged out"))
+netlifyIdentity.on('error', err => console.error("Logged out"))
+netlifyIdentity.on('open', () => console.log("Widget opened"))
+netlifyIdentity.on('close', () => console.log("Widget closed"))
 
 // Close the modal
 identity.close()
 
 // Logout the user
-loginModal.logout();
+netlifyIdentity.logout();
 
 // Access the underlying gotrue instance.
 // Note that doing things directly through gotrue brings a risk of getting out of
 // sync between your state and the widgets state.
-identity.gotrue
+netlifyIdentity.gotrue
 ```
 
 ## Localhost

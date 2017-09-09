@@ -1,7 +1,6 @@
 /* eslint no-console: "off" */
 const exec = require("child_process").execSync;
-const semver = require("semver");
-const version = "v" + semver(require("../package.json").version).major;
+const version = require("../package.json").releaseVersion;
 
 console.log("Building new release for ", version);
 

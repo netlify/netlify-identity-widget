@@ -12,7 +12,6 @@ module.exports = {
   context: path.resolve(__dirname, "src"),
   entry: {
     "netlify-identity-widget": "./index.js",
-    "netlify-identity": "./netlify-identity.js"
   },
 
   output: {
