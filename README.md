@@ -76,7 +76,7 @@ yarn add netlify-identity-widget
 Import or require as usual:
 
 ```js
-import netlifyIdentity from "netlify-identity-widget"
+const netlifyIdentity =  require("netlify-identity-widget")
 
 netlifyIdentity.init({
   container: "#netlify-modal" // defaults to document.body

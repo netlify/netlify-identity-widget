@@ -20,7 +20,8 @@ module.exports = {
     publicPath: "/",
     filename: "[name].js",
     library: "netlifyIdentity",
-    libraryTarget: "umd"
+    libraryTarget: "umd",
+    libraryExport: "default"
   },
 
   resolve: {
