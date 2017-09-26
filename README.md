@@ -105,7 +105,17 @@ netlifyIdentity.gotrue
 
 ## Localhost
 
-When using the widget on localhost, it will prompt for your Netlify SiteURL the first time it is opened.
+When using the widget on localhost, it will prompt for your Netlify SiteURL the first time it is opened. Entering the siteURL populates the browser's localStorage.
 
 This allows the widget to know which instance of Netlify Identity it should communicate with with zero
 configuration.
+
+## FAQ
+
+- If you experience a 404 while testing the Netlify Identity Widget on a local environment, you can
+manually remove the netlifySiteURL from localStorage by doing the following in the console.
+
+```js
+localStorage.removeItem("netlifySiteURL")
+```
+
