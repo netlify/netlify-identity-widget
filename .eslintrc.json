@@ -19,14 +19,15 @@
     "plugin:react/recommended",
     "prettier"
   ],
-  "globals": {
-    "sleep": 1
-  },
   "rules": {
     "prettier/prettier": "error",
     "react/prop-types": 0,
     "react/no-unknown-property": 0,
     "react/no-unescaped-entities": 0,
-    "no-console": ["warn", { "allow": ["warn", "error"] }]
+    "no-console": ["warn", { "allow": ["warn", "error"] }],
+    "no-unused-vars": [
+      "error",
+      { "vars": "all", "args": "none", "ignoreRestSiblings": true }
+    ]
   }
 }
