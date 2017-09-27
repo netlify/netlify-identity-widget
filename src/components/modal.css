@@ -10,7 +10,8 @@
   --providerAltColorGitLab: #b03320;
   --providerColorBitbucket: #205081;
   --providerAltColorBitbucket: #14314f;
-  --fontFamily: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  --fontFamily: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   --basePadding: 32px;
 }
 
@@ -389,9 +390,11 @@
   border-top: 2px solid #e9ebeb;
   margin: var(--basePadding) 0 -1px;
   text-align: center;
+  overflow: visible;
 }
 
 .hr::before {
+  content: "or";
   position: relative;
   display: inline-block;
   font-size: 12px;
@@ -401,7 +404,7 @@
   background-color: #fff;
   color: var(--baseColor);
   padding: 4px;
-  top: -13px;
+  top: -11px;
 }
 
 .btnProvider {
