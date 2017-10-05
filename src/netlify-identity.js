@@ -79,13 +79,13 @@ function instantiateGotrue() {
       parts.push("/");
     }
     parts.push(".netlify/identity");
-    return new GoTrue({ APIUrl: parts.join("") });
+    return new GoTrue({ APIUrl: parts.join(""), setCookie: !isLocal });
   }
   if (isLocal) {
     return null;
   }
 
-  return new GoTrue();
+  return new GoTrue({ setCookie: !isLocal });
 }
 
 let root;

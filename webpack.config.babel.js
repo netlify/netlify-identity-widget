@@ -11,7 +11,7 @@ const CSS_MAPS = ENV !== "production";
 module.exports = {
   context: path.resolve(__dirname, "src"),
   entry: {
-    "netlify-identity-widget": "./index.js",
+    "netlify-identity-widget": "./index.js"
   },
 
   output: {
