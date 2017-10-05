@@ -2676,11 +2676,11 @@ got@^6.7.1:
     unzip-response "^2.0.1"
     url-parse-lax "^1.0.0"
 
-gotrue-js@^0.9.11:
-  version "0.9.11"
-  resolved "https://registry.yarnpkg.com/gotrue-js/-/gotrue-js-0.9.11.tgz#c107901344d3578815ebbb917e34ebeae6d604a7"
+gotrue-js@^0.9.13:
+  version "0.9.13"
+  resolved "https://registry.yarnpkg.com/gotrue-js/-/gotrue-js-0.9.13.tgz#99041d0a5e88a838ae479993412e27a5cd8c3850"
   dependencies:
-    micro-api-client "^3.0.3"
+    micro-api-client "^3.2.0"
 
 graceful-fs@^4.1.11, graceful-fs@^4.1.2, graceful-fs@^4.1.4, graceful-fs@^4.1.6:
   version "4.1.11"
@@ -3558,9 +3558,9 @@ methods@~1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/methods/-/methods-1.1.2.tgz#5529a4d67654134edcc5266656835b0f851afcee"
 
-micro-api-client@^3.0.3:
-  version "3.0.3"
-  resolved "https://registry.yarnpkg.com/micro-api-client/-/micro-api-client-3.0.3.tgz#42bff18286b8374830e1abb2abedd66d9a39076b"
+micro-api-client@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/micro-api-client/-/micro-api-client-3.2.0.tgz#5ea1fd708bd9b31c21004d29af2ece39466a3ebb"
 
 micro-compress@1.0.0:
   version "1.0.0"
