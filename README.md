@@ -115,6 +115,12 @@ When using the widget on localhost, it will prompt for your Netlify SiteURL the 
 This allows the widget to know which instance of Netlify Identity it should communicate with with zero
 configuration.
 
+E.g. If your netlify site is served from the `olddvdscreensaver.com` domain name enter the following when prompted by the widget when in development mode:
+
+```
+https://olddvdscreensaver.com
+```
+
 ![](devmode.png)
 
 ## FAQ
