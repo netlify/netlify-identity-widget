@@ -115,6 +115,8 @@ When using the widget on localhost, it will prompt for your Netlify SiteURL the 
 This allows the widget to know which instance of Netlify Identity it should communicate with with zero
 configuration.
 
+![](devmode.png)
+
 ## FAQ
 
 - If you experience a 404 while testing the Netlify Identity Widget on a local environment, you can
@@ -123,4 +125,3 @@ manually remove the netlifySiteURL from localStorage by doing the following in t
 ```js
 localStorage.removeItem("netlifySiteURL")
 ```
-
