@@ -84,7 +84,8 @@ Import or require as usual:
 const netlifyIdentity =  require("netlify-identity-widget")
 
 netlifyIdentity.init({
-  container: "#netlify-modal" // defaults to document.body
+  container: "#netlify-modal", // defaults to document.body,
+  logo: "false" // Disable logo in modal.  Defaults to true
 });
 
 netlifyIdentity.open() // open the modal

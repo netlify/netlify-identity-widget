@@ -194,7 +194,7 @@ function init(options) {
   });
 
   store.init(instantiateGotrue());
-
+  if (options.hasOwnProperty("logo")) store.modal.logo = options.logo;
   iframe = document.createElement("iframe");
   iframe.id = "netlify-identity-widget";
   iframe.onload = () => {

@@ -32,7 +32,8 @@ export default class Modal extends Component {
       showSignup,
       devSettings,
       isOpen,
-      children
+      children,
+      logo
     } = this.props;
     const hidden = loading || !isOpen;
     return (
@@ -90,13 +91,15 @@ export default class Modal extends Component {
             {children}
           </div>
         </div>
-        <a
-          href="https://www.netlify.com"
-          className={`callOut${loading ? " visuallyHidden" : ""}`}
-        >
-          <span className="netlifyLogo" />
-          Coded by Netlify
-        </a>
+        {logo && (
+          <a
+            href="https://www.netlify.com"
+            className={`callOut${loading ? " visuallyHidden" : ""}`}
+          >
+            <span className="netlifyLogo" />
+            Coded by Netlify
+          </a>
+        )}
       </div>
     );
   }
