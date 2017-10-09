@@ -132,3 +132,5 @@ manually remove the netlifySiteURL from localStorage by doing the following in t
 ```js
 localStorage.removeItem("netlifySiteURL")
 ```
+
+- See the `example` for how to integrate this widget with a react app.
