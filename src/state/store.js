@@ -15,7 +15,7 @@ const store = observable({
   modal: {
     page: "login",
     isOpen: false,
-    logo: false
+    logo: true
   }
 });
 
