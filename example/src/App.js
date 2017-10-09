@@ -11,6 +11,7 @@ class App extends Component {
   }
 
   handleLogIn () {
+    // You can import the widget into any component and interact with it.
     netlifyIdentity.open()
   }
 
