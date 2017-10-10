@@ -160,6 +160,7 @@ class App extends Component {
           isOpen={store.modal.isOpen}
           onPage={this.handlePage}
           onClose={this.handleClose}
+          logo={store.modal.logo}
         >
           {this.renderBody()}
           {this.renderProviders()}

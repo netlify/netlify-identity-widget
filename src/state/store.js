@@ -14,7 +14,8 @@ const store = observable({
   email_change_token: null,
   modal: {
     page: "login",
-    isOpen: false
+    isOpen: false,
+    logo: true
   }
 });
 

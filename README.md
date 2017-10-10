@@ -84,7 +84,7 @@ Import or require as usual:
 const netlifyIdentity =  require("netlify-identity-widget")
 
 netlifyIdentity.init({
-  container: "#netlify-modal" // defaults to document.body
+  container: "#netlify-modal", // defaults to document.body,
 });
 
 netlifyIdentity.open() // open the modal
@@ -131,3 +131,5 @@ manually remove the netlifySiteURL from localStorage by doing the following in t
 ```js
 localStorage.removeItem("netlifySiteURL")
 ```
+
+- See the `example` for how to integrate this widget with a react app.

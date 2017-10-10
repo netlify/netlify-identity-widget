@@ -4,14 +4,18 @@
   "releaseVersion": "v1",
   "description": "Netlify Identity widget for easy integration",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development webpack-dev-server --inline --progress --config webpack.config.babel.js",
+    "dev":
+      "cross-env NODE_ENV=development webpack-dev-server --inline --progress --config webpack.config.babel.js",
     "start": "serve build -s -c 1",
+    "react-demo": "cd example && yarn && yarn start",
     "prestart": "run-s build",
     "version": "run-s release",
     "prepublish": "run-s build",
     "build": "run-p build:*",
-    "build:bundle": "cross-env NODE_ENV=production webpack --progress --config webpack.config.babel.js",
-    "build:umd": "cross-env NODE_ENV=production webpack --progress --config webpack.umd.config.babel.js",
+    "build:bundle":
+      "cross-env NODE_ENV=production webpack --progress --config webpack.config.babel.js",
+    "build:umd":
+      "cross-env NODE_ENV=production webpack --progress --config webpack.umd.config.babel.js",
     "prebuild": "mkdirp build",
     "test": "eslint src",
     "release": "node ./script/release.js",
@@ -19,11 +23,7 @@
     "format-preview": "prettier --list-different 'src/**/*.js'"
   },
   "main": "./build/netlify-identity",
-  "keywords": [
-    "netlify",
-    "identity",
-    "authentication"
-  ],
+  "keywords": ["netlify", "identity", "authentication"],
   "license": "MIT",
   "author": "Matt Biilmann <matt@netlify.com>",
   "devDependencies": {
