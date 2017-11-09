@@ -94,6 +94,7 @@ module.exports = {
     ENV === "production"
       ? [
           new webpack.optimize.UglifyJsPlugin({
+            sourceMap: true,
             output: {
               comments: false
             },
