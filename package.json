@@ -10,7 +10,7 @@
     "prestart": "run-s build",
     "version": "run-s release",
     "prepublish": "run-s build",
-    "build": "run-p build:*",
+    "build": "run-s build:*",
     "build:bundle": "cross-env NODE_ENV=production webpack --progress --config webpack.config.babel.js",
     "build:dev": "cross-env NODE_ENV=development webpack --progress --config webpack.dev.config.babel.js",
     "build:umd": "cross-env NODE_ENV=production webpack --progress --config webpack.umd.config.babel.js",
