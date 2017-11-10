@@ -125,19 +125,21 @@ store.signup = action(function signup(name, email, password) {
 
 store.logout = action(function logout() {
   store.startAction();
-  return (
-    store.user &&
-    store.user
-      .logout()
-      .then(
-        action(() => {
-          store.user = null;
-          store.modal.page = "login";
-          store.saving = false;
-        })
-      )
-      .catch(store.setError)
-  );
+  return store.user
+    ? store.user
+        .logout()
+        .then(
+          action(() => {
+            store.user = null;
+            store.modal.page = "login";
+            store.saving = false;
+          })
+        )
+        .catch(store.setError)
+    : action(() => {
+        store.modal.page = "login";
+        store.saving = false;
+      });
 });
 
 store.updatePassword = action(function updatePassword(password) {
