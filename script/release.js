@@ -4,10 +4,6 @@ const version = require("../package.json").releaseVersion;
 
 console.log("Building new release for ", version);
 
-console.log("Cleaning build folder");
-exec("rm -rf build");
-exec("mkdir -p build");
-
 exec("yarn");
 exec("yarn build");
 
