@@ -99,7 +99,8 @@ const iframeStyle = {
   height: "100%",
   overflow: "visible",
   background: "transparent",
-  display: "none"
+  display: "none",
+  "z-index": 99
 };
 
 observe(store.modal, "isOpen", () => {
