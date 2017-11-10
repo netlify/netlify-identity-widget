@@ -165,15 +165,15 @@ class App extends Component {
           {this.renderBody()}
           {this.renderProviders()}
           {!store.user &&
-          page.link &&
-          store.gotrue && (
-            <button
-              onclick={pageLinkHandler}
-              className="btnLink forgotPasswordLink"
-            >
-              {page.link_text}
-            </button>
-          )}
+            page.link &&
+            store.gotrue && (
+              <button
+                onclick={pageLinkHandler}
+                className="btnLink forgotPasswordLink"
+              >
+                {page.link_text}
+              </button>
+            )}
         </Modal>
       </div>
     );
