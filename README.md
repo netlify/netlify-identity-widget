@@ -1,17 +1,25 @@
 # Netlify Identity Widget
 
-A component used to authenticate with Netlify's Identity service. [Live demo](https://identity.netlify.com)
+A component used to authenticate with Netlify's Identity service.
+[Live demo](https://identity.netlify.com)
 
-For a lower level library to the underlying `GoTrue` API, see [gotrue-js](https://github.com/netlify/gotrue-js).
+For a lower level library to the underlying `GoTrue` API, see
+[gotrue-js](https://github.com/netlify/gotrue-js).
 
 ## What is Netlify Identity
-Netlify’s Identity service is a plug-and-play microservice for handling site functionalities like signups, logins, password recovery, user metadata, and roles. You can use it from single page apps instead of rolling your own, and integrate with any service that understands JSON Web Tokens (JWTs).
 
-Learn more about this service from this [blog post](https://www.netlify.com/blog/2017/09/07/introducing-built-in-identity-service-to-streamline-user-management/).
+Netlify’s Identity service is a plug-and-play microservice for handling site
+functionalities like signups, logins, password recovery, user metadata, and
+roles. You can use it from single page apps instead of rolling your own, and
+integrate with any service that understands JSON Web Tokens (JWTs).
+
+Learn more about this service from this
+[blog post](https://www.netlify.com/blog/2017/09/07/introducing-built-in-identity-service-to-streamline-user-management/).
 
 ## Usage
 
-Simply include the widget on your site, and things like invites, confirmation codes, etc, will start working.
+Simply include the widget on your site, and things like invites, confirmation
+codes, etc, will start working.
 
 You can add controls for the widget with HTML:
 
@@ -39,27 +47,28 @@ You can add controls for the widget with HTML:
 </html>
 ```
 
-The widget will automatically attach itself to the window object as `window.netlifyIdentity`.
+The widget will automatically attach itself to the window object as
+`window.netlifyIdentity`.
 
 You can use this global object like this:
 
 ```js
- // open the modal
-netlifyIdentity.open()
+// open the modal
+netlifyIdentity.open();
 
 // Get the current user:
 const user = netlifyIdentity.currentUser();
 
 // Bind to events
-netlifyIdentity.on('init', user => console.log(user))
-netlifyIdentity.on('login', user => console.log(user))
-netlifyIdentity.on('logout', () => console.log("Logged out"))
-netlifyIdentity.on('error', err => console.error("Logged out"))
-netlifyIdentity.on('open', () => console.log("Widget opened"))
-netlifyIdentity.on('close', () => console.log("Widget closed"))
+netlifyIdentity.on("init", user => console.log(user));
+netlifyIdentity.on("login", user => console.log(user));
+netlifyIdentity.on("logout", () => console.log("Logged out"));
+netlifyIdentity.on("error", err => console.error("Logged out"));
+netlifyIdentity.on("open", () => console.log("Widget opened"));
+netlifyIdentity.on("close", () => console.log("Widget closed"));
 
 // Close the modal
-loginModal.close()
+loginModal.close();
 
 // Logout the user
 loginModal.logout();
@@ -67,12 +76,13 @@ loginModal.logout();
 
 #### A note on script tag versioning
 
-The `v1` in the above URL is not pinned to the major version of the module API, and will only reflect breaking changes in the
-markup API.
+The `v1` in the above URL is not pinned to the major version of the module API,
+and will only reflect breaking changes in the markup API.
 
 ### Module API
 
-Netlify Identity Widget also has a [module api](https://www.npmjs.com/package/netlify-identity-widget):
+Netlify Identity Widget also has a
+[module api](https://www.npmjs.com/package/netlify-identity-widget):
 
 ```
 yarn add netlify-identity-widget
@@ -81,23 +91,25 @@ yarn add netlify-identity-widget
 Import or require as usual:
 
 ```js
-const netlifyIdentity =  require("netlify-identity-widget")
+const netlifyIdentity = require("netlify-identity-widget");
 
 netlifyIdentity.init({
-  container: "#netlify-modal", // defaults to document.body,
+  container: "#netlify-modal" // defaults to document.body,
 });
 
-netlifyIdentity.open() // open the modal
+netlifyIdentity.open(); // open the modal
+netlifyIdentity.open("login"); // open the modal to the login tab
+netlifyIdentity.open("signup"); // open the modal to the signup tab
 
-netlifyIdentity.on('init', user => console.log(user))
-netlifyIdentity.on('login', login => console.log(user))
-netlifyIdentity.on('logout', () => console.log("Logged out"))
-netlifyIdentity.on('error', err => console.error("Logged out"))
-netlifyIdentity.on('open', () => console.log("Widget opened"))
-netlifyIdentity.on('close', () => console.log("Widget closed"))
+netlifyIdentity.on("init", user => console.log(user));
+netlifyIdentity.on("login", login => console.log(user));
+netlifyIdentity.on("logout", () => console.log("Logged out"));
+netlifyIdentity.on("error", err => console.error("Logged out"));
+netlifyIdentity.on("open", () => console.log("Widget opened"));
+netlifyIdentity.on("close", () => console.log("Widget closed"));
 
 // Close the modal
-identity.close()
+identity.close();
 
 // Logout the user
 netlifyIdentity.logout();
@@ -105,17 +117,20 @@ netlifyIdentity.logout();
 // Access the underlying gotrue instance.
 // Note that doing things directly through gotrue brings a risk of getting out of
 // sync between your state and the widgets state.
-netlifyIdentity.gotrue
+netlifyIdentity.gotrue;
 ```
 
 ## Localhost
 
-When using the widget on localhost, it will prompt for your Netlify SiteURL the first time it is opened. Entering the siteURL populates the browser's localStorage.
+When using the widget on localhost, it will prompt for your Netlify SiteURL the
+first time it is opened. Entering the siteURL populates the browser's
+localStorage.
 
-This allows the widget to know which instance of Netlify Identity it should communicate with with zero
-configuration.
+This allows the widget to know which instance of Netlify Identity it should
+communicate with with zero configuration.
 
-E.g. If your Netlify site is served from the `olddvdscreensaver.com` domain name, enter the following when prompted by the widget when in development mode:
+E.g. If your Netlify site is served from the `olddvdscreensaver.com` domain
+name, enter the following when prompted by the widget when in development mode:
 
 ```
 https://olddvdscreensaver.com
@@ -125,11 +140,12 @@ https://olddvdscreensaver.com
 
 ## FAQ
 
-- If you experience a 404 while testing the Netlify Identity Widget on a local environment, you can
-manually remove the netlifySiteURL from localStorage by doing the following in the console.
+* If you experience a 404 while testing the Netlify Identity Widget on a local
+  environment, you can manually remove the netlifySiteURL from localStorage by
+  doing the following in the console.
 
 ```js
-localStorage.removeItem("netlifySiteURL")
+localStorage.removeItem("netlifySiteURL");
 ```
 
-- See the `example` for how to integrate this widget with a react app.
+* See the `example` for how to integrate this widget with a react app.
