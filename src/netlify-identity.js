@@ -16,6 +16,7 @@ function trigger(callback) {
 
 const validActions = {
   login: true,
+  signup: true,
   error: true
 };
 
