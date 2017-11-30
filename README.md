@@ -68,10 +68,10 @@ netlifyIdentity.on("open", () => console.log("Widget opened"));
 netlifyIdentity.on("close", () => console.log("Widget closed"));
 
 // Close the modal
-loginModal.close();
+netlifyIdentity.close();
 
 // Logout the user
-loginModal.logout();
+netlifyIdentity.logout();
 ```
 
 #### A note on script tag versioning
@@ -109,7 +109,7 @@ netlifyIdentity.on("open", () => console.log("Widget opened"));
 netlifyIdentity.on("close", () => console.log("Widget closed"));
 
 // Close the modal
-identity.close();
+netlifyIdentity.close();
 
 // Logout the user
 netlifyIdentity.logout();
