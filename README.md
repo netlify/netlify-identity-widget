@@ -95,6 +95,7 @@ const netlifyIdentity = require("netlify-identity-widget");
 
 netlifyIdentity.init({
   container: "#netlify-modal" // defaults to document.body,
+  APIUrl: "https://some-identity-instance.example.com" // Set an absolute URL for the identity endpoint
 });
 
 netlifyIdentity.open(); // open the modal
