@@ -49,7 +49,8 @@ const netlifyIdentity = {
   },
   init: options => {
     init(options);
-  }
+  },
+  store
 };
 
 let queuedIframeStyle = null;

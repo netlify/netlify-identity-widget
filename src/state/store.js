@@ -56,8 +56,9 @@ store.loadSettings = action(function loadSettings() {
     .then(action(settings => (store.settings = settings)))
     .catch(
       action(err => {
-        console.error("failed to load settings %o", err);
-        store.error = err;
+        store.error = new Error(
+          `Failed to load settings from ${store.gotrue.api.apiURL}`
+        );
       })
     );
 });
