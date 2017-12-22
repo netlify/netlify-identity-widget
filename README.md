@@ -120,6 +120,23 @@ netlifyIdentity.logout();
 netlifyIdentity.gotrue;
 ```
 
+#### `netlifyIdentity.init([opts])`
+
+You can pass an optional `opts` object to configure the widget when using the
+module api. Options include:
+
+```js
+{
+  container: "#some-query-selector"; // container to attach to
+  APIUrl: "https://www.example.com/.netlify/functions/identity"; // Absolute url to endpoint.  ONLY USE IN SPECIAL CASES!
+}
+```
+
+Generally avoid setting the `APIUrl`. You should only set this when your app is
+served from a domain that differs from where the identity endpoint is served.
+This is common for Cordova or Electron apps where you host from localhost or a
+file.
+
 ## Localhost
 
 When using the widget on localhost, it will prompt for your Netlify SiteURL the

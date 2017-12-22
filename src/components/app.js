@@ -156,7 +156,7 @@ class App extends Component {
           showHeader={showHeader}
           showSignup={showSignup}
           devSettings={!store.gotrue}
-          loading={store.gotrue && !store.settings}
+          loading={!store.error && store.gotrue && !store.settings}
           isOpen={store.modal.isOpen}
           onPage={this.handlePage}
           onClose={this.handleClose}

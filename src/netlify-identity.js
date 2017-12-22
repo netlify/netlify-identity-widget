@@ -49,7 +49,8 @@ const netlifyIdentity = {
   },
   init: options => {
     init(options);
-  }
+  },
+  store
 };
 
 let queuedIframeStyle = null;
@@ -71,9 +72,12 @@ const localHosts = {
   "0.0.0.0": true
 };
 
-function instantiateGotrue() {
+function instantiateGotrue(APIUrl) {
   const isLocal = localHosts[document.location.host.split(":").shift()];
   const siteURL = isLocal && localStorage.getItem("netlifySiteURL");
+  if (APIUrl) {
+    return new GoTrue({ APIUrl, setCookie: !isLocal });
+  }
   if (isLocal && siteURL) {
     const parts = [siteURL];
     if (!siteURL.match(/\/$/)) {
@@ -175,8 +179,8 @@ function runRoutes() {
   }
 }
 
-function init(options) {
-  options = options || {};
+function init(options = {}) {
+  const { APIUrl } = options;
   const controlEls = document.querySelectorAll(
     "[data-netlify-identity-menu],[data-netlify-identity-button]"
   );
@@ -195,8 +199,8 @@ function init(options) {
     );
   });
 
-  store.init(instantiateGotrue());
-  if (options.hasOwnProperty("logo")) store.modal.logo = options.logo;
+  store.init(instantiateGotrue(APIUrl));
+  if (options.logo) store.modal.logo = options.logo;
   iframe = document.createElement("iframe");
   iframe.id = "netlify-identity-widget";
   iframe.onload = () => {
