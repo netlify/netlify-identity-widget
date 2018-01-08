@@ -34,7 +34,7 @@ module.exports = {
       },
       {
         test: /\.jsx?$/,
-        exclude: /node_modules\/(?!(mobx|mobx-preact|preact)\/).*/,
+        exclude: /(micro-api-client|lodash)/,
         use: "babel-loader"
       },
       {
