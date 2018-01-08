@@ -8,7 +8,3 @@
 - [ ] `git push && git push --tags`
 - [ ] Assign draft gh-release to new tag and publish release notes and double check everything looks right.
 - [ ] `npm publish`
-
-Helpful changelog / release tools:
-
-- https://github.com/rvagg/changelog-maker

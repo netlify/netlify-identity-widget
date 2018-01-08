@@ -13,9 +13,10 @@ const umdConfig = Object.assign({}, baseConfig, {
     library: "netlifyIdentity",
     libraryTarget: "umd",
     libraryExport: "default"
-  }
-})
+  },
+  devtool: "hidden-source-map"
+});
 
-umdConfig.plugins.splice(2,1) // Remove html plugin
+umdConfig.plugins.splice(2, 1); // Remove html plugin
 
-module.exports = umdConfig
+module.exports = umdConfig;

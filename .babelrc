@@ -1,11 +1,16 @@
 {
   "sourceMaps": true,
   "presets": [
-    ["es2015", { "loose":true }],
+    ["env", {
+      "targets": {
+        "browsers": ["ie >= 11"]
+      }
+    }],
     "stage-0"
   ],
   "plugins": [
     ["transform-decorators-legacy"],
-    ["transform-react-jsx", { "pragma": "h" }]
+    ["transform-react-jsx", { "pragma": "h" }],
+    ["transform-object-rest-spread", { "useBuiltIns": true }]
   ]
 }
