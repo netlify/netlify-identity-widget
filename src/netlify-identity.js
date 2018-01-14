@@ -114,7 +114,7 @@ observe(store.modal, "isOpen", () => {
   }
   setStyle(iframe, {
     ...iframeStyle,
-    display: store.modal.isOpen ? "block" : "none"
+    display: store.modal.isOpen ? "block !important" : "none"
   });
   if (store.modal.isOpen) {
     trigger("open", store.modal.page);
