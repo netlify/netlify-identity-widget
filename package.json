@@ -4,30 +4,31 @@
   "releaseVersion": "v1",
   "description": "Netlify Identity widget for easy integration",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development webpack-dev-server --inline --progress --config webpack.config.babel.js",
+    "dev":
+      "cross-env NODE_ENV=development webpack-dev-server --inline --progress --config webpack.config.babel.js",
     "start": "serve build -s -c 1",
     "react-demo": "cd example && yarn && yarn start",
     "prestart": "run-s build",
     "version": "run-s release",
     "prepublish": "run-s build",
     "build": "run-p build:*",
-    "build:bundle": "cross-env NODE_ENV=production webpack --config webpack.config.babel.js",
-    "build:umd": "cross-env NODE_ENV=production webpack --config webpack.umd.config.babel.js",
+    "build:bundle":
+      "cross-env NODE_ENV=production webpack --config webpack.config.babel.js",
+    "build:umd":
+      "cross-env NODE_ENV=production webpack --config webpack.umd.config.babel.js",
     "prebuild": "rimraf build && mkdirp build",
     "test": "eslint src",
     "release": "node ./script/release.js",
     "format": "prettier --write 'src/**/*.js'",
-    "format-preview": "prettier --list-different 'src/**/*.js'"
+    "format-preview": "prettier --list-different 'src/**/*.js'",
+    "storybook": "start-storybook -p 9001 -c .storybook"
   },
   "main": "./build/netlify-identity",
-  "keywords": [
-    "netlify",
-    "identity",
-    "authentication"
-  ],
+  "keywords": ["netlify", "identity", "authentication"],
   "license": "MIT",
   "author": "Matt Biilmann <matt@netlify.com>",
   "devDependencies": {
+    "@storybook/react": "^3.3.9",
     "babel-cli": "^6.5.2",
     "babel-core": "^6.24.0",
     "babel-eslint": "^8.1.2",
@@ -60,6 +61,7 @@
     "postcss-loader": "^2.0.3",
     "postcss-nested": "^3.0.0",
     "preact": "^8.1.0",
+    "preact-compat": "^3.17.0",
     "prettier": "^1.6.1",
     "raw-loader": "^0.5.1",
     "rimraf": "^2.6.2",
