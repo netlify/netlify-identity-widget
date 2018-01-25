@@ -61,7 +61,7 @@ module.exports = {
       },
       {
         test: /\.(xml|html|txt|md)$/,
-        use: "raw-loader"
+        use: " r"
       },
       {
         test: /\.(svg|woff2?|ttf|eot|jpe?g|png|gif)(\?.*)?$/i,
@@ -78,6 +78,12 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       template: "./index.ejs",
+      inject: false,
+      minify: { collapseWhitespace: true }
+    }),
+    new HtmlWebpackPlugin({
+      filename: "foo.html",
+      template: "./foo.ejs",
       inject: false,
       minify: { collapseWhitespace: true }
     })
