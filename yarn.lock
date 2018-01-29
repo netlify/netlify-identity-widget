@@ -3004,9 +3004,9 @@ got@^6.7.1:
     unzip-response "^2.0.1"
     url-parse-lax "^1.0.0"
 
-gotrue-js@^0.9.17:
-  version "0.9.17"
-  resolved "https://registry.yarnpkg.com/gotrue-js/-/gotrue-js-0.9.17.tgz#1783e5fda155a4672f0b0710f9930084ef6f970a"
+gotrue-js@^0.9.18:
+  version "0.9.18"
+  resolved "https://registry.yarnpkg.com/gotrue-js/-/gotrue-js-0.9.18.tgz#559779ecba53210856686b9e324f509e82490b8b"
   dependencies:
     micro-api-client "^3.2.1"
 
