@@ -149,7 +149,7 @@ const errorRoute = /error=access_denied&error_description=403/;
 const accessTokenRoute = /access_token=/;
 
 function runRoutes() {
-  const hash = (document.location.hash || "").replace(/^#/, "");
+  const hash = (document.location.hash || "").replace(/^#\/?/, "");
   if (!hash) {
     return;
   }
