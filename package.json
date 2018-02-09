@@ -1,6 +1,6 @@
 {
   "name": "netlify-identity-widget",
-  "version": "1.4.10",
+  "version": "1.4.11",
   "releaseVersion": "v1",
   "description": "Netlify Identity widget for easy integration",
   "scripts": {
