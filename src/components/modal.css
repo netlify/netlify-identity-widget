@@ -251,7 +251,7 @@
 }
 
 .btnClose::before {
-  content: "×";
+  content: "✕";
   font-size: 20px;
   line-height: 22px;
 }
