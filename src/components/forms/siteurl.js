@@ -22,7 +22,7 @@ export default class SiteURLForm extends Component {
       <form onsubmit={this.handleSiteURL} className="form">
         <div className="flashMessage">
           {
-            "Looks like you're running a local server. Please let us know the URL of your site."
+            "Looks like you're running a local server. Please let us know the URL of your Netlify site."
           }
         </div>
         <div className="formGroup">
