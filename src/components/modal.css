@@ -252,8 +252,8 @@
 
 .btnClose::before {
   content: "×";
-  font-size: 20px;
-  line-height: 22px;
+  font-size: 25px;
+  line-height: 9px;
 }
 
 .btnClose:hover,
