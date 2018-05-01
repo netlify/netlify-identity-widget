@@ -102,7 +102,7 @@ netlifyIdentity.open("login"); // open the modal to the login tab
 netlifyIdentity.open("signup"); // open the modal to the signup tab
 
 netlifyIdentity.on("init", user => console.log(user));
-netlifyIdentity.on("login", login => console.log(user));
+netlifyIdentity.on("login", user => console.log(user));
 netlifyIdentity.on("logout", () => console.log("Logged out"));
 netlifyIdentity.on("error", err => console.error("Logged out"));
 netlifyIdentity.on("open", () => console.log("Widget opened"));
