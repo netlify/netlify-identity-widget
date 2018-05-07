@@ -6,7 +6,10 @@ if (typeof exports !== undefined) {
 if (typeof window !== undefined) {
   window.netlifyIdentity = netlifyIdentity;
 }
-
-document.addEventListener("DOMContentLoaded", () => {
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", () => {
+    netlifyIdentity.init();
+  });
+} else {
   netlifyIdentity.init();
-});
+}
