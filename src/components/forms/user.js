@@ -41,7 +41,7 @@ export default class UserForm extends Component {
                 required
                 oninput={this.handleInput}
               />
-              <div className="inputFieldIcon inputFieldEmail" />
+              <div className="inputFieldIcon inputFieldName" />
             </label>
           </div>
         )}
