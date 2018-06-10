@@ -3,7 +3,7 @@
 A component used to authenticate with Netlify's Identity service.
 [Live demo](https://identity.netlify.com)
 
-For a lower level library to the underlying `GoTrue` API, see
+For a lower level library to the underlying [GoTrue](https://github.com/netlify/gotrue) API, see
 [gotrue-js](https://github.com/netlify/gotrue-js).
 
 ## What is Netlify Identity
