@@ -53,7 +53,7 @@ The widget will automatically attach itself to the window object as
 You can use this global object like this:
 
 ```js
-// open the modal
+// Open the modal
 netlifyIdentity.open();
 
 // Get the current user:
@@ -70,7 +70,7 @@ netlifyIdentity.on("close", () => console.log("Widget closed"));
 // Close the modal
 netlifyIdentity.close();
 
-// Logout the user
+// Log out the user
 netlifyIdentity.logout();
 ```
 
@@ -82,7 +82,7 @@ and will only reflect breaking changes in the markup API.
 ### Module API
 
 Netlify Identity Widget also has a
-[module api](https://www.npmjs.com/package/netlify-identity-widget):
+[module API](https://www.npmjs.com/package/netlify-identity-widget):
 
 ```
 yarn add netlify-identity-widget
@@ -111,19 +111,19 @@ netlifyIdentity.on("close", () => console.log("Widget closed"));
 // Close the modal
 netlifyIdentity.close();
 
-// Logout the user
+// Log out the user
 netlifyIdentity.logout();
 
-// Access the underlying gotrue instance.
-// Note that doing things directly through gotrue brings a risk of getting out of
-// sync between your state and the widgets state.
+// Access the underlying GoTrue JS client.
+// Note that doing things directly through the GoTrue client brings a risk of getting out of
+// sync between your state and the widget’s state.
 netlifyIdentity.gotrue;
 ```
 
 #### `netlifyIdentity.init([opts])`
 
 You can pass an optional `opts` object to configure the widget when using the
-module api. Options include:
+module API. Options include:
 
 ```js
 {
