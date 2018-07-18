@@ -5,7 +5,6 @@
   "description": "Netlify Identity widget for easy integration",
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --inline --progress --config webpack.config.babel.js",
-    "start": "serve build -s -c 1",
     "react-demo": "cd example && yarn && yarn start",
     "prestart": "run-s build",
     "version": "run-s release",
@@ -63,7 +62,6 @@
     "prettier": "^1.10.2",
     "raw-loader": "^0.5.1",
     "rimraf": "^2.6.2",
-    "serve": "^6.4.9",
     "source-map-loader": "^0.2.1",
     "url-loader": "^0.6.2",
     "webpack": "^3.0.0",
