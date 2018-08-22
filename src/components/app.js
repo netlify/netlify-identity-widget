@@ -132,9 +132,13 @@ class App extends Component {
       return null;
     }
 
-    const providers = ["Google", "GitHub", "GitLab", "BitBucket"].filter(
-      p => store.settings.external[p.toLowerCase()]
-    );
+    const providers = [
+      "Google",
+      "GitHub",
+      "GitLab",
+      "BitBucket",
+      "SAML"
+    ].filter(p => store.settings.external[p.toLowerCase()]);
 
     return providers.length ? (
       <Providers providers={providers} onLogin={this.handleExternalLogin} />
