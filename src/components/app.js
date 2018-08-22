@@ -141,7 +141,11 @@ class App extends Component {
     ].filter(p => store.settings.external[p.toLowerCase()]);
 
     return providers.length ? (
-      <Providers providers={providers} onLogin={this.handleExternalLogin} />
+      <Providers
+        providers={providers}
+        labels={store.settings.external_labels || {}}
+        onLogin={this.handleExternalLogin}
+      />
     ) : null;
   }
 
