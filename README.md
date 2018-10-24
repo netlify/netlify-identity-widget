@@ -144,7 +144,7 @@ first time it is opened. Entering the siteURL populates the browser's
 localStorage.
 
 This allows the widget to know which instance of Netlify Identity it should
-communicate with with zero configuration.
+communicate with zero configuration.
 
 E.g. If your Netlify site is served from the `olddvdscreensaver.com` domain
 name, enter the following when prompted by the widget when in development mode:
