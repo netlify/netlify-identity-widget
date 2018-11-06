@@ -7,3 +7,8 @@ The source code is at https://github.com/netlify/netlify-identity-widget/tree/ma
 and it is deployed at: https://netlify-identity-widget-react-example.netlify.com
 
 For more info on the `netlify-identity-widget`, [find the repo here.](https://github.com/netlify/netlify-identity-widget/)
+
+
+---
+
+Note: if you are developing with netlify-identity-widget locally you will be prompted for a deployed Netlify Identity site. Sometimes this causes issues with email verification or confirmation and you may need to reset the site. to clear the locally stored Netlify Identity site you previously entered, execute `localStorage.removeItem('netlifySiteURL');` in your window.
