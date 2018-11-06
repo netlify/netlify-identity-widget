@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Protected from './Protected';
 import Public from './Public';
 import netlifyIdentity from 'netlify-identity-widget';
@@ -10,7 +10,7 @@ import {
   withRouter
 } from 'react-router-dom';
 
-// https://reacttraining.com/react-router/web/example/auth-workflow
+// copied straight from https://reacttraining.com/react-router/web/example/auth-workflow
 ////////////////////////////////////////////////////////////
 // 1. Click the public page
 // 2. Click the protected page
@@ -38,14 +38,30 @@ function AuthExample() {
   );
 }
 
+const fakeAuth = {
+  isAuthenticated: false,
+  authenticate(cb) {
+    this.isAuthenticated = true;
+    netlifyIdentity.open();
+    // setTimeout(cb, 100); // fake async
+    netlifyIdentity.on('login', cb);
+  },
+  signout(cb) {
+    this.isAuthenticated = false;
+    // setTimeout(cb, 100);
+    netlifyIdentity.logout();
+    netlifyIdentity.on('logout', cb);
+  }
+};
+
 const AuthButton = withRouter(
   ({ history }) =>
-    netlifyIdentity.currentUser() ? (
+    fakeAuth.isAuthenticated ? (
       <p>
         Welcome!{' '}
         <button
           onClick={() => {
-            netlifyIdentity.logout().then(() => history.push('/'));
+            fakeAuth.signout(() => history.push('/'));
           }}
         >
           Sign out
@@ -61,7 +77,7 @@ function PrivateRoute({ component: Component, ...rest }) {
     <Route
       {...rest}
       render={props =>
-        netlifyIdentity.currentUser() ? (
+        fakeAuth.isAuthenticated ? (
           <Component {...props} />
         ) : (
           <Redirect
@@ -78,14 +94,13 @@ function PrivateRoute({ component: Component, ...rest }) {
 
 class Login extends React.Component {
   state = { redirectToReferrer: false };
-  componentDidMount = () => {
-    netlifyIdentity.on('login', () =>
-      this.setState({ redirectToReferrer: true })
-    );
-  };
+
   login = () => {
-    netlifyIdentity.open();
+    fakeAuth.authenticate(() => {
+      this.setState({ redirectToReferrer: true });
+    });
   };
+
   render() {
     let { from } = this.props.location.state || { from: { pathname: '/' } };
     let { redirectToReferrer } = this.state;
