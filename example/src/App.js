@@ -38,7 +38,7 @@ function AuthExample() {
   );
 }
 
-const fakeAuth = {
+const netlifyAuth = {
   isAuthenticated: false,
   authenticate(cb) {
     this.isAuthenticated = true;
@@ -56,12 +56,12 @@ const fakeAuth = {
 
 const AuthButton = withRouter(
   ({ history }) =>
-    fakeAuth.isAuthenticated ? (
+    netlifyAuth.isAuthenticated ? (
       <p>
         Welcome!{' '}
         <button
           onClick={() => {
-            fakeAuth.signout(() => history.push('/'));
+            netlifyAuth.signout(() => history.push('/'));
           }}
         >
           Sign out
@@ -77,7 +77,7 @@ function PrivateRoute({ component: Component, ...rest }) {
     <Route
       {...rest}
       render={props =>
-        fakeAuth.isAuthenticated ? (
+        netlifyAuth.isAuthenticated ? (
           <Component {...props} />
         ) : (
           <Redirect
@@ -96,7 +96,7 @@ class Login extends React.Component {
   state = { redirectToReferrer: false };
 
   login = () => {
-    fakeAuth.authenticate(() => {
+    netlifyAuth.authenticate(() => {
       this.setState({ redirectToReferrer: true });
     });
   };
