@@ -6,6 +6,8 @@ A component used to authenticate with Netlify's Identity service.
 For a lower level library to the underlying [GoTrue](https://github.com/netlify/gotrue) API, see
 [gotrue-js](https://github.com/netlify/gotrue-js).
 
+For usage example with React and React Router, please see our `/example` folder and [read the README](https://github.com/netlify/netlify-identity-widget/tree/master/example).
+
 ## What is Netlify Identity
 
 Netlify’s Identity service is a plug-and-play microservice for handling site
@@ -60,12 +62,12 @@ netlifyIdentity.open();
 const user = netlifyIdentity.currentUser();
 
 // Bind to events
-netlifyIdentity.on("init", user => console.log("init", user));
-netlifyIdentity.on("login", user => console.log("login", user));
-netlifyIdentity.on("logout", () => console.log("Logged out"));
-netlifyIdentity.on("error", err => console.error("Error", err));
-netlifyIdentity.on("open", () => console.log("Widget opened"));
-netlifyIdentity.on("close", () => console.log("Widget closed"));
+netlifyIdentity.on('init', user => console.log('init', user));
+netlifyIdentity.on('login', user => console.log('login', user));
+netlifyIdentity.on('logout', () => console.log('Logged out'));
+netlifyIdentity.on('error', err => console.error('Error', err));
+netlifyIdentity.on('open', () => console.log('Widget opened'));
+netlifyIdentity.on('close', () => console.log('Widget closed'));
 
 // Close the modal
 netlifyIdentity.close();
@@ -91,22 +93,22 @@ yarn add netlify-identity-widget
 Import or require as usual:
 
 ```js
-const netlifyIdentity = require("netlify-identity-widget");
+const netlifyIdentity = require('netlify-identity-widget');
 
 netlifyIdentity.init({
-  container: "#netlify-modal" // defaults to document.body,
+  container: '#netlify-modal' // defaults to document.body,
 });
 
 netlifyIdentity.open(); // open the modal
-netlifyIdentity.open("login"); // open the modal to the login tab
-netlifyIdentity.open("signup"); // open the modal to the signup tab
+netlifyIdentity.open('login'); // open the modal to the login tab
+netlifyIdentity.open('signup'); // open the modal to the signup tab
 
-netlifyIdentity.on("init", user => console.log("init", user));
-netlifyIdentity.on("login", user => console.log("login", user));
-netlifyIdentity.on("logout", () => console.log("Logged out"));
-netlifyIdentity.on("error", err => console.error("Error", err));
-netlifyIdentity.on("open", () => console.log("Widget opened"));
-netlifyIdentity.on("close", () => console.log("Widget closed"));
+netlifyIdentity.on('init', user => console.log('init', user));
+netlifyIdentity.on('login', user => console.log('login', user));
+netlifyIdentity.on('logout', () => console.log('Logged out'));
+netlifyIdentity.on('error', err => console.error('Error', err));
+netlifyIdentity.on('open', () => console.log('Widget opened'));
+netlifyIdentity.on('close', () => console.log('Widget closed'));
 
 // Close the modal
 netlifyIdentity.close();
@@ -127,8 +129,8 @@ module API. Options include:
 
 ```js
 {
-  container: "#some-query-selector"; // container to attach to
-  APIUrl: "https://www.example.com/.netlify/functions/identity"; // Absolute url to endpoint.  ONLY USE IN SPECIAL CASES!
+  container: '#some-query-selector'; // container to attach to
+  APIUrl: 'https://www.example.com/.netlify/functions/identity'; // Absolute url to endpoint.  ONLY USE IN SPECIAL CASES!
 }
 ```
 
@@ -162,7 +164,7 @@ https://olddvdscreensaver.com
   doing the following in the console.
 
 ```js
-localStorage.removeItem("netlifySiteURL");
+localStorage.removeItem('netlifySiteURL');
 ```
 
 * See the `example` for how to integrate this widget with a react app.
