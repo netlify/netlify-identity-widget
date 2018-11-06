@@ -40,17 +40,22 @@ function AuthExample() {
 
 const netlifyAuth = {
   isAuthenticated: false,
-  authenticate(cb) {
+  user: null,
+  authenticate(callback) {
     this.isAuthenticated = true;
     netlifyIdentity.open();
-    // setTimeout(cb, 100); // fake async
-    netlifyIdentity.on('login', cb);
+    netlifyIdentity.on('login', user => {
+      this.user = user;
+      callback(user);
+    });
   },
-  signout(cb) {
+  signout(callback) {
     this.isAuthenticated = false;
-    // setTimeout(cb, 100);
     netlifyIdentity.logout();
-    netlifyIdentity.on('logout', cb);
+    netlifyIdentity.on('logout', () => {
+      this.user = null;
+      callback();
+    });
   }
 };
 
