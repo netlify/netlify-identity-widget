@@ -3,6 +3,8 @@
 A component used to authenticate with Netlify's Identity service.
 [Live demo](https://identity.netlify.com)
 
+If you want direct, "widgetless" access to Netlify Identity authentication, try [`netlify-auth-providers`](https://github.com/netlify/netlify-auth-providers). You can also implement your own authentication endpoints with Netlify Functions, locally developed in [`netlify-lambda`](https://github.com/netlify/netlify-lambda/).
+
 For a lower level library to the underlying [GoTrue](https://github.com/netlify/gotrue) API, see
 [gotrue-js](https://github.com/netlify/gotrue-js).
 
