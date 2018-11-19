@@ -1,4 +1,5 @@
 import webpack from "webpack";
+import CopyWebpackPlugin from "copy-webpack-plugin";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import postCSSImport from "postcss-import";
 import postCSSNested from "postcss-nested";
@@ -76,6 +77,7 @@ module.exports = {
     new webpack.DefinePlugin({
       "process.env.NODE_ENV": JSON.stringify(ENV)
     }),
+    new CopyWebpackPlugin(['index.d.ts']),
     new HtmlWebpackPlugin({
       template: "./index.ejs",
       inject: false,

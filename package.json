@@ -39,6 +39,7 @@
     "babel-register": "^6.24.0",
     "babel-runtime": "^6.11.6",
     "caniuse-lite": "^1.0.30000792",
+    "copy-webpack-plugin": "^4.6.0",
     "cross-env": "^5.0.1",
     "css-loader": "^0.28.9",
     "eslint": "^4.16.0",
@@ -67,5 +68,6 @@
     "webpack": "^3.0.0",
     "webpack-dev-server": "^2.11.1",
     "webpack-node-externals": "^1.6.0"
-  }
+  },
+  "typings": "./build/index.d.ts"
 }
