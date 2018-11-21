@@ -161,6 +161,8 @@ https://olddvdscreensaver.com
 
 ## FAQ
 
+* Typescript Typings are maintained by @nkprince007 ([see PR](https://github.com/DefinitelyTyped/DefinitelyTyped/pull/30689)): `npm install @types/netlify-identity-widget` and then `import * as NetlifyIdentityWidget from "netlify-identity-widget"` (or `import NetlifyIdentityWidget from "netlify-identity-widget"` if you have `--allowSyntheticDefaultImports` on)
+
 * If you experience a 404 while testing the Netlify Identity Widget on a local
   environment, you can manually remove the netlifySiteURL from localStorage by
   doing the following in the console.
