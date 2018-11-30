@@ -7,7 +7,7 @@
     "dev": "cross-env NODE_ENV=development webpack-dev-server --inline --progress --config webpack.config.babel.js",
     "react-demo": "cd example && yarn && yarn start",
     "prestart": "run-s build",
-    "version": "run-s release",
+    "version": "run-s release changelog",
     "prepublish": "run-s build",
     "build": "run-p build:*",
     "build:bundle": "cross-env NODE_ENV=production webpack --config webpack.config.babel.js",
@@ -15,8 +15,10 @@
     "prebuild": "rimraf build && mkdirp build",
     "test": "eslint src",
     "release": "node ./script/release.js",
+    "changelog": "auto-changelog -p && git add CHANGELOG.md",
     "format": "prettier --write 'src/**/*.js'",
-    "format-preview": "prettier --list-different 'src/**/*.js'"
+    "format-preview": "prettier --list-different 'src/**/*.js'",
+    "publish": "git push && git push --tags && gh-release && npm publish"
   },
   "main": "./build/netlify-identity",
   "keywords": [
@@ -27,6 +29,7 @@
   "license": "MIT",
   "author": "Matt Biilmann <matt@netlify.com>",
   "devDependencies": {
+    "auto-changelog": "^1.10.2",
     "babel-cli": "^6.5.2",
     "babel-core": "^6.24.0",
     "babel-eslint": "^8.2.1",
@@ -67,5 +70,8 @@
     "webpack": "^3.0.0",
     "webpack-dev-server": "^2.11.1",
     "webpack-node-externals": "^1.6.0"
+  },
+  "dependencies": {
+    "gh-release": "^3.4.0"
   }
 }
