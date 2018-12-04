@@ -60,20 +60,20 @@
     },
     methods: {
       ...mapActions("user", {
-        updateUserStatus: "updateUserStatus"
+        updateUser: "updateUser"
       }),
       triggerNetlifyIdentityAction(action) {
         if (action == "login" || action == "signup") {
           netlifyIdentity.open(action);
           netlifyIdentity.on(action, user => {
             netlifyIdentity.close();
-            this.updateUserStatus({
+            this.updateUser({
               user: user
             });
           });
         } else if (action == "logout") {
-          this.updateUserStatus({
-            user: ""
+          this.updateUser({
+            user: null
           });
           netlifyIdentity.logout();
           this.$router.push({ name: "Home" });

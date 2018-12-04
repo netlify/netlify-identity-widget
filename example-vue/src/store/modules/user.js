@@ -1,9 +1,10 @@
 const state = {
-    user: ""
+    user: window.localStorage.getItem('gotrue.user')
 };
 
 const getters = {
-    getUserStatus: state => !!state.user
+    getUserStatus: state => !!state.user,
+    getUser: state => state.user
 };
 
 //Mutations Must Be Synchronous
@@ -14,7 +15,7 @@ const mutations = {
 };
 
 const actions = {
-    updateUserStatus: ({ commit }, payload) => {
+    updateUser: ({ commit }, payload) => {
         commit('setUser', payload.user)
     }
 };
