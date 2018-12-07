@@ -6,9 +6,7 @@
   "bugs": {
     "url": "https://github.com/netlify/netlify-identity-widget/issues"
   },
-  "dependencies": {
-    "gh-release": "^3.4.0"
-  },
+  "dependencies": {},
   "devDependencies": {
     "auto-changelog": "^1.10.2",
     "babel-cli": "^6.5.2",
@@ -31,6 +29,7 @@
     "eslint-plugin-prettier": "^2.5.0",
     "eslint-plugin-react": "^7.6.1",
     "file-loader": "^1.1.6",
+    "gh-release": "^3.4.0",
     "gotrue-js": "^0.9.21",
     "html-webpack-plugin": "^2.28.0",
     "json-loader": "^0.5.4",
@@ -73,7 +72,7 @@
     "prebuild": "rimraf build && mkdirp build",
     "prepublish": "run-s build",
     "prestart": "run-s build",
-    "publish": "git push && git push --tags && gh-release && npm publish",
+    "publish": "git push && git push --tags && gh-release",
     "react-demo": "cd example && yarn && yarn start",
     "release": "node ./script/release.js",
     "test": "eslint src",
