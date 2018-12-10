@@ -3,11 +3,6 @@
 A component used to authenticate with Netlify's Identity service.
 [Live demo](https://identity.netlify.com)
 
-If you want direct, "widgetless" access to Netlify Identity authentication that uses a popup window instead of a redirect, try [`netlify-auth-providers`](https://github.com/netlify/netlify-auth-providers). You can also implement your own authentication endpoints with Netlify Functions, locally developed in [`netlify-lambda`](https://github.com/netlify/netlify-lambda/).
-
-For a lower level library to the underlying [GoTrue](https://github.com/netlify/gotrue) API, see
-[gotrue-js](https://github.com/netlify/gotrue-js).
-
 For usage example with React and React Router, please see our `/example` folder and [read the README](https://github.com/netlify/netlify-identity-widget/tree/master/example).
 
 ## What is Netlify Identity
@@ -158,6 +153,17 @@ https://olddvdscreensaver.com
 ```
 
 ![](devmode.png)
+
+
+## List of Alternatives
+
+**Lowest level JS Library**: If you want to use the official Javascript bindings to GoTrue, Netlify's underlying Identity service written in Go, use https://github.com/netlify/gotrue-js
+
+**React bindings**: If you want a thin wrapper over Gotrue-js for React, `react-netlify-identity` is a "headless" library, meaning there is no UI exported and you will write your own UI to work with the authentication. https://github.com/sw-yx/react-netlify-identity
+
+**High level overlay**: If you want a "widget" overlay that gives you a nice UI out of the box, with a somewhat larger bundle, check https://github.com/netlify/netlify-identity-widget
+
+**High level popup**: If you want a popup window approach also with a nice UI out of the box, and don't mind the popup flow, check https://github.com/netlify/netlify-auth-providers
 
 ## FAQ
 
