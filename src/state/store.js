@@ -71,7 +71,7 @@ store.clearSiteURL = action(function clearSiteURL() {
   store.gotrue = null;
   store.siteURL = null;
   store.settings = null;
-})
+});
 
 store.login = action(function login(email, password) {
   store.startAction();

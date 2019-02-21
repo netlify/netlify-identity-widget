@@ -125,7 +125,7 @@ observe(store.modal, "isOpen", () => {
 
 observe(store, "siteURL", () => {
   if (store.siteURL === null || store.siteURL === undefined) {
-    localStorage.removeItem("netlifySiteURL")
+    localStorage.removeItem("netlifySiteURL");
   } else {
     localStorage.setItem("netlifySiteURL", store.siteURL);
   }
