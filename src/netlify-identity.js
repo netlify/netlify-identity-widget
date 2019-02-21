@@ -124,7 +124,11 @@ observe(store.modal, "isOpen", () => {
 });
 
 observe(store, "siteURL", () => {
-  localStorage.setItem("netlifySiteURL", store.siteURL);
+  if (store.siteURL === null || store.siteURL === undefined) {
+    localStorage.removeItem("netlifySiteURL")
+  } else {
+    localStorage.setItem("netlifySiteURL", store.siteURL);
+  }
   store.init(instantiateGotrue(), true);
 });
 
