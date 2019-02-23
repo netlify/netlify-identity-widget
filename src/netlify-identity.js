@@ -184,7 +184,7 @@ function runRoutes() {
 }
 
 function init(options = {}) {
-  const { APIUrl, logo = true } = options;
+  const { APIUrl, logo = true, namePlaceholder } = options;
   const controlEls = document.querySelectorAll(
     "[data-netlify-identity-menu],[data-netlify-identity-button]"
   );
@@ -205,6 +205,7 @@ function init(options = {}) {
 
   store.init(instantiateGotrue(APIUrl));
   store.modal.logo = logo;
+  store.setNamePlaceholder(namePlaceholder);
   iframe = document.createElement("iframe");
   iframe.id = "netlify-identity-widget";
   iframe.onload = () => {

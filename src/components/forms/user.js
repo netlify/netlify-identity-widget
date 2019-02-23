@@ -18,7 +18,7 @@ export default class UserForm extends Component {
   };
 
   render() {
-    const { page, message, saving } = this.props;
+    const { page, message, saving, namePlaceholder } = this.props;
     const { name, email, password } = this.state;
 
     return (
@@ -36,7 +36,7 @@ export default class UserForm extends Component {
                 type="name"
                 name="name"
                 value={name}
-                placeholder="Name"
+                placeholder={namePlaceholder ? namePlaceholder : "Name"}
                 autocapitalize="off"
                 required
                 oninput={this.handleInput}
