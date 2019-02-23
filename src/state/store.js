@@ -67,6 +67,12 @@ store.setSiteURL = action(function setSiteURL(url) {
   store.siteURL = url;
 });
 
+store.clearSiteURL = action(function clearSiteURL() {
+  store.gotrue = null;
+  store.siteURL = null;
+  store.settings = null;
+});
+
 store.login = action(function login(email, password) {
   store.startAction();
   return store.gotrue

@@ -62,6 +62,7 @@ class App extends Component {
   handlePage = page => this.props.store.openModal(page);
   handleLogout = () => this.props.store.logout();
   handleSiteURL = url => this.props.store.setSiteURL(url);
+  clearSiteURL = url => this.props.store.clearSiteURL();
   handleExternalLogin = provider => this.props.store.externalLogin(provider);
   handleUser = ({ name, email, password }) => {
     const { store } = this.props;
@@ -87,6 +88,8 @@ class App extends Component {
 
   renderBody() {
     const { store } = this.props;
+    const page = pages[store.modal.page] || {};
+    const pageLinkHandler = () => this.handlePage(page.link);
 
     if (!store.gotrue) {
       return <SiteURLForm onSiteURL={this.handleSiteURL} />;
@@ -108,12 +111,23 @@ class App extends Component {
     }
 
     return (
-      <UserForm
-        page={pages[store.modal.page] || {}}
-        message={store.message}
-        saving={store.saving}
-        onSubmit={this.handleUser}
-      />
+      <div>
+        <UserForm
+          page={pages[store.modal.page] || {}}
+          message={store.message}
+          saving={store.saving}
+          onSubmit={this.handleUser}
+        />
+        {!store.user && page.link && store.gotrue && (
+          <button
+            onclick={pageLinkHandler}
+            className="btnLink forgotPasswordLink"
+          >
+            {page.link_text}
+          </button>
+        )}
+        <SiteURLForm devMode="true" onSiteURL={this.clearSiteURL} />
+      </div>
     );
   }
 
@@ -154,7 +168,6 @@ class App extends Component {
     const showHeader = pagesWithHeader[store.modal.page];
     const showSignup = store.settings && !store.settings.disable_signup;
     const page = pages[store.modal.page] || {};
-    const pageLinkHandler = () => this.handlePage(page.link);
 
     return (
       <div>
@@ -172,14 +185,6 @@ class App extends Component {
         >
           {this.renderBody()}
           {this.renderProviders()}
-          {!store.user && page.link && store.gotrue && (
-            <button
-              onclick={pageLinkHandler}
-              className="btnLink forgotPasswordLink"
-            >
-              {page.link_text}
-            </button>
-          )}
         </Modal>
       </div>
     );

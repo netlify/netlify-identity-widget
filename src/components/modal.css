@@ -520,3 +520,13 @@
   width: 1px;
   #fff-space: nowrap;
 }
+
+.subheader {
+  margin-top: 2em;
+  border-top: 1px solid rgb(14, 30, 37);
+
+  h3 {
+    padding-top: 1em;
+    text-align: center;
+  }
+}
