@@ -128,6 +128,7 @@ module API. Options include:
 {
   container: '#some-query-selector'; // container to attach to
   APIUrl: 'https://www.example.com/.netlify/functions/identity'; // Absolute url to endpoint.  ONLY USE IN SPECIAL CASES!
+  namePlaceholder: 'some-placeholder-for-Name'; // custom placeholder for name input form
 }
 ```
 

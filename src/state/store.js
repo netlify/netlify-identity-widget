@@ -12,11 +12,16 @@ const store = observable({
   saving: false,
   invite_token: null,
   email_change_token: null,
+  namePlaceholder: null,
   modal: {
     page: "login",
     isOpen: false,
     logo: true
   }
+});
+
+store.setNamePlaceholder = action(function setNamePlaceholder(namePlaceholder) {
+  store.namePlaceholder = namePlaceholder;
 });
 
 store.startAction = action(function startAction() {

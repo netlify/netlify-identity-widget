@@ -117,6 +117,7 @@ class App extends Component {
           message={store.message}
           saving={store.saving}
           onSubmit={this.handleUser}
+          namePlaceholder={store.namePlaceholder}
         />
         {!store.user && page.link && store.gotrue && (
           <button
