@@ -6,7 +6,7 @@ export default class Button extends Component {
 
     return (
       <button type="submit" className={`btn${saving ? " saving" : ""}`}>
-        {saving ? saving_text || "Saving" : text || "Save"}
+        {saving ? saving_text || "Sauvegarde" : text || "Sauvegarder"}
       </button>
     );
   }

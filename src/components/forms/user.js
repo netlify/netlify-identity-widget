@@ -30,13 +30,13 @@ export default class UserForm extends Component {
         {page.name && (
           <div className="formGroup">
             <label>
-              <span className="visuallyHidden">Enter your name</span>
+              <span className="visuallyHidden">Entrez votre nom</span>
               <input
                 className="formControl"
                 type="name"
                 name="name"
                 value={name}
-                placeholder={namePlaceholder ? namePlaceholder : "Name"}
+                placeholder={namePlaceholder ? namePlaceholder : "Nom"}
                 autocapitalize="off"
                 required
                 oninput={this.handleInput}
@@ -48,7 +48,7 @@ export default class UserForm extends Component {
         {page.email && (
           <div className="formGroup">
             <label>
-              <span className="visuallyHidden">Enter your email</span>
+              <span className="visuallyHidden">Entrez votre email</span>
               <input
                 className="formControl"
                 type="email"
@@ -66,13 +66,13 @@ export default class UserForm extends Component {
         {page.password && (
           <div className="formGroup">
             <label>
-              <span className="visuallyHidden">Enter your password</span>
+              <span className="visuallyHidden">Entrez votre mot de passe</span>
               <input
                 className="formControl"
                 type="password"
                 name="password"
                 value={password}
-                placeholder="Password"
+                placeholder="Mot de passe"
                 required
                 oninput={this.handleInput}
               />
