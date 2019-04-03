@@ -4,26 +4,26 @@ const messages = {
   confirm: {
     type: "success",
     text:
-      "A confirmation message was sent to your email, click the link there to continue."
+      "Un message contenant un lien d'activation a été envoyé sur votre boite mail. Cliquez sur ce lien pour terminer l'inscription."
   },
   password_mail: {
     type: "success",
     text:
-      "We've sent a recovery email to your account, follow the link there to reset your password."
+      "Nous avons envoyé un mail de récupération, suivez le lien pour réinitialiser votre mot de passe."
   },
   email_changed: {
     type: "sucess",
-    text: "Your email address has been updated!"
+    text: "Votre adresse email a été mise à jour."
   },
   verfication_error: {
     type: "error",
     text:
-      "There was an error verifying your account. Please try again or contact an administrator."
+      "Une erreur est survenue lors de la vérification de votre compte. Veuillez réessayer ou contacter un administrateur."
   },
   signup_disabled: {
     type: "error",
     text:
-      "Public signups are disabled. Contact an administrator and ask for an invite."
+      "Les inscriptions publiques sont désactivées. Contactez un administrateur pour être inviteé."
   }
 };
 

@@ -42,7 +42,7 @@ class Controls extends Component {
       return (
         <ul className="netlify-identity-menu">
           <li className="netlify-identity-item netlify-identity-user-details">
-            Logged in as{" "}
+            Connecté en tant que{" "}
             <span className="netlify-identity-user">
               {user.user_metadata.name || user.email}
             </span>

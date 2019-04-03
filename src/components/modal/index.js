@@ -49,7 +49,7 @@ export default class Modal extends Component {
         >
           <div className="modalContent">
             <button onclick={this.handleClose} className="btn btnClose">
-              <span className="visuallyHidden">Close</span>
+              <span className="visuallyHidden">Fermer</span>
             </button>
             {showHeader && (
               <div className="header">
@@ -58,7 +58,7 @@ export default class Modal extends Component {
                     className={`btn btnHeader ${page.signup ? "active" : ""}`}
                     onclick={this.linkHandler("signup")}
                   >
-                    Sign up
+                    S'inscrire
                   </button>
                 )}
                 {!devSettings && (
@@ -66,7 +66,7 @@ export default class Modal extends Component {
                     className={`btn btnHeader ${page.login ? "active" : ""}`}
                     onclick={this.linkHandler("login")}
                   >
-                    Log in
+                    Se connecter
                   </button>
                 )}
               </div>
@@ -79,7 +79,7 @@ export default class Modal extends Component {
             {devSettings && (
               <div className="header">
                 <button className="btn btnHeader active">
-                  Development Settings
+                  Options de développement
                 </button>
               </div>
             )}
@@ -97,7 +97,7 @@ export default class Modal extends Component {
             className={`callOut${loading ? " visuallyHidden" : ""}`}
           >
             <span className="netlifyLogo" />
-            Coded by Netlify
+            Codé par Netlify
           </a>
         )}
       </div>

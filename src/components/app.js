@@ -11,48 +11,48 @@ const pagesWithHeader = { login: true, signup: true };
 const pages = {
   login: {
     login: true,
-    button: "Log in",
-    button_saving: "Logging in",
+    button: "Se connecter",
+    button_saving: "Connexion",
     email: true,
     password: true,
     link: "amnesia",
-    link_text: "Forgot password?",
+    link_text: "Mot de passe oublié ?",
     providers: true
   },
   signup: {
     signup: true,
-    button: "Sign up",
-    button_saving: "Signing Up",
+    button: "S'inscrire",
+    button_saving: "Inscription",
     name: true,
     email: true,
     password: true,
     providers: true
   },
   amnesia: {
-    title: "Recover password",
-    button: "Send recovery email",
-    button_saving: "Sending recovery email",
+    title: "Récupérer mot de passe",
+    button: "Envoyer un mail de récupération",
+    button_saving: "Envoi d'un mail de récupération",
     email: true,
     link: "login",
-    link_text: "Never mind"
+    link_text: "Annuler"
   },
   recovery: {
-    title: "Recover password",
-    button: "Update password",
+    title: "Récupérer mot de passe",
+    button: "Mise à jour du mot de passe",
     button_saving: "Updating password",
     password: true,
     link: "login",
-    link_text: "Never mind"
+    link_text: "Annuler"
   },
   invite: {
-    title: "Complete your signup",
-    button: "Sign up",
-    button_saving: "Signing Up",
+    title: "Complétez votre inscription",
+    button: "S'inscrire",
+    button_saving: "Inscription",
     password: true,
     providers: true
   },
   user: {
-    title: "Logged in"
+    title: "Connecté"
   }
 };
 
