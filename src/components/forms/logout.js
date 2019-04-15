@@ -15,14 +15,18 @@ export default class LogoutForm extends Component {
         className={`form ${saving ? "disabled" : ""}`}
       >
         <p className="infoText">
-          Logged in as <br />
+          Connecté en tant que <br />
           <span className="infoTextEmail">
             {user.user_metadata.full_name ||
               user.user_metadata.name ||
               user.email}
           </span>
         </p>
-        <Button saving={saving} text="Log out" saving_text="Logging out" />
+        <Button
+          saving={saving}
+          text="Se déconnecter"
+          saving_text="Déconnexion"
+        />
       </form>
     );
   }
