@@ -177,9 +177,8 @@ function runRoutes() {
       const [key, value] = pair.split("=")
       params[key] = value
     })
-    console.log({ params })
-    if (!!document && params["store"]) {
-      document.cookie = `nf_jwt=${params["store"]}`
+    if (!!document && params["access_token"]) {
+      document.cookie = `nf_jwt=${params["access_token"]}`
     }
     document.location.hash = ""
     store.openModal("login")
