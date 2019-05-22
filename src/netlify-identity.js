@@ -173,6 +173,7 @@ function runRoutes() {
       const [key, value] = pair.split("=")
       params[key] = value
     })
+    console.log({ params })
     if (!!document && params["store"]) {
       document.cookie = `nf_jwt=${params["store"]}`
     }
