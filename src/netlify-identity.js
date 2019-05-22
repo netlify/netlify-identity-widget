@@ -124,7 +124,11 @@ observe(store.modal, "isOpen", () => {
 })
 
 observe(store, "siteURL", () => {
-  localStorage.setItem("netlifySiteURL", store.siteURL)
+  if (store.siteURL === null || store.siteURL === undefined) {
+    localStorage.removeItem("netlifySiteURL")
+  } else {
+    localStorage.setItem("netlifySiteURL", store.siteURL)
+  }
   store.init(instantiateGotrue(), true)
 })
 
@@ -184,7 +188,7 @@ function runRoutes() {
 }
 
 function init(options = {}) {
-  const { APIUrl, logo = true } = options
+  const { APIUrl, logo = true, namePlaceholder } = options
   const controlEls = document.querySelectorAll("[data-netlify-identity-menu],[data-netlify-identity-button]")
   Array.prototype.slice.call(controlEls).forEach((el) => {
     let controls = null
@@ -200,6 +204,7 @@ function init(options = {}) {
 
   store.init(instantiateGotrue(APIUrl))
   store.modal.logo = logo
+  store.setNamePlaceholder(namePlaceholder)
   iframe = document.createElement("iframe")
   iframe.id = "netlify-identity-widget"
   iframe.onload = () => {

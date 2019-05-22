@@ -12,11 +12,16 @@ const store = observable({
   saving: false,
   invite_token: null,
   email_change_token: null,
+  namePlaceholder: null,
   modal: {
     page: "login",
     isOpen: false,
     logo: true
   }
+});
+
+store.setNamePlaceholder = action(function setNamePlaceholder(namePlaceholder) {
+  store.namePlaceholder = namePlaceholder;
 });
 
 store.startAction = action(function startAction() {
@@ -65,6 +70,12 @@ store.loadSettings = action(function loadSettings() {
 
 store.setSiteURL = action(function setSiteURL(url) {
   store.siteURL = url;
+});
+
+store.clearSiteURL = action(function clearSiteURL() {
+  store.gotrue = null;
+  store.siteURL = null;
+  store.settings = null;
 });
 
 store.login = action(function login(email, password) {

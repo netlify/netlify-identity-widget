@@ -3,9 +3,6 @@
 A component used to authenticate with Netlify's Identity service.
 [Live demo](https://identity.netlify.com)
 
-For a lower level library to the underlying [GoTrue](https://github.com/netlify/gotrue) API, see
-[gotrue-js](https://github.com/netlify/gotrue-js).
-
 For usage example with React and React Router, please see our `/example` folder and [read the README](https://github.com/netlify/netlify-identity-widget/tree/master/example).
 
 ## What is Netlify Identity
@@ -131,6 +128,7 @@ module API. Options include:
 {
   container: '#some-query-selector'; // container to attach to
   APIUrl: 'https://www.example.com/.netlify/functions/identity'; // Absolute url to endpoint.  ONLY USE IN SPECIAL CASES!
+  namePlaceholder: 'some-placeholder-for-Name'; // custom placeholder for name input form
 }
 ```
 
@@ -157,7 +155,22 @@ https://olddvdscreensaver.com
 
 ![](devmode.png)
 
+
+## List of Alternatives
+
+**Lowest level JS Library**: If you want to use the official Javascript bindings to GoTrue, Netlify's underlying Identity service written in Go, use https://github.com/netlify/gotrue-js
+
+**React bindings**: If you want a thin wrapper over Gotrue-js for React, `react-netlify-identity` is a "headless" library, meaning there is no UI exported and you will write your own UI to work with the authentication. https://github.com/sw-yx/react-netlify-identity
+
+**High level overlay**: If you want a "widget" overlay that gives you a nice UI out of the box, with a somewhat larger bundle, check https://github.com/netlify/netlify-identity-widget
+
+**High level popup**: If you want a popup window approach also with a nice UI out of the box, and don't mind the popup flow, check https://github.com/netlify/netlify-auth-providers
+
+You can also see an example of wrapping netlify-identity-widget in a React Hook here: https://github.com/sw-yx/netlify-fauna-todo/blob/master/src/hooks/useNetlifyIdentity.js
+
 ## FAQ
+
+* Typescript Typings are maintained by @nkprince007 ([see PR](https://github.com/DefinitelyTyped/DefinitelyTyped/pull/30689)): `npm install @types/netlify-identity-widget` and then `import * as NetlifyIdentityWidget from "netlify-identity-widget"` (or `import NetlifyIdentityWidget from "netlify-identity-widget"` if you have `--allowSyntheticDefaultImports` on)
 
 * If you experience a 404 while testing the Netlify Identity Widget on a local
   environment, you can manually remove the netlifySiteURL from localStorage by

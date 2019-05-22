@@ -1,32 +1,14 @@
 {
   "name": "netlify-identity-widget",
-  "version": "1.4.15",
-  "releaseVersion": "v1",
   "description": "Netlify Identity widget for easy integration",
-  "scripts": {
-    "dev": "cross-env NODE_ENV=development webpack-dev-server --inline --progress --config webpack.config.babel.js",
-    "react-demo": "cd example && yarn && yarn start",
-    "prestart": "run-s build",
-    "version": "run-s release",
-    "prepublish": "run-s build",
-    "build": "run-p build:*",
-    "build:bundle": "cross-env NODE_ENV=production webpack --config webpack.config.babel.js",
-    "build:umd": "cross-env NODE_ENV=production webpack --config webpack.umd.config.babel.js",
-    "prebuild": "rimraf build && mkdirp build",
-    "test": "eslint src",
-    "release": "node ./script/release.js",
-    "format": "prettier --write 'src/**/*.js'",
-    "format-preview": "prettier --list-different 'src/**/*.js'"
-  },
-  "main": "./build/netlify-identity",
-  "keywords": [
-    "netlify",
-    "identity",
-    "authentication"
-  ],
-  "license": "MIT",
+  "version": "1.5.2",
   "author": "Matt Biilmann <matt@netlify.com>",
+  "bugs": {
+    "url": "https://github.com/netlify/netlify-identity-widget/issues"
+  },
+  "dependencies": {},
   "devDependencies": {
+    "auto-changelog": "^1.10.2",
     "babel-cli": "^6.5.2",
     "babel-core": "^6.24.0",
     "babel-eslint": "^8.2.1",
@@ -47,6 +29,7 @@
     "eslint-plugin-prettier": "^2.5.0",
     "eslint-plugin-react": "^7.6.1",
     "file-loader": "^1.1.6",
+    "gh-release": "^3.4.0",
     "gotrue-js": "^0.9.21",
     "html-webpack-plugin": "^2.28.0",
     "json-loader": "^0.5.4",
@@ -67,5 +50,32 @@
     "webpack": "^3.0.0",
     "webpack-dev-server": "^2.11.1",
     "webpack-node-externals": "^1.6.0"
+  },
+  "homepage": "https://identity.netlify.com",
+  "keywords": [
+    "authentication",
+    "identity",
+    "netlify"
+  ],
+  "license": "MIT",
+  "main": "./build/netlify-identity",
+  "releaseVersion": "v1",
+  "repository": "netlify/netlify-identity-widget",
+  "scripts": {
+    "build": "run-p build:*",
+    "build:bundle": "cross-env NODE_ENV=production webpack --config webpack.config.babel.js",
+    "build:umd": "cross-env NODE_ENV=production webpack --config webpack.umd.config.babel.js",
+    "changelog": "auto-changelog --template keepachangelog -p && git add CHANGELOG.md",
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --inline --progress --config webpack.config.babel.js",
+    "format": "prettier --write 'src/**/*.js'",
+    "format-preview": "prettier --list-different 'src/**/*.js'",
+    "prebuild": "rimraf build && mkdirp build",
+    "prepublish": "run-s build",
+    "prestart": "run-s build",
+    "publish": "git push && git push --tags && gh-release",
+    "react-demo": "cd example && yarn && yarn start",
+    "release": "node ./script/release.js",
+    "test": "eslint src",
+    "version": "run-s release changelog"
   }
 }
