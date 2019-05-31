@@ -126,9 +126,10 @@ module API. Options include:
 
 ```js
 {
-  container: '#some-query-selector'; // container to attach to
-  APIUrl: 'https://www.example.com/.netlify/functions/identity'; // Absolute url to endpoint.  ONLY USE IN SPECIAL CASES!
-  namePlaceholder: 'some-placeholder-for-Name'; // custom placeholder for name input form
+  container: '#some-query-selector', // container to attach to
+  APIUrl: 'https://www.example.com/.netlify/functions/identity', // Absolute url to endpoint. ONLY USE IN SPECIAL CASES!
+  namePlaceholder: 'some-placeholder-for-Name', // custom placeholder for name input form
+  disableAccessTokenCheck: true // Set to `true` to disable checking `location.hash` (the fragment identifier) for a param named `access_token`. Defaults to `false`.
 }
 ```
 

@@ -152,7 +152,7 @@ const routes = /(confirmation|invite|recovery|email_change)_token=([^&]+)/
 const errorRoute = /error=access_denied&error_description=403/
 const accessTokenRoute = /access_token=/
 
-function runRoutes() {
+function runRoutes(disableAccessTokenCheck) {
   const hash = (document.location.hash || "").replace(/^#\/?/, "")
   if (!hash) {
     return
@@ -170,24 +170,26 @@ function runRoutes() {
     document.location.hash = ""
   }
 
-  const am = hash.match(accessTokenRoute)
-  if (am) {
-    const params = {}
-    hash.split("&").forEach((pair) => {
-      const [key, value] = pair.split("=")
-      params[key] = value
-    })
-    if (!!document && params["access_token"]) {
-      document.cookie = `nf_jwt=${params["access_token"]}`
+  if (!disableAccessTokenCheck) {
+    const am = hash.match(accessTokenRoute)
+    if (am) {
+      const params = {}
+      hash.split("&").forEach((pair) => {
+        const [key, value] = pair.split("=")
+        params[key] = value
+      })
+      if (!!document && params["access_token"]) {
+        document.cookie = `nf_jwt=${params["access_token"]}`
+      }
+      document.location.hash = ""
+      store.openModal("login")
+      store.completeExternalLogin(params)
     }
-    document.location.hash = ""
-    store.openModal("login")
-    store.completeExternalLogin(params)
   }
 }
 
 function init(options = {}) {
-  const { APIUrl, logo = true, namePlaceholder } = options
+  const { APIUrl, logo = true, namePlaceholder, disableAccessTokenCheck = false } = options
   const controlEls = document.querySelectorAll("[data-netlify-identity-menu],[data-netlify-identity-button]")
   Array.prototype.slice.call(controlEls).forEach((el) => {
     let controls = null
@@ -217,7 +219,7 @@ function init(options = {}) {
       iframe.contentDocument.body,
       root
     )
-    runRoutes()
+    runRoutes(disableAccessTokenCheck)
   }
   setStyle(iframe, iframeStyle)
   iframe.src = "about:blank"
