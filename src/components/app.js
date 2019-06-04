@@ -97,7 +97,7 @@ class App extends Component {
           devMode={store.siteURL != null}
           onSiteURL={store.siteURL ? this.clearSiteURL : this.handleSiteURL}
         />
-      )
+      );
     }
     if (!store.settings) {
       return;
