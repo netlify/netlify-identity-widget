@@ -84,6 +84,7 @@ function instantiateGotrue(APIUrl) {
       parts.push("/")
     }
     parts.push(".netlify/identity")
+    store.setSiteURL(siteURL)
     return new GoTrue({ APIUrl: parts.join(""), setCookie: !isLocal })
   }
   if (isLocal) {

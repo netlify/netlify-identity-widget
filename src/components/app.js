@@ -91,8 +91,13 @@ class App extends Component {
     const page = pages[store.modal.page] || {};
     const pageLinkHandler = () => this.handlePage(page.link);
 
-    if (!store.gotrue) {
-      return <SiteURLForm onSiteURL={this.handleSiteURL} />;
+    if (process.env.NODE_ENV === "development" && store.siteURL === null) {
+      return (
+        <SiteURLForm
+          devMode={store.siteURL != null}
+          onSiteURL={store.siteURL ? this.clearSiteURL : this.handleSiteURL}
+        />
+      )
     }
     if (!store.settings) {
       return;
@@ -127,7 +132,14 @@ class App extends Component {
             {page.link_text}
           </button>
         )}
-        <SiteURLForm devMode="true" onSiteURL={this.clearSiteURL} />
+        {process.env.NODE_ENV === "development" ? (
+          <SiteURLForm
+            devMode={store.siteURL != null}
+            onSiteURL={store.siteURL ? this.clearSiteURL : this.handleSiteURL}
+          />
+        ) : (
+          <div />
+        )}
       </div>
     );
   }
