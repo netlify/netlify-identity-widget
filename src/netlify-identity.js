@@ -69,7 +69,8 @@ function setStyle(el, css) {
 const localHosts = {
   localhost: true,
   "127.0.0.1": true,
-  "0.0.0.0": true
+  "0.0.0.0": true,
+  "identity.netlify.com": true
 };
 
 function instantiateGotrue(APIUrl) {
@@ -84,6 +85,7 @@ function instantiateGotrue(APIUrl) {
       parts.push("/");
     }
     parts.push(".netlify/identity");
+    store.setIsLocal(isLocal);
     store.setSiteURL(siteURL);
     return new GoTrue({ APIUrl: parts.join(""), setCookie: !isLocal });
   }

@@ -91,7 +91,7 @@ class App extends Component {
     const page = pages[store.modal.page] || {};
     const pageLinkHandler = () => this.handlePage(page.link);
 
-    if (process.env.NODE_ENV === "development" && store.siteURL === null) {
+    if (store.isLocal && store.siteURL === null) {
       return (
         <SiteURLForm
           devMode={store.siteURL != null}
@@ -132,7 +132,7 @@ class App extends Component {
             {page.link_text}
           </button>
         )}
-        {process.env.NODE_ENV === "development" ? (
+        {store.isLocal ? (
           <SiteURLForm
             devMode={store.siteURL != null}
             onSiteURL={store.siteURL ? this.clearSiteURL : this.handleSiteURL}
