@@ -90,6 +90,7 @@ function instantiateGotrue(APIUrl) {
     return new GoTrue({ APIUrl: parts.join(""), setCookie: !isLocal });
   }
   if (isLocal) {
+    store.setIsLocal(isLocal);
     return null;
   }
 
