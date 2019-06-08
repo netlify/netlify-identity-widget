@@ -68,6 +68,10 @@ store.loadSettings = action(function loadSettings() {
     );
 });
 
+store.setIsLocal = action(function setIsLocal(isLocal) {
+  store.isLocal = isLocal;
+});
+
 store.setSiteURL = action(function setSiteURL(url) {
   store.siteURL = url;
 });
