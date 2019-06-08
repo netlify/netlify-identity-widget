@@ -193,7 +193,12 @@ function runRoutes(disableAccessTokenCheck) {
 }
 
 function init(options = {}) {
-  const { APIUrl, logo = true, namePlaceholder, disableAccessTokenCheck = false } = options;
+  const {
+    APIUrl,
+    logo = true,
+    namePlaceholder,
+    disableAccessTokenCheck = false
+  } = options;
   const controlEls = document.querySelectorAll(
     "[data-netlify-identity-menu],[data-netlify-identity-button]"
   );
