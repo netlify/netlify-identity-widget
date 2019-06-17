@@ -3,7 +3,10 @@ import { h, Component } from "preact";
 export default class SiteURLForm extends Component {
   constructor(props) {
     super(props);
-    this.state = { url: "", development: props.devMode || false };
+    this.state = {
+      url: "",
+      development: props.devMode || false
+    };
   }
 
   handleInput = e => {

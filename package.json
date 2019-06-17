@@ -67,6 +67,7 @@
     "build:umd": "cross-env NODE_ENV=production webpack --config webpack.umd.config.babel.js",
     "changelog": "auto-changelog --template keepachangelog -p && git add CHANGELOG.md",
     "dev": "cross-env NODE_ENV=development webpack-dev-server --inline --progress --config webpack.config.babel.js",
+    "prod": "cross-env NODE_ENV=production webpack-dev-server --inline --progress --config webpack.config.babel.js",
     "format": "prettier --write 'src/**/*.js'",
     "format-preview": "prettier --list-different 'src/**/*.js'",
     "prebuild": "rimraf build && mkdirp build",

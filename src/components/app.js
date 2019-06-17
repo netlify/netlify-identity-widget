@@ -127,7 +127,7 @@ class App extends Component {
             {page.link_text}
           </button>
         )}
-        <SiteURLForm devMode="true" onSiteURL={this.clearSiteURL} />
+        {/* <SiteURLForm devMode={true} onSiteURL={this.clearSiteURL} /> */}
       </div>
     );
   }
