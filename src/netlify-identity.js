@@ -69,8 +69,7 @@ function setStyle(el, css) {
 const localHosts = {
   localhost: true,
   "127.0.0.1": true,
-  "0.0.0.0": true,
-  "identity.netlify.com": true
+  "0.0.0.0": true
 };
 
 function instantiateGotrue(APIUrl) {
