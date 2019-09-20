@@ -214,6 +214,7 @@ function init(options = {}) {
   store.setNamePlaceholder(namePlaceholder);
   iframe = document.createElement("iframe");
   iframe.id = "netlify-identity-widget";
+  iframe.title = "Netlify identity widget";
   iframe.onload = () => {
     const styles = iframe.contentDocument.createElement("style");
     styles.innerHTML = modalCSS.toString();
