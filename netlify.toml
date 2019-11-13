@@ -1,2 +1,2 @@
-[context.staging.services]
+[context.branch-deploy.services]
   identity = "staging"
