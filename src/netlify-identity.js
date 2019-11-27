@@ -183,6 +183,17 @@ function runRoutes() {
     if (!!document && params["access_token"]) {
       document.cookie = `nf_jwt=${params["access_token"]}`;
     }
+    if (params["state"]) {
+      try {
+        // skip initialization for implicit auth
+        const state = decodeURIComponent(params["state"]);
+        const { auth_type } = JSON.parse(state);
+        if (auth_type === "implicit") {
+          return;
+        }
+        // eslint-disable-next-line no-empty
+      } catch (e) {}
+    }
     document.location.hash = "";
     store.openModal("login");
     store.completeExternalLogin(params);
