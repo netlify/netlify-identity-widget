@@ -71,6 +71,9 @@ netlifyIdentity.close();
 
 // Log out the user
 netlifyIdentity.logout();
+// refresh the user's JWT 
+// Note: this method returns a promise.
+netlifyIdentity.refresh().then((jwt)=>console.log(jwt))
 ```
 
 #### A note on script tag versioning
@@ -112,6 +115,10 @@ netlifyIdentity.close();
 
 // Log out the user
 netlifyIdentity.logout();
+
+// refresh the user's JWT 
+// Note: this method returns a promise.
+netlifyIdentity.refresh().then((jwt)=>console.log(jwt))
 
 // Access the underlying GoTrue JS client.
 // Note that doing things directly through the GoTrue client brings a risk of getting out of
