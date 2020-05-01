@@ -47,6 +47,12 @@ const netlifyIdentity = {
     }
     return store.gotrue;
   },
+  refresh(force) {
+    if (!store.gotrue) {
+      store.openModal("login");
+    }
+    return store.gotrue.currentUser().jwt(force);
+  },
   init: options => {
     init(options);
   },
