@@ -56,6 +56,11 @@ const netlifyIdentity = {
   init: options => {
     init(options);
   },
+  setLocale: locale => {
+    if (locale) {
+      store.locale = locale;
+    }
+  },
   store
 };
 
@@ -207,7 +212,12 @@ function runRoutes() {
 }
 
 function init(options = {}) {
-  const { APIUrl, logo = true, namePlaceholder } = options;
+  const { APIUrl, logo = true, namePlaceholder, locale } = options;
+
+  if (locale) {
+    store.locale = locale;
+  }
+
   const controlEls = document.querySelectorAll(
     "[data-netlify-identity-menu],[data-netlify-identity-button]"
   );

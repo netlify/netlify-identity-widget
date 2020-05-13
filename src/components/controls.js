@@ -24,7 +24,7 @@ class Controls extends Component {
   };
 
   render() {
-    const { user } = this.props.store;
+    const { user, translate: t } = this.props.store;
 
     if (this.props.mode === "button") {
       return (
@@ -33,7 +33,7 @@ class Controls extends Component {
           href="#"
           onClick={this.handleButton}
         >
-          {this.props.text || (user ? "Log out" : "Log in")}
+          {this.props.text || (user ? t("log_out") : t("log_in"))}
         </a>
       );
     }
@@ -42,7 +42,7 @@ class Controls extends Component {
       return (
         <ul className="netlify-identity-menu">
           <li className="netlify-identity-item netlify-identity-user-details">
-            Logged in as{" "}
+            {t("logged_in_as")}{" "}
             <span className="netlify-identity-user">
               {user.user_metadata.name || user.email}
             </span>
@@ -53,7 +53,7 @@ class Controls extends Component {
               href="#"
               onClick={this.handleLogout}
             >
-              Log out
+              {t("log_out")}
             </a>
           </li>
         </ul>
@@ -68,7 +68,7 @@ class Controls extends Component {
             href="#"
             onClick={this.handleSignup}
           >
-            Sign up
+            {t("sign_up")}
           </a>
         </li>
         <li className="netlify-identity-item">
@@ -77,7 +77,7 @@ class Controls extends Component {
             href="#"
             onClick={this.handleLogin}
           >
-            Log in
+            {t("log_in")}
           </a>
         </li>
       </ul>

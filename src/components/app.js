@@ -11,48 +11,48 @@ const pagesWithHeader = { login: true, signup: true };
 const pages = {
   login: {
     login: true,
-    button: "Log in",
-    button_saving: "Logging in",
+    button: "log_in",
+    button_saving: "logging_in",
     email: true,
     password: true,
     link: "amnesia",
-    link_text: "Forgot password?",
+    link_text: "forgot_password",
     providers: true
   },
   signup: {
     signup: true,
-    button: "Sign up",
-    button_saving: "Signing Up",
+    button: "sign_up",
+    button_saving: "signing_up",
     name: true,
     email: true,
     password: true,
     providers: true
   },
   amnesia: {
-    title: "Recover password",
-    button: "Send recovery email",
-    button_saving: "Sending recovery email",
+    title: "recover_password",
+    button: "send_recovery_email",
+    button_saving: "sending_recovery_email",
     email: true,
     link: "login",
-    link_text: "Never mind"
+    link_text: "never_mind"
   },
   recovery: {
-    title: "Recover password",
-    button: "Update password",
-    button_saving: "Updating password",
+    title: "recover_password",
+    button: "update_password",
+    button_saving: "updating_password",
     password: true,
     link: "login",
-    link_text: "Never mind"
+    link_text: "never_mind"
   },
   invite: {
-    title: "Complete your signup",
-    button: "Sign up",
-    button_saving: "Signing Up",
+    title: "complete_your_signup",
+    button: "sign_up",
+    button_saving: "signing_up",
     password: true,
     providers: true
   },
   user: {
-    title: "Logged in"
+    title: "logged_in"
   }
 };
 
@@ -96,6 +96,7 @@ class App extends Component {
         <SiteURLForm
           devMode={store.siteURL != null}
           onSiteURL={store.siteURL ? this.clearSiteURL : this.handleSiteURL}
+          t={store.translate}
         />
       );
     }
@@ -108,11 +109,12 @@ class App extends Component {
           user={store.user}
           saving={store.saving}
           onLogout={this.handleLogout}
+          t={store.translate}
         />
       );
     }
     if (store.modal.page === "signup" && store.settings.disable_signup) {
-      return <Message type="signup_disabled" />;
+      return <Message type="signup_disabled" t={store.translate} />;
     }
 
     return (
@@ -123,19 +125,21 @@ class App extends Component {
           saving={store.saving}
           onSubmit={this.handleUser}
           namePlaceholder={store.namePlaceholder}
+          t={store.translate}
         />
         {!store.user && page.link && store.gotrue && (
           <button
             onclick={pageLinkHandler}
             className="btnLink forgotPasswordLink"
           >
-            {page.link_text}
+            {store.translate(page.link_text)}
           </button>
         )}
         {store.isLocal ? (
           <SiteURLForm
             devMode={store.siteURL != null}
             onSiteURL={store.siteURL ? this.clearSiteURL : this.handleSiteURL}
+            t={store.translate}
           />
         ) : (
           <div />
@@ -195,6 +199,7 @@ class App extends Component {
           onPage={this.handlePage}
           onClose={this.handleClose}
           logo={store.modal.logo}
+          t={store.translate}
         >
           {this.renderBody()}
           {this.renderProviders()}

@@ -74,6 +74,9 @@ netlifyIdentity.logout();
 // refresh the user's JWT 
 // Note: this method returns a promise.
 netlifyIdentity.refresh().then((jwt)=>console.log(jwt))
+
+// Change language
+netlifyIdentity.setLocale('en');
 ```
 
 #### A note on script tag versioning
@@ -120,6 +123,9 @@ netlifyIdentity.logout();
 // Note: this method returns a promise.
 netlifyIdentity.refresh().then((jwt)=>console.log(jwt))
 
+// Change language
+netlifyIdentity.setLocale('en');
+
 // Access the underlying GoTrue JS client.
 // Note that doing things directly through the GoTrue client brings a risk of getting out of
 // sync between your state and the widget’s state.
@@ -136,6 +142,7 @@ module API. Options include:
   container: '#some-query-selector'; // container to attach to
   APIUrl: 'https://www.example.com/.netlify/functions/identity'; // Absolute url to endpoint.  ONLY USE IN SPECIAL CASES!
   namePlaceholder: 'some-placeholder-for-Name'; // custom placeholder for name input form
+  locale: 'en'; // language code for translations - available: en, fr - default to en
 }
 ```
 

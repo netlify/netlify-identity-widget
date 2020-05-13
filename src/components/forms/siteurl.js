@@ -22,37 +22,32 @@ export default class SiteURLForm extends Component {
 
   render() {
     const { url, development } = this.state;
+    const { t } = this.props;
 
     return (
       <div>
         {development ? (
           <div class="subheader">
-            <h3>Development Settings</h3>
+            <h3>{t("site_url_title")}</h3>
             <button
               onclick={e => this.clearSiteURL(e)}
               className="btnLink forgotPasswordLink"
             >
-              Clear localhost URL
+              {t("site_url_link_text")}
             </button>
           </div>
         ) : (
           <form onsubmit={this.addSiteURL} className="form">
-            <div className="flashMessage">
-              {
-                "Looks like you're running a local server. Please let us know the URL of your Netlify site."
-              }
-            </div>
+            <div className="flashMessage">{t("site_url_message")}</div>
             <div className="formGroup">
               <label>
-                <span className="visuallyHidden">
-                  Enter your Netlify Site URL
-                </span>
+                <span className="visuallyHidden">{t("site_url_label")}</span>
                 <input
                   className="formControl"
                   type="url"
                   name="url"
                   value={url}
-                  placeholder="URL of your Netlify site"
+                  placeholder={t("site_url_placeholder")}
                   autocapitalize="off"
                   required
                   oninput={this.handleInput}
@@ -61,7 +56,7 @@ export default class SiteURLForm extends Component {
               </label>
             </div>
             <button type="submit" className="btn">
-              Set site's URL
+              {t("site_url_submit")}
             </button>
           </form>
         )}
