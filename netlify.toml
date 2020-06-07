@@ -1,8 +1,6 @@
 [build]
-  command = "echo 'no op'"
-  publish = "public"
-
-  functions = "functions/"
+  command = "yarn run build && cp build/* releases/"
+  publish = "releases"
 
   [build.environment]
     YARN_FLAGS = "--frozen-lockfile"
