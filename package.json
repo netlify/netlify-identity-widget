@@ -21,7 +21,7 @@
     "babel-register": "^6.24.0",
     "babel-runtime": "^6.11.6",
     "caniuse-lite": "^1.0.30000792",
-    "cross-env": "^5.0.1",
+    "cross-env": "^7.0.0",
     "css-loader": "^0.28.9",
     "eslint": "^7.2.0",
     "eslint-config-prettier": "^6.11.0",
