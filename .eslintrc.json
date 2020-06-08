@@ -1,6 +1,5 @@
 {
   "parser": "babel-eslint",
-  "extends": "eslint:recommended",
   "plugins": ["react", "prettier"],
   "env": {
     "browser": true,

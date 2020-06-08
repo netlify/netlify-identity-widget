@@ -1,16 +1,20 @@
 {
   "sourceMaps": true,
   "presets": [
-    ["env", {
-      "targets": {
-        "browsers": ["ie >= 11"]
+    [
+      "@babel/env",
+      {
+        "targets": {
+          "browsers": ["ie >= 11"]
+        }
       }
-    }],
-    "stage-0"
+    ]
   ],
   "plugins": [
-    ["transform-decorators-legacy"],
-    ["transform-react-jsx", { "pragma": "h" }],
-    ["transform-object-rest-spread", { "useBuiltIns": true }]
+    ["@babel/plugin-proposal-decorators", { "legacy": true }],
+    ["@babel/plugin-proposal-class-properties", { "loose": true }],
+    ["@babel/plugin-proposal-object-rest-spread", { "useBuiltIns": true }],
+    ["@babel/plugin-transform-react-jsx", { "pragma": "h" }],
+    ["@babel/plugin-transform-modules-commonjs"]
   ]
 }
