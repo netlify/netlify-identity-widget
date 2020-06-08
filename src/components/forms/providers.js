@@ -7,14 +7,14 @@ class Provider extends Component {
   };
 
   render() {
-    const { provider, label } = this.props;
+    const { provider, label, t } = this.props;
 
     return (
       <button
         onClick={this.handleLogin}
         className={`provider${provider} btn btnProvider`}
       >
-        Continue with {label}
+        {`${t("continue_with")} ${label}`}
       </button>
     );
   }
@@ -30,7 +30,7 @@ export default class Providers extends Component {
   }
 
   render() {
-    const { providers, onLogin } = this.props;
+    const { providers, onLogin, t } = this.props;
 
     return (
       <div className="providersGroup">
@@ -41,6 +41,7 @@ export default class Providers extends Component {
             provider={p}
             label={this.getLabel(p)}
             onLogin={onLogin}
+            t={t}
           />
         ))}
       </div>

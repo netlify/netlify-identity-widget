@@ -33,7 +33,8 @@ export default class Modal extends Component {
       devSettings,
       isOpen,
       children,
-      logo
+      logo,
+      t
     } = this.props;
     const hidden = loading || !isOpen;
     return (
@@ -58,7 +59,7 @@ export default class Modal extends Component {
                     className={`btn btnHeader ${page.signup ? "active" : ""}`}
                     onclick={this.linkHandler("signup")}
                   >
-                    Sign up
+                    {t("sign_up")}
                   </button>
                 )}
                 {!devSettings && (
@@ -66,26 +67,28 @@ export default class Modal extends Component {
                     className={`btn btnHeader ${page.login ? "active" : ""}`}
                     onclick={this.linkHandler("login")}
                   >
-                    Log in
+                    {t("log_in")}
                   </button>
                 )}
               </div>
             )}
             {page.title && (
               <div className="header">
-                <button className="btn btnHeader active">{page.title}</button>
+                <button className="btn btnHeader active">
+                  {t(page.title)}
+                </button>
               </div>
             )}
             {devSettings && (
               <div className="header">
                 <button className="btn btnHeader active">
-                  Development Settings
+                  {t("site_url_title")}
                 </button>
               </div>
             )}
             {error && (
               <div className="flashMessage error">
-                <span>{formatError(error)}</span>
+                <span>{t(formatError(error))}</span>
               </div>
             )}
             {children}
@@ -97,7 +100,7 @@ export default class Modal extends Component {
             className={`callOut${loading ? " visuallyHidden" : ""}`}
           >
             <span className="netlifyLogo" />
-            Coded by Netlify
+            {t("coded_by")}
           </a>
         )}
       </div>

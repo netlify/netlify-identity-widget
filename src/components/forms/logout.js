@@ -7,7 +7,7 @@ export default class LogoutForm extends Component {
     this.props.onLogout();
   };
   render() {
-    const { user, saving } = this.props;
+    const { user, saving, t } = this.props;
 
     return (
       <form
@@ -15,14 +15,18 @@ export default class LogoutForm extends Component {
         className={`form ${saving ? "disabled" : ""}`}
       >
         <p className="infoText">
-          Logged in as <br />
+          {t("logged_in_as")} <br />
           <span className="infoTextEmail">
             {user.user_metadata.full_name ||
               user.user_metadata.name ||
               user.email}
           </span>
         </p>
-        <Button saving={saving} text="Log out" saving_text="Logging out" />
+        <Button
+          saving={saving}
+          text={t("log_out")}
+          saving_text={t("logging_out")}
+        />
       </form>
     );
   }

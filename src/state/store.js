@@ -1,4 +1,5 @@
 import { observable, action } from "mobx";
+import { defaultLocale, getTranslation } from "../translations";
 
 const store = observable({
   user: null,
@@ -17,7 +18,8 @@ const store = observable({
     page: "login",
     isOpen: false,
     logo: true
-  }
+  },
+  locale: defaultLocale
 });
 
 store.setNamePlaceholder = action(function setNamePlaceholder(namePlaceholder) {
@@ -281,6 +283,10 @@ store.closeModal = action(function close() {
   store.error = null;
   store.message = null;
   store.saving = false;
+});
+
+store.translate = action(function translate(key) {
+  return getTranslation(key, store.locale);
 });
 
 export default store;

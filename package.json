@@ -9,7 +9,6 @@
   "dependencies": {},
   "devDependencies": {
     "@babel/cli": "^7.10.1",
-    "@babel/register": "^7.10.1",
     "@babel/core": "^7.10.2",
     "@babel/plugin-proposal-class-properties": "^7.10.1",
     "@babel/plugin-proposal-decorators": "^7.10.1",
@@ -18,6 +17,7 @@
     "@babel/plugin-transform-react-jsx": "^7.10.1",
     "@babel/polyfill": "^7.10.1",
     "@babel/preset-env": "^7.10.2",
+    "@babel/register": "^7.10.1",
     "auto-changelog": "^2.0.0",
     "babel-eslint": "^10.1.0",
     "babel-jest": "^26.0.1",
@@ -34,6 +34,7 @@
     "gh-release": "^3.4.0",
     "gotrue-js": "^0.9.21",
     "html-webpack-plugin": "^4.3.0",
+    "jest": "^26.0.1",
     "mkdirp": "^0.5.1",
     "mobx": "^3.2.2",
     "mobx-preact": "^1.1.0",
@@ -79,7 +80,9 @@
     "react-demo": "cd example && yarn && yarn start",
     "release": "node ./script/release.js",
     "lint": "eslint src",
-    "test": "run-s lint format-check",
+    "test": "run-s lint format-check test:unit",
+    "test:unit": "jest",
+    "test:unit:watch": "jest --watch",
     "version": "run-s release changelog"
   }
 }
