@@ -4,12 +4,14 @@ import postCSSImport from "postcss-import";
 import postCSSNested from "postcss-nested";
 import postCSSNext from "postcss-cssnext";
 import path from "path";
-const ENV = process.env.NODE_ENV || "development";
 
-const CSS_MAPS = ENV !== "production";
+const ENV = process.env.NODE_ENV || "development";
+const isProduction = ENV === "production";
+const CSS_MAPS = !isProduction;
 
 module.exports = {
   context: path.resolve(__dirname, "src"),
+  mode: isProduction ? "production" : "development",
   entry: {
     "netlify-identity-widget": "./index.js"
   },
@@ -65,7 +67,7 @@ module.exports = {
       },
       {
         test: /\.(svg|woff2?|ttf|eot|jpe?g|png|gif)(\?.*)?$/i,
-        use: ENV === "production" ? "file-loader" : "url-loader"
+        use: isProduction ? "file-loader" : "url-loader"
       }
     ]
   },
@@ -87,42 +89,7 @@ module.exports = {
       inject: false,
       minify: { collapseWhitespace: true }
     })
-  ].concat(
-    ENV === "production"
-      ? [
-          new webpack.optimize.UglifyJsPlugin({
-            sourceMap: true,
-            output: {
-              comments: false
-            },
-            compress: {
-              unsafe_comps: true,
-              properties: true,
-              keep_fargs: false,
-              pure_getters: true,
-              collapse_vars: true,
-              unsafe: true,
-              warnings: false,
-              screw_ie8: true,
-              sequences: true,
-              dead_code: true,
-              drop_debugger: true,
-              comparisons: true,
-              conditionals: true,
-              evaluate: true,
-              booleans: true,
-              loops: true,
-              unused: true,
-              hoist_funs: true,
-              if_return: true,
-              join_vars: true,
-              cascade: true,
-              drop_console: false
-            }
-          })
-        ]
-      : []
-  ),
+  ],
 
   stats: { colors: true },
 
@@ -135,7 +102,7 @@ module.exports = {
     setImmediate: false
   },
 
-  devtool: ENV === "production" ? "source-map" : "cheap-module-eval-source-map",
+  devtool: isProduction ? "source-map" : "cheap-module-eval-source-map",
 
   devServer: {
     port: process.env.PORT || 8080,
