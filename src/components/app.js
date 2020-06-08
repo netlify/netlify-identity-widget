@@ -176,6 +176,7 @@ class App extends Component {
         providers={providers}
         labels={store.settings.external_labels || {}}
         onLogin={this.handleExternalLogin}
+        t={store.translate}
       />
     ) : null;
   }
