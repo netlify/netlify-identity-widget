@@ -71,7 +71,7 @@ netlifyIdentity.close();
 
 // Log out the user
 netlifyIdentity.logout();
-// refresh the user's JWT 
+// refresh the user's JWT
 // Note: this method returns a promise.
 netlifyIdentity.refresh().then((jwt)=>console.log(jwt))
 
@@ -89,7 +89,7 @@ and will only reflect breaking changes in the markup API.
 Netlify Identity Widget also has a
 [module API](https://www.npmjs.com/package/netlify-identity-widget):
 
-```
+```bash
 yarn add netlify-identity-widget
 ```
 
@@ -100,6 +100,7 @@ const netlifyIdentity = require('netlify-identity-widget');
 
 netlifyIdentity.init({
   container: '#netlify-modal' // defaults to document.body,
+  locale: 'en' // defaults to 'en'
 });
 
 netlifyIdentity.open(); // open the modal
@@ -119,7 +120,7 @@ netlifyIdentity.close();
 // Log out the user
 netlifyIdentity.logout();
 
-// refresh the user's JWT 
+// refresh the user's JWT
 // Note: this method returns a promise.
 netlifyIdentity.refresh().then((jwt)=>console.log(jwt))
 
@@ -168,7 +169,6 @@ https://olddvdscreensaver.com
 ```
 
 ![](devmode.png)
-
 
 ## List of Alternatives
 
