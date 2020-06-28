@@ -77,6 +77,7 @@ export default class UserForm extends Component {
                 name="password"
                 value={password}
                 placeholder={t("form_password_placeholder")}
+                autocomplete={page.password}
                 required
                 oninput={this.handleInput}
               />

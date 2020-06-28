@@ -14,7 +14,7 @@ const pages = {
     button: "log_in",
     button_saving: "logging_in",
     email: true,
-    password: true,
+    password: "current-password",
     link: "amnesia",
     link_text: "forgot_password",
     providers: true
@@ -25,7 +25,7 @@ const pages = {
     button_saving: "signing_up",
     name: true,
     email: true,
-    password: true,
+    password: "new-password",
     providers: true
   },
   amnesia: {
@@ -40,7 +40,7 @@ const pages = {
     title: "recover_password",
     button: "update_password",
     button_saving: "updating_password",
-    password: true,
+    password: "new-password",
     link: "login",
     link_text: "never_mind"
   },
@@ -48,7 +48,7 @@ const pages = {
     title: "complete_your_signup",
     button: "sign_up",
     button_saving: "signing_up",
-    password: true,
+    password: "new-password",
     providers: true
   },
   user: {
