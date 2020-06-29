@@ -20,10 +20,10 @@ $ yarn build
 ```
 
 
-## Runing the server
+## Running the server
 
 ```sh
-$ yarn start
+$ yarn dev
 ```
 
 ## Pull Requests
