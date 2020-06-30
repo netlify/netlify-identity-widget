@@ -4254,10 +4254,10 @@ got@^6.7.1:
     unzip-response "^2.0.1"
     url-parse-lax "^1.0.0"
 
-gotrue-js@^0.9.21:
-  version "0.9.25"
-  resolved "https://registry.yarnpkg.com/gotrue-js/-/gotrue-js-0.9.25.tgz#eb9a3c76a2d08629afcda7872a60924d5d671c6a"
-  integrity sha512-W3U3TqItiHfpYODlH8hA7dwnui9pu4iDsDbE7UuqS/ODJ5r3/+nlBe30ir4cemRMy16oyPpuvq23l9EjiCD7kg==
+gotrue-js@^0.9.26:
+  version "0.9.26"
+  resolved "https://registry.yarnpkg.com/gotrue-js/-/gotrue-js-0.9.26.tgz#c5e39fec1539d12893042979435972847a2a5f79"
+  integrity sha512-UC1MIyyjfPxwpyd8X/xeigtUUaHI3+0dXvUEjymBfN3wE2MUfANVyTtO5HMwlBGlEFwbXuH0D1h6EExcvm/nug==
   dependencies:
     micro-api-client "^3.2.1"
 
