@@ -9,7 +9,7 @@ import modalCSS from "./components/modal.css";
 
 const callbacks = {};
 function trigger(callback) {
-  const cbMap = callbacks[callback] || new Set();
+  const cbMap = callbacks[callback] || new Map();
   Array.from(cbMap.values()).forEach(cb => {
     cb.apply(cb, Array.prototype.slice.call(arguments, 1));
   });
