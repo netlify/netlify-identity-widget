@@ -145,9 +145,14 @@ observe(store, "siteURL", () => {
   if (store.siteURL === null || store.siteURL === undefined) {
     localStorage.removeItem("netlifySiteURL");
   } else {
+    const currentURL = localStorage.getItem("netlifySiteURL");
+
+    // if nothing has changed, don’t do anything
+    if (currentURL === store.siteURL) return;
+
     localStorage.setItem("netlifySiteURL", store.siteURL);
+    store.init(instantiateGotrue(), true);
   }
-  store.init(instantiateGotrue(), true);
 });
 
 observe(store, "user", () => {
