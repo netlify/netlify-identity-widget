@@ -66,6 +66,10 @@ netlifyIdentity.on('error', err => console.error('Error', err));
 netlifyIdentity.on('open', () => console.log('Widget opened'));
 netlifyIdentity.on('close', () => console.log('Widget closed'));
 
+// Unbind from events
+netlifyIdentity.off('login'); // to unbind all registered handlers
+netlifyIdentity.off('login', handler); // to unbind a single handler
+
 // Close the modal
 netlifyIdentity.close();
 
@@ -113,6 +117,10 @@ netlifyIdentity.on('logout', () => console.log('Logged out'));
 netlifyIdentity.on('error', err => console.error('Error', err));
 netlifyIdentity.on('open', () => console.log('Widget opened'));
 netlifyIdentity.on('close', () => console.log('Widget closed'));
+
+// Unbind from events
+netlifyIdentity.off('login'); // to unbind all registered handlers
+netlifyIdentity.off('login', handler); // to unbind a single handler
 
 // Close the modal
 netlifyIdentity.close();
