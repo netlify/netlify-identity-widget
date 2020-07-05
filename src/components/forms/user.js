@@ -39,7 +39,7 @@ export default class UserForm extends Component {
                 name="name"
                 value={name}
                 placeholder={
-                  namePlaceholder ? namePlaceholder : t("form_email_label")
+                  namePlaceholder ? namePlaceholder : t("form_name_label")
                 }
                 autocapitalize="off"
                 required
