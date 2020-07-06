@@ -6659,9 +6659,9 @@ neo-async@^2.5.0, neo-async@^2.6.0:
   integrity sha512-iyam8fBuCUpWeKPGpaNMetEocMt364qkCsfL9JuhjXX6dRnguRVOfk2GZaDpPjcOKiiXCPINZC1GczQ7iTq3Zw==
 
 netlify-identity-widget@^1.4.14:
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/netlify-identity-widget/-/netlify-identity-widget-1.6.0.tgz#35f89f802311ad45ff6fdb271167429192ec0aad"
-  integrity sha512-TcZLl0bWCyudCOThskOGyAhBqy1zRmBLbLWpyOmnK/8Vf5+6UwPwTVl71muWwybRoSFlSyc5Qyu+c4D5sBLSDA==
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/netlify-identity-widget/-/netlify-identity-widget-1.7.0.tgz#0a79ec28a3707f37a3cdd18f4b9a9ce40dc764ad"
+  integrity sha512-oOHQJvzkz5cC14Pzm1xV0oL2LSNE5V2B3K6nyMSGhIrpCGKQqvA12KPIZguP3HgMcEqq1G8qn+qSbdBnUKEoKg==
 
 nice-try@^1.0.4:
   version "1.0.5"
