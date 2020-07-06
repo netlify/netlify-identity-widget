@@ -9,7 +9,8 @@ import modalCSS from "./components/modal.css";
 
 const callbacks = {};
 function trigger(callback) {
-  (callbacks[callback] || []).forEach(cb => {
+  const cbMap = callbacks[callback] || new Set();
+  Array.from(cbMap.values()).forEach(cb => {
     cb.apply(cb, Array.prototype.slice.call(arguments, 1));
   });
 }
@@ -22,8 +23,17 @@ const validActions = {
 
 const netlifyIdentity = {
   on: (event, cb) => {
-    callbacks[event] = callbacks[event] || [];
-    callbacks[event].push(cb);
+    callbacks[event] = callbacks[event] || new Set();
+    callbacks[event].add(cb);
+  },
+  off: (event, cb) => {
+    if (callbacks[event]) {
+      if (cb) {
+        callbacks[event].delete(cb);
+      } else {
+        callbacks[event].clear();
+      }
+    }
   },
   open: action => {
     action = action || "login";
