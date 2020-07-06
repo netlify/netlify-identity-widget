@@ -27,7 +27,13 @@ const netlifyIdentity = {
     callbacks[event].add(cb);
   },
   off: (event, cb) => {
-    callbacks[event].delete(cb);
+    if (callbacks[event]) {
+      if (cb) {
+        callbacks[event].delete(cb);
+      } else {
+        callbacks[event].clear();
+      }
+    }
   },
   open: action => {
     action = action || "login";
