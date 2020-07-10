@@ -1,13 +1,16 @@
 # Netlify Identity Widget
 
+[![npm version](https://badge.fury.io/js/netlify-identity-widget.svg)](https://badge.fury.io/js/netlify-identity-widget)
+
 A component used to authenticate with Netlify's Identity service.
+
 [Live demo](https://identity.netlify.com)
 
 For usage example with React and React Router, please see our `/example` folder and [read the README](https://github.com/netlify/netlify-identity-widget/tree/master/example).
 
 ## What is Netlify Identity
 
-Netlify’s Identity service is a plug-and-play microservice for handling site
+Netlify's Identity service is a plug-and-play microservice for handling site
 functionalities like signups, logins, password recovery, user metadata, and
 roles. You can use it from single page apps instead of rolling your own, and
 integrate with any service that understands JSON Web Tokens (JWTs).
@@ -192,10 +195,10 @@ You can also see an example of wrapping netlify-identity-widget in a React Hook 
 
 ## FAQ
 
-* Typescript Typings are maintained by @nkprince007 ([see PR](https://github.com/DefinitelyTyped/DefinitelyTyped/pull/30689)): `npm install @types/netlify-identity-widget` and then `import * as NetlifyIdentityWidget from "netlify-identity-widget"` (or `import NetlifyIdentityWidget from "netlify-identity-widget"` if you have `--allowSyntheticDefaultImports` on)
+* TypeScript Typings are maintained by @nkprince007 ([see PR](https://github.com/DefinitelyTyped/DefinitelyTyped/pull/30689)): `npm install @types/netlify-identity-widget` and then `import * as NetlifyIdentityWidget from "netlify-identity-widget"` (or `import NetlifyIdentityWidget from "netlify-identity-widget"` if you have `--allowSyntheticDefaultImports` on)
 
 * If you experience a 404 while testing the Netlify Identity Widget on a local
-  environment, you can manually remove the netlifySiteURL from localStorage by
+  environment, you can manually remove the `netlifySiteURL` from localStorage by
   doing the following in the console.
 
 ```js
