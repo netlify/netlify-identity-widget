@@ -34,9 +34,13 @@ export default class Modal extends Component {
       isOpen,
       children,
       logo,
-      t
+      t,
+      isLocal,
+      clearSiteURL,
+      clearStoreError
     } = this.props;
     const hidden = loading || !isOpen;
+    const formattedError = error ? formatError(error) : null;
     return (
       <div
         className="modalContainer"
@@ -86,9 +90,22 @@ export default class Modal extends Component {
                 </button>
               </div>
             )}
-            {error && (
+            {formattedError && (
               <div className="flashMessage error">
-                <span>{t(formatError(error))}</span>
+                <span>{t(formattedError)}</span>
+              </div>
+            )}
+            {isLocal && formattedError && formattedError.includes('Failed to load settings from') && (
+              <div>
+                <button
+                  onclick={e => {
+                      clearSiteURL(e);
+                      clearStoreError(null);
+                  }}
+                  className="btnLink forgotPasswordLink"
+                >
+                  {t("site_url_link_text")}
+                </button>
               </div>
             )}
             {children}
