@@ -95,19 +95,21 @@ export default class Modal extends Component {
                 <span>{t(formattedError)}</span>
               </div>
             )}
-            {isLocal && formattedError && formattedError.includes('Failed to load settings from') && (
-              <div>
-                <button
-                  onclick={e => {
+            {isLocal &&
+              formattedError &&
+              formattedError.includes("Failed to load settings from") && (
+                <div>
+                  <button
+                    onclick={e => {
                       clearSiteURL(e);
                       clearStoreError(null);
-                  }}
-                  className="btnLink forgotPasswordLink"
-                >
-                  {t("site_url_link_text")}
-                </button>
-              </div>
-            )}
+                    }}
+                    className="btnLink forgotPasswordLink"
+                  >
+                    {t("site_url_link_text")}
+                  </button>
+                </div>
+              )}
             {children}
           </div>
         </div>
