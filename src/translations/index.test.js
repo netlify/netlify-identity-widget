@@ -17,12 +17,12 @@ describe("translations", () => {
     const { getTranslation } = require("./");
     expect(getTranslation("log_in", "fr")).toEqual("Connexion");
   });
-  
+
   it("should return translation for 'hu' locale", () => {
     const { getTranslation } = require("./");
     expect(getTranslation("log_in", "hu")).toEqual("Bejelentkezés");
   });
-  
+
   it("should return translation for 'es' locale", () => {
     const { getTranslation } = require("./");
     expect(getTranslation("log_in", "es")).toEqual("Iniciar sesión");
