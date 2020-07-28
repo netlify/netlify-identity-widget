@@ -3,22 +3,22 @@ import { connect } from "mobx-preact";
 
 @connect(["store"])
 class Controls extends Component {
-  handleSignup = e => {
+  handleSignup = (e) => {
     e.preventDefault();
     this.props.store.openModal("signup");
   };
 
-  handleLogin = e => {
+  handleLogin = (e) => {
     e.preventDefault();
     this.props.store.openModal("login");
   };
 
-  handleLogout = e => {
+  handleLogout = (e) => {
     e.preventDefault();
     this.props.store.openModal("user");
   };
 
-  handleButton = e => {
+  handleButton = (e) => {
     e.preventDefault();
     this.props.store.openModal(this.props.store.user ? "user" : "login");
   };

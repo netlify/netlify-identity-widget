@@ -2,7 +2,7 @@ import { h, Component } from "preact";
 import Button from "./button";
 
 export default class LogoutForm extends Component {
-  handleLogout = e => {
+  handleLogout = (e) => {
     e.preventDefault();
     this.props.onLogout();
   };
