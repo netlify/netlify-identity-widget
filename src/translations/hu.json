@@ -24,7 +24,7 @@
   "message_confirm": "Elküldtünk egy megerősítő levelet e-mailben, kérjük kattintson a linkre a levélben a folytatáshoz.",
   "message_password_mail": "Elküldtünk egy jelszópótló levelet e-mailtben, kérjük kövesse a linket a levélben a jelszava visszaállításához.",
   "message_email_changed": "Az e-mail címét frissítettük!",
-  "message_verfication_error": "probléma történt a fiókja megerősítése közben. Kérjük próbálja újra, vagy vegye fel a kapcsolatot egy adminisztrátorral.",
+  "message_verfication_error": "Probléma történt a fiókja megerősítése közben. Kérjük próbálja újra, vagy vegye fel a kapcsolatot egy adminisztrátorral.",
   "message_signup_disabled": "A nyilvános regisztráció nincs engedélyezve. Vegye fel a kapcsolatot egy adminisztrátorral és kérjen meghívót.",
   "form_name_placeholder": "Név",
   "form_email_label": "Adja meg az e-mail címét",
