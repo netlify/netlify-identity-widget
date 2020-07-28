@@ -94,23 +94,17 @@ const localHosts = {
 };
 
 function instantiateGotrue(APIUrl) {
-  const isLocal = localHosts[document.location.host.split(":").shift()];
-  const siteURL = isLocal && localStorage.getItem("netlifySiteURL");
+  const isLocal = localHosts[document.location.hostname];
   if (APIUrl) {
     return new GoTrue({ APIUrl, setCookie: !isLocal });
   }
-  if (isLocal && siteURL) {
-    const parts = [siteURL];
-    if (!siteURL.match(/\/$/)) {
-      parts.push("/");
-    }
-    parts.push(".netlify/identity");
-    store.setIsLocal(isLocal);
-    store.setSiteURL(siteURL);
-    return new GoTrue({ APIUrl: parts.join(""), setCookie: !isLocal });
-  }
   if (isLocal) {
     store.setIsLocal(isLocal);
+    const siteURL = localStorage.getItem("netlifySiteURL");
+    if (siteURL) {
+      // setting a siteURL will invoke instantiateGotrue again with the relevant APIUrl
+      store.setSiteURL(siteURL);
+    }
     return null;
   }
 
@@ -153,7 +147,13 @@ observe(store, "siteURL", () => {
   } else {
     localStorage.setItem("netlifySiteURL", store.siteURL);
   }
-  store.init(instantiateGotrue(), true);
+
+  let apiUrl;
+  if (store.siteURL) {
+    const siteUrl = store.siteURL.replace(/\/$/, "");
+    apiUrl = `${siteUrl}/.netlify/identity`;
+  }
+  store.init(instantiateGotrue(apiUrl), true);
 });
 
 observe(store, "user", () => {

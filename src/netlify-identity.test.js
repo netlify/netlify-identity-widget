@@ -1,37 +1,37 @@
 jest.mock("./components/modal.css", () => "");
+jest.mock("gotrue-js", () => {
+  const mock = jest.fn().mockImplementation(({ APIUrl, setCookie }) => {
+    return {
+      settings: jest.fn().mockResolvedValue({
+        external: {
+          bitbucket: false,
+          github: false,
+          gitlab: false,
+          google: false,
+          facebook: false,
+          email: true,
+          saml: false
+        },
+        external_labels: {},
+        disable_signup: false,
+        autoconfirm: false
+      }),
+      currentUser: jest.fn(),
+      APIUrl,
+      setCookie
+    };
+  });
+  return mock;
+});
 
 describe("netlifyIdentity", () => {
   beforeEach(() => {
     jest.resetModules();
-    jest.mock("./state/store", () => {
-      const { observable } = require("mobx");
-      const store = observable({
-        user: null,
-        recovered_user: null,
-        message: null,
-        settings: null,
-        gotrue: null,
-        error: null,
-        siteURL: null,
-        remember: true,
-        saving: false,
-        invite_token: null,
-        email_change_token: null,
-        namePlaceholder: null,
-        modal: {
-          page: "login",
-          isOpen: false,
-          logo: true
-        },
-        locale: "en"
-      });
-      return store;
-    });
   });
 
   describe("on", () => {
     it("should invoke login callback when user is set to an object", () => {
-      const store = require("./state/store");
+      const { default: store } = require("./state/store");
       const { default: netlifyIdentity } = require("./netlify-identity");
 
       const loginCallback = jest.fn();
@@ -46,7 +46,7 @@ describe("netlifyIdentity", () => {
     });
 
     it("should invoke logout callback when user is set to null", () => {
-      const store = require("./state/store");
+      const { default: store } = require("./state/store");
       store.user = {
         name: "user"
       };
@@ -62,7 +62,7 @@ describe("netlifyIdentity", () => {
     });
 
     it("should not invoke login callback when user is set to null", () => {
-      const store = require("./state/store");
+      const { default: store } = require("./state/store");
       store.user = {
         name: "user"
       };
@@ -78,7 +78,7 @@ describe("netlifyIdentity", () => {
     });
 
     it("should not invoke logout callback when user is set to an object", () => {
-      const store = require("./state/store");
+      const { default: store } = require("./state/store");
       store.user = null;
 
       const { default: netlifyIdentity } = require("./netlify-identity");
@@ -102,7 +102,7 @@ describe("netlifyIdentity", () => {
     });
 
     it("should remove all callbacks when called with only first argument", () => {
-      const store = require("./state/store");
+      const { default: store } = require("./state/store");
       const { default: netlifyIdentity } = require("./netlify-identity");
 
       const loginCallback1 = jest.fn();
@@ -132,7 +132,7 @@ describe("netlifyIdentity", () => {
     });
 
     it("should remove a specific callback when called with two arguments", () => {
-      const store = require("./state/store");
+      const { default: store } = require("./state/store");
       const { default: netlifyIdentity } = require("./netlify-identity");
 
       const loginCallback1 = jest.fn();
@@ -159,6 +159,28 @@ describe("netlifyIdentity", () => {
 
       expect(loginCallback1).toHaveBeenCalledTimes(0);
       expect(loginCallback2).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe("init", () => {
+    it("should only invoke init event once when on localhost and netlifySiteURL is set", () => {
+      window.location = { hostname: "localhost" };
+      localStorage.setItem("netlifySiteURL", "https://my-site.netlify.app/");
+
+      const { default: store } = require("./state/store");
+      const { default: netlifyIdentity } = require("./netlify-identity");
+
+      const initCallback = jest.fn();
+      netlifyIdentity.on("init", initCallback);
+
+      netlifyIdentity.init();
+
+      expect(initCallback).toHaveBeenCalledTimes(1);
+      expect(store.siteURL).toEqual("https://my-site.netlify.app/");
+      expect(store.gotrue.APIUrl).toEqual(
+        "https://my-site.netlify.app/.netlify/identity"
+      );
+      expect(store.gotrue.setCookie).toEqual(false);
     });
   });
 });
