@@ -9,16 +9,16 @@ function formatError(error) {
 }
 
 export default class Modal extends Component {
-  handleClose = e => {
+  handleClose = (e) => {
     e.preventDefault();
     this.props.onClose();
   };
 
-  blockEvent = e => {
+  blockEvent = (e) => {
     e.stopPropagation();
   };
 
-  linkHandler = page => e => {
+  linkHandler = (page) => (e) => {
     e.preventDefault();
     this.props.onPage(page);
   };

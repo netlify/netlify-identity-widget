@@ -59,11 +59,11 @@ const pages = {
 @connect(["store"])
 class App extends Component {
   handleClose = () => this.props.store.closeModal();
-  handlePage = page => this.props.store.openModal(page);
+  handlePage = (page) => this.props.store.openModal(page);
   handleLogout = () => this.props.store.logout();
-  handleSiteURL = url => this.props.store.setSiteURL(url);
-  clearSiteURL = url => this.props.store.clearSiteURL();
-  handleExternalLogin = provider => this.props.store.externalLogin(provider);
+  handleSiteURL = (url) => this.props.store.setSiteURL(url);
+  clearSiteURL = (url) => this.props.store.clearSiteURL();
+  handleExternalLogin = (provider) => this.props.store.externalLogin(provider);
   handleUser = ({ name, email, password }) => {
     const { store } = this.props;
 
@@ -169,7 +169,7 @@ class App extends Component {
       "GitLab",
       "BitBucket",
       "SAML"
-    ].filter(p => store.settings.external[p.toLowerCase()]);
+    ].filter((p) => store.settings.external[p.toLowerCase()]);
 
     return providers.length ? (
       <Providers

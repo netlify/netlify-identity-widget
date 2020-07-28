@@ -8,11 +8,11 @@ export default class UserForm extends Component {
     this.state = { name: "", email: "", password: "" };
   }
 
-  handleInput = e => {
+  handleInput = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  handleLogin = e => {
+  handleLogin = (e) => {
     e.preventDefault();
     this.props.onSubmit(this.state);
   };

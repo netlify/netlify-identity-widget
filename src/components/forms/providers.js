@@ -1,7 +1,7 @@
 import { h, Component } from "preact";
 
 class Provider extends Component {
-  handleLogin = e => {
+  handleLogin = (e) => {
     e.preventDefault();
     this.props.onLogin(this.props.provider.toLowerCase());
   };
@@ -35,7 +35,7 @@ export default class Providers extends Component {
     return (
       <div className="providersGroup">
         <hr className="hr" />
-        {providers.map(p => (
+        {providers.map((p) => (
           <Provider
             key={p}
             provider={p}

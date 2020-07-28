@@ -60,9 +60,9 @@ store.loadSettings = action(function loadSettings() {
 
   store.gotrue
     .settings()
-    .then(action(settings => (store.settings = settings)))
+    .then(action((settings) => (store.settings = settings)))
     .catch(
-      action(err => {
+      action((err) => {
         store.error = new Error(
           `Failed to load settings from ${store.gotrue.api.apiURL}`
         );
@@ -89,7 +89,7 @@ store.login = action(function login(email, password) {
   return store.gotrue
     .login(email, password, store.remember)
     .then(
-      action(user => {
+      action((user) => {
         store.user = user;
         store.modal.page = "user";
         store.invite_token = null;
@@ -116,7 +116,7 @@ store.completeExternalLogin = action(function completeExternalLogin(params) {
   store.startAction();
   store.gotrue
     .createUser(params, store.remember)
-    .then(user => {
+    .then((user) => {
       store.user = user;
       store.modal.page = "user";
       store.saving = false;
@@ -165,7 +165,7 @@ store.updatePassword = action(function updatePassword(password) {
   const user = store.recovered_user || store.user;
   user
     .update({ password })
-    .then(user => {
+    .then((user) => {
       store.user = user;
       store.recovered_user = null;
       store.modal.page = "user";
@@ -178,7 +178,7 @@ store.acceptInvite = action(function acceptInvite(password) {
   store.startAction();
   store.gotrue
     .acceptInvite(store.invite_token, password, store.remember)
-    .then(user => {
+    .then((user) => {
       store.saving = false;
       store.invite_token = null;
       store.user = user;
@@ -192,7 +192,7 @@ store.doEmailChange = action(function doEmailChange() {
   return store.user
     .update({ email_change_token: store.email_change_token })
     .then(
-      action(user => {
+      action((user) => {
         store.user = user;
         store.email_change_token = null;
         store.message = "email_changed";
@@ -213,13 +213,13 @@ store.verifyToken = action(function verifyToken(type, token) {
       gotrue
         .confirm(token, store.remember)
         .then(
-          action(user => {
+          action((user) => {
             store.user = user;
             store.saving = false;
           })
         )
         .catch(
-          action(err => {
+          action((err) => {
             console.error(err);
             store.message = "verfication_error";
             store.modal.page = "signup";
@@ -245,11 +245,11 @@ store.verifyToken = action(function verifyToken(type, token) {
       store.modal.page = type;
       store.gotrue
         .recover(token, store.remember)
-        .then(user => {
+        .then((user) => {
           store.saving = false;
           store.recovered_user = user;
         })
-        .catch(err => {
+        .catch((err) => {
           store.saving = false;
           store.error = err;
           store.modal.page = "login";
