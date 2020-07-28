@@ -41,7 +41,7 @@
     "npm-run-all": "^4.1.1",
     "postcss-cssnext": "^3.1.0",
     "postcss-import": "^11.0.0",
-    "postcss-loader": "^2.0.3",
+    "postcss-loader": "^3.0.0",
     "postcss-nested": "^3.0.0",
     "preact": "^8.1.0",
     "prettier": "^1.10.2",
