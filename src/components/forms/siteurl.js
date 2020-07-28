@@ -6,16 +6,16 @@ export default class SiteURLForm extends Component {
     this.state = { url: "", development: props.devMode || false };
   }
 
-  handleInput = e => {
+  handleInput = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  addSiteURL = e => {
+  addSiteURL = (e) => {
     e.preventDefault();
     this.props.onSiteURL(this.state.url);
   };
 
-  clearSiteURL = e => {
+  clearSiteURL = (e) => {
     e.preventDefault;
     this.props.onSiteURL();
   };
@@ -30,7 +30,7 @@ export default class SiteURLForm extends Component {
           <div class="subheader">
             <h3>{t("site_url_title")}</h3>
             <button
-              onclick={e => this.clearSiteURL(e)}
+              onclick={(e) => this.clearSiteURL(e)}
               className="btnLink forgotPasswordLink"
             >
               {t("site_url_link_text")}

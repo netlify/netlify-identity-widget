@@ -10,7 +10,7 @@ import modalCSS from "./components/modal.css";
 const callbacks = {};
 function trigger(callback) {
   const cbMap = callbacks[callback] || new Set();
-  Array.from(cbMap.values()).forEach(cb => {
+  Array.from(cbMap.values()).forEach((cb) => {
     cb.apply(cb, Array.prototype.slice.call(arguments, 1));
   });
 }
@@ -35,7 +35,7 @@ const netlifyIdentity = {
       }
     }
   },
-  open: action => {
+  open: (action) => {
     action = action || "login";
     if (!validActions[action]) {
       throw new Error(`Invalid action for open: ${action}`);
@@ -63,10 +63,10 @@ const netlifyIdentity = {
     }
     return store.gotrue.currentUser().jwt(force);
   },
-  init: options => {
+  init: (options) => {
     init(options);
   },
-  setLocale: locale => {
+  setLocale: (locale) => {
     if (locale) {
       store.locale = locale;
     }
@@ -197,7 +197,7 @@ function runRoutes() {
   const am = hash.match(accessTokenRoute);
   if (am) {
     const params = {};
-    hash.split("&").forEach(pair => {
+    hash.split("&").forEach((pair) => {
       const [key, value] = pair.split("=");
       params[key] = value;
     });
@@ -231,7 +231,7 @@ function init(options = {}) {
   const controlEls = document.querySelectorAll(
     "[data-netlify-identity-menu],[data-netlify-identity-button]"
   );
-  Array.prototype.slice.call(controlEls).forEach(el => {
+  Array.prototype.slice.call(controlEls).forEach((el) => {
     let controls = null;
     const mode =
       el.getAttribute("data-netlify-identity-menu") === null
