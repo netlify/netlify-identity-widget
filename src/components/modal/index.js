@@ -100,7 +100,7 @@ export default class Modal extends Component {
               formattedError.includes("Failed to load settings from") && (
                 <div>
                   <button
-                    onclick={e => {
+                    onclick={(e) => {
                       clearSiteURL(e);
                       clearStoreError();
                     }}
