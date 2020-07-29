@@ -102,7 +102,7 @@ export default class Modal extends Component {
                   <button
                     onclick={e => {
                       clearSiteURL(e);
-                      clearStoreError(null);
+                      clearStoreError();
                     }}
                     className="btnLink forgotPasswordLink"
                   >
