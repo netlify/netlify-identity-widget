@@ -63,6 +63,7 @@ class App extends Component {
   handleLogout = () => this.props.store.logout();
   handleSiteURL = (url) => this.props.store.setSiteURL(url);
   clearSiteURL = (url) => this.props.store.clearSiteURL();
+  clearStoreError = () => this.props.store.setError();
   handleExternalLogin = (provider) => this.props.store.externalLogin(provider);
   handleUser = ({ name, email, password }) => {
     const { store } = this.props;
@@ -201,6 +202,9 @@ class App extends Component {
           onClose={this.handleClose}
           logo={store.modal.logo}
           t={store.translate}
+          isLocal={store.isLocal}
+          clearSiteURL={this.clearSiteURL}
+          clearStoreError={this.clearStoreError}
         >
           {this.renderBody()}
           {this.renderProviders()}
