@@ -7,6 +7,7 @@ const umdConfig = Object.assign({}, baseConfig, {
   },
 
   output: {
+    globalObject: "this",
     path: path.resolve(__dirname, "build"),
     publicPath: "/",
     filename: "[name].js",
