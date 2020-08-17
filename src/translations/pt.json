@@ -33,7 +33,9 @@
   "form_password_label": "Insira sua senha",
   "form_password_placeholder": "Senha",
   "coded_by": "Desenvolvido por Netlify",
+  "continue_with": "Continue com",
   "No user found with this email": "Nenhum usuário encontrado com esse email",
   "Invalid Password": "Senha inválida",
-  "continue_with": "Continue com"
+  "Email not confirmed": "Email não confirmado",
+  "User not found": "Usuário não encontrado"
 }
