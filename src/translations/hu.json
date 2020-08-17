@@ -33,7 +33,9 @@
   "form_password_label": "Adja meg a jelszavát",
   "form_password_placeholder": "Jelszó",
   "coded_by": "Fejlesztette a Netlify",
+  "continue_with": "Bejelentkezés ezzel:",
   "No user found with this email": "Nem található fiók ezzel az e-mail címmel",
   "Invalid Password": "Helytelen Jelszó",
-  "continue_with": "Bejelentkezés ezzel:"
+  "Email not confirmed": "Az e-mail nem erősült meg",
+  "User not found": "Felhasználó nem található"
 }
