@@ -1,0 +1,9 @@
+[build]
+  command = "yarn run build && cp build/* releases/"
+  publish = "releases"
+
+  [build.environment]
+    YARN_FLAGS = "--frozen-lockfile"
+    YARN_VERSION = "1.22.4"
+    NODE_VERSION = "12"
+    
