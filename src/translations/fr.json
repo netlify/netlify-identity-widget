@@ -3,7 +3,7 @@
   "log_out": "Déconnexion",
   "logged_in_as": "Connecté en tant que",
   "logged_in": "Connecté",
-  "logging_in": "Connection",
+  "logging_in": "Connexion",
   "logging_out": "Déconnexion",
   "sign_up": "Inscription",
   "signing_up": "Inscription",
@@ -11,8 +11,8 @@
   "recover_password": "Récupérer le mot de passe",
   "send_recovery_email": "Envoyer l'e-mail de récupération",
   "sending_recovery_email": "Envoi de l'e-mail de récupération",
-  "never_mind": "Laisser tomber",
-  "update_password": "Mise à jour du mot de passe",
+  "never_mind": "Annuler",
+  "update_password": "Mettre à jour le mot de passe",
   "updating_password": "Mise à jour du mot de passe",
   "complete_your_signup": "Compléter l'inscription",
   "site_url_title": "Paramètres de développement",
@@ -33,6 +33,9 @@
   "form_password_label": "Saisissez votre mot de passe",
   "form_password_placeholder": "Mot de passe",
   "coded_by": "Codé par Netlify",
+  "continue_with": "Continuer avec",
   "No user found with this email": "Aucun utilisateur trouvé avec cet e-mail",
-  "Invalid Password": "Mot de passe incorrect"
+  "Invalid Password": "Mot de passe incorrect",
+  "Email not confirmed": "Adresse e-mail non confirmée",
+  "User not found": "Aucun utilisateur trouvé"
 }
