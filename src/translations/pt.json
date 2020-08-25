@@ -16,7 +16,7 @@
   "updating_password": "Atualizando senha",
   "complete_your_signup": "Complete seu registro",
   "site_url_title": "Configurações de desenvolvimento",
-  "site_url_link_text": "Limpar URL local",
+  "site_url_link_text": "Limpar URL do localhost",
   "site_url_message": "Parece que você está executando um servidor local. Informe-nos o URL do seu site Netlify.",
   "site_url_label": "Insira o URL do seu site Netlify",
   "site_url_placeholder": "URL do seu site Netlify",
