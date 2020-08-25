@@ -59,6 +59,7 @@ You can use this global object like this:
 netlifyIdentity.open();
 
 // Get the current user:
+// Available after on('init') is invoked
 const user = netlifyIdentity.currentUser();
 
 // Bind to events
@@ -78,7 +79,9 @@ netlifyIdentity.close();
 
 // Log out the user
 netlifyIdentity.logout();
-// refresh the user's JWT
+
+// Refresh the user's JWT
+// Call in on('login') handler to ensure token refreshed after it expires (1hr)  
 // Note: this method returns a promise.
 netlifyIdentity.refresh().then((jwt)=>console.log(jwt))
 
