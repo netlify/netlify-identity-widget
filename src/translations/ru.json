@@ -35,5 +35,7 @@
   "coded_by": "Сделано в Netlify",
   "No user found with this email": "Нет пользователя с такой электронной почтой",
   "Invalid Password": "Неправильный пароль",
-  "continue_with": "Продолжить"
+  "continue_with": "Продолжить с",
+  "Email not confirmed": "Адрес электронной почты не подтверждён",
+  "User not found": "Пользователь не найден"
 }
