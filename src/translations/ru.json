@@ -26,7 +26,7 @@
   "message_email_changed": "Ваша электронная почта обновлена!",
   "message_verfication_error": "Ошибка подтверждения аккаунта. Пожалуйста, попробуйте снова или свяжитесь с администратором.",
   "message_signup_disabled": "Публичная регистрация закрыта. Свяжитесь с администратором для приглашения.",
-  "form_name_placeholder": "Name",
+  "form_name_placeholder": "Имя",
   "form_email_label": "Введите ваш адрес электронной почты",
   "form_name_label": "Введите имя",
   "form_email_placeholder": "Электронная почта",
