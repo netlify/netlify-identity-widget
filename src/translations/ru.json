@@ -32,7 +32,7 @@
   "form_email_placeholder": "Электронная почта",
   "form_password_label": "Введите пароль",
   "form_password_placeholder": "Пароль",
-  "coded_by": "Сделано в Netlify",
+  "coded_by": "Сделано Netlify",
   "No user found with this email": "Нет пользователя с такой электронной почтой",
   "Invalid Password": "Неправильный пароль",
   "continue_with": "Продолжить с",
