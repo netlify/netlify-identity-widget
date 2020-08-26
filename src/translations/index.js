@@ -5,7 +5,7 @@ import * as hu from "./hu.json";
 import * as ru from "./ru.json";
 
 export const defaultLocale = "en";
-const translations = { en, fr, es, hu, ru };
+const translations = { en, fr, es, hu, pt, ru };
 
 export const getTranslation = (key, locale = defaultLocale) => {
   const translated = translations[locale] && translations[locale][key];
