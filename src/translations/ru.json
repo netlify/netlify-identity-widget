@@ -17,7 +17,7 @@
   "complete_your_signup": "Завершите регистрацию",
   "site_url_title": "Настройки разработки",
   "site_url_link_text": "Очитать локальный URL",
-  "site_url_message": "Похоже, что вы используте локальный сервер. Введите адрес вашего сайта.",
+  "site_url_message": "Похоже, вы используете локальный сервер. Введите адрес Вашего сайта, размещённого на Netlify.",
   "site_url_label": "Адрес сайта Netlify",
   "site_url_placeholder": "URL сайта Netlify",
   "site_url_submit": "Установить URL сайта",
