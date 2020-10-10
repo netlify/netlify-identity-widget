@@ -35,7 +35,7 @@ describe("translations", () => {
 
   it("should return translation for 'zh-TW' locale", () => {
     const { getTranslation } = require("./");
-    expect(getTranslation("log_in", "zhTW")).toEqual("登入");
+    expect(getTranslation("log_in", "zhTraditional")).toEqual("登入");
   });
 
   it("should return key for non existing translation", () => {
@@ -49,7 +49,7 @@ describe("translations", () => {
     jest.mock("./hu.json", () => ({}));
     jest.mock("./es.json", () => ({}));
     jest.mock("./pt.json", () => ({}));
-    jest.mock("./zhTW.json", () => ({}));
+    jest.mock("./zhTraditional.json", () => ({}));
 
     const { getTranslation } = require("./");
     expect(getTranslation("log_in")).toEqual("Log in");
@@ -57,6 +57,6 @@ describe("translations", () => {
     expect(getTranslation("log_in", "hu")).toEqual("Log in");
     expect(getTranslation("log_in", "es")).toEqual("Log in");
     expect(getTranslation("log_in", "pt")).toEqual("Log in");
-    expect(getTranslation("log_in", "zhTW")).toEqual("Log in");
+    expect(getTranslation("log_in", "zhTraditional")).toEqual("Log in");
   });
 });
