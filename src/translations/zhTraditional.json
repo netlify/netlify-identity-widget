@@ -36,6 +36,7 @@
   "continue_with": "透過",
   "No user found with this email": "沒有此電子郵件的使用者",
   "Invalid Password": "密碼無效",
+  "No user found with that email, or password invalid.": "沒有此電子郵件的使用者，或密碼無效。",
   "Email not confirmed": "尚未確認的電子郵件",
   "User not found": "找不到使用者"
 }
