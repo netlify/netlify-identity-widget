@@ -33,7 +33,7 @@
     "file-loader": "^6.0.0",
     "gh-release": "^3.4.0",
     "gotrue-js": "^0.9.26",
-    "html-webpack-plugin": "^4.3.0",
+    "html-webpack-plugin": "^5.0.0",
     "jest": "^26.0.1",
     "mkdirp": "^1.0.0",
     "mobx": "^5.15.4",
