@@ -1,4 +1,4 @@
-# Netlify Identity Widget
+![Netlify Identity Widget](identity.png)
 
 [![npm version](https://badge.fury.io/js/netlify-identity-widget.svg)](https://badge.fury.io/js/netlify-identity-widget)
 
