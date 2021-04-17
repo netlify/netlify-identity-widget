@@ -28,10 +28,7 @@ export default class LogoutForm extends Component {
               user.email}
           </span>
         </p>
-        <button
-          onClick={this.handleUpdatePassword}
-          className={`btn btnProvider`}
-        >
+        <button onClick={this.handleUpdatePassword} className="btn">
           {t("update_password")}
         </button>
         <Button
