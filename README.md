@@ -116,6 +116,7 @@ netlifyIdentity.init({
 netlifyIdentity.open(); // open the modal
 netlifyIdentity.open('login'); // open the modal to the login tab
 netlifyIdentity.open('signup'); // open the modal to the signup tab
+netlifyIdentity.open('updatePassword'); // open the update password modal if the user is logged in
 
 netlifyIdentity.on('init', user => console.log('init', user));
 netlifyIdentity.on('login', user => console.log('login', user));
@@ -158,6 +159,7 @@ module API. Options include:
   APIUrl: 'https://www.example.com/.netlify/functions/identity'; // Absolute url to endpoint.  ONLY USE IN SPECIAL CASES!
   namePlaceholder: 'some-placeholder-for-Name'; // custom placeholder for name input form
   locale: 'en'; // language code for translations - available: en, fr, es, pt, hu - default to en
+  logo: true; // show or hide the Netlify logo
 }
 ```
 
