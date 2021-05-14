@@ -4376,9 +4376,9 @@ got@^6.7.1:
     url-parse-lax "^1.0.0"
 
 gotrue-js@^0.9.26:
-  version "0.9.28"
-  resolved "https://registry.yarnpkg.com/gotrue-js/-/gotrue-js-0.9.28.tgz#06ec761dcc10eab68aec165355e3cb8ab44dc4ec"
-  integrity sha512-k30SdA3Uy/hWdGmi6aRB4lGV2S9fUahHHtPHoL3Lzptq32LOJGS/v6NRdwKRAoHUkUJBS9cYiJq8s8xCrwP/Zw==
+  version "0.9.29"
+  resolved "https://registry.yarnpkg.com/gotrue-js/-/gotrue-js-0.9.29.tgz#08e62184d4eaadcd87f95cb6e49e3c4a9742a052"
+  integrity sha512-NSFwJlFfWxHd1zHDitysbh+amFPHBAyQG1YmecZJTaSe8TlC7Wja1ewdUBikfJBblN3SqghS6aViMd+Q/pPzGQ==
   dependencies:
     micro-api-client "^3.2.1"
 
