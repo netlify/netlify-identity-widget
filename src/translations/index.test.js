@@ -32,21 +32,22 @@ describe("translations", () => {
     const { getTranslation } = require("./");
     expect(getTranslation("log_in", "pt")).toEqual("Entrar");
   });
-
-  it("should return translation for 'cs' locale", () => {
-    const { getTranslation } = require("./");
-    expect(getTranslation("log_in", "cs")).toEqual("Entrar");
-  });
-
-  it("should return translation for 'sk' locale", () => {
-    const { getTranslation } = require("./");
-    expect(getTranslation("log_in", "sk")).toEqual("Entrar");
-  });
-
+  
   it("should return translation for 'pl' locale", () => {
     const { getTranslation } = require("./");
     expect(getTranslation("log_in", "pl")).toEqual("Zaloguj się");
   });
+
+  it("should return translation for 'cs' locale", () => {
+    const { getTranslation } = require("./");
+    expect(getTranslation("log_in", "cs")).toEqual("Přihlásit se");
+  });
+
+  it("should return translation for 'sk' locale", () => {
+    const { getTranslation } = require("./");
+    expect(getTranslation("log_in", "sk")).toEqual("Prihlásiť sa");
+  });
+
 
   it("should return key for non existing translation", () => {
     const { getTranslation } = require("./");
