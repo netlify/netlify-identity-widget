@@ -37,12 +37,12 @@ describe("translations", () => {
     const { getTranslation } = require("./");
     expect(getTranslation("log_in", "cs")).toEqual("Entrar");
   });
-  
+
   it("should return translation for 'sk' locale", () => {
     const { getTranslation } = require("./");
     expect(getTranslation("log_in", "sk")).toEqual("Entrar");
   });
-  
+
   it("should return translation for 'pl' locale", () => {
     const { getTranslation } = require("./");
     expect(getTranslation("log_in", "pl")).toEqual("Zaloguj się");
@@ -69,8 +69,8 @@ describe("translations", () => {
     expect(getTranslation("log_in", "hu")).toEqual("Log in");
     expect(getTranslation("log_in", "es")).toEqual("Log in");
     expect(getTranslation("log_in", "pt")).toEqual("Log in");
+    expect(getTranslation("log_in", "pl")).toEqual("Log in");
     expect(getTranslation("log_in", "cs")).toEqual("Log in");
     expect(getTranslation("log_in", "sk")).toEqual("Log in");
-    expect(getTranslation("log_in", "pl")).toEqual("Log in");
   });
 });
