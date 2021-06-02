@@ -24,7 +24,7 @@
     "message_confirm": "Na váš e-mail bol odoslaný odkaz na potvrdenie, pokračujte kliknutím na tento odkaz.",
     "message_password_mail": "Poslali sme vám e-mail pre obnovenie hesla, heslo obnovíte kliknutím na odkaz v e-mailu.",
     "message_email_changed": "Vaša e-mailová adresa bola aktualizovaná!",
-    "message_verfication_error": "Pri overovaní vášho účtu došlo k chybe. Skúste to znova alebo kontaktujte správcu.",
+    "message_verfication_error": "Pri overovaní vášho účtu došlo k chybe. Prosím, skúste to znova alebo kontaktujte správcu.",
     "message_signup_disabled": "Registrácia pre verejnosť sú zakázané. Kontaktujte správcu a požiadajte o pozvánku.",
     "form_name_placeholder": "Meno",
     "form_email_label": "Zadajte svoj e-mail",
