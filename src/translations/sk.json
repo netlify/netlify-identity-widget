@@ -7,7 +7,7 @@
     "logging_out": "Odhlásenie",
     "sign_up": "Zaregistrovať sa",
     "signing_up": "Registrácia",
-    "remember_password": "Zabudli ste heslo?",
+    "forgot_password": "Zabudli ste heslo?",
     "recover_password": "Obnoviť heslo",
     "send_recovery_email": "Odoslať e-mail pre obnovenie",
     "sending_recovery_email": "Odosielanie e-mailu pre obnovenie",
