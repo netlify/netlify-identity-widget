@@ -17,7 +17,7 @@
   "complete_your_signup": "Dokončite registráciu",
   "site_url_title": "Nastavenie vývoja",
   "site_url_link_text": "Vymazať URL localhost",
-  "site_url_message": "Zdá sa, že používate lokálny server. Povedzte nám adresu URL svojho Netlify servera.",
+  "site_url_message": "Zdá sa, že používate lokálny server. Prosím, nastavte URL adresu svojho Netlify servera.",
   "site_url_label": "Zadajte URL svojho servera Netlify",
   "site_url_placeholder": "URL vášho Netlify servera",
   "site_url_submit": "Nastaviť URL adresu",
