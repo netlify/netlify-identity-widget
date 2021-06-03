@@ -21,7 +21,7 @@
   "site_url_label": "Zadajte URL svojho servera Netlify",
   "site_url_placeholder": "URL vášho Netlify servera",
   "site_url_submit": "Nastaviť adresu URL",
-  "message_confirm": "Na váš e-mail bol odoslaný odkaz na potvrdenie registrácie, pokračujte kliknutím na tento odkaz.",
+  "message_confirm": "Potvrďte registráciu kliknutím na odkaz v správe, ktorú sme Vám práve zaslali na váš email.",
   "message_password_mail": "Poslali sme vám e-mail pre obnovenie hesla, heslo obnovíte kliknutím na odkaz v e-maile.",
   "message_email_changed": "Vaša e-mailová adresa bola aktualizovaná!",
   "message_verfication_error": "Pri overovaní vášho účtu došlo k chybe. Prosím, skúste to znova alebo kontaktujte správcu.",
