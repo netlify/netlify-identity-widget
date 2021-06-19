@@ -174,14 +174,12 @@ localStorage.
 This allows the widget to know which instance of Netlify Identity it should
 communicate with zero configuration.
 
-E.g. If your Netlify site is served from the `olddvdscreensaver.com` domain
-name, enter the following when prompted by the widget when in development mode:
-
-```
-https://olddvdscreensaver.com
-```
-
-![](devmode.png)
+> Note for custom domains: use the Netlify app domain name not the custom domain
+> name to avoid a [CORS error](https://answers.netlify.com/t/cors-error-with-netlify-identity/13554/19).
+> For instance, if your Netlify site is named `olddvdscreensaver` and uses the
+> `https://olddvdscreensaver.com` custom domain, you should enter
+> `https://olddvdscreensaver.netlify.app`, not `https://olddvdscreensaver.com`
+> when prompted by the widget when in dev mode.
 
 ## List of Alternatives
 
