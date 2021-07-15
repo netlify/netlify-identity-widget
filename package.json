@@ -18,6 +18,7 @@
     "@babel/polyfill": "^7.10.1",
     "@babel/preset-env": "^7.10.2",
     "@babel/register": "^7.10.1",
+    "@netlify/functions": "^0.7.2",
     "auto-changelog": "^2.0.0",
     "babel-eslint": "^10.1.0",
     "babel-jest": "^26.0.1",
