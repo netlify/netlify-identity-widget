@@ -1,5 +1,5 @@
 /** @type {import("@netlify/functions").Handler} */
-export const handler = (event) => {
+exports.handler = (event) => {
   console.log("I got called!", event);
   return {
     statusCode: 200
