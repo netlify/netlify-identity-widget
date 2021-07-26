@@ -1,5 +1,18 @@
 import { h, Component } from "preact";
 
+/**
+ * @arg {string} string
+ * @arg {string} ending
+ **/
+function removeFrom(string, mark) {
+  const index = string.indexOf(mark);
+  if (index === -1) {
+    return string;
+  }
+
+  return string.substring(0, string.length - mark.length);
+}
+
 export default class SiteURLForm extends Component {
   constructor(props) {
     super(props);
@@ -12,7 +25,8 @@ export default class SiteURLForm extends Component {
 
   addSiteURL = (e) => {
     e.preventDefault();
-    this.props.onSiteURL(this.state.url);
+    const url = removeFrom(this.state.url, "/.netlify/identity");
+    this.props.onSiteURL(url);
   };
 
   clearSiteURL = (e) => {
