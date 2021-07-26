@@ -1,7 +1,7 @@
 {
   "name": "netlify-identity-widget",
   "description": "Netlify Identity widget for easy integration",
-  "version": "1.9.1",
+  "version": "1.9.2",
   "author": "Matt Biilmann <matt@netlify.com>",
   "bugs": {
     "url": "https://github.com/netlify/netlify-identity-widget/issues"
