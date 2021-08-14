@@ -42,17 +42,17 @@ const netlifyAuth = {
   isAuthenticated: false,
   user: null,
   authenticate(callback) {
-    this.isAuthenticated = true;
     netlifyIdentity.open();
     netlifyIdentity.on('login', user => {
+      this.isAuthenticated = true;
       this.user = user;
       callback(user);
     });
   },
   signout(callback) {
-    this.isAuthenticated = false;
     netlifyIdentity.logout();
     netlifyIdentity.on('logout', () => {
+      this.isAuthenticated = false;
       this.user = null;
       callback();
     });
