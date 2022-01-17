@@ -8,18 +8,15 @@ class Controls extends Component {
     this.props.store.openModal("signup");
   };
 
-  handleLogin = (e) => {
-    e.preventDefault();
+  handleLogin = () => {
     this.props.store.openModal("login");
   };
 
-  handleLogout = (e) => {
-    e.preventDefault();
+  handleLogout = () => {
     this.props.store.openModal("user");
   };
 
-  handleButton = (e) => {
-    e.preventDefault();
+  handleButton = () => {
     this.props.store.openModal(this.props.store.user ? "user" : "login");
   };
 
