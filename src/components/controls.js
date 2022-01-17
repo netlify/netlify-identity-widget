@@ -28,13 +28,13 @@ class Controls extends Component {
 
     if (this.props.mode === "button") {
       return (
-        <a
+        <button
+          type="button"
           className="netlify-identity-button"
-          href="#"
           onClick={this.handleButton}
         >
           {this.props.text || (user ? t("log_out") : t("log_in"))}
-        </a>
+        </button>
       );
     }
 
@@ -48,13 +48,13 @@ class Controls extends Component {
             </span>
           </li>
           <li className="netlify-identity-item">
-            <a
+            <button
+              type="button"
               className="netlify-identity-logout"
-              href="#"
               onClick={this.handleLogout}
             >
               {t("log_out")}
-            </a>
+            </button>
           </li>
         </ul>
       );
@@ -63,22 +63,22 @@ class Controls extends Component {
     return (
       <ul className="netlify-identity-menu">
         <li className="netlify-identity-item">
-          <a
+          <button
+            type="button"
             className="netlify-identity-signup"
-            href="#"
             onClick={this.handleSignup}
           >
             {t("sign_up")}
-          </a>
+          </button>
         </li>
         <li className="netlify-identity-item">
-          <a
+          <button
+            type="button"
             className="netlify-identity-login"
-            href="#"
             onClick={this.handleLogin}
           >
             {t("log_in")}
-          </a>
+          </button>
         </li>
       </ul>
     );
