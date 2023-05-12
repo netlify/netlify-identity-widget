@@ -48,6 +48,11 @@ describe("translations", () => {
     expect(getTranslation("log_in", "sk")).toEqual("Prihlásiť sa");
   });
 
+  it("should return translation for 'it' locale", () => {
+    const { getTranslation } = require("./");
+    expect(getTranslation("log_in", "it")).toEqual("Login");
+  });
+
   it("should return key for non existing translation", () => {
     const { getTranslation } = require("./");
     expect(getTranslation("unknown_key")).toEqual("unknown_key");
@@ -62,6 +67,7 @@ describe("translations", () => {
     jest.mock("./cs.json", () => ({}));
     jest.mock("./sk.json", () => ({}));
     jest.mock("./pl.json", () => ({}));
+    jest.mock("./it.json", () => ({}));
 
     const { getTranslation } = require("./");
     expect(getTranslation("log_in")).toEqual("Log in");
@@ -72,5 +78,6 @@ describe("translations", () => {
     expect(getTranslation("log_in", "pl")).toEqual("Log in");
     expect(getTranslation("log_in", "cs")).toEqual("Log in");
     expect(getTranslation("log_in", "sk")).toEqual("Log in");
+    expect(getTranslation("log_in", "it")).toEqual("Log in");
   });
 });
