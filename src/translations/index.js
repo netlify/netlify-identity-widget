@@ -1,6 +1,6 @@
 import * as en from "./en.json";
 import * as fr from "./fr.json";
-import * as es from "./el.json";
+import * as el from "./el.json";
 import * as es from "./es.json";
 import * as hu from "./hu.json";
 import * as pt from "./pt.json";
