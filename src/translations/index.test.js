@@ -48,6 +48,11 @@ describe("translations", () => {
     expect(getTranslation("log_in", "sk")).toEqual("Prihlásiť sa");
   });
 
+  it("should return translation for 'ar' locale", () => {
+    const { getTranslation } = require("./");
+    expect(getTranslation("log_in", "ar")).toEqual("سجل دخول");
+  });
+
   it("should return key for non existing translation", () => {
     const { getTranslation } = require("./");
     expect(getTranslation("unknown_key")).toEqual("unknown_key");
