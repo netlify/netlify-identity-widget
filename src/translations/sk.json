@@ -37,5 +37,7 @@
   "No user found with this email": "Nebol nájdený žiadny užívateľ s týmto e-mailom",
   "Invalid Password": "Neplatné heslo",
   "Email not confirmed": "E-mail nebol potvrdený",
-  "User not found": "Používateľ nebol nájdený"
+  "User not found": "Používateľ nebol nájdený",
+  "A user with this email address has already been registered": "Používateľ s touto e-mailovou adresou už bol zaregistrovaný.",
+  "No user found with that email, or password invalid.": "Žiadny používateľ s týmto e-mailom nebol nájdený, alebo heslo je neplatné."
 }

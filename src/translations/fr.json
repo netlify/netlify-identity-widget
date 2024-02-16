@@ -37,5 +37,7 @@
   "No user found with this email": "Aucun utilisateur trouvé avec cet e-mail",
   "Invalid Password": "Mot de passe incorrect",
   "Email not confirmed": "Adresse e-mail non confirmée",
-  "User not found": "Aucun utilisateur trouvé"
+  "User not found": "Aucun utilisateur trouvé",
+  "A user with this email address has already been registered": "Un utilisateur avec cette adresse e-mail a déjà été enregistré.",
+  "No user found with that email, or password invalid.": "Aucun utilisateur trouvé avec cet e-mail, ou mot de passe invalide."
 }
