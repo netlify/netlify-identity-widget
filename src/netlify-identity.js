@@ -60,8 +60,16 @@ const netlifyIdentity = {
   refresh(force) {
     if (!store.gotrue) {
       store.openModal("login");
+      return Promise.reject(new Error('netlify-identity-widget: gotrue not initialized'))
     }
-    return store.gotrue.currentUser().jwt(force);
+
+    const currentUser = store.gotrue.currentUser()
+
+    if (currentUser) {
+      return currentUser.jwt(force)
+    } else {
+      return Promise.reject(new Error('netlify-identity-widget: no currentUser'));
+    }
   },
   init: (options) => {
     init(options);
