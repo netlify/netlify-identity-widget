@@ -6,7 +6,7 @@ A component used to authenticate with Netlify's Identity service.
 
 [Live demo](https://identity.netlify.com)
 
-For usage example with React and React Router, please see our `/example` folder and [read the README](https://github.com/netlify/netlify-identity-widget/tree/master/example).
+For usage example with React and React Router, please see our `/example` folder and [read the README](https://github.com/netlify/netlify-identity-widget/tree/main/example).
 
 ## What is Netlify Identity
 
@@ -193,7 +193,7 @@ https://olddvdscreensaver.com
 
 **High level popup**: If you want a popup window approach also with a nice UI out of the box, and don't mind the popup flow, check https://github.com/netlify/netlify-auth-providers
 
-You can also see an example of wrapping netlify-identity-widget in a React Hook here: https://github.com/sw-yx/netlify-fauna-todo/blob/master/src/hooks/useNetlifyIdentity.js
+You can also see an example of wrapping netlify-identity-widget in a React Hook here: https://github.com/sw-yx/netlify-fauna-todo/blob/main/src/hooks/useNetlifyIdentity.js
 
 ## FAQ
 
