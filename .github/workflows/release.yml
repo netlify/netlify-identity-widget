@@ -1,0 +1,54 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn --frozen-lockfile
+        env:
+          NODE_OPTIONS: --openssl-legacy-provider
+
+      - name: Build
+        run: yarn build
+        env:
+          NODE_OPTIONS: --openssl-legacy-provider
+
+      - name: Get major version
+        id: version
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          MAJOR=$(echo $VERSION | cut -d. -f1)
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "major=$MAJOR" >> $GITHUB_OUTPUT
+
+      - name: Copy to releases folder
+        run: |
+          mkdir -p releases/v${{ steps.version.outputs.major }}
+          cp build/* releases/v${{ steps.version.outputs.major }}/
+
+      - name: Commit and push releases
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add releases/
+          git commit -m "chore: update releases/v${{ steps.version.outputs.major }} for ${{ github.ref_name }}"
+          git push origin HEAD:main
