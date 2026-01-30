@@ -1,17 +1,19 @@
 /* eslint no-console: "off" */
 const exec = require("child_process").execSync;
-const version = require("../package.json").releaseVersion;
+const pkgVersion = require("../package.json").version;
+const majorVersion = pkgVersion.split(".")[0];
+const releaseDir = `v${majorVersion}`;
 
-console.log("Building new release for ", version);
+console.log(`Building release for version ${pkgVersion} -> releases/${releaseDir}`);
 
 exec("yarn");
 exec("yarn build");
 
 console.log("Creating release dir");
-exec("mkdir -p releases/" + version);
+exec(`mkdir -p releases/${releaseDir}`);
 
-console.log("copying release files");
-exec("cp build/* releases/" + version);
+console.log("Copying release files");
+exec(`cp build/* releases/${releaseDir}`);
 
-console.log("stage release artifiacts");
-exec("git add releases/" + version);
+console.log("Staging release artifacts");
+exec(`git add releases/${releaseDir}`);

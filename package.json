@@ -21,7 +21,8 @@
     "@babel/polyfill": "^7.10.1",
     "@babel/preset-env": "^7.28.6",
     "@babel/register": "^7.28.6",
-    "auto-changelog": "^2.0.0",
+    "@commitlint/cli": "^19.0.0",
+    "@commitlint/config-conventional": "^19.0.0",
     "babel-eslint": "^10.1.0",
     "babel-jest": "^26.0.1",
     "babel-loader": "^8.1.0",
@@ -35,6 +36,7 @@
     "eslint-plugin-react": "^7.37.5",
     "file-loader": "^6.0.0",
     "gh-release": "^5.0.0",
+    "husky": "^9.0.0",
     "gotrue-js": "^0.9.26",
     "html-webpack-plugin": "^4.3.0",
     "jest": "^26.0.1",
@@ -67,15 +69,14 @@
     "repository": "netlify/netlify-identity-widget",
   "scripts": {
     "build": "run-p build:*",
-    "build:bundle": "cross-env NODE_ENV=production webpack --config webpack.config.babel.js",
-    "build:umd": "cross-env NODE_ENV=production webpack --config webpack.umd.config.babel.js",
-    "changelog": "auto-changelog --template keepachangelog -p && git add CHANGELOG.md",
-    "dev": "cross-env NODE_ENV=development webpack-dev-server --inline --progress --config webpack.config.babel.js",
+    "build:bundle": "cross-env NODE_OPTIONS=--openssl-legacy-provider NODE_ENV=production webpack --config webpack.config.babel.js",
+    "build:umd": "cross-env NODE_OPTIONS=--openssl-legacy-provider NODE_ENV=production webpack --config webpack.umd.config.babel.js",
+    "dev": "cross-env NODE_OPTIONS=--openssl-legacy-provider NODE_ENV=development webpack-dev-server --inline --progress --config webpack.config.babel.js",
     "format": "prettier --write 'src/**/*.js' '*.js'",
     "format-preview": "prettier --list-different 'src/**/*.js' '*.js'",
     "format-check": "prettier --check 'src/**/*.js' '*.js'",
     "prebuild": "rimraf build && mkdirp build",
-    "prepublish": "run-s build",
+    "prepare": "husky",
     "prestart": "run-s build",
     "publish": "git push && git push --tags && gh-release",
     "react-demo": "cd example && yarn && yarn start",
@@ -83,7 +84,6 @@
     "lint": "eslint src",
     "test": "run-s lint format-check test:unit",
     "test:unit": "jest",
-    "test:unit:watch": "jest --watch",
-    "version": "run-s release changelog"
+    "test:unit:watch": "jest --watch"
   }
 }

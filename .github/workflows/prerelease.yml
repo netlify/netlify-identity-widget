@@ -1,0 +1,79 @@
+name: Prerelease
+
+on:
+  push:
+    branches:
+      # releases/<tag>/<version>
+      # e.g., releases/beta/2.0.0 -> publishes 2.0.0-beta.1, 2.0.0-beta.2, etc.
+      - releases/*/*
+
+jobs:
+  prerelease:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: yarn
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install dependencies
+        run: yarn --frozen-lockfile
+        env:
+          NODE_OPTIONS: --openssl-legacy-provider
+
+      - name: Extract tag and version
+        id: extract
+        run: |
+          ref=${{ github.ref }}
+          branch=${ref#refs/heads/}
+          tag_version=${branch#releases/}
+          tag=${tag_version%/*}
+          version=${tag_version##*/}
+          major=${version%%.*}
+          echo "tag=${tag}" >> $GITHUB_OUTPUT
+          echo "version=${version}" >> $GITHUB_OUTPUT
+          echo "major=${major}" >> $GITHUB_OUTPUT
+
+      - name: Log versions
+        run: |
+          echo "tag=${{ steps.extract.outputs.tag }}"
+          echo "version=${{ steps.extract.outputs.version }}"
+          echo "major=${{ steps.extract.outputs.major }}"
+          echo "run_number=${{ github.run_number }}"
+          echo "full_version=${{ steps.extract.outputs.version }}-${{ steps.extract.outputs.tag }}.${{ github.run_number }}"
+
+      - name: Setup git user
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Run npm version
+        run: npm version ${{ steps.extract.outputs.version }}-${{ steps.extract.outputs.tag }}.${{ github.run_number }} --allow-same-version --no-git-tag-version
+
+      - name: Build
+        run: yarn build
+        env:
+          NODE_OPTIONS: --openssl-legacy-provider
+
+      - name: Copy to releases folder
+        run: |
+          mkdir -p releases/v${{ steps.extract.outputs.major }}-${{ steps.extract.outputs.tag }}
+          cp build/* releases/v${{ steps.extract.outputs.major }}-${{ steps.extract.outputs.tag }}/
+
+      - name: Commit and push
+        run: |
+          git add -A
+          git commit -m "chore: prerelease ${{ steps.extract.outputs.version }}-${{ steps.extract.outputs.tag }}.${{ github.run_number }}"
+          git push
+
+      - name: Publish to npm
+        run: npm publish --tag=${{ steps.extract.outputs.tag }}
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
