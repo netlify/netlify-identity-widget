@@ -64,8 +64,7 @@
   ],
   "license": "MIT",
   "main": "./build/netlify-identity",
-  "releaseVersion": "v1",
-  "repository": "netlify/netlify-identity-widget",
+    "repository": "netlify/netlify-identity-widget",
   "scripts": {
     "build": "run-p build:*",
     "build:bundle": "cross-env NODE_ENV=production webpack --config webpack.config.babel.js",
