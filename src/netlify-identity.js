@@ -213,7 +213,7 @@ function runRoutes() {
           return;
         }
         // eslint-disable-next-line no-empty
-      } catch (e) {}
+      } catch {}
     }
     document.location.hash = "";
     store.openModal("login");
