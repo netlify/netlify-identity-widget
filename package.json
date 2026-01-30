@@ -3,6 +3,9 @@
   "description": "Netlify Identity widget for easy integration",
   "version": "1.9.2",
   "author": "Matt Biilmann <matt@netlify.com>",
+  "engines": {
+    "node": ">=18"
+  },
   "bugs": {
     "url": "https://github.com/netlify/netlify-identity-widget/issues"
   },

@@ -14,32 +14,26 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [12.x]
+        node-version: [18, 20, 22]
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
+          cache: 'yarn'
 
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn cache dir)"
-
-      - uses: actions/cache@v2
-        with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ matrix.node-version }}-${{ hashFiles(format('{0}{1}', github.workspace, '/yarn.lock')) }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-${{ matrix.node-version }}-
-
-      - name: install dependencies
+      - name: Install dependencies
         run: yarn --frozen-lockfile
+        env:
+          NODE_OPTIONS: --openssl-legacy-provider
 
-      - name: run tests
+      - name: Run tests
         run: yarn test
 
-      - name: run build
-        run: yarn run build
+      - name: Run build
+        run: yarn build
+        env:
+          NODE_OPTIONS: --openssl-legacy-provider
