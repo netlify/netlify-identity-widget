@@ -1,3 +1,4 @@
+/// <reference types="vitest" />
 import { defineConfig } from "vite";
 import { resolve } from "path";
 import { babel } from "@rollup/plugin-babel";
@@ -51,5 +52,9 @@ export default defineConfig({
   server: {
     port: 8080,
     open: true
+  },
+  test: {
+    globals: true,
+    environment: "jsdom"
   }
 });

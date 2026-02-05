@@ -1,8 +1,10 @@
-jest.mock("./components/modal.css", () => "");
-jest.mock("gotrue-js", () => {
-  const mock = jest.fn().mockImplementation(({ APIUrl, setCookie }) => {
+import { vi, describe, it, expect, beforeEach } from "vitest";
+
+vi.mock("./components/modal.css?inline", () => ({ default: "" }));
+vi.mock("gotrue-js", () => {
+  const mock = vi.fn().mockImplementation(({ APIUrl, setCookie }) => {
     return {
-      settings: jest.fn().mockResolvedValue({
+      settings: vi.fn().mockResolvedValue({
         external: {
           bitbucket: false,
           github: false,
@@ -16,25 +18,25 @@ jest.mock("gotrue-js", () => {
         disable_signup: false,
         autoconfirm: false
       }),
-      currentUser: jest.fn(),
+      currentUser: vi.fn(),
       APIUrl,
       setCookie
     };
   });
-  return mock;
+  return { default: mock };
 });
 
 describe("netlifyIdentity", () => {
   beforeEach(() => {
-    jest.resetModules();
+    vi.resetModules();
   });
 
   describe("on", () => {
-    it("should invoke login callback when user is set to an object", () => {
-      const { default: store } = require("./state/store");
-      const { default: netlifyIdentity } = require("./netlify-identity");
+    it("should invoke login callback when user is set to an object", async () => {
+      const { default: store } = await import("./state/store");
+      const { default: netlifyIdentity } = await import("./netlify-identity");
 
-      const loginCallback = jest.fn();
+      const loginCallback = vi.fn();
       netlifyIdentity.on("login", loginCallback);
 
       store.user = {
@@ -45,15 +47,15 @@ describe("netlifyIdentity", () => {
       expect(loginCallback).toHaveBeenCalledWith({ name: "user" });
     });
 
-    it("should invoke logout callback when user is set to null", () => {
-      const { default: store } = require("./state/store");
+    it("should invoke logout callback when user is set to null", async () => {
+      const { default: store } = await import("./state/store");
       store.user = {
         name: "user"
       };
 
-      const { default: netlifyIdentity } = require("./netlify-identity");
+      const { default: netlifyIdentity } = await import("./netlify-identity");
 
-      const logoutCallback = jest.fn();
+      const logoutCallback = vi.fn();
       netlifyIdentity.on("logout", logoutCallback);
 
       store.user = null;
@@ -61,15 +63,15 @@ describe("netlifyIdentity", () => {
       expect(logoutCallback).toHaveBeenCalledTimes(1);
     });
 
-    it("should not invoke login callback when user is set to null", () => {
-      const { default: store } = require("./state/store");
+    it("should not invoke login callback when user is set to null", async () => {
+      const { default: store } = await import("./state/store");
       store.user = {
         name: "user"
       };
 
-      const { default: netlifyIdentity } = require("./netlify-identity");
+      const { default: netlifyIdentity } = await import("./netlify-identity");
 
-      const loginCallback = jest.fn();
+      const loginCallback = vi.fn();
       netlifyIdentity.on("login", loginCallback);
 
       store.user = null;
@@ -77,13 +79,13 @@ describe("netlifyIdentity", () => {
       expect(loginCallback).toHaveBeenCalledTimes(0);
     });
 
-    it("should not invoke logout callback when user is set to an object", () => {
-      const { default: store } = require("./state/store");
+    it("should not invoke logout callback when user is set to an object", async () => {
+      const { default: store } = await import("./state/store");
       store.user = null;
 
-      const { default: netlifyIdentity } = require("./netlify-identity");
+      const { default: netlifyIdentity } = await import("./netlify-identity");
 
-      const loginCallback = jest.fn();
+      const loginCallback = vi.fn();
       netlifyIdentity.on("logout", loginCallback);
 
       store.user = {
@@ -95,18 +97,18 @@ describe("netlifyIdentity", () => {
   });
 
   describe("off", () => {
-    it("should not throw when an unregistered callback is removed", () => {
-      const { default: netlifyIdentity } = require("./netlify-identity");
+    it("should not throw when an unregistered callback is removed", async () => {
+      const { default: netlifyIdentity } = await import("./netlify-identity");
 
       expect(() => netlifyIdentity.off("login", () => undefined)).not.toThrow();
     });
 
-    it("should remove all callbacks when called with only first argument", () => {
-      const { default: store } = require("./state/store");
-      const { default: netlifyIdentity } = require("./netlify-identity");
+    it("should remove all callbacks when called with only first argument", async () => {
+      const { default: store } = await import("./state/store");
+      const { default: netlifyIdentity } = await import("./netlify-identity");
 
-      const loginCallback1 = jest.fn();
-      const loginCallback2 = jest.fn();
+      const loginCallback1 = vi.fn();
+      const loginCallback2 = vi.fn();
 
       netlifyIdentity.on("login", loginCallback1);
       netlifyIdentity.on("login", loginCallback2);
@@ -131,12 +133,12 @@ describe("netlifyIdentity", () => {
       expect(loginCallback2).toHaveBeenCalledTimes(0);
     });
 
-    it("should remove a specific callback when called with two arguments", () => {
-      const { default: store } = require("./state/store");
-      const { default: netlifyIdentity } = require("./netlify-identity");
+    it("should remove a specific callback when called with two arguments", async () => {
+      const { default: store } = await import("./state/store");
+      const { default: netlifyIdentity } = await import("./netlify-identity");
 
-      const loginCallback1 = jest.fn();
-      const loginCallback2 = jest.fn();
+      const loginCallback1 = vi.fn();
+      const loginCallback2 = vi.fn();
 
       netlifyIdentity.on("login", loginCallback1);
       netlifyIdentity.on("login", loginCallback2);
@@ -163,14 +165,14 @@ describe("netlifyIdentity", () => {
   });
 
   describe("init", () => {
-    it("should only invoke init event once when on localhost and netlifySiteURL is set", () => {
+    it("should only invoke init event once when on localhost and netlifySiteURL is set", async () => {
       window.location = { hostname: "localhost" };
       localStorage.setItem("netlifySiteURL", "https://my-site.netlify.app/");
 
-      const { default: store } = require("./state/store");
-      const { default: netlifyIdentity } = require("./netlify-identity");
+      const { default: store } = await import("./state/store");
+      const { default: netlifyIdentity } = await import("./netlify-identity");
 
-      const initCallback = jest.fn();
+      const initCallback = vi.fn();
       netlifyIdentity.on("init", initCallback);
 
       netlifyIdentity.init();
