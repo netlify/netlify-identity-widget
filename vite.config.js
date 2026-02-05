@@ -20,12 +20,30 @@ export default defineConfig({
         ["@babel/plugin-transform-class-properties", { loose: true }],
         ["@babel/plugin-transform-private-methods", { loose: true }],
         ["@babel/plugin-transform-private-property-in-object", { loose: true }],
-        ["@babel/plugin-transform-react-jsx", { pragma: "h" }]
+        [
+          "@babel/plugin-transform-react-jsx",
+          { pragma: "h", pragmaFrag: "Fragment" }
+        ]
       ]
     })
   ],
   css: {
     postcss: "./postcss.config.js"
+  },
+  esbuild: {
+    // Tell esbuild to handle JSX in .js files during dev
+    loader: "jsx",
+    include: /src\/.*\.js$/,
+    jsxFactory: "h",
+    jsxFragment: "Fragment"
+  },
+  optimizeDeps: {
+    // Force esbuild to use jsx loader for dependencies too
+    esbuildOptions: {
+      loader: {
+        ".js": "jsx"
+      }
+    }
   },
   build: isLibBuild
     ? {

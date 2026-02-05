@@ -1,5 +1,6 @@
 import { h, Component } from "preact";
-import { connect } from "mobx-preact";
+import { observer } from "../utils/observer";
+import { StoreContext } from "../state/context";
 import Modal from "./modal";
 import SiteURLForm from "./forms/siteurl";
 import LogoutForm from "./forms/logout";
@@ -56,17 +57,22 @@ const pages = {
   }
 };
 
-@connect(["store"])
 class App extends Component {
-  handleClose = () => this.props.store.closeModal();
-  handlePage = (page) => this.props.store.openModal(page);
-  handleLogout = () => this.props.store.logout();
-  handleSiteURL = (url) => this.props.store.setSiteURL(url);
-  clearSiteURL = (url) => this.props.store.clearSiteURL();
-  clearStoreError = () => this.props.store.setError();
-  handleExternalLogin = (provider) => this.props.store.externalLogin(provider);
+  static contextType = StoreContext;
+
+  get store() {
+    return this.context;
+  }
+
+  handleClose = () => this.store.closeModal();
+  handlePage = (page) => this.store.openModal(page);
+  handleLogout = () => this.store.logout();
+  handleSiteURL = (url) => this.store.setSiteURL(url);
+  clearSiteURL = (url) => this.store.clearSiteURL();
+  clearStoreError = () => this.store.setError();
+  handleExternalLogin = (provider) => this.store.externalLogin(provider);
   handleUser = ({ name, email, password }) => {
-    const { store } = this.props;
+    const { store } = this;
 
     switch (store.modal.page) {
       case "login":
@@ -88,7 +94,7 @@ class App extends Component {
   };
 
   renderBody() {
-    const { store } = this.props;
+    const { store } = this;
     const page = pages[store.modal.page] || {};
     const pageLinkHandler = () => this.handlePage(page.link);
 
@@ -130,7 +136,7 @@ class App extends Component {
         />
         {!store.user && page.link && store.gotrue && (
           <button
-            onclick={pageLinkHandler}
+            onClick={pageLinkHandler}
             className="btnLink forgotPasswordLink"
           >
             {store.translate(page.link_text)}
@@ -150,7 +156,7 @@ class App extends Component {
   }
 
   renderProviders() {
-    const { store } = this.props;
+    const { store } = this;
 
     if (!(store.gotrue && store.settings)) {
       return null;
@@ -183,7 +189,7 @@ class App extends Component {
   }
 
   render() {
-    const { store } = this.props;
+    const { store } = this;
     const showHeader = pagesWithHeader[store.modal.page];
     const showSignup = store.settings && !store.settings.disable_signup;
     const page = pages[store.modal.page] || {};
@@ -214,4 +220,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default observer(App);

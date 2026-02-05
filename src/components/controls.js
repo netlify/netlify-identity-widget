@@ -1,30 +1,36 @@
 import { h, Component } from "preact";
-import { connect } from "mobx-preact";
+import { observer } from "../utils/observer";
+import { StoreContext } from "../state/context";
 
-@connect(["store"])
 class Controls extends Component {
+  static contextType = StoreContext;
+
+  get store() {
+    return this.context;
+  }
+
   handleSignup = (e) => {
     e.preventDefault();
-    this.props.store.openModal("signup");
+    this.store.openModal("signup");
   };
 
   handleLogin = (e) => {
     e.preventDefault();
-    this.props.store.openModal("login");
+    this.store.openModal("login");
   };
 
   handleLogout = (e) => {
     e.preventDefault();
-    this.props.store.openModal("user");
+    this.store.openModal("user");
   };
 
   handleButton = (e) => {
     e.preventDefault();
-    this.props.store.openModal(this.props.store.user ? "user" : "login");
+    this.store.openModal(this.store.user ? "user" : "login");
   };
 
   render() {
-    const { user, translate: t } = this.props.store;
+    const { user, translate: t } = this.store;
 
     if (this.props.mode === "button") {
       return (
@@ -85,4 +91,4 @@ class Controls extends Component {
   }
 }
 
-export default Controls;
+export default observer(Controls);

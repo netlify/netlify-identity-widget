@@ -1,10 +1,10 @@
 import { h, render } from "preact";
-import { observe } from "mobx";
-import { Provider } from "mobx-preact";
+import { reaction } from "mobx";
 import GoTrue from "gotrue-js";
 import App from "./components/app";
 import store from "./state/store";
 import Controls from "./components/controls";
+import { StoreContext } from "./state/context";
 import modalCSS from "./components/modal.css?inline";
 
 const callbacks = {};
@@ -111,7 +111,6 @@ function instantiateGotrue(APIUrl) {
   return new GoTrue({ setCookie: !isLocal });
 }
 
-let root;
 let iframe;
 const iframeStyle = {
   position: "fixed",
@@ -126,51 +125,66 @@ const iframeStyle = {
   "z-index": 99
 };
 
-observe(store.modal, "isOpen", () => {
-  if (!store.settings) {
-    store.loadSettings();
+reaction(
+  () => store.modal.isOpen,
+  () => {
+    if (!store.settings) {
+      store.loadSettings();
+    }
+    setStyle(iframe, {
+      ...iframeStyle,
+      display: store.modal.isOpen ? "block !important" : "none"
+    });
+    if (store.modal.isOpen) {
+      trigger("open", store.modal.page);
+    } else {
+      trigger("close");
+    }
   }
-  setStyle(iframe, {
-    ...iframeStyle,
-    display: store.modal.isOpen ? "block !important" : "none"
-  });
-  if (store.modal.isOpen) {
-    trigger("open", store.modal.page);
-  } else {
-    trigger("close");
+);
+
+reaction(
+  () => store.siteURL,
+  () => {
+    if (store.siteURL === null || store.siteURL === undefined) {
+      localStorage.removeItem("netlifySiteURL");
+    } else {
+      localStorage.setItem("netlifySiteURL", store.siteURL);
+    }
+
+    let apiUrl;
+    if (store.siteURL) {
+      const siteUrl = store.siteURL.replace(/\/$/, "");
+      apiUrl = `${siteUrl}/.netlify/identity`;
+    }
+    store.init(instantiateGotrue(apiUrl), true);
   }
-});
+);
 
-observe(store, "siteURL", () => {
-  if (store.siteURL === null || store.siteURL === undefined) {
-    localStorage.removeItem("netlifySiteURL");
-  } else {
-    localStorage.setItem("netlifySiteURL", store.siteURL);
+reaction(
+  () => store.user,
+  () => {
+    if (store.user) {
+      trigger("login", store.user);
+    } else {
+      trigger("logout");
+    }
   }
+);
 
-  let apiUrl;
-  if (store.siteURL) {
-    const siteUrl = store.siteURL.replace(/\/$/, "");
-    apiUrl = `${siteUrl}/.netlify/identity`;
+reaction(
+  () => store.gotrue,
+  () => {
+    store.gotrue && trigger("init", store.gotrue.currentUser());
   }
-  store.init(instantiateGotrue(apiUrl), true);
-});
+);
 
-observe(store, "user", () => {
-  if (store.user) {
-    trigger("login", store.user);
-  } else {
-    trigger("logout");
+reaction(
+  () => store.error,
+  () => {
+    trigger("error", store.error);
   }
-});
-
-observe(store, "gotrue", () => {
-  store.gotrue && trigger("init", store.gotrue.currentUser());
-});
-
-observe(store, "error", () => {
-  trigger("error", store.error);
-});
+);
 
 const routes = /(confirmation|invite|recovery|email_change)_token=([^&]+)/;
 const errorRoute = /error=access_denied&error_description=403/;
@@ -232,17 +246,15 @@ function init(options = {}) {
     "[data-netlify-identity-menu],[data-netlify-identity-button]"
   );
   Array.prototype.slice.call(controlEls).forEach((el) => {
-    let controls = null;
     const mode =
       el.getAttribute("data-netlify-identity-menu") === null
         ? "button"
         : "menu";
     render(
-      <Provider store={store}>
+      <StoreContext.Provider value={store}>
         <Controls mode={mode} text={el.innerText.trim()} />
-      </Provider>,
-      el,
-      controls
+      </StoreContext.Provider>,
+      el
     );
   });
 
@@ -256,12 +268,11 @@ function init(options = {}) {
     const styles = iframe.contentDocument.createElement("style");
     styles.innerHTML = modalCSS.toString();
     iframe.contentDocument.head.appendChild(styles);
-    root = render(
-      <Provider store={store}>
+    render(
+      <StoreContext.Provider value={store}>
         <App />
-      </Provider>,
-      iframe.contentDocument.body,
-      root
+      </StoreContext.Provider>,
+      iframe.contentDocument.body
     );
     runRoutes();
   };
