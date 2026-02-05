@@ -66,7 +66,13 @@ export default [
       react: {
         pragma: "h",
         version: "16.0"
-      }
+      },
+      "import/ignore": [
+        // Vite query suffixes like ?inline, ?raw, ?url, etc.
+        "\\?inline$",
+        "\\?raw$",
+        "\\?url$"
+      ]
     },
     rules: {
       // React/Preact rules
@@ -75,8 +81,8 @@ export default [
       "react/no-unknown-property": "off",
       "react/no-unescaped-entities": "off",
 
-      // Import rules
-      "import/no-unresolved": "error",
+      // Import rules - ignore Vite query parameters
+      "import/no-unresolved": ["error", { ignore: ["\\?inline$", "\\?raw$", "\\?url$"] }],
       "import/named": "error",
 
       // General rules

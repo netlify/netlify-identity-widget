@@ -2,12 +2,6 @@
 <html>
 
 <head>
-	<% for (var chunk in htmlWebpackPlugin.files.css) { %>
-		<link rel="stylesheet" href="<%= htmlWebpackPlugin.files.css[chunk] %>">
-		<% } %>
-			<% for (var chunk in htmlWebpackPlugin.files.js) { %>
-				<script src="<%= htmlWebpackPlugin.files.js[chunk] %>"></script>
-				<% } %>
 					<meta charset="utf-8">
 					<title>Netlify Identity Widget</title>
 					<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
@@ -321,6 +315,7 @@
 			</div>
 		</div>
 	</div>
+<script type="module" src="/src/index.js"></script>
 </body>
 
 </html>
