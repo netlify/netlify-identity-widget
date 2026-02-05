@@ -5,7 +5,7 @@ import GoTrue from "gotrue-js";
 import App from "./components/app";
 import store from "./state/store";
 import Controls from "./components/controls";
-import modalCSS from "./components/modal.css";
+import modalCSS from "./components/modal.css?inline";
 
 const callbacks = {};
 function trigger(callback) {

@@ -2,7 +2,7 @@
   "sourceMaps": true,
   "presets": [
     [
-      "@babel/env",
+      "@babel/preset-env",
       {
         "targets": {
           "browsers": ["ie >= 11"]
@@ -12,9 +12,9 @@
   ],
   "plugins": [
     ["@babel/plugin-proposal-decorators", { "legacy": true }],
-    ["@babel/plugin-proposal-class-properties", { "loose": true }],
-    ["@babel/plugin-proposal-object-rest-spread", { "useBuiltIns": true }],
-    ["@babel/plugin-transform-react-jsx", { "pragma": "h" }],
-    ["@babel/plugin-transform-modules-commonjs"]
+    ["@babel/plugin-transform-class-properties", { "loose": true }],
+    ["@babel/plugin-transform-private-methods", { "loose": true }],
+    ["@babel/plugin-transform-private-property-in-object", { "loose": true }],
+    ["@babel/plugin-transform-react-jsx", { "pragma": "h" }]
   ]
 }

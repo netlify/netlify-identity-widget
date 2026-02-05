@@ -5,7 +5,6 @@
     YARN_FLAGS = "--frozen-lockfile"
     YARN_VERSION = "1.22.4"
     NODE_VERSION = "20"
-    NODE_OPTIONS = "--openssl-legacy-provider"
 
 # Production: just build, don't update releases/ (protected by GitHub Action)
 [context.production]
@@ -13,9 +12,8 @@
 
 # Deploy previews: copy to releases/ so preview works
 [context.deploy-preview]
-  command = "yarn run build && cp build/* releases/"
+  command = "yarn run build && cp -r build/* releases/"
 
 # Branch deploys: same as previews
 [context.branch-deploy]
-  command = "yarn run build && cp build/* releases/"
-    
+  command = "yarn run build && cp -r build/* releases/"
