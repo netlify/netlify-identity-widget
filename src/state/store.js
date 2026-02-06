@@ -1,5 +1,8 @@
-import { observable, action } from "mobx";
+import { observable, action, configure } from "mobx";
 import { defaultLocale, getTranslation } from "../translations";
+
+// MobX 6 defaults to strict mode - disable it for compatibility with the existing store pattern
+configure({ enforceActions: "never" });
 
 const store = observable({
   user: null,
