@@ -2,7 +2,7 @@ import js from "@eslint/js";
 import prettier from "eslint-config-prettier";
 import reactPlugin from "eslint-plugin-react";
 import importPlugin from "eslint-plugin-import";
-import babelParser from "@babel/eslint-parser";
+import tseslint from "typescript-eslint";
 
 export default [
   // Global ignores
@@ -13,20 +13,19 @@ export default [
   // Base recommended rules
   js.configs.recommended,
 
+  // TypeScript recommended rules
+  ...tseslint.configs.recommended,
+
   // Main source files
   {
-    files: ["src/**/*.js", "src/**/*.jsx"],
+    files: ["src/**/*.ts", "src/**/*.tsx"],
     languageOptions: {
       ecmaVersion: 2022,
       sourceType: "module",
-      parser: babelParser,
+      parser: tseslint.parser,
       parserOptions: {
-        requireConfigFile: false,
-        babelOptions: {
-          presets: ["@babel/preset-env"],
-          plugins: [
-            ["@babel/plugin-transform-react-jsx", { pragma: "h" }]
-          ]
+        ecmaFeatures: {
+          jsx: true
         }
       },
       globals: {
@@ -46,16 +45,10 @@ export default [
         URLSearchParams: "readonly",
         FormData: "readonly",
         HTMLElement: "readonly",
+        HTMLIFrameElement: "readonly",
         Element: "readonly",
         Event: "readonly",
-        CustomEvent: "readonly",
-        // Node/CommonJS globals
-        process: "readonly",
-        module: "readonly",
-        require: "readonly",
-        exports: "writable",
-        __dirname: "readonly",
-        __filename: "readonly"
+        CustomEvent: "readonly"
       }
     },
     plugins: {
@@ -81,25 +74,29 @@ export default [
       "react/no-unknown-property": "off",
       "react/no-unescaped-entities": "off",
 
-      // Import rules - ignore Vite query parameters
-      "import/no-unresolved": ["error", { ignore: ["\\?inline$", "\\?raw$", "\\?url$"] }],
-      "import/named": "error",
+      // Import rules - TypeScript handles module resolution
+      "import/no-unresolved": "off",
+      "import/named": "off",
+
+      // TypeScript rules
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        { vars: "all", args: "none", ignoreRestSiblings: true }
+      ],
+      "@typescript-eslint/no-explicit-any": "off",
 
       // General rules
       "no-console": ["warn", { allow: ["warn", "error"] }],
-      "no-unused-vars": [
-        "error",
-        { vars: "all", args: "none", ignoreRestSiblings: true }
-      ]
+      "no-unused-vars": "off" // Use TypeScript version instead
     }
   },
 
   // Test files (Vitest)
   {
-    files: ["**/*.test.js", "**/*.spec.js"],
+    files: ["**/*.test.ts", "**/*.spec.ts"],
     rules: {
-      // Tests import from vitest directly, no globals needed
-      "import/no-unresolved": ["error", { ignore: ["vitest"] }]
+      // Tests use dynamic imports and mocks
+      "@typescript-eslint/no-unused-expressions": "off"
     }
   },
 

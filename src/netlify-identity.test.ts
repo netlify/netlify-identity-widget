@@ -1,30 +1,44 @@
 import { vi, describe, it, expect, beforeEach } from "vitest";
+import type { User } from "gotrue-js";
 
 vi.mock("./components/modal.css?inline", () => ({ default: "" }));
 vi.mock("gotrue-js", () => {
-  const mock = vi.fn().mockImplementation(({ APIUrl, setCookie }) => {
-    return {
-      settings: vi.fn().mockResolvedValue({
-        external: {
-          bitbucket: false,
-          github: false,
-          gitlab: false,
-          google: false,
-          facebook: false,
-          email: true,
-          saml: false
-        },
-        external_labels: {},
-        disable_signup: false,
-        autoconfirm: false
-      }),
-      currentUser: vi.fn(),
+  // Use a class to allow `new GoTrue(...)` syntax
+  class MockGoTrue {
+    APIUrl: string;
+    setCookie: boolean;
+    settings = vi.fn().mockResolvedValue({
+      external: {
+        bitbucket: false,
+        github: false,
+        gitlab: false,
+        google: false,
+        facebook: false,
+        email: true,
+        saml: false
+      },
+      external_labels: {},
+      disable_signup: false,
+      autoconfirm: false
+    });
+    currentUser = vi.fn();
+
+    constructor({
       APIUrl,
       setCookie
-    };
-  });
-  return { default: mock };
+    }: {
+      APIUrl?: string;
+      setCookie?: boolean;
+    }) {
+      this.APIUrl = APIUrl || "";
+      this.setCookie = setCookie ?? true;
+    }
+  }
+  return { default: MockGoTrue };
 });
+
+// Helper to create mock user objects for tests
+const createMockUser = (name: string): User => ({ name }) as unknown as User;
 
 describe("netlifyIdentity", () => {
   beforeEach(() => {
@@ -39,9 +53,7 @@ describe("netlifyIdentity", () => {
       const loginCallback = vi.fn();
       netlifyIdentity.on("login", loginCallback);
 
-      store.user = {
-        name: "user"
-      };
+      store.user = createMockUser("user");
 
       expect(loginCallback).toHaveBeenCalledTimes(1);
       expect(loginCallback).toHaveBeenCalledWith({ name: "user" });
@@ -49,9 +61,7 @@ describe("netlifyIdentity", () => {
 
     it("should invoke logout callback when user is set to null", async () => {
       const { default: store } = await import("./state/store");
-      store.user = {
-        name: "user"
-      };
+      store.user = createMockUser("user");
 
       const { default: netlifyIdentity } = await import("./netlify-identity");
 
@@ -65,9 +75,7 @@ describe("netlifyIdentity", () => {
 
     it("should not invoke login callback when user is set to null", async () => {
       const { default: store } = await import("./state/store");
-      store.user = {
-        name: "user"
-      };
+      store.user = createMockUser("user");
 
       const { default: netlifyIdentity } = await import("./netlify-identity");
 
@@ -88,9 +96,7 @@ describe("netlifyIdentity", () => {
       const loginCallback = vi.fn();
       netlifyIdentity.on("logout", loginCallback);
 
-      store.user = {
-        name: "user"
-      };
+      store.user = createMockUser("user");
 
       expect(loginCallback).toHaveBeenCalledTimes(0);
     });
@@ -113,9 +119,7 @@ describe("netlifyIdentity", () => {
       netlifyIdentity.on("login", loginCallback1);
       netlifyIdentity.on("login", loginCallback2);
 
-      store.user = {
-        name: "user"
-      };
+      store.user = createMockUser("user");
 
       expect(loginCallback1).toHaveBeenCalledTimes(1);
       expect(loginCallback2).toHaveBeenCalledTimes(1);
@@ -125,9 +129,7 @@ describe("netlifyIdentity", () => {
 
       netlifyIdentity.off("login");
 
-      store.user = {
-        name: "other user"
-      };
+      store.user = createMockUser("other user");
 
       expect(loginCallback1).toHaveBeenCalledTimes(0);
       expect(loginCallback2).toHaveBeenCalledTimes(0);
@@ -143,9 +145,7 @@ describe("netlifyIdentity", () => {
       netlifyIdentity.on("login", loginCallback1);
       netlifyIdentity.on("login", loginCallback2);
 
-      store.user = {
-        name: "user"
-      };
+      store.user = createMockUser("user");
 
       expect(loginCallback1).toHaveBeenCalledTimes(1);
       expect(loginCallback2).toHaveBeenCalledTimes(1);
@@ -155,9 +155,7 @@ describe("netlifyIdentity", () => {
 
       netlifyIdentity.off("login", loginCallback1);
 
-      store.user = {
-        name: "other user"
-      };
+      store.user = createMockUser("other user");
 
       expect(loginCallback1).toHaveBeenCalledTimes(0);
       expect(loginCallback2).toHaveBeenCalledTimes(1);
@@ -166,6 +164,7 @@ describe("netlifyIdentity", () => {
 
   describe("init", () => {
     it("should only invoke init event once when on localhost and netlifySiteURL is set", async () => {
+      // @ts-expect-error - mocking window.location for test
       window.location = { hostname: "localhost" };
       localStorage.setItem("netlifySiteURL", "https://my-site.netlify.app/");
 
@@ -179,10 +178,12 @@ describe("netlifyIdentity", () => {
 
       expect(initCallback).toHaveBeenCalledTimes(1);
       expect(store.siteURL).toEqual("https://my-site.netlify.app/");
-      expect(store.gotrue.APIUrl).toEqual(
+      expect((store.gotrue as unknown as { APIUrl: string }).APIUrl).toEqual(
         "https://my-site.netlify.app/.netlify/identity"
       );
-      expect(store.gotrue.setCookie).toEqual(false);
+      expect(
+        (store.gotrue as unknown as { setCookie: boolean }).setCookie
+      ).toEqual(false);
     });
   });
 });
