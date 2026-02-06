@@ -94,21 +94,12 @@ export default [
     }
   },
 
-  // Test files
+  // Test files (Vitest)
   {
     files: ["**/*.test.js", "**/*.spec.js"],
-    languageOptions: {
-      globals: {
-        jest: "readonly",
-        describe: "readonly",
-        it: "readonly",
-        test: "readonly",
-        expect: "readonly",
-        beforeEach: "readonly",
-        afterEach: "readonly",
-        beforeAll: "readonly",
-        afterAll: "readonly"
-      }
+    rules: {
+      // Tests import from vitest directly, no globals needed
+      "import/no-unresolved": ["error", { ignore: ["vitest"] }]
     }
   },
 
