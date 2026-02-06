@@ -25,8 +25,6 @@ jobs:
 
       - name: Install dependencies
         run: yarn --frozen-lockfile
-        env:
-          NODE_OPTIONS: --openssl-legacy-provider
 
       - name: Extract tag and version
         id: extract
@@ -59,8 +57,6 @@ jobs:
 
       - name: Build
         run: yarn build
-        env:
-          NODE_OPTIONS: --openssl-legacy-provider
 
       - name: Copy to releases folder
         run: |

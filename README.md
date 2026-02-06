@@ -6,8 +6,6 @@ A component used to authenticate with Netlify's Identity service.
 
 [Live demo](https://identity.netlify.com)
 
-For usage example with React and React Router, please see our `/example` folder and [read the README](https://github.com/netlify/netlify-identity-widget/tree/main/example).
-
 ## What is Netlify Identity
 
 Netlify's Identity service is a plug-and-play microservice for handling site
@@ -206,5 +204,3 @@ You can also see an example of wrapping netlify-identity-widget in a React Hook 
 ```js
 localStorage.removeItem('netlifySiteURL');
 ```
-
-* See the `example` for how to integrate this widget with a react app.

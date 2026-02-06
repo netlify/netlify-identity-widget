@@ -10,6 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      id-token: write
 
     steps:
       - uses: actions/checkout@v4
@@ -21,16 +22,13 @@ jobs:
         with:
           node-version: 20
           cache: 'yarn'
+          registry-url: 'https://registry.npmjs.org'
 
       - name: Install dependencies
         run: yarn --frozen-lockfile
-        env:
-          NODE_OPTIONS: --openssl-legacy-provider
 
       - name: Build
         run: yarn build
-        env:
-          NODE_OPTIONS: --openssl-legacy-provider
 
       - name: Get major version
         id: version
@@ -52,3 +50,8 @@ jobs:
           git add releases/
           git commit -m "chore: update releases/v${{ steps.version.outputs.major }} for ${{ github.ref_name }}"
           git push origin HEAD:main
+
+      - name: Publish to npm
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
