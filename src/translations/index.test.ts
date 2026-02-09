@@ -50,6 +50,11 @@ describe("translations", () => {
     expect(getTranslation("log_in", "sk")).toEqual("Prihlásiť sa");
   });
 
+  it("should return translation for 'ru' locale", async () => {
+    const { getTranslation } = await import("./");
+    expect(getTranslation("log_in", "ru")).toEqual("Войти");
+  });
+
   it("should return translation for 'de' locale", async () => {
     const { getTranslation } = await import("./");
     expect(getTranslation("log_in", "de")).toEqual("Anmelden");

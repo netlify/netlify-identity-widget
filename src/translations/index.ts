@@ -6,6 +6,7 @@ import * as pt from "./pt.json";
 import * as pl from "./pl.json";
 import * as cs from "./cs.json";
 import * as sk from "./sk.json";
+import * as ru from "./ru.json";
 import * as de from "./de.json";
 import * as it from "./it.json";
 import * as ar from "./ar.json";
@@ -23,6 +24,7 @@ export type Locale =
   | "pl"
   | "cs"
   | "sk"
+  | "ru"
   | "de"
   | "it"
   | "ar"
@@ -42,6 +44,7 @@ const translations: Record<Locale, Record<string, string>> = {
   pl,
   cs,
   sk,
+  ru,
   de,
   it,
   ar,
