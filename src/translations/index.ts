@@ -14,7 +14,22 @@ import * as nl from "./nl.json";
 import * as sv from "./sv.json";
 import * as sw from "./sw.json";
 
-export type Locale = "en" | "fr" | "es" | "hu" | "pt" | "pl" | "cs" | "sk" | "de" | "it" | "ar" | "zhCN" | "nl" | "sv" | "sw";
+export type Locale =
+  | "en"
+  | "fr"
+  | "es"
+  | "hu"
+  | "pt"
+  | "pl"
+  | "cs"
+  | "sk"
+  | "de"
+  | "it"
+  | "ar"
+  | "zhCN"
+  | "nl"
+  | "sv"
+  | "sw";
 export type TranslationKey = keyof typeof en;
 
 export const defaultLocale: Locale = "en";
