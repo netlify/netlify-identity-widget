@@ -76,12 +76,13 @@ export default function UserForm({
             <span className="visuallyHidden">{t("form_name_placeholder")}</span>
             <input
               className="formControl"
-              type="name"
+              type="text"
               name="name"
               value={name}
               placeholder={
                 namePlaceholder ? namePlaceholder : t("form_name_label")
               }
+              autocomplete="name"
               autocapitalize="off"
               required
               onInput={handleInput}
@@ -100,6 +101,7 @@ export default function UserForm({
               name="email"
               value={email}
               placeholder={t("form_email_placeholder")}
+              autocomplete="email"
               autocapitalize="off"
               required
               onInput={handleInput}
