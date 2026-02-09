@@ -1,27 +1,55 @@
 import { h, render } from "preact";
 import { reaction } from "mobx";
 import GoTrue from "gotrue-js";
+import type { User } from "gotrue-js";
 import App from "./components/app";
 import store from "./state/store";
 import Controls from "./components/controls";
 import { StoreContext } from "./state/context";
 import modalCSS from "./components/modal.css?inline";
+import type { ModalPage, Locale } from "./state/types";
 
-const callbacks = {};
-function trigger(callback) {
+type EventCallback = (...args: unknown[]) => void;
+type EventName = "login" | "logout" | "init" | "open" | "close" | "error";
+
+const callbacks: Record<string, Set<EventCallback>> = {};
+
+function trigger(callback: string, ...args: unknown[]) {
   const cbMap = callbacks[callback] || new Set();
   Array.from(cbMap.values()).forEach((cb) => {
-    cb.apply(cb, Array.prototype.slice.call(arguments, 1));
+    cb(...args);
   });
 }
 
-const validActions = {
+const validActions: Record<string, boolean> = {
   login: true,
   signup: true,
   error: true
 };
 
-const netlifyIdentity = {
+interface InitOptions {
+  APIUrl?: string;
+  logo?: boolean;
+  namePlaceholder?: string;
+  locale?: Locale;
+  container?: string;
+}
+
+interface NetlifyIdentity {
+  on: (event: EventName, cb: EventCallback) => void;
+  off: (event: EventName, cb?: EventCallback) => void;
+  open: (action?: string) => void;
+  close: () => void;
+  currentUser: () => User | null;
+  logout: () => Promise<void> | void;
+  gotrue: GoTrue | null;
+  refresh: (force?: boolean) => Promise<string>;
+  init: (options?: InitOptions) => void;
+  setLocale: (locale: Locale) => void;
+  store: typeof store;
+}
+
+const netlifyIdentity: NetlifyIdentity = {
   on: (event, cb) => {
     callbacks[event] = callbacks[event] || new Set();
     callbacks[event].add(cb);
@@ -40,7 +68,7 @@ const netlifyIdentity = {
     if (!validActions[action]) {
       throw new Error(`Invalid action for open: ${action}`);
     }
-    store.openModal(store.user ? "user" : action);
+    store.openModal(store.user ? "user" : (action as ModalPage));
   },
   close: () => {
     store.closeModal();
@@ -57,11 +85,11 @@ const netlifyIdentity = {
     }
     return store.gotrue;
   },
-  refresh(force) {
+  refresh(force?: boolean) {
     if (!store.gotrue) {
       store.openModal("login");
     }
-    return store.gotrue.currentUser().jwt(force);
+    return store.gotrue!.currentUser()!.jwt(force);
   },
   init: (options) => {
     init(options);
@@ -74,8 +102,12 @@ const netlifyIdentity = {
   store
 };
 
-let queuedIframeStyle = null;
-function setStyle(el, css) {
+let queuedIframeStyle: string | null = null;
+
+function setStyle(
+  el: HTMLElement | null,
+  css: Record<string, string | number>
+) {
   let style = "";
   for (const key in css) {
     style += `${key}: ${css[key]}; `;
@@ -87,13 +119,13 @@ function setStyle(el, css) {
   }
 }
 
-const localHosts = {
+const localHosts: Record<string, boolean> = {
   localhost: true,
   "127.0.0.1": true,
   "0.0.0.0": true
 };
 
-function instantiateGotrue(APIUrl) {
+function instantiateGotrue(APIUrl?: string): GoTrue | null {
   const isLocal = localHosts[document.location.hostname];
   if (APIUrl) {
     return new GoTrue({ APIUrl, setCookie: !isLocal });
@@ -111,8 +143,9 @@ function instantiateGotrue(APIUrl) {
   return new GoTrue({ setCookie: !isLocal });
 }
 
-let iframe;
-const iframeStyle = {
+let iframe: HTMLIFrameElement | null = null;
+
+const iframeStyle: Record<string, string | number> = {
   position: "fixed",
   top: 0,
   left: 0,
@@ -152,7 +185,7 @@ reaction(
       localStorage.setItem("netlifySiteURL", store.siteURL);
     }
 
-    let apiUrl;
+    let apiUrl: string | undefined;
     if (store.siteURL) {
       const siteUrl = store.siteURL.replace(/\/$/, "");
       apiUrl = `${siteUrl}/.netlify/identity`;
@@ -175,7 +208,9 @@ reaction(
 reaction(
   () => store.gotrue,
   () => {
-    store.gotrue && trigger("init", store.gotrue.currentUser());
+    if (store.gotrue) {
+      trigger("init", store.gotrue.currentUser());
+    }
   }
 );
 
@@ -210,7 +245,7 @@ function runRoutes() {
 
   const am = hash.match(accessTokenRoute);
   if (am) {
-    const params = {};
+    const params: Record<string, string> = {};
     hash.split("&").forEach((pair) => {
       const [key, value] = pair.split("=");
       params[key] = value;
@@ -235,7 +270,7 @@ function runRoutes() {
   }
 }
 
-function init(options = {}) {
+function init(options: InitOptions = {}) {
   const { APIUrl, logo = true, namePlaceholder, locale } = options;
 
   if (locale) {
@@ -245,7 +280,7 @@ function init(options = {}) {
   const controlEls = document.querySelectorAll(
     "[data-netlify-identity-menu],[data-netlify-identity-button]"
   );
-  Array.prototype.slice.call(controlEls).forEach((el) => {
+  Array.prototype.slice.call(controlEls).forEach((el: HTMLElement) => {
     const mode =
       el.getAttribute("data-netlify-identity-menu") === null
         ? "button"
@@ -260,19 +295,19 @@ function init(options = {}) {
 
   store.init(instantiateGotrue(APIUrl));
   store.modal.logo = logo;
-  store.setNamePlaceholder(namePlaceholder);
+  store.setNamePlaceholder(namePlaceholder || null);
   iframe = document.createElement("iframe");
   iframe.id = "netlify-identity-widget";
   iframe.title = "Netlify identity widget";
   iframe.onload = () => {
-    const styles = iframe.contentDocument.createElement("style");
+    const styles = iframe!.contentDocument!.createElement("style");
     styles.innerHTML = modalCSS.toString();
-    iframe.contentDocument.head.appendChild(styles);
+    iframe!.contentDocument!.head.appendChild(styles);
     render(
       <StoreContext.Provider value={store}>
         <App />
       </StoreContext.Provider>,
-      iframe.contentDocument.body
+      iframe!.contentDocument!.body
     );
     runRoutes();
   };
@@ -281,7 +316,7 @@ function init(options = {}) {
   const container = options.container
     ? document.querySelector(options.container)
     : document.body;
-  container.appendChild(iframe);
+  container!.appendChild(iframe);
   /* There's a certain case where we might have called setStyle before the iframe was ready.
 	   Make sure we take the last style and apply it */
   if (queuedIframeStyle) {

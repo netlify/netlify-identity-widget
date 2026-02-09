@@ -1,31 +1,42 @@
 import { observable, action, configure } from "mobx";
 import { defaultLocale, getTranslation } from "../translations";
+import type { Locale } from "../translations";
+import type { Store, ModalPage, MessageType, Settings } from "./types";
+import type { User } from "gotrue-js";
+import type GoTrue from "gotrue-js";
 
 // MobX 6 defaults to strict mode - disable it for compatibility with the existing store pattern
 configure({ enforceActions: "never" });
 
-const store = observable({
-  user: null,
-  recovered_user: null,
-  message: null,
-  settings: null,
-  gotrue: null,
-  error: null,
-  siteURL: null,
+// Define the base observable state
+const baseStore = observable({
+  user: null as User | null,
+  recovered_user: null as User | null,
+  message: null as MessageType,
+  settings: null as Settings | null,
+  gotrue: null as GoTrue | null,
+  error: null as Error | string | null,
+  siteURL: null as string | null,
   remember: true,
   saving: false,
-  invite_token: null,
-  email_change_token: null,
-  namePlaceholder: null,
+  invite_token: null as string | null,
+  email_change_token: null as string | null,
+  namePlaceholder: null as string | null,
+  isLocal: false,
   modal: {
-    page: "login",
+    page: "login" as ModalPage,
     isOpen: false,
     logo: true
   },
-  locale: defaultLocale
+  locale: defaultLocale as Locale
 });
 
-store.setNamePlaceholder = action(function setNamePlaceholder(namePlaceholder) {
+// Cast to any to allow adding methods dynamically
+const store = baseStore as unknown as Store;
+
+store.setNamePlaceholder = action(function setNamePlaceholder(
+  namePlaceholder: string | null
+) {
   store.namePlaceholder = namePlaceholder;
 });
 
@@ -35,12 +46,15 @@ store.startAction = action(function startAction() {
   store.message = null;
 });
 
-store.setError = action(function setError(err) {
+store.setError = action(function setError(err?: Error | string) {
   store.saving = false;
-  store.error = err;
+  store.error = err ?? null;
 });
 
-store.init = action(function init(gotrue, reloadSettings) {
+store.init = action(function init(
+  gotrue: GoTrue | null,
+  reloadSettings?: boolean
+) {
   if (gotrue) {
     store.gotrue = gotrue;
     store.user = gotrue.currentUser();
@@ -63,21 +77,21 @@ store.loadSettings = action(function loadSettings() {
 
   store.gotrue
     .settings()
-    .then(action((settings) => (store.settings = settings)))
+    .then(action((settings: Settings) => (store.settings = settings)))
     .catch(
-      action((err) => {
+      action(() => {
         store.error = new Error(
-          `Failed to load settings from ${store.gotrue.api.apiURL}`
+          `Failed to load settings from ${(store.gotrue as unknown as { api: { apiURL: string } }).api.apiURL}`
         );
       })
     );
 });
 
-store.setIsLocal = action(function setIsLocal(isLocal) {
+store.setIsLocal = action(function setIsLocal(isLocal: boolean) {
   store.isLocal = isLocal;
 });
 
-store.setSiteURL = action(function setSiteURL(url) {
+store.setSiteURL = action(function setSiteURL(url: string) {
   store.siteURL = url;
 });
 
@@ -87,12 +101,12 @@ store.clearSiteURL = action(function clearSiteURL() {
   store.settings = null;
 });
 
-store.login = action(function login(email, password) {
+store.login = action(function login(email: string, password: string) {
   store.startAction();
-  return store.gotrue
-    .login(email, password, store.remember)
+  return store
+    .gotrue!.login(email, password, store.remember)
     .then(
-      action((user) => {
+      action((user: User) => {
         store.user = user;
         store.modal.page = "user";
         store.invite_token = null;
@@ -105,21 +119,22 @@ store.login = action(function login(email, password) {
     .catch(store.setError);
 });
 
-store.externalLogin = action(function externalLogin(provider) {
-  // store.startAction();
+store.externalLogin = action(function externalLogin(provider: string) {
   store.error = null;
   store.message = null;
   const url = store.invite_token
-    ? store.gotrue.acceptInviteExternalUrl(provider, store.invite_token)
-    : store.gotrue.loginExternalUrl(provider);
+    ? store.gotrue!.acceptInviteExternalUrl(provider, store.invite_token)
+    : store.gotrue!.loginExternalUrl(provider);
   window.location.href = url;
 });
 
-store.completeExternalLogin = action(function completeExternalLogin(params) {
+store.completeExternalLogin = action(function completeExternalLogin(
+  params: Record<string, string>
+) {
   store.startAction();
-  store.gotrue
-    .createUser(params, store.remember)
-    .then((user) => {
+  store
+    .gotrue!.createUser(params, store.remember)
+    .then((user: User) => {
       store.user = user;
       store.modal.page = "user";
       store.saving = false;
@@ -127,14 +142,18 @@ store.completeExternalLogin = action(function completeExternalLogin(params) {
     .catch(store.setError);
 });
 
-store.signup = action(function signup(name, email, password) {
+store.signup = action(function signup(
+  name: string,
+  email: string,
+  password: string
+) {
   store.startAction();
-  return store.gotrue
-    .signup(email, password, { full_name: name })
+  return store
+    .gotrue!.signup(email, password, { full_name: name })
     .then(
       action(() => {
-        if (store.settings.autoconfirm) {
-          store.login(email, password, store.remember);
+        if (store.settings?.autoconfirm) {
+          store.login(email, password);
         } else {
           store.message = "confirm";
         }
@@ -163,13 +182,13 @@ store.logout = action(function logout() {
   }
 });
 
-store.updatePassword = action(function updatePassword(password) {
+store.updatePassword = action(function updatePassword(password: string) {
   store.startAction();
   const user = store.recovered_user || store.user;
-  user
+  user!
     .update({ password })
-    .then((user) => {
-      store.user = user;
+    .then((updatedUser: User) => {
+      store.user = updatedUser;
       store.recovered_user = null;
       store.modal.page = "user";
       store.saving = false;
@@ -177,11 +196,11 @@ store.updatePassword = action(function updatePassword(password) {
     .catch(store.setError);
 });
 
-store.acceptInvite = action(function acceptInvite(password) {
+store.acceptInvite = action(function acceptInvite(password: string) {
   store.startAction();
-  store.gotrue
-    .acceptInvite(store.invite_token, password, store.remember)
-    .then((user) => {
+  store
+    .gotrue!.acceptInvite(store.invite_token!, password, store.remember)
+    .then((user: User) => {
       store.saving = false;
       store.invite_token = null;
       store.user = user;
@@ -192,10 +211,10 @@ store.acceptInvite = action(function acceptInvite(password) {
 
 store.doEmailChange = action(function doEmailChange() {
   store.startAction();
-  return store.user
-    .update({ email_change_token: store.email_change_token })
+  return store
+    .user!.update({ email_change_token: store.email_change_token })
     .then(
-      action((user) => {
+      action((user: User) => {
         store.user = user;
         store.email_change_token = null;
         store.message = "email_changed";
@@ -205,7 +224,7 @@ store.doEmailChange = action(function doEmailChange() {
     .catch(store.setError);
 });
 
-store.verifyToken = action(function verifyToken(type, token) {
+store.verifyToken = action(function verifyToken(type: string, token: string) {
   const gotrue = store.gotrue;
   store.modal.isOpen = true;
 
@@ -213,16 +232,16 @@ store.verifyToken = action(function verifyToken(type, token) {
     case "confirmation":
       store.startAction();
       store.modal.page = "signup";
-      gotrue
+      gotrue!
         .confirm(token, store.remember)
         .then(
-          action((user) => {
+          action((user: User) => {
             store.user = user;
             store.saving = false;
           })
         )
         .catch(
-          action((err) => {
+          action((err: Error) => {
             console.error(err);
             store.message = "verfication_error";
             store.modal.page = "signup";
@@ -240,33 +259,35 @@ store.verifyToken = action(function verifyToken(type, token) {
       }
       break;
     case "invite":
-      store.modal.page = type;
+      store.modal.page = type as ModalPage;
       store.invite_token = token;
       break;
     case "recovery":
       store.startAction();
-      store.modal.page = type;
-      store.gotrue
-        .recover(token, store.remember)
-        .then((user) => {
+      store.modal.page = type as ModalPage;
+      store
+        .gotrue!.recover(token, store.remember)
+        .then((user: User) => {
           store.saving = false;
           store.recovered_user = user;
         })
-        .catch((err) => {
+        .catch((err: Error) => {
           store.saving = false;
           store.error = err;
           store.modal.page = "login";
         });
       break;
     default:
-      store.error = "Unkown token type";
+      store.error = "Unknown token type";
   }
 });
 
-store.requestPasswordRecovery = action(function requestPasswordRecovery(email) {
+store.requestPasswordRecovery = action(function requestPasswordRecovery(
+  email: string
+) {
   store.startAction();
-  store.gotrue
-    .requestPasswordRecovery(email)
+  store
+    .gotrue!.requestPasswordRecovery(email)
     .then(
       action(() => {
         store.message = "password_mail";
@@ -276,7 +297,7 @@ store.requestPasswordRecovery = action(function requestPasswordRecovery(email) {
     .catch(store.setError);
 });
 
-store.openModal = action(function open(page) {
+store.openModal = action(function open(page: ModalPage) {
   store.modal.page = page;
   store.modal.isOpen = true;
 });
@@ -288,7 +309,7 @@ store.closeModal = action(function close() {
   store.saving = false;
 });
 
-store.translate = action(function translate(key) {
+store.translate = action(function translate(key: string) {
   return getTranslation(key, store.locale);
 });
 
