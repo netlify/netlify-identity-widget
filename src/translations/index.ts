@@ -6,8 +6,15 @@ import * as pt from "./pt.json";
 import * as pl from "./pl.json";
 import * as cs from "./cs.json";
 import * as sk from "./sk.json";
+import * as de from "./de.json";
+import * as it from "./it.json";
+import * as ar from "./ar.json";
+import * as zhCN from "./zh-cn.json";
+import * as nl from "./nl.json";
+import * as sv from "./sv.json";
+import * as sw from "./sw.json";
 
-export type Locale = "en" | "fr" | "es" | "hu" | "pt" | "pl" | "cs" | "sk";
+export type Locale = "en" | "fr" | "es" | "hu" | "pt" | "pl" | "cs" | "sk" | "de" | "it" | "ar" | "zhCN" | "nl" | "sv" | "sw";
 export type TranslationKey = keyof typeof en;
 
 export const defaultLocale: Locale = "en";
@@ -19,7 +26,14 @@ const translations: Record<Locale, Record<string, string>> = {
   pt,
   pl,
   cs,
-  sk
+  sk,
+  de,
+  it,
+  ar,
+  zhCN,
+  nl,
+  sv,
+  sw
 };
 
 export const getTranslation = (
