@@ -14,13 +14,7 @@ export default defineConfig({
       include: ["src/**/*"],
       babelrc: false,
       configFile: false,
-      presets: [
-        [
-          "@babel/preset-env",
-          { targets: { browsers: ["defaults", "not IE 11"] } }
-        ],
-        "@babel/preset-typescript"
-      ],
+      presets: ["@babel/preset-env", "@babel/preset-typescript"],
       plugins: [
         ["@babel/plugin-proposal-decorators", { legacy: true }],
         ["@babel/plugin-transform-class-properties", { loose: true }],

@@ -50,6 +50,10 @@
     "identity",
     "netlify"
   ],
+  "browserslist": [
+    "defaults",
+    "not IE 11"
+  ],
   "license": "MIT",
   "type": "module",
   "main": "./build/netlify-identity.js",
