@@ -37,5 +37,6 @@
   "No user found with this email": "未找到该邮箱的用户",
   "Invalid Password": "无效密码",
   "Email not confirmed": "邮箱未确认",
-  "User not found": "用户未找到"
+  "User not found": "用户未找到",
+  "or": "或"
 }

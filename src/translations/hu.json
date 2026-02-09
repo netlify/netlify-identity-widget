@@ -37,5 +37,6 @@
   "No user found with this email": "Nem található fiók ezzel az e-mail címmel",
   "Invalid Password": "Helytelen Jelszó",
   "Email not confirmed": "Az e-mail nem erősült meg",
-  "User not found": "Felhasználó nem található"
+  "User not found": "Felhasználó nem található",
+  "or": "vagy"
 }

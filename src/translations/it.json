@@ -37,5 +37,6 @@
   "No user found with this email": "Nessun utente trovato per questa email",
   "Invalid Password": "Password non valida",
   "Email not confirmed": "Email non confermata",
-  "User not found": "Utente non trovato"
+  "User not found": "Utente non trovato",
+  "or": "o"
 }

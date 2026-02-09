@@ -37,5 +37,6 @@
   "No user found with this email": "Hakuna mtumiaji aliyepatikana na barua pepe hii",
   "Invalid Password": "Nenosiri batili",
   "Email not confirmed": "Barua pepe haijathibitishwa",
-  "User not found": "Mtumiaji wa akaunti hapatikani"
+  "User not found": "Mtumiaji wa akaunti hapatikani",
+  "or": "au"
 }

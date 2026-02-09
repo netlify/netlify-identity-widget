@@ -37,5 +37,6 @@
   "No user found with this email": "Ingen användare hittades med denna epost",
   "Invalid Password": "Felaktigt lösenord",
   "Email not confirmed": "Din epost är inte verifierad",
-  "User not found": "Användaren hittades inte"
+  "User not found": "Användaren hittades inte",
+  "or": "eller"
 }
