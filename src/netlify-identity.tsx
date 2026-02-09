@@ -103,6 +103,7 @@ const netlifyIdentity: NetlifyIdentity = {
 };
 
 let queuedIframeStyle: string | null = null;
+let initializing = false;
 
 function setStyle(
   el: HTMLElement | null,
@@ -190,13 +191,18 @@ reaction(
       const siteUrl = store.siteURL.replace(/\/$/, "");
       apiUrl = `${siteUrl}/.netlify/identity`;
     }
+    initializing = true;
     store.init(instantiateGotrue(apiUrl), true);
+    initializing = false;
   }
 );
 
 reaction(
   () => store.user,
   () => {
+    if (initializing) {
+      return;
+    }
     if (store.user) {
       trigger("login", store.user);
     } else {
@@ -297,7 +303,9 @@ function init(options: InitOptions = {}) {
     );
   });
 
+  initializing = true;
   store.init(instantiateGotrue(APIUrl));
+  initializing = false;
   store.modal.logo = logo;
   store.setNamePlaceholder(namePlaceholder || null);
   iframe = document.createElement("iframe");
