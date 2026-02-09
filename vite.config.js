@@ -7,14 +7,20 @@ const isLibBuild = process.env.BUILD_MODE === "lib";
 
 export default defineConfig({
   plugins: [
-    // Babel for JSX (Preact 8 h pragma) and MobX decorators
+    // Babel for JSX (Preact) and TypeScript
     babel({
       babelHelpers: "bundled",
-      extensions: [".js", ".jsx"],
+      extensions: [".js", ".jsx", ".ts", ".tsx"],
       include: ["src/**/*"],
       babelrc: false,
       configFile: false,
-      presets: [["@babel/preset-env", { targets: { browsers: ["ie >= 11"] } }]],
+      presets: [
+        [
+          "@babel/preset-env",
+          { targets: { browsers: ["defaults", "not IE 11"] } }
+        ],
+        "@babel/preset-typescript"
+      ],
       plugins: [
         ["@babel/plugin-proposal-decorators", { legacy: true }],
         ["@babel/plugin-transform-class-properties", { loose: true }],
@@ -31,24 +37,25 @@ export default defineConfig({
     postcss: "./postcss.config.js"
   },
   esbuild: {
-    // Tell esbuild to handle JSX in .js files during dev
-    loader: "jsx",
-    include: /src\/.*\.js$/,
+    // Tell esbuild to handle JSX in .js/.ts/.tsx files during dev
+    loader: "tsx",
+    include: /src\/.*\.(js|ts|tsx)$/,
     jsxFactory: "h",
     jsxFragment: "Fragment"
   },
   optimizeDeps: {
-    // Force esbuild to use jsx loader for dependencies too
     esbuildOptions: {
       loader: {
-        ".js": "jsx"
+        ".js": "jsx",
+        ".ts": "tsx",
+        ".tsx": "tsx"
       }
     }
   },
   build: isLibBuild
     ? {
         lib: {
-          entry: resolve(__dirname, "src/netlify-identity.js"),
+          entry: resolve(__dirname, "src/netlify-identity.tsx"),
           name: "netlifyIdentity",
           formats: ["umd"],
           fileName: () => "netlify-identity.js"

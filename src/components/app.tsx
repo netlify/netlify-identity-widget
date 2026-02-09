@@ -1,4 +1,5 @@
-import { h, Component } from "preact";
+import { h } from "preact";
+import { useContext } from "preact/hooks";
 import { observer } from "../utils/observer";
 import { StoreContext } from "../state/context";
 import Modal from "./modal";
@@ -7,9 +8,25 @@ import LogoutForm from "./forms/logout";
 import UserForm from "./forms/user";
 import Providers from "./forms/providers";
 import Message from "./forms/message";
+import type { ModalPage } from "../state/types";
 
-const pagesWithHeader = { login: true, signup: true };
-const pages = {
+interface PageConfig {
+  login?: boolean;
+  signup?: boolean;
+  title?: string;
+  button?: string;
+  button_saving?: string;
+  name?: boolean;
+  email?: boolean;
+  password?: string;
+  link?: string;
+  link_text?: string;
+  providers?: boolean;
+}
+
+const pagesWithHeader: Record<string, boolean> = { login: true, signup: true };
+
+const pages: Record<string, PageConfig> = {
   login: {
     login: true,
     button: "log_in",
@@ -57,23 +74,31 @@ const pages = {
   }
 };
 
-class App extends Component {
-  static contextType = StoreContext;
+interface FormData {
+  name: string;
+  email: string;
+  password: string;
+}
 
-  get store() {
-    return this.context;
+function App() {
+  const store = useContext(StoreContext);
+
+  if (!store) {
+    return null;
   }
 
-  handleClose = () => this.store.closeModal();
-  handlePage = (page) => this.store.openModal(page);
-  handleLogout = () => this.store.logout();
-  handleSiteURL = (url) => this.store.setSiteURL(url);
-  clearSiteURL = (url) => this.store.clearSiteURL();
-  clearStoreError = () => this.store.setError();
-  handleExternalLogin = (provider) => this.store.externalLogin(provider);
-  handleUser = ({ name, email, password }) => {
-    const { store } = this;
+  const handleClose = () => store.closeModal();
+  const handlePage = (page: string) => store.openModal(page as ModalPage);
+  const handleLogout = () => store.logout();
+  const handleSiteURL = (url?: string) => {
+    if (url) store.setSiteURL(url);
+  };
+  const clearSiteURL = () => store.clearSiteURL();
+  const clearStoreError = () => store.setError();
+  const handleExternalLogin = (provider: string) =>
+    store.externalLogin(provider);
 
+  const handleUser = ({ name, email, password }: FormData) => {
     switch (store.modal.page) {
       case "login":
         store.login(email, password);
@@ -93,29 +118,28 @@ class App extends Component {
     }
   };
 
-  renderBody() {
-    const { store } = this;
+  const renderBody = () => {
     const page = pages[store.modal.page] || {};
-    const pageLinkHandler = () => this.handlePage(page.link);
+    const pageLinkHandler = () => handlePage(page.link!);
 
     if (store.isLocal && store.siteURL === null) {
       return (
         <SiteURLForm
           devMode={store.siteURL != null}
-          onSiteURL={store.siteURL ? this.clearSiteURL : this.handleSiteURL}
+          onSiteURL={store.siteURL ? clearSiteURL : handleSiteURL}
           t={store.translate}
         />
       );
     }
     if (!store.settings) {
-      return;
+      return null;
     }
     if (store.user) {
       return (
         <LogoutForm
           user={store.user}
           saving={store.saving}
-          onLogout={this.handleLogout}
+          onLogout={handleLogout}
           t={store.translate}
         />
       );
@@ -127,10 +151,16 @@ class App extends Component {
     return (
       <div>
         <UserForm
-          page={pages[store.modal.page] || {}}
+          page={{
+            name: page.name,
+            email: page.email,
+            password: page.password,
+            button: page.button || "",
+            button_saving: page.button_saving || ""
+          }}
           message={store.message}
           saving={store.saving}
-          onSubmit={this.handleUser}
+          onSubmit={handleUser}
           namePlaceholder={store.namePlaceholder}
           t={store.translate}
         />
@@ -139,13 +169,13 @@ class App extends Component {
             onClick={pageLinkHandler}
             className="btnLink forgotPasswordLink"
           >
-            {store.translate(page.link_text)}
+            {store.translate(page.link_text!)}
           </button>
         )}
         {store.isLocal ? (
           <SiteURLForm
             devMode={store.siteURL != null}
-            onSiteURL={store.siteURL ? this.clearSiteURL : this.handleSiteURL}
+            onSiteURL={store.siteURL ? clearSiteURL : handleSiteURL}
             t={store.translate}
           />
         ) : (
@@ -153,11 +183,9 @@ class App extends Component {
         )}
       </div>
     );
-  }
+  };
 
-  renderProviders() {
-    const { store } = this;
-
+  const renderProviders = () => {
     if (!(store.gotrue && store.settings)) {
       return null;
     }
@@ -176,48 +204,45 @@ class App extends Component {
       "GitLab",
       "BitBucket",
       "SAML"
-    ].filter((p) => store.settings.external[p.toLowerCase()]);
+    ].filter((p) => store.settings!.external[p.toLowerCase()]);
 
     return providers.length ? (
       <Providers
         providers={providers}
         labels={store.settings.external_labels || {}}
-        onLogin={this.handleExternalLogin}
+        onLogin={handleExternalLogin}
         t={store.translate}
       />
     ) : null;
-  }
+  };
 
-  render() {
-    const { store } = this;
-    const showHeader = pagesWithHeader[store.modal.page];
-    const showSignup = store.settings && !store.settings.disable_signup;
-    const page = pages[store.modal.page] || {};
+  const showHeader = pagesWithHeader[store.modal.page] || false;
+  const showSignup = store.settings && !store.settings.disable_signup;
+  const page = pages[store.modal.page] || {};
 
-    return (
-      <div>
-        <Modal
-          page={page}
-          error={store.error}
-          showHeader={showHeader}
-          showSignup={showSignup}
-          devSettings={!store.gotrue}
-          loading={!store.error && store.gotrue && !store.settings}
-          isOpen={store.modal.isOpen}
-          onPage={this.handlePage}
-          onClose={this.handleClose}
-          logo={store.modal.logo}
-          t={store.translate}
-          isLocal={store.isLocal}
-          clearSiteURL={this.clearSiteURL}
-          clearStoreError={this.clearStoreError}
-        >
-          {this.renderBody()}
-          {this.renderProviders()}
-        </Modal>
-      </div>
-    );
-  }
+  return (
+    <div>
+      <Modal
+        page={page}
+        error={store.error}
+        showHeader={showHeader}
+        showSignup={!!showSignup}
+        devSettings={!store.gotrue}
+        loading={!store.error && !!store.gotrue && !store.settings}
+        isOpen={store.modal.isOpen}
+        onPage={handlePage}
+        onClose={handleClose}
+        logo={store.modal.logo}
+        t={store.translate}
+        isLocal={store.isLocal || false}
+        clearSiteURL={clearSiteURL}
+        clearStoreError={clearStoreError}
+      >
+        {renderBody()}
+        {renderProviders()}
+      </Modal>
+    </div>
+  );
 }
 
 export default observer(App);
