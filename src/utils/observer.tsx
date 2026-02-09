@@ -1,43 +1,49 @@
 import {
-  h,
-  Component,
-  ComponentType,
+  FunctionalComponent,
   ComponentChildren,
   RenderableProps
 } from "preact";
+import { useRef, useReducer, useEffect } from "preact/hooks";
 import { Reaction } from "mobx";
 
 /**
- * Minimal observer HOC for Preact + MobX 6.
- * mobx-preact is unmaintained and mobx-react-lite requires preact/compat.
+ * Minimal observer HOC for Preact 10 + MobX 6.
+ *
+ * Calls the wrapped function component directly inside MobX's reaction.track()
+ * so that all observable accesses are recorded. When any tracked observable
+ * changes, the wrapper forces a re-render.
+ *
+ * Based on the same approach as mobx-react-lite's useObserver.
  */
 export function observer<P extends object>(
-  BaseComponent: ComponentType<P>
-): ComponentType<P> {
+  BaseComponent: FunctionalComponent<P>
+): FunctionalComponent<P> {
   const name = BaseComponent.displayName || BaseComponent.name || "Component";
 
-  class Observer extends Component<P> {
-    private reaction: Reaction | null = null;
+  function ObserverWrapper(props: RenderableProps<P>) {
+    const [, forceUpdate] = useReducer((c: number) => c + 1, 0);
 
-    componentWillMount() {
-      this.reaction = new Reaction(`observer(${name})`, () => {
-        this.forceUpdate();
+    const reactionRef = useRef<Reaction | null>(null);
+    if (!reactionRef.current) {
+      reactionRef.current = new Reaction(`observer(${name})`, () => {
+        forceUpdate(0);
       });
     }
 
-    componentWillUnmount() {
-      this.reaction?.dispose();
-    }
+    useEffect(() => {
+      return () => {
+        reactionRef.current?.dispose();
+        reactionRef.current = null;
+      };
+    }, []);
 
-    render(): ComponentChildren {
-      let result: ComponentChildren;
-      this.reaction!.track(() => {
-        result = h(BaseComponent, this.props as RenderableProps<P>);
-      });
-      return result!;
-    }
+    let result: ComponentChildren;
+    reactionRef.current.track(() => {
+      result = BaseComponent(props);
+    });
+    return result!;
   }
 
-  Observer.displayName = `observer(${name})`;
-  return Observer;
+  ObserverWrapper.displayName = `observer(${name})`;
+  return ObserverWrapper;
 }
