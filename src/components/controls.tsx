@@ -2,7 +2,6 @@ import { h } from "preact";
 import { useContext } from "preact/hooks";
 import { observer } from "../utils/observer";
 import { StoreContext } from "../state/context";
-import type { ModalPage } from "../state/types";
 
 interface ControlsProps {
   mode?: "button" | "menu";
@@ -18,31 +17,31 @@ function Controls({ mode, text }: ControlsProps) {
 
   const { user, translate: t } = store;
 
-  const handleSignup = (e: Event) => {
-    e.preventDefault();
+  const handleSignup = () => {
     store.openModal("signup");
   };
 
-  const handleLogin = (e: Event) => {
-    e.preventDefault();
+  const handleLogin = () => {
     store.openModal("login");
   };
 
-  const handleLogout = (e: Event) => {
-    e.preventDefault();
+  const handleLogout = () => {
     store.openModal("user");
   };
 
-  const handleButton = (e: Event) => {
-    e.preventDefault();
-    store.openModal(user ? "user" : ("login" as ModalPage));
+  const handleButton = () => {
+    store.openModal(user ? "user" : "login");
   };
 
   if (mode === "button") {
     return (
-      <a className="netlify-identity-button" href="#" onClick={handleButton}>
+      <button
+        type="button"
+        className="netlify-identity-button"
+        onClick={handleButton}
+      >
         {text || (user ? t("log_out") : t("log_in"))}
-      </a>
+      </button>
     );
   }
 
@@ -56,13 +55,13 @@ function Controls({ mode, text }: ControlsProps) {
           </span>
         </li>
         <li className="netlify-identity-item">
-          <a
+          <button
+            type="button"
             className="netlify-identity-logout"
-            href="#"
             onClick={handleLogout}
           >
             {t("log_out")}
-          </a>
+          </button>
         </li>
       </ul>
     );
@@ -71,14 +70,22 @@ function Controls({ mode, text }: ControlsProps) {
   return (
     <ul className="netlify-identity-menu">
       <li className="netlify-identity-item">
-        <a className="netlify-identity-signup" href="#" onClick={handleSignup}>
+        <button
+          type="button"
+          className="netlify-identity-signup"
+          onClick={handleSignup}
+        >
           {t("sign_up")}
-        </a>
+        </button>
       </li>
       <li className="netlify-identity-item">
-        <a className="netlify-identity-login" href="#" onClick={handleLogin}>
+        <button
+          type="button"
+          className="netlify-identity-login"
+          onClick={handleLogin}
+        >
           {t("log_in")}
-        </a>
+        </button>
       </li>
     </ul>
   );
