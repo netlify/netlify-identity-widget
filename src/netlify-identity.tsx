@@ -251,7 +251,7 @@ function runRoutes() {
       params[key] = value;
     });
     if (!!document && params["access_token"]) {
-      document.cookie = `nf_jwt=${params["access_token"]}`;
+      document.cookie = `nf_jwt=${params["access_token"]}; path=/`;
     }
     if (params["state"]) {
       try {
@@ -271,6 +271,10 @@ function runRoutes() {
 }
 
 function init(options: InitOptions = {}) {
+  if (document.getElementById("netlify-identity-widget")) {
+    return;
+  }
+
   const { APIUrl, logo = true, namePlaceholder, locale } = options;
 
   if (locale) {
