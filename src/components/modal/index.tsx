@@ -86,12 +86,12 @@ export default function Modal({
       className="modalContainer"
       role="dialog"
       aria-hidden={`${hidden}`}
-      onClick={handleClose}
+      onMouseDown={handleClose}
       onKeyDown={handleKeyDown}
     >
       <div
         className={`modalDialog${loading ? " visuallyHidden" : ""}`}
-        onClick={blockEvent}
+        onMouseDown={blockEvent}
       >
         <div className="modalContent">
           <button onClick={handleClose} className="btn btnClose">
