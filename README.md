@@ -184,12 +184,19 @@ module API. Options include:
   APIUrl: 'https://www.example.com/.netlify/functions/identity'; // Absolute url to endpoint.  ONLY USE IN SPECIAL CASES!
   namePlaceholder: 'some-placeholder-for-Name'; // custom placeholder for name input form
   locale: 'en'; // language code for translations - available: en, fr, es, pt, hu, pl, cs, sk, de, it, ar, zhCN, nl, sv, sw, ru - default to en
+  cookieDomain: '.example.com'; // domain for the nf_jwt cookie, enabling cross-subdomain auth
 ```
 
 Generally avoid setting the `APIUrl`. You should only set this when your app is
 served from a domain that differs from where the identity endpoint is served.
 This is common for Cordova or Electron apps where you host from localhost or a
 file.
+
+**`cookieDomain`**: By default, the `nf_jwt` cookie is scoped to the exact
+hostname that set it. If your app spans multiple subdomains (e.g.
+`app.example.com` and `api.example.com`), set `cookieDomain` to the parent
+domain with a leading dot (e.g. `".example.com"`) so the cookie is included in
+requests to all subdomains. Only set this if you need cross-subdomain auth.
 
 ## Localhost
 

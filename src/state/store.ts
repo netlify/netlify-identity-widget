@@ -29,6 +29,7 @@ const baseStore = observable({
   email_change_token: null as string | null,
   namePlaceholder: null as string | null,
   signupMetadata: null as SignupMetadata | null,
+  cookieDomain: null as string | null,
   isLocal: false,
   modal: {
     page: "login" as ModalPage,
@@ -40,6 +41,11 @@ const baseStore = observable({
 
 // Cast to any to allow adding methods dynamically
 const store = baseStore as unknown as Store;
+
+function clearJwtCookie() {
+  const domain = store.cookieDomain ? `; domain=${store.cookieDomain}` : "";
+  document.cookie = `nf_jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/${domain}`;
+}
 
 store.setNamePlaceholder = action(function setNamePlaceholder(
   namePlaceholder: string | null
@@ -72,8 +78,7 @@ store.init = action(function init(
         action(() => {
           store.user = null;
           store.modal.page = "login";
-          document.cookie =
-            "nf_jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
+          clearJwtCookie();
         })
       );
     }
@@ -193,8 +198,7 @@ store.logout = action(function logout() {
           store.user = null;
           store.modal.page = "login";
           store.saving = false;
-          document.cookie =
-            "nf_jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
+          clearJwtCookie();
         })
       )
       .catch(store.setError);

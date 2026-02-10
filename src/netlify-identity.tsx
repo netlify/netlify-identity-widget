@@ -33,6 +33,8 @@ interface InitOptions {
   namePlaceholder?: string;
   locale?: Locale;
   container?: string;
+  /** Domain for the nf_jwt cookie, enabling cross-subdomain auth (e.g. ".example.com"). */
+  cookieDomain?: string;
 }
 
 interface NetlifyIdentity {
@@ -105,6 +107,19 @@ const netlifyIdentity: NetlifyIdentity = {
 };
 
 let queuedIframeStyle: string | null = null;
+
+/**
+ * Set or clear the nf_jwt cookie. When store.cookieDomain is configured,
+ * the Domain attribute is included so the cookie is sent to all subdomains.
+ */
+function setJwtCookie(token: string | null) {
+  const domain = store.cookieDomain ? `; domain=${store.cookieDomain}` : "";
+  if (token) {
+    document.cookie = `nf_jwt=${token}; path=/${domain}`;
+  } else {
+    document.cookie = `nf_jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/${domain}`;
+  }
+}
 
 function setStyle(
   el: HTMLElement | null,
@@ -253,7 +268,7 @@ function runRoutes() {
       params[key] = value;
     });
     if (!!document && params["access_token"]) {
-      document.cookie = `nf_jwt=${params["access_token"]}; path=/`;
+      setJwtCookie(params["access_token"]);
     }
     if (params["state"]) {
       try {
@@ -278,6 +293,10 @@ function init(options: InitOptions = {}) {
   }
 
   const { APIUrl, logo = true, namePlaceholder, locale } = options;
+
+  if (options.cookieDomain) {
+    store.cookieDomain = options.cookieDomain;
+  }
 
   if (locale) {
     store.locale = locale;
