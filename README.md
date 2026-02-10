@@ -84,6 +84,7 @@ netlifyIdentity.close();
 netlifyIdentity.logout();
 
 // Refresh the user's JWT
+// Call in on('login') handler to ensure token refreshed after it expires (1hr)
 // Note: this method returns a promise.
 netlifyIdentity.refresh().then((jwt) => console.log(jwt));
 
@@ -216,6 +217,17 @@ https://olddvdscreensaver.com
 | [netlify-identity-widget](https://github.com/netlify/netlify-identity-widget) | Yes (overlay) | This library — drop-in modal widget, no framework needed              |     |
 
 You can also see an example of wrapping netlify-identity-widget in a React Hook here: https://github.com/sw-yx/netlify-fauna-todo/blob/main/src/hooks/useNetlifyIdentity.js
+
+## Browser Support
+
+This widget supports all modern browsers. The browserslist query used is:
+
+```
+defaults, not IE 11
+```
+
+This covers the latest two versions of all major browsers, any browser with >0.5%
+global usage, and Firefox ESR. Internet Explorer is not supported.
 
 ## FAQ
 
