@@ -63,6 +63,12 @@ export default function Modal({
     onClose();
   };
 
+  const handleKeyDown = (e: KeyboardEvent) => {
+    if (e.key === "Escape") {
+      onClose();
+    }
+  };
+
   const blockEvent = (e: Event) => {
     e.stopPropagation();
   };
@@ -80,11 +86,12 @@ export default function Modal({
       className="modalContainer"
       role="dialog"
       aria-hidden={`${hidden}`}
-      onClick={handleClose}
+      onMouseDown={handleClose}
+      onKeyDown={handleKeyDown}
     >
       <div
         className={`modalDialog${loading ? " visuallyHidden" : ""}`}
-        onClick={blockEvent}
+        onMouseDown={blockEvent}
       >
         <div className="modalContent">
           <button onClick={handleClose} className="btn btnClose">

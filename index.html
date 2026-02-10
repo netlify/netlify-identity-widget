@@ -262,13 +262,17 @@
     </style>
 
     <script>
-      // Bind to events
-      netlifyIdentity.on("init", (user) => console.log(user));
-      netlifyIdentity.on("login", (user) => console.log(user));
-      netlifyIdentity.on("logout", () => console.log("Logged out"));
-      netlifyIdentity.on("error", (err) => console.error("Logged out"));
-      netlifyIdentity.on("open", () => console.log("Widget opened"));
-      netlifyIdentity.on("close", () => console.log("Widget closed"));
+      // Bind to events (deferred until module loads)
+      window.addEventListener("DOMContentLoaded", () => {
+        netlifyIdentity.on("init", (user) => console.log(user));
+        netlifyIdentity.on("login", (user) => console.log(user));
+        netlifyIdentity.on("logout", () => console.log("Logged out"));
+        netlifyIdentity.on("error", (err) =>
+          console.error("Netlify Identity error:", err)
+        );
+        netlifyIdentity.on("open", () => console.log("Widget opened"));
+        netlifyIdentity.on("close", () => console.log("Widget closed"));
+      });
     </script>
     <script>
       function changeLocale(locale) {

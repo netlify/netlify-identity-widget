@@ -173,6 +173,8 @@ store.logout = action(function logout() {
           store.user = null;
           store.modal.page = "login";
           store.saving = false;
+          document.cookie =
+            "nf_jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
         })
       )
       .catch(store.setError);
