@@ -22,6 +22,7 @@ const baseStore = observable({
   invite_token: null as string | null,
   email_change_token: null as string | null,
   namePlaceholder: null as string | null,
+  signupMetadata: null as Record<string, unknown> | null,
   isLocal: false,
   modal: {
     page: "login" as ModalPage,
@@ -158,7 +159,10 @@ store.signup = action(function signup(
 ) {
   store.startAction();
   return store
-    .gotrue!.signup(email, password, { full_name: name })
+    .gotrue!.signup(email, password, {
+      ...store.signupMetadata,
+      full_name: name
+    })
     .then(
       action(() => {
         if (store.settings?.autoconfirm) {

@@ -47,6 +47,7 @@ export interface Store {
   invite_token: string | null;
   email_change_token: string | null;
   namePlaceholder: string | null;
+  signupMetadata: Record<string, unknown> | null;
   modal: Modal;
   locale: Locale;
   isLocal?: boolean;

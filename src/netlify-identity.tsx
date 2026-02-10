@@ -38,7 +38,7 @@ interface InitOptions {
 interface NetlifyIdentity {
   on: (event: EventName, cb: EventCallback) => void;
   off: (event: EventName, cb?: EventCallback) => void;
-  open: (action?: string) => void;
+  open: (action?: string, metadata?: Record<string, unknown>) => void;
   close: () => void;
   currentUser: () => User | null;
   logout: () => Promise<void> | void;
@@ -63,11 +63,12 @@ const netlifyIdentity: NetlifyIdentity = {
       }
     }
   },
-  open: (action) => {
+  open: (action, metadata) => {
     action = action || "login";
     if (!validActions[action]) {
       throw new Error(`Invalid action for open: ${action}`);
     }
+    store.signupMetadata = metadata || null;
     store.openModal(store.user ? "user" : (action as ModalPage));
   },
   close: () => {
