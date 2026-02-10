@@ -3237,12 +3237,10 @@ gopd@^1.0.1, gopd@^1.2.0:
   resolved "https://registry.yarnpkg.com/gopd/-/gopd-1.2.0.tgz#89f56b8217bdbc8802bd299df6d7f1081d7e51a1"
   integrity sha512-ZUKRh6/kUFoAiTAtTYPZJ3hw9wNxx+BIBOijnlG9PnrJsCcSjs1wyyD6vJpaYtgnzDrKYRSqf3OO6Rfa93xsRg==
 
-gotrue-js@^0.9.26:
-  version "0.9.29"
-  resolved "https://registry.yarnpkg.com/gotrue-js/-/gotrue-js-0.9.29.tgz#08e62184d4eaadcd87f95cb6e49e3c4a9742a052"
-  integrity sha512-NSFwJlFfWxHd1zHDitysbh+amFPHBAyQG1YmecZJTaSe8TlC7Wja1ewdUBikfJBblN3SqghS6aViMd+Q/pPzGQ==
-  dependencies:
-    micro-api-client "^3.2.1"
+gotrue-js@1.0.1-alpha.12:
+  version "1.0.1-alpha.12"
+  resolved "https://registry.yarnpkg.com/gotrue-js/-/gotrue-js-1.0.1-alpha.12.tgz#9d991dbaa5f3c9a84719caf1999c8ec65af5a26c"
+  integrity sha512-5hmB3NgMz5sfVEllL+AuwTAAR1hrQq++FWFGRpS8lcdHiU1Hpjfc1XqDtvxycrcFwEei43Bc4r39COA0vPObYQ==
 
 has-bigints@^1.0.2:
   version "1.1.0"
@@ -3804,11 +3802,6 @@ meow@^13.0.0:
   version "13.2.0"
   resolved "https://registry.yarnpkg.com/meow/-/meow-13.2.0.tgz#6b7d63f913f984063b3cc261b6e8800c4cd3474f"
   integrity sha512-pxQJQzB6djGPXh08dacEloMFopsOqGVRKFPYvPOt9XDZ1HasbgDZA74CJGreSU4G3Ak7EFJGoiH2auq+yXISgA==
-
-micro-api-client@^3.2.1:
-  version "3.3.0"
-  resolved "https://registry.yarnpkg.com/micro-api-client/-/micro-api-client-3.3.0.tgz#52dd567d322f10faffe63d19d4feeac4e4ffd215"
-  integrity sha512-y0y6CUB9RLVsy3kfgayU28746QrNMpSm9O/AYGNsBgOkJr/X/Jk0VLGoO8Ude7Bpa8adywzF+MzXNZRFRsNPhg==
 
 minimatch@^10.1.2:
   version "10.1.2"

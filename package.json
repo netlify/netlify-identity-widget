@@ -26,7 +26,7 @@
     "eslint-config-prettier": "^10.0.0",
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-react": "^7.37.5",
-    "gotrue-js": "^0.9.26",
+    "gotrue-js": "1.0.1-alpha.12",
     "husky": "^9.0.0",
     "jsdom": "^28.0.0",
     "mobx": "^6.15.0",
