@@ -38,5 +38,7 @@
   "Invalid Password": "Invalid Password",
   "Email not confirmed": "Email not confirmed",
   "User not found": "User not found",
-  "or": "or"
+  "or": "or",
+  "show_password": "Show password",
+  "hide_password": "Hide password"
 }

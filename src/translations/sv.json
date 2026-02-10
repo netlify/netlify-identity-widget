@@ -38,5 +38,7 @@
   "Invalid Password": "Felaktigt lösenord",
   "Email not confirmed": "Din epost är inte verifierad",
   "User not found": "Användaren hittades inte",
-  "or": "eller"
+  "or": "eller",
+  "show_password": "Visa lösenord",
+  "hide_password": "Dölj lösenord"
 }

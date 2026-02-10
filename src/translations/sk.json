@@ -38,5 +38,7 @@
   "Invalid Password": "Neplatné heslo",
   "Email not confirmed": "E-mail nebol potvrdený",
   "User not found": "Používateľ nebol nájdený",
-  "or": "alebo"
+  "or": "alebo",
+  "show_password": "Zobraziť heslo",
+  "hide_password": "Skryť heslo"
 }

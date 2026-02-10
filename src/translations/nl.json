@@ -38,5 +38,7 @@
   "Invalid Password": "Ongeldig Wachtwoord",
   "Email not confirmed": "E-mailadres niet bevestigd",
   "User not found": "Gebruiker niet gevonden",
-  "or": "of"
+  "or": "of",
+  "show_password": "Wachtwoord tonen",
+  "hide_password": "Wachtwoord verbergen"
 }

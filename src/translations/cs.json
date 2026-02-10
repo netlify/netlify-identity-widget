@@ -38,5 +38,7 @@
   "Invalid Password": "Neplatné heslo",
   "Email not confirmed": "E-mail nebyl potvrzen",
   "User not found": "Uživatel nebyl nalezen",
-  "or": "nebo"
+  "or": "nebo",
+  "show_password": "Zobrazit heslo",
+  "hide_password": "Skrýt heslo"
 }
