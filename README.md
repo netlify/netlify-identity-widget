@@ -26,24 +26,27 @@ You can add controls for the widget with HTML:
 ```html
 <!DOCTYPE html>
 <html>
-<head>
-  <title>A static website</title>
+  <head>
+    <title>A static website</title>
 
-  <!-- include the widget -->
-  <script type="text/javascript" src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-</head>
-<body>
-  <!-- Add a menu:
+    <!-- include the widget -->
+    <script
+      type="text/javascript"
+      src="https://identity.netlify.com/v1/netlify-identity-widget.js"
+    ></script>
+  </head>
+  <body>
+    <!-- Add a menu:
    Log in / Sign up - when the user is not logged in
    Username / Log out - when the user is logged in
   -->
-  <div data-netlify-identity-menu></div>
+    <div data-netlify-identity-menu></div>
 
-  <!-- Add a simpler button:
+    <!-- Add a simpler button:
     Simple button that will open the modal.
   -->
-  <div data-netlify-identity-button>Login with Netlify Identity</div>
-</body>
+    <div data-netlify-identity-button>Login with Netlify Identity</div>
+  </body>
 </html>
 ```
 
@@ -55,22 +58,24 @@ You can use this global object like this:
 ```js
 // Open the modal
 netlifyIdentity.open();
+netlifyIdentity.open("login"); // open the modal to the login tab
+netlifyIdentity.open("signup"); // open the modal to the signup tab
 
 // Get the current user:
 // Available after on('init') is invoked
 const user = netlifyIdentity.currentUser();
 
 // Bind to events
-netlifyIdentity.on('init', user => console.log('init', user));
-netlifyIdentity.on('login', user => console.log('login', user));
-netlifyIdentity.on('logout', () => console.log('Logged out'));
-netlifyIdentity.on('error', err => console.error('Error', err));
-netlifyIdentity.on('open', () => console.log('Widget opened'));
-netlifyIdentity.on('close', () => console.log('Widget closed'));
+netlifyIdentity.on("init", (user) => console.log("init", user));
+netlifyIdentity.on("login", (user) => console.log("login", user));
+netlifyIdentity.on("logout", () => console.log("Logged out"));
+netlifyIdentity.on("error", (err) => console.error("Error", err));
+netlifyIdentity.on("open", () => console.log("Widget opened"));
+netlifyIdentity.on("close", () => console.log("Widget closed"));
 
 // Unbind from events
-netlifyIdentity.off('login'); // to unbind all registered handlers
-netlifyIdentity.off('login', handler); // to unbind a single handler
+netlifyIdentity.off("login"); // to unbind all registered handlers
+netlifyIdentity.off("login", handler); // to unbind a single handler
 
 // Close the modal
 netlifyIdentity.close();
@@ -79,13 +84,35 @@ netlifyIdentity.close();
 netlifyIdentity.logout();
 
 // Refresh the user's JWT
-// Call in on('login') handler to ensure token refreshed after it expires (1hr)  
 // Note: this method returns a promise.
-netlifyIdentity.refresh().then((jwt)=>console.log(jwt))
+netlifyIdentity.refresh().then((jwt) => console.log(jwt));
 
 // Change language
-netlifyIdentity.setLocale('en');
+netlifyIdentity.setLocale("en");
 ```
+
+#### JWT refresh tokens
+
+The access token (JWT) issued by Netlify Identity expires after **1 hour**. After
+expiry, the widget automatically uses the refresh token to obtain a new access
+token when you call `netlifyIdentity.refresh()`.
+
+To keep the token fresh, call `refresh()` before making authenticated requests:
+
+```js
+netlifyIdentity.on("login", async (user) => {
+  // Get a fresh JWT for API calls
+  const jwt = await netlifyIdentity.refresh();
+  // Use jwt in Authorization header for your functions/API
+  fetch("/.netlify/functions/my-function", {
+    headers: { Authorization: `Bearer ${jwt}` }
+  });
+});
+```
+
+You do **not** need to call `.refresh()` on every request — only when the token
+may have expired (i.e. more than 1 hour since the last login or refresh). The
+method returns a promise that resolves with the new JWT string.
 
 #### A note on script tag versioning
 
@@ -104,27 +131,27 @@ yarn add netlify-identity-widget
 Import or require as usual:
 
 ```js
-const netlifyIdentity = require('netlify-identity-widget');
+const netlifyIdentity = require("netlify-identity-widget");
 
 netlifyIdentity.init({
-  container: '#netlify-modal', // defaults to document.body
-  locale: 'en' // defaults to 'en'
+  container: "#netlify-modal", // defaults to document.body
+  locale: "en" // defaults to 'en'
 });
 
 netlifyIdentity.open(); // open the modal
-netlifyIdentity.open('login'); // open the modal to the login tab
-netlifyIdentity.open('signup'); // open the modal to the signup tab
+netlifyIdentity.open("login"); // open the modal to the login tab
+netlifyIdentity.open("signup"); // open the modal to the signup tab
 
-netlifyIdentity.on('init', user => console.log('init', user));
-netlifyIdentity.on('login', user => console.log('login', user));
-netlifyIdentity.on('logout', () => console.log('Logged out'));
-netlifyIdentity.on('error', err => console.error('Error', err));
-netlifyIdentity.on('open', () => console.log('Widget opened'));
-netlifyIdentity.on('close', () => console.log('Widget closed'));
+netlifyIdentity.on("init", (user) => console.log("init", user));
+netlifyIdentity.on("login", (user) => console.log("login", user));
+netlifyIdentity.on("logout", () => console.log("Logged out"));
+netlifyIdentity.on("error", (err) => console.error("Error", err));
+netlifyIdentity.on("open", () => console.log("Widget opened"));
+netlifyIdentity.on("close", () => console.log("Widget closed"));
 
 // Unbind from events
-netlifyIdentity.off('login'); // to unbind all registered handlers
-netlifyIdentity.off('login', handler); // to unbind a single handler
+netlifyIdentity.off("login"); // to unbind all registered handlers
+netlifyIdentity.off("login", handler); // to unbind a single handler
 
 // Close the modal
 netlifyIdentity.close();
@@ -134,10 +161,10 @@ netlifyIdentity.logout();
 
 // refresh the user's JWT
 // Note: this method returns a promise.
-netlifyIdentity.refresh().then((jwt)=>console.log(jwt))
+netlifyIdentity.refresh().then((jwt) => console.log(jwt));
 
 // Change language
-netlifyIdentity.setLocale('en');
+netlifyIdentity.setLocale("en");
 
 // Access the underlying GoTrue JS client.
 // Note that doing things directly through the GoTrue client brings a risk of getting out of
@@ -155,7 +182,7 @@ module API. Options include:
   container: '#some-query-selector'; // container to attach to
   APIUrl: 'https://www.example.com/.netlify/functions/identity'; // Absolute url to endpoint.  ONLY USE IN SPECIAL CASES!
   namePlaceholder: 'some-placeholder-for-Name'; // custom placeholder for name input form
-  locale: 'en'; // language code for translations - available: en, fr, es, pt, hu, pl, cs, sk - default to en
+  locale: 'en'; // language code for translations - available: en, fr, es, pt, hu, pl, cs, sk, de, it, ar, zhCN, nl, sv, sw, ru - default to en
 ```
 
 Generally avoid setting the `APIUrl`. You should only set this when your app is
@@ -183,24 +210,21 @@ https://olddvdscreensaver.com
 
 ## List of Alternatives
 
-**Lowest level JS Library**: If you want to use the official Javascript bindings to GoTrue, Netlify's underlying Identity service written in Go, use https://github.com/netlify/gotrue-js
-
-**React bindings**: If you want a thin wrapper over Gotrue-js for React, `react-netlify-identity` is a "headless" library, meaning there is no UI exported and you will write your own UI to work with the authentication. https://github.com/sw-yx/react-netlify-identity
-
-**High level overlay**: If you want a "widget" overlay that gives you a nice UI out of the box, with a somewhat larger bundle, check https://github.com/netlify/netlify-identity-widget
-
-**High level popup**: If you want a popup window approach also with a nice UI out of the box, and don't mind the popup flow, check https://github.com/netlify/netlify-auth-providers
+| Library                                                                       | UI provided   | Notes                                                                 |
+| ----------------------------------------------------------------------------- | ------------- | --------------------------------------------------------------------- | --- |
+| [gotrue-js](https://github.com/netlify/gotrue-js)                             | No            | Low-level JS client for GoTrue, Netlify's underlying Identity service |
+| [netlify-identity-widget](https://github.com/netlify/netlify-identity-widget) | Yes (overlay) | This library — drop-in modal widget, no framework needed              |     |
 
 You can also see an example of wrapping netlify-identity-widget in a React Hook here: https://github.com/sw-yx/netlify-fauna-todo/blob/main/src/hooks/useNetlifyIdentity.js
 
 ## FAQ
 
-* TypeScript Typings are maintained by @nkprince007 ([see PR](https://github.com/DefinitelyTyped/DefinitelyTyped/pull/30689)): `npm install @types/netlify-identity-widget` and then `import * as NetlifyIdentityWidget from "netlify-identity-widget"` (or `import NetlifyIdentityWidget from "netlify-identity-widget"` if you have `--allowSyntheticDefaultImports` on)
+- TypeScript Typings are maintained by @nkprince007 ([see PR](https://github.com/DefinitelyTyped/DefinitelyTyped/pull/30689)): `npm install @types/netlify-identity-widget` and then `import * as NetlifyIdentityWidget from "netlify-identity-widget"` (or `import NetlifyIdentityWidget from "netlify-identity-widget"` if you have `--allowSyntheticDefaultImports` on)
 
-* If you experience a 404 while testing the Netlify Identity Widget on a local
+- If you experience a 404 while testing the Netlify Identity Widget on a local
   environment, you can manually remove the `netlifySiteURL` from localStorage by
   doing the following in the console.
 
 ```js
-localStorage.removeItem('netlifySiteURL');
+localStorage.removeItem("netlifySiteURL");
 ```

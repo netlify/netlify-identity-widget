@@ -50,6 +50,46 @@ describe("translations", () => {
     expect(getTranslation("log_in", "sk")).toEqual("Prihlásiť sa");
   });
 
+  it("should return translation for 'ru' locale", async () => {
+    const { getTranslation } = await import("./");
+    expect(getTranslation("log_in", "ru")).toEqual("Войти");
+  });
+
+  it("should return translation for 'de' locale", async () => {
+    const { getTranslation } = await import("./");
+    expect(getTranslation("log_in", "de")).toEqual("Anmelden");
+  });
+
+  it("should return translation for 'it' locale", async () => {
+    const { getTranslation } = await import("./");
+    expect(getTranslation("log_in", "it")).toEqual("Login");
+  });
+
+  it("should return translation for 'ar' locale", async () => {
+    const { getTranslation } = await import("./");
+    expect(getTranslation("log_in", "ar")).toEqual("سجل دخول");
+  });
+
+  it("should return translation for 'zhCN' locale", async () => {
+    const { getTranslation } = await import("./");
+    expect(getTranslation("log_in", "zhCN")).toEqual("登录");
+  });
+
+  it("should return translation for 'nl' locale", async () => {
+    const { getTranslation } = await import("./");
+    expect(getTranslation("log_in", "nl")).toEqual("Inloggen");
+  });
+
+  it("should return translation for 'sv' locale", async () => {
+    const { getTranslation } = await import("./");
+    expect(getTranslation("log_in", "sv")).toEqual("Logga in");
+  });
+
+  it("should return translation for 'sw' locale", async () => {
+    const { getTranslation } = await import("./");
+    expect(getTranslation("log_in", "sw")).toEqual("Ingia");
+  });
+
   it("should return key for non existing translation", async () => {
     const { getTranslation } = await import("./");
     expect(getTranslation("unknown_key")).toEqual("unknown_key");

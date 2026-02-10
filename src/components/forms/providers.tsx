@@ -46,7 +46,7 @@ export default function Providers({
 
   return (
     <div className="providersGroup">
-      <hr className="hr" />
+      <hr className="hr" data-text={t("or")} />
       {providers.map((p) => (
         <Provider
           key={p}

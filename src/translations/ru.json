@@ -37,5 +37,6 @@
   "Invalid Password": "Неправильный пароль",
   "continue_with": "Продолжить с",
   "Email not confirmed": "Адрес электронной почты не подтверждён",
-  "User not found": "Пользователь не найден"
+  "User not found": "Пользователь не найден",
+  "or": "или"
 }

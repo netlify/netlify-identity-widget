@@ -394,7 +394,7 @@
 }
 
 .hr::before {
-  content: "or";
+  content: attr(data-text);
   position: relative;
   display: inline-block;
   font-size: 12px;
