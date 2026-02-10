@@ -60,6 +60,15 @@ store.init = action(function init(
     store.user = gotrue.currentUser();
     if (store.user) {
       store.modal.page = "user";
+      // Validate session server-side — if user was deleted, clear session
+      store.user.getUserData().catch(
+        action(() => {
+          store.user = null;
+          store.modal.page = "login";
+          document.cookie =
+            "nf_jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
+        })
+      );
     }
   }
   if (reloadSettings) {
