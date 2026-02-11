@@ -1,7 +1,7 @@
 import { observable, action, configure } from "mobx";
 import { defaultLocale, getTranslation } from "../translations";
 import type { Locale } from "../translations";
-import type { Store, ModalPage, MessageType, Settings } from "./types";
+import type { Store, ModalPage, MessageType, Settings, SignupMetadata } from "./types";
 import type { User } from "gotrue-js";
 import type GoTrue from "gotrue-js";
 
@@ -22,7 +22,7 @@ const baseStore = observable({
   invite_token: null as string | null,
   email_change_token: null as string | null,
   namePlaceholder: null as string | null,
-  signupMetadata: null as Record<string, unknown> | null,
+  signupMetadata: null as SignupMetadata | null,
   isLocal: false,
   modal: {
     page: "login" as ModalPage,
