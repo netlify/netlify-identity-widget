@@ -38,5 +38,7 @@
   "continue_with": "Продолжить с",
   "Email not confirmed": "Адрес электронной почты не подтверждён",
   "User not found": "Пользователь не найден",
-  "or": "или"
+  "or": "или",
+  "show_password": "Показать пароль",
+  "hide_password": "Скрыть пароль"
 }

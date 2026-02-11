@@ -44,6 +44,7 @@ export default function UserForm({
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleInput = (e: Event) => {
     const target = e.target as HTMLInputElement;
@@ -94,7 +95,7 @@ export default function UserForm({
       {page.email && (
         <div className="formGroup">
           <label>
-            <span className="visuallyHidden">{t("form_name_label")}</span>
+            <span className="visuallyHidden">{t("form_email_label")}</span>
             <input
               className="formControl"
               type="email"
@@ -116,7 +117,7 @@ export default function UserForm({
             <span className="visuallyHidden">{t("form_password_label")}</span>
             <input
               className="formControl"
-              type="password"
+              type={showPassword ? "text" : "password"}
               name="password"
               value={password}
               placeholder={t("form_password_placeholder")}
@@ -126,6 +127,16 @@ export default function UserForm({
             />
             <div className="inputFieldIcon inputFieldPassword" />
           </label>
+          <button
+            type="button"
+            className={`btnPasswordToggle ${showPassword ? "passwordVisible" : ""}`}
+            aria-pressed={showPassword}
+            onClick={() => setShowPassword(!showPassword)}
+          >
+            <span className="visuallyHidden">
+              {t(showPassword ? "hide_password" : "show_password")}
+            </span>
+          </button>
         </div>
       )}
       <Button

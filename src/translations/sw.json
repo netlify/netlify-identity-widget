@@ -38,5 +38,7 @@
   "Invalid Password": "Nenosiri batili",
   "Email not confirmed": "Barua pepe haijathibitishwa",
   "User not found": "Mtumiaji wa akaunti hapatikani",
-  "or": "au"
+  "or": "au",
+  "show_password": "Onyesha nenosiri",
+  "hide_password": "Ficha nenosiri"
 }

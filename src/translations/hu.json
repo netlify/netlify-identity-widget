@@ -38,5 +38,7 @@
   "Invalid Password": "Helytelen Jelszó",
   "Email not confirmed": "Az e-mail nem erősült meg",
   "User not found": "Felhasználó nem található",
-  "or": "vagy"
+  "or": "vagy",
+  "show_password": "Jelszó megjelenítése",
+  "hide_password": "Jelszó elrejtése"
 }

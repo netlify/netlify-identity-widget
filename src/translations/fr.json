@@ -38,5 +38,7 @@
   "Invalid Password": "Mot de passe incorrect",
   "Email not confirmed": "Adresse e-mail non confirmée",
   "User not found": "Aucun utilisateur trouvé",
-  "or": "ou"
+  "or": "ou",
+  "show_password": "Afficher le mot de passe",
+  "hide_password": "Masquer le mot de passe"
 }

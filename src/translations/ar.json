@@ -38,5 +38,7 @@
   "Invalid Password": "كلمة المرور غير صحيحة",
   "Email not confirmed": "لم يتم تأكيد البريد الإلكتروني",
   "User not found": "لم يتم العثور على المستخدم",
-  "or": "أو"
+  "or": "أو",
+  "show_password": "إظهار كلمة المرور",
+  "hide_password": "إخفاء كلمة المرور"
 }
