@@ -151,6 +151,7 @@ function App() {
     return (
       <div>
         <UserForm
+          key={store.modal.page}
           page={{
             name: page.name,
             email: page.email,

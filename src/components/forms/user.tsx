@@ -95,7 +95,7 @@ export default function UserForm({
       {page.email && (
         <div className="formGroup">
           <label>
-            <span className="visuallyHidden">{t("form_name_label")}</span>
+            <span className="visuallyHidden">{t("form_email_label")}</span>
             <input
               className="formControl"
               type="email"
@@ -130,6 +130,7 @@ export default function UserForm({
           <button
             type="button"
             className={`btnPasswordToggle ${showPassword ? "passwordVisible" : ""}`}
+            aria-pressed={showPassword}
             onClick={() => setShowPassword(!showPassword)}
           >
             <span className="visuallyHidden">
