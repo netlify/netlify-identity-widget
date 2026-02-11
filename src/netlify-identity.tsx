@@ -68,7 +68,8 @@ const netlifyIdentity: NetlifyIdentity = {
     if (!validActions[action]) {
       throw new Error(`Invalid action for open: ${action}`);
     }
-    store.signupMetadata = metadata && Object.keys(metadata).length > 0 ? metadata : null;
+    store.signupMetadata =
+      metadata && Object.keys(metadata).length > 0 ? metadata : null;
     store.openModal(store.user ? "user" : (action as ModalPage));
   },
   close: () => {

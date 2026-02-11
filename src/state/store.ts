@@ -1,7 +1,13 @@
 import { observable, action, configure } from "mobx";
 import { defaultLocale, getTranslation } from "../translations";
 import type { Locale } from "../translations";
-import type { Store, ModalPage, MessageType, Settings, SignupMetadata } from "./types";
+import type {
+  Store,
+  ModalPage,
+  MessageType,
+  Settings,
+  SignupMetadata
+} from "./types";
 import type { User } from "gotrue-js";
 import type GoTrue from "gotrue-js";
 
@@ -165,6 +171,7 @@ store.signup = action(function signup(
     })
     .then(
       action(() => {
+        store.signupMetadata = null;
         if (store.settings?.autoconfirm) {
           store.login(email, password);
         } else {
