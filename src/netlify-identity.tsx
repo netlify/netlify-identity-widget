@@ -7,7 +7,7 @@ import store from "./state/store";
 import Controls from "./components/controls";
 import { StoreContext } from "./state/context";
 import modalCSS from "./components/modal.css?inline";
-import type { ModalPage, Locale } from "./state/types";
+import type { ModalPage, Locale, SignupMetadata } from "./state/types";
 
 type EventCallback = (...args: unknown[]) => void;
 type EventName = "login" | "logout" | "init" | "open" | "close" | "error";
@@ -38,7 +38,7 @@ interface InitOptions {
 interface NetlifyIdentity {
   on: (event: EventName, cb: EventCallback) => void;
   off: (event: EventName, cb?: EventCallback) => void;
-  open: (action?: string) => void;
+  open: (action?: string, metadata?: SignupMetadata) => void;
   close: () => void;
   currentUser: () => User | null;
   logout: () => Promise<void> | void;
@@ -63,11 +63,13 @@ const netlifyIdentity: NetlifyIdentity = {
       }
     }
   },
-  open: (action) => {
+  open: (action, metadata) => {
     action = action || "login";
     if (!validActions[action]) {
       throw new Error(`Invalid action for open: ${action}`);
     }
+    store.signupMetadata =
+      metadata && Object.keys(metadata).length > 0 ? metadata : null;
     store.openModal(store.user ? "user" : (action as ModalPage));
   },
   close: () => {

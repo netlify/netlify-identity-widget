@@ -13,6 +13,8 @@ export type ModalPage =
   | "user"
   | "message";
 
+export type SignupMetadata = Record<string, unknown>;
+
 export type MessageType =
   | "confirm"
   | "password_mail"
@@ -47,6 +49,7 @@ export interface Store {
   invite_token: string | null;
   email_change_token: string | null;
   namePlaceholder: string | null;
+  signupMetadata: SignupMetadata | null;
   modal: Modal;
   locale: Locale;
   isLocal?: boolean;

@@ -1,7 +1,13 @@
 import { observable, action, configure } from "mobx";
 import { defaultLocale, getTranslation } from "../translations";
 import type { Locale } from "../translations";
-import type { Store, ModalPage, MessageType, Settings } from "./types";
+import type {
+  Store,
+  ModalPage,
+  MessageType,
+  Settings,
+  SignupMetadata
+} from "./types";
 import type { User } from "gotrue-js";
 import type GoTrue from "gotrue-js";
 
@@ -22,6 +28,7 @@ const baseStore = observable({
   invite_token: null as string | null,
   email_change_token: null as string | null,
   namePlaceholder: null as string | null,
+  signupMetadata: null as SignupMetadata | null,
   isLocal: false,
   modal: {
     page: "login" as ModalPage,
@@ -158,9 +165,13 @@ store.signup = action(function signup(
 ) {
   store.startAction();
   return store
-    .gotrue!.signup(email, password, { full_name: name })
+    .gotrue!.signup(email, password, {
+      ...store.signupMetadata,
+      full_name: name
+    })
     .then(
       action(() => {
+        store.signupMetadata = null;
         if (store.settings?.autoconfirm) {
           store.login(email, password);
         } else {
