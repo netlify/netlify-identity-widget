@@ -3,7 +3,7 @@ import { reaction } from "mobx";
 import GoTrue from "gotrue-js";
 import type { User } from "gotrue-js";
 import App from "./components/app";
-import store from "./state/store";
+import store, { setJwtCookie } from "./state/store";
 import Controls from "./components/controls";
 import { StoreContext } from "./state/context";
 import modalCSS from "./components/modal.css?inline";
@@ -108,19 +108,6 @@ const netlifyIdentity: NetlifyIdentity = {
 
 let queuedIframeStyle: string | null = null;
 
-/**
- * Set or clear the nf_jwt cookie. When store.cookieDomain is configured,
- * the Domain attribute is included so the cookie is sent to all subdomains.
- */
-function setJwtCookie(token: string | null) {
-  const domain = store.cookieDomain ? `; domain=${store.cookieDomain}` : "";
-  if (token) {
-    document.cookie = `nf_jwt=${token}; path=/${domain}`;
-  } else {
-    document.cookie = `nf_jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/${domain}`;
-  }
-}
-
 function setStyle(
   el: HTMLElement | null,
   css: Record<string, string | number>
@@ -143,9 +130,10 @@ const localHosts: Record<string, boolean> = {
 };
 
 function instantiateGotrue(APIUrl?: string): GoTrue | null {
-  const isLocal = localHosts[document.location.hostname];
+  const isLocal = localHosts[window.location.hostname];
+  const useServerCookie = !isLocal && !store.cookieDomain;
   if (APIUrl) {
-    return new GoTrue({ APIUrl, setCookie: !isLocal });
+    return new GoTrue({ APIUrl, setCookie: useServerCookie });
   }
   if (isLocal) {
     store.setIsLocal(isLocal);
@@ -157,7 +145,7 @@ function instantiateGotrue(APIUrl?: string): GoTrue | null {
     return null;
   }
 
-  return new GoTrue({ setCookie: !isLocal });
+  return new GoTrue({ setCookie: useServerCookie });
 }
 
 let iframe: HTMLIFrameElement | null = null;
@@ -295,6 +283,11 @@ function init(options: InitOptions = {}) {
   const { APIUrl, logo = true, namePlaceholder, locale } = options;
 
   if (options.cookieDomain) {
+    if (/[;\r\n]/.test(options.cookieDomain)) {
+      throw new Error(
+        "Invalid cookieDomain: must not contain semicolons or newlines"
+      );
+    }
     store.cookieDomain = options.cookieDomain;
   }
 

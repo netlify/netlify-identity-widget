@@ -42,9 +42,18 @@ const baseStore = observable({
 // Cast to any to allow adding methods dynamically
 const store = baseStore as unknown as Store;
 
-function clearJwtCookie() {
+/**
+ * Set or clear the nf_jwt cookie. When store.cookieDomain is configured,
+ * the Domain attribute is included so the cookie is sent to all subdomains.
+ */
+export function setJwtCookie(token: string | null) {
   const domain = store.cookieDomain ? `; domain=${store.cookieDomain}` : "";
-  document.cookie = `nf_jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/${domain}`;
+  const secure = window.location.protocol === "https:" ? "; secure" : "";
+  if (token) {
+    document.cookie = `nf_jwt=${token}; path=/${domain}${secure}; SameSite=Lax`;
+  } else {
+    document.cookie = `nf_jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/${domain}${secure}; SameSite=Lax`;
+  }
 }
 
 store.setNamePlaceholder = action(function setNamePlaceholder(
@@ -78,7 +87,7 @@ store.init = action(function init(
         action(() => {
           store.user = null;
           store.modal.page = "login";
-          clearJwtCookie();
+          setJwtCookie(null);
         })
       );
     }
@@ -131,6 +140,7 @@ store.login = action(function login(email: string, password: string) {
         store.user = user;
         store.modal.page = "user";
         store.invite_token = null;
+        setJwtCookie(user.tokenDetails()?.access_token ?? null);
         if (store.email_change_token) {
           store.doEmailChange();
         }
@@ -158,6 +168,7 @@ store.completeExternalLogin = action(function completeExternalLogin(
     .then((user: User) => {
       store.user = user;
       store.modal.page = "user";
+      setJwtCookie(user.tokenDetails()?.access_token ?? null);
       store.saving = false;
     })
     .catch(store.setError);
@@ -198,13 +209,14 @@ store.logout = action(function logout() {
           store.user = null;
           store.modal.page = "login";
           store.saving = false;
-          clearJwtCookie();
+          setJwtCookie(null);
         })
       )
       .catch(store.setError);
   } else {
     store.modal.page = "login";
     store.saving = false;
+    setJwtCookie(null);
   }
 });
 
@@ -217,6 +229,7 @@ store.updatePassword = action(function updatePassword(password: string) {
       store.user = updatedUser;
       store.recovered_user = null;
       store.modal.page = "user";
+      setJwtCookie(updatedUser.tokenDetails()?.access_token ?? null);
       store.saving = false;
     })
     .catch(store.setError);
@@ -231,6 +244,7 @@ store.acceptInvite = action(function acceptInvite(password: string) {
       store.invite_token = null;
       store.user = user;
       store.modal.page = "user";
+      setJwtCookie(user.tokenDetails()?.access_token ?? null);
     })
     .catch(store.setError);
 });
@@ -263,6 +277,7 @@ store.verifyToken = action(function verifyToken(type: string, token: string) {
         .then(
           action((user: User) => {
             store.user = user;
+            setJwtCookie(user.tokenDetails()?.access_token ?? null);
             store.saving = false;
           })
         )
