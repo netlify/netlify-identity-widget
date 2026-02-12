@@ -3,7 +3,7 @@ import { reaction } from "mobx";
 import GoTrue from "gotrue-js";
 import type { User } from "gotrue-js";
 import App from "./components/app";
-import store from "./state/store";
+import store, { setJwtCookie } from "./state/store";
 import Controls from "./components/controls";
 import { StoreContext } from "./state/context";
 import modalCSS from "./components/modal.css?inline";
@@ -33,6 +33,8 @@ interface InitOptions {
   namePlaceholder?: string;
   locale?: Locale;
   container?: string;
+  /** Domain for the nf_jwt cookie, enabling cross-subdomain auth (e.g. ".example.com"). */
+  cookieDomain?: string;
 }
 
 interface NetlifyIdentity {
@@ -128,9 +130,10 @@ const localHosts: Record<string, boolean> = {
 };
 
 function instantiateGotrue(APIUrl?: string): GoTrue | null {
-  const isLocal = localHosts[document.location.hostname];
+  const isLocal = localHosts[window.location.hostname];
+  const useServerCookie = !isLocal && !store.cookieDomain;
   if (APIUrl) {
-    return new GoTrue({ APIUrl, setCookie: !isLocal });
+    return new GoTrue({ APIUrl, setCookie: useServerCookie });
   }
   if (isLocal) {
     store.setIsLocal(isLocal);
@@ -142,7 +145,7 @@ function instantiateGotrue(APIUrl?: string): GoTrue | null {
     return null;
   }
 
-  return new GoTrue({ setCookie: !isLocal });
+  return new GoTrue({ setCookie: useServerCookie });
 }
 
 let iframe: HTMLIFrameElement | null = null;
@@ -253,7 +256,7 @@ function runRoutes() {
       params[key] = value;
     });
     if (!!document && params["access_token"]) {
-      document.cookie = `nf_jwt=${params["access_token"]}; path=/`;
+      setJwtCookie(params["access_token"]);
     }
     if (params["state"]) {
       try {
@@ -278,6 +281,15 @@ function init(options: InitOptions = {}) {
   }
 
   const { APIUrl, logo = true, namePlaceholder, locale } = options;
+
+  if (options.cookieDomain) {
+    if (/[;\r\n]/.test(options.cookieDomain)) {
+      throw new Error(
+        "Invalid cookieDomain: must not contain semicolons or newlines"
+      );
+    }
+    store.cookieDomain = options.cookieDomain;
+  }
 
   if (locale) {
     store.locale = locale;

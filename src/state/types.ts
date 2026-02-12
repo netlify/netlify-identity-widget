@@ -50,6 +50,7 @@ export interface Store {
   email_change_token: string | null;
   namePlaceholder: string | null;
   signupMetadata: SignupMetadata | null;
+  cookieDomain: string | null;
   modal: Modal;
   locale: Locale;
   isLocal?: boolean;

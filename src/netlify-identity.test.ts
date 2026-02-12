@@ -43,6 +43,8 @@ const createMockUser = (name: string): User => ({ name }) as unknown as User;
 describe("netlifyIdentity", () => {
   beforeEach(() => {
     vi.resetModules();
+    // Remove iframe created by init() so the duplicate-init guard doesn't block subsequent tests
+    document.getElementById("netlify-identity-widget")?.remove();
   });
 
   describe("on", () => {
@@ -184,6 +186,133 @@ describe("netlifyIdentity", () => {
       expect(
         (store.gotrue as unknown as { setCookie: boolean }).setCookie
       ).toEqual(false);
+    });
+
+    it("should disable server cookie when cookieDomain is set", async () => {
+      const savedLocation = window.location;
+      // @ts-expect-error - delete so we can replace with a plain mock object
+      delete window.location;
+      // @ts-expect-error - partial Location mock
+      window.location = { hostname: "app.example.com", hash: "" };
+
+      const { default: store } = await import("./state/store");
+      const { default: netlifyIdentity } = await import("./netlify-identity");
+
+      netlifyIdentity.init({
+        APIUrl: "https://app.example.com/.netlify/identity",
+        cookieDomain: ".example.com"
+      });
+
+      expect(store.cookieDomain).toEqual(".example.com");
+      expect(
+        (store.gotrue as unknown as { setCookie: boolean }).setCookie
+      ).toEqual(false);
+
+      window.location = savedLocation;
+    });
+
+    it("should enable server cookie when cookieDomain is not set", async () => {
+      const savedLocation = window.location;
+      // @ts-expect-error - delete so we can replace with a plain mock object
+      delete window.location;
+      // @ts-expect-error - partial Location mock
+      window.location = { hostname: "app.example.com", hash: "" };
+
+      const { default: store } = await import("./state/store");
+      const { default: netlifyIdentity } = await import("./netlify-identity");
+
+      netlifyIdentity.init({
+        APIUrl: "https://app.example.com/.netlify/identity"
+      });
+
+      expect(store.cookieDomain).toBeNull();
+      expect(
+        (store.gotrue as unknown as { setCookie: boolean }).setCookie
+      ).toEqual(true);
+
+      window.location = savedLocation;
+    });
+
+    it("should reject cookieDomain containing semicolons", async () => {
+      const { default: netlifyIdentity } = await import("./netlify-identity");
+
+      expect(() =>
+        netlifyIdentity.init({ cookieDomain: ".example.com; secure" })
+      ).toThrow("Invalid cookieDomain");
+    });
+
+    it("should reject cookieDomain containing newlines", async () => {
+      const { default: netlifyIdentity } = await import("./netlify-identity");
+
+      expect(() =>
+        netlifyIdentity.init({ cookieDomain: ".example.com\r\ninjected" })
+      ).toThrow("Invalid cookieDomain");
+    });
+  });
+
+  describe("setJwtCookie", () => {
+    it("should set cookie with token", async () => {
+      const { setJwtCookie } = await import("./state/store");
+
+      setJwtCookie("test-token");
+
+      expect(document.cookie).toContain("nf_jwt=test-token");
+    });
+
+    it("should clear cookie when called with null", async () => {
+      const { setJwtCookie } = await import("./state/store");
+
+      setJwtCookie("test-token");
+      setJwtCookie(null);
+
+      expect(document.cookie).not.toContain("nf_jwt=test-token");
+    });
+
+    it("should include domain attribute when cookieDomain is set", async () => {
+      const { default: store, setJwtCookie } = await import("./state/store");
+      const spy = vi.spyOn(document, "cookie", "set");
+
+      store.cookieDomain = ".example.com";
+      setJwtCookie("test-token");
+
+      expect(spy).toHaveBeenCalledWith(
+        expect.stringContaining("; domain=.example.com")
+      );
+
+      spy.mockRestore();
+      store.cookieDomain = null;
+    });
+
+    it("should not include domain attribute when cookieDomain is not set", async () => {
+      const { default: store, setJwtCookie } = await import("./state/store");
+      const spy = vi.spyOn(document, "cookie", "set");
+
+      store.cookieDomain = null;
+      setJwtCookie("test-token");
+
+      expect(spy).toHaveBeenCalledWith(
+        expect.not.stringContaining("; domain=")
+      );
+
+      spy.mockRestore();
+    });
+
+    it("should include secure flag on HTTPS", async () => {
+      const { setJwtCookie } = await import("./state/store");
+      const spy = vi.spyOn(document, "cookie", "set");
+
+      const savedLocation = window.location;
+      // @ts-expect-error - delete so we can replace with a plain mock object
+      delete window.location;
+      // @ts-expect-error - partial Location mock
+      window.location = { protocol: "https:" };
+
+      setJwtCookie("test-token");
+
+      expect(spy).toHaveBeenCalledWith(expect.stringContaining("; secure"));
+
+      window.location = savedLocation;
+      spy.mockRestore();
     });
   });
 });
