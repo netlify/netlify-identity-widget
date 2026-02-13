@@ -61,7 +61,7 @@ jobs:
       - name: Copy to releases folder
         run: |
           mkdir -p releases/v${{ steps.extract.outputs.major }}-${{ steps.extract.outputs.tag }}
-          cp build/* releases/v${{ steps.extract.outputs.major }}-${{ steps.extract.outputs.tag }}/
+          cp -r build/* releases/v${{ steps.extract.outputs.major }}-${{ steps.extract.outputs.tag }}/
 
       - name: Commit and push
         run: |
