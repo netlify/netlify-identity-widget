@@ -1,7 +1,7 @@
 {
   "name": "netlify-identity-widget",
   "description": "Netlify Identity widget for easy integration",
-  "version": "1.9.2",
+  "version": "2.0.0",
   "author": "Matt Biilmann <matt@netlify.com>",
   "engines": {
     "node": ">=20"
