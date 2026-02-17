@@ -204,6 +204,7 @@ function App() {
       "GitHub",
       "GitLab",
       "BitBucket",
+      "Facebook",
       "SAML"
     ].filter((p) => store.settings!.external[p.toLowerCase()]);
 
