@@ -134,7 +134,7 @@ function App() {
     if (!store.settings) {
       return null;
     }
-    if (store.user) {
+    if (store.user && store.modal.page !== "recovery") {
       return (
         <LogoutForm
           user={store.user}
