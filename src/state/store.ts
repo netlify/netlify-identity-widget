@@ -305,6 +305,7 @@ store.verifyToken = action(function verifyToken(type: string, token: string) {
       break;
     case "recovery":
       store.startAction();
+      store.user = null;
       store.modal.page = type as ModalPage;
       store
         .gotrue!.recover(token, store.remember)
