@@ -143,6 +143,7 @@ netlifyIdentity.init({
 netlifyIdentity.open(); // open the modal
 netlifyIdentity.open("login"); // open the modal to the login tab
 netlifyIdentity.open("signup"); // open the modal to the signup tab
+netlifyIdentity.open("signup", { full_name: "Jane Doe" }); // pass metadata to pre-fill signup fields
 
 netlifyIdentity.on("init", (user) => console.log("init", user));
 netlifyIdentity.on("login", (user) => console.log("login", user));
