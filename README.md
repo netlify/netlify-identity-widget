@@ -60,6 +60,7 @@ You can use this global object like this:
 netlifyIdentity.open();
 netlifyIdentity.open("login"); // open the modal to the login tab
 netlifyIdentity.open("signup"); // open the modal to the signup tab
+netlifyIdentity.open("signup", { full_name: "Jane Doe" }); // pass metadata to pre-fill signup fields
 
 // Get the current user:
 // Available after on('init') is invoked
@@ -142,6 +143,7 @@ netlifyIdentity.init({
 netlifyIdentity.open(); // open the modal
 netlifyIdentity.open("login"); // open the modal to the login tab
 netlifyIdentity.open("signup"); // open the modal to the signup tab
+netlifyIdentity.open("signup", { full_name: "Jane Doe" }); // pass metadata to pre-fill signup fields
 
 netlifyIdentity.on("init", (user) => console.log("init", user));
 netlifyIdentity.on("login", (user) => console.log("login", user));
@@ -182,6 +184,7 @@ module API. Options include:
 {
   container: '#some-query-selector'; // container to attach to
   APIUrl: 'https://www.example.com/.netlify/functions/identity'; // Absolute url to endpoint.  ONLY USE IN SPECIAL CASES!
+  logo: true; // set to false to hide the Netlify logo in the modal
   namePlaceholder: 'some-placeholder-for-Name'; // custom placeholder for name input form
   locale: 'en'; // language code for translations - available: en, fr, es, pt, hu, pl, cs, sk, de, it, ar, zhCN, nl, sv, sw, ru - default to en
   cookieDomain: '.example.com'; // domain for the nf_jwt cookie, enabling cross-subdomain auth
