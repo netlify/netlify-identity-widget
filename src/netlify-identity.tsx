@@ -133,7 +133,7 @@ function instantiateGotrue(APIUrl?: string): GoTrue | null {
   const isLocal = localHosts[window.location.hostname];
   const useServerCookie = !isLocal && !store.cookieDomain;
   if (APIUrl) {
-    return new GoTrue({ APIUrl, setCookie: useServerCookie });
+    return new GoTrue({ APIUrl, setCookie: useServerCookie, clientName: 'netlify-identity-widget' });
   }
   if (isLocal) {
     store.setIsLocal(isLocal);
@@ -145,7 +145,7 @@ function instantiateGotrue(APIUrl?: string): GoTrue | null {
     return null;
   }
 
-  return new GoTrue({ setCookie: useServerCookie });
+  return new GoTrue({ setCookie: useServerCookie, clientName: 'netlify-identity-widget' });
 }
 
 let iframe: HTMLIFrameElement | null = null;
