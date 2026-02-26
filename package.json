@@ -56,7 +56,7 @@
   ],
   "license": "MIT",
   "type": "module",
-  "main": "./build/netlify-identity.js",
+  "main": "./build/netlify-identity-widget.js",
   "repository": "netlify/netlify-identity-widget",
   "scripts": {
     "build": "run-p build:*",
