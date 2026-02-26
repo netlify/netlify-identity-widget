@@ -13,6 +13,12 @@ jobs:
   release-please:
     runs-on: ubuntu-latest
     steps:
+      - uses: navikt/github-app-token-generator@757386febfca7206eca81593f81558cd99bcee12
+        id: get-token
+        with:
+          private-key: ${{ secrets.TOKENS_PRIVATE_KEY }}
+          app-id: ${{ secrets.TOKENS_APP_ID }}
       - uses: googleapis/release-please-action@v4.4.0
         with:
           release-type: node
+          token: ${{ steps.get-token.outputs.token }}
