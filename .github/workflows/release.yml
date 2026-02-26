@@ -41,7 +41,7 @@ jobs:
       - name: Copy to releases folder
         run: |
           mkdir -p releases/v${{ steps.version.outputs.major }}
-          cp build/* releases/v${{ steps.version.outputs.major }}/
+          cp -r build/* releases/v${{ steps.version.outputs.major }}/
 
       - name: Commit and push releases
         run: |
