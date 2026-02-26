@@ -54,7 +54,7 @@ export default defineConfig({
   build: isLibBuild
     ? {
         lib: {
-          entry: resolve(__dirname, "src/netlify-identity.tsx"),
+          entry: resolve(__dirname, "src/index.ts"),
           name: "netlifyIdentity",
           formats: ["umd"],
           fileName: () => "netlify-identity-widget.js"
