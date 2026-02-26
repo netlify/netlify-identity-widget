@@ -52,7 +52,7 @@ export default defineConfig({
           entry: resolve(__dirname, "src/netlify-identity.tsx"),
           name: "netlifyIdentity",
           formats: ["umd"],
-          fileName: () => "netlify-identity.js"
+          fileName: () => "netlify-identity-widget.js"
         },
         outDir: "build",
         sourcemap: true,
