@@ -3223,10 +3223,10 @@ gopd@^1.0.1, gopd@^1.2.0:
   resolved "https://registry.yarnpkg.com/gopd/-/gopd-1.2.0.tgz#89f56b8217bdbc8802bd299df6d7f1081d7e51a1"
   integrity sha512-ZUKRh6/kUFoAiTAtTYPZJ3hw9wNxx+BIBOijnlG9PnrJsCcSjs1wyyD6vJpaYtgnzDrKYRSqf3OO6Rfa93xsRg==
 
-gotrue-js@1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/gotrue-js/-/gotrue-js-1.0.0.tgz#c925dbb03b4719af96eda8af89aa3ca47ce5b748"
-  integrity sha512-doTaNgagU9PtUUGhuux3WSeg8ndd9PZGSt/8lqJicaL9gWoFYRE/S2nKKTAlmuRCyDFTckt48waj/UVLfcbltg==
+gotrue-js@1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/gotrue-js/-/gotrue-js-1.0.1.tgz#e8b20acddc44fff3d571ef584cb95810c145532a"
+  integrity sha512-ZynwwM4bEo2y5yNWO3/Ynbx1AvQz9ONJSM9tB1jpooAvDPevGdvgeFP3NwM59FAlkd0szSkQRAhjINMkJSDfAQ==
 
 has-bigints@^1.0.2:
   version "1.1.0"
