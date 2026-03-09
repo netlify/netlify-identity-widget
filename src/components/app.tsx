@@ -176,10 +176,7 @@ function App() {
         {store.modal.page === "login" && store.gotrue && (
           <div className="resendConfirmation">
             <span>{store.translate("resend_confirmation")} </span>
-            <button
-              onClick={() => handlePage("signup")}
-              className="btnLink"
-            >
+            <button onClick={() => handlePage("signup")} className="btnLink">
               {store.translate("resend_confirmation_link")}
             </button>
           </div>
