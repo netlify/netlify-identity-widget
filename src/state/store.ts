@@ -186,9 +186,9 @@ store.signup = action(function signup(
       full_name: name
     })
     .then(
-      action(() => {
+      action((response) => {
         store.signupMetadata = null;
-        if (store.settings?.autoconfirm) {
+        if (store.settings?.autoconfirm && response?.id) {
           store.login(email, password);
         } else {
           store.message = "confirm";

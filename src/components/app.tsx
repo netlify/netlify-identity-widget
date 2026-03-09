@@ -173,6 +173,17 @@ function App() {
             {store.translate(page.link_text!)}
           </button>
         )}
+        {store.modal.page === "login" && store.gotrue && (
+          <div className="resendConfirmation">
+            <span>{store.translate("resend_confirmation")} </span>
+            <button
+              onClick={() => handlePage("signup")}
+              className="btnLink"
+            >
+              {store.translate("resend_confirmation_link")}
+            </button>
+          </div>
+        )}
         {store.isLocal ? (
           <SiteURLForm
             devMode={store.siteURL != null}
