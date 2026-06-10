@@ -44,6 +44,9 @@
     "vite": "^7.0.0",
     "vitest": "^4.0.18"
   },
+  "resolutions": {
+    "vitest/vite": "^7.0.0"
+  },
   "homepage": "https://identity.netlify.com",
   "keywords": [
     "authentication",
