@@ -5,22 +5,12 @@ import type { Locale } from "../translations";
 export type { Locale };
 
 export type ModalPage =
-  | "login"
-  | "signup"
-  | "amnesia"
-  | "recovery"
-  | "invite"
-  | "user"
-  | "message";
+  "login" | "signup" | "amnesia" | "recovery" | "invite" | "user" | "message";
 
 export type SignupMetadata = Record<string, unknown>;
 
 export type MessageType =
-  | "confirm"
-  | "password_mail"
-  | "email_changed"
-  | "verfication_error"
-  | null;
+  "confirm" | "password_mail" | "email_changed" | "verfication_error" | null;
 
 export interface Settings {
   autoconfirm?: boolean;
